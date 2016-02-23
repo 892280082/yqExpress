@@ -1,10 +1,11 @@
 /***
- * @desc 三方登陆的控制
+ * @desc 第三方登陆的控制
  *       QQ快速登陆
  *       新浪微博登陆
  *       微信登陆
  * @auther yq
- * @time 2016/2/23
+ * @email 892280082@qq.com
+ * @date 2016/2/23
  */
 var express = require('express'),
     router = express.Router(),
@@ -30,12 +31,7 @@ if(oAuthConfig.qq.open) {
         }
     ));
 
-    router.get('/qq',
-        passport.authenticate('qq'),
-        function(req, res){
-            // The request will be redirected to qq for authentication, so this
-            // function will not be called.
-        });
+    router.get('/qq',passport.authenticate('qq'));
 
     router.get('/qq/callback',
         passport.authenticate('qq', { failureRedirect: '/login' }),
@@ -62,8 +58,7 @@ if(oAuthConfig.weibo.open){
         }
     ));
 
-    router.get('/weibo',
-        passport.authenticate('weibo'));
+    router.get('/weibo',passport.authenticate('weibo'));
 
     router.get('/weibo/callback',
         passport.authenticate('weibo', { failureRedirect: '/login' }),
@@ -92,7 +87,7 @@ if(oAuthConfig.wechat.open){
             }
     ));
 
-    router.get('/wechat', passport.authenticate('wechat'));
+    router.get('/wechat',passport.authenticate('wechat'));
 
     router.get('/wechat/callback', passport.authenticate('wechat', {
         failureRedirect: '/auth/fail',

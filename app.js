@@ -1,3 +1,9 @@
+/**
+ * @desc app实例配置
+ * @auther yq
+ * @date 2016/2/22
+ */
+
 var express = require('express'),
 	path = require('path'),
 	logger = require('morgan'),
