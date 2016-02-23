@@ -17,13 +17,13 @@ module.exports = {
      * */
     qq:{
         open:true,
-        clientID:"101270475",
+        clientID:"1012704751",
         clientSecret:"54d139d79a54bf51068f624a102c1e4b",
         callbackURL:getRooUrlt("/auth/qq/callback")
     },
     weibo:{
         open:true,
-        clientID:"12416540",
+        clientID:"124165401",
         clientSecret:"2662e01a000432ef61890438baaf95d6",
         callbackURL:getRooUrlt("/auth/weibo/callback")
     },
