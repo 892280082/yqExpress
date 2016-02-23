@@ -5,7 +5,7 @@
  */
 var express = require('express'),
     router = express.Router(),
-    oAuthConfig = require('../oAuth'),
+    oAuthConfig = require('../conf/oAuth'),
     passport = require('passport'),
     qqStrategy = require('passport-qq').Strategy,
     WeiboStrategy = require('passport-weibo').Strategy;
