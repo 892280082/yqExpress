@@ -8,7 +8,7 @@ var express = require('express'),
 	session = require('express-session'),
 	MongoStore = require('connect-mongo')(session),
 	mongoose = require('mongoose'),
-	router = require('./routes/index'),
+	router = require('./routes/middleWare'),
 	app = express();
 
 /**
@@ -36,8 +36,8 @@ if(viewConfig.engine == 'ejs'){
 app.use(express.static('public'));
 var pathReg = new RegExp("."+viewConfig.extName);
 app.use(function(req,res,next){
-	if(pathReg.test(req.path)){
-		res.redirect('/index');
+	if(pathReg.test(req.path.split("?")[0])){
+		res.redirect('/404.html');
 	}
 	next();
 })
@@ -68,7 +68,13 @@ app.use(cookieParser());//解析cookie
 var mongoUrl = 'mongodb://'+config.mongodb.host+":"+
 		(config.mongodb.port || 27017)+"/"+config.mongodb.db;
 config.main.debug && console.log("数据库连接地址: "+mongoUrl);
-mongoose.connect(mongoUrl);
+var mongooseDb  = mongoose.connect(mongoUrl);
+mongooseDb.connection.on('open',function(err){
+	err && console.log(err);
+	if(config.main.debug && !err){
+		console.log("mongoose:数据库连接成功");
+	}
+})
 
 app.use(session({ //配置mongodb为session容器
   secret:config.mongodb.cookieSecret,
@@ -80,7 +86,6 @@ app.use(session({ //配置mongodb为session容器
     port:config.mongodb.port
   })
 }));
-
 
 //配置路由
 app.set("configRoute",config.router);
