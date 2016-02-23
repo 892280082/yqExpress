@@ -1,7 +1,7 @@
 var ueditor = require("ueditor");
 var multer = require ( 'multer' );
 
-module.exports = function(app,config){
+module.exports = function(app){
     //配置上传multer插件
     var  upload = multer({
         storage: multer.diskStorage({
@@ -41,8 +41,9 @@ module.exports = function(app,config){
     })
 
     //加载路由文件
-    for(var p in config.router){
-        app.use("/"+p,require("./"+config.router[p]));
+    var configRoute = app.get('configRoute');
+    for(var p in configRoute){
+        app.use("/"+p,require("./"+configRoute[p]));
     }
 
     //配置ueditor编辑器后台

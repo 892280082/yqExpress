@@ -4,6 +4,7 @@ module.exports = {
 	 */
 	main:{
 		model:true,//true开发模式,false生产模式
+		root:"lohost",//域名
 		port:3000,//app端口
 		debug:false,//是否开启debug模式
 		uploadDir:'/upload'//配置文件上传目录,可设置相对和绝对目录
@@ -34,8 +35,8 @@ module.exports = {
 	 * 为了防止冲突,一个namespace对应一个路由文件
 	 */
 	router:{
+		auth:"oAuth",//第三方登陆路由
 		print:"print/index",//前台路由
 		back:"back/index",//后台路由
-		test:"test"//测试路由
 	}
 }

@@ -34,6 +34,10 @@ router.get("/hello",indexWare.isLogin,
 	})
 });
 
+router.get("/qqlogin.php",function(req,res){
+	res.send("ok");
+})
+
 
 
 module.exports = router;

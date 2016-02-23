@@ -82,9 +82,9 @@ app.use(session({ //配置mongodb为session容器
 }));
 
 
-
 //配置路由
-router(app,config);
+app.set("configRoute",config.router);
+router(app);
 
 /**
  * @desc 启动http服务
