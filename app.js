@@ -76,7 +76,7 @@ var mongoUrl = 'mongodb://'+config.mongodb.host+":"+
 config.main.debug && console.log("数据库连接地址: "+mongoUrl);
 var mongooseDb  = mongoose.connect(mongoUrl);
 mongooseDb.connection.on('open',function(err){
-	err && console.log(err);
+	err && console.log("mongodb数据库连接错误:"+err);
 	if(config.main.debug && !err){
 		console.log("mongoose:数据库连接成功");
 	}

@@ -18,7 +18,7 @@ module.exports = {
 		 * 		 false生产模式,系统错误抛出500页面
 		 */
 		model:true,
-		debug:true,//是否开启debug模式,debug模式将打印系统插件连接信息
+		debug:false,//是否开启debug模式,debug模式将打印系统插件连接信息
 		root:"lohost",//域名
 		port:3000,//app端口
 		uploadDir:'/upload'//配置文件上传目录,可设置相对和绝对目录
