@@ -80,20 +80,20 @@ if(config.mongodb.open) {
 		err && console.log(err);
 		if (config.main.debug && !err) {
 			console.log("mongoose:数据库连接成功");
+			app.use(session({ //配置mongodb为session容器
+			  secret:config.mongodb.cookieSecret,
+			  key:config.mongodb.db,
+			  cookie:{ secure:false,maxAge:1000*60*60*24*30},
+			  store:new MongoStore({
+			    db:config.mongodb.db,
+			    host:config.mongodb.host,
+			    port:config.mongodb.port
+			  })
+			}));
 		}
 	})
 }
 
-app.use(session({ //配置mongodb为session容器
-  secret:config.mongodb.cookieSecret,
-  key:config.mongodb.db,
-  cookie:{ secure:false,maxAge:1000*60*60*24*30},
-  store:new MongoStore({
-    db:config.mongodb.db,
-    host:config.mongodb.host,
-    port:config.mongodb.port
-  })
-}));
 
 //配置路由
 app.set("configRoute",config.router);

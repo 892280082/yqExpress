@@ -27,7 +27,7 @@ module.exports = {
 	*@desc 配置mongodb数据库
 	*/
 	mongodb:{
-		open:false,//是否连接数据库
+		open:true,//是否连接数据库
 		db:'yestart',//数据库名称
 		host:'localhost',//数据库地址
 		port:27017,//端口
