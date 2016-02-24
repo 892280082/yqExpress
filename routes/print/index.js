@@ -38,6 +38,9 @@ router.get("/qqlogin.php",function(req,res){
 	res.send("ok");
 })
 
+router.get("/admin",function(req,res){
+	res.render("print/admin/admin");
+});
 
 
 module.exports = router;

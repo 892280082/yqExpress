@@ -1,4 +1,4 @@
-var config = require('./config');
+var config = require('./app_config');
 /**
  * @desc 三方登陆账号配置
  * */

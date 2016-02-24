@@ -1,0 +1,11 @@
+{
+  "spm": {
+    "main": "admin.js",
+    "build": {
+      "global": {
+        "jquery": "jquery"
+      }
+    },
+    "dest":"../dist"
+  }
+}

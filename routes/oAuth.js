@@ -9,7 +9,7 @@
  */
 var express = require('express'),
     router = express.Router(),
-    oAuthConfig = require('../conf/oAuth'),
+    oAuthConfig = require('../conf/oAuth_conf'),
     passport = require('passport'),
     qqStrategy = require('passport-qq').Strategy,
     WeiboStrategy = require('passport-weibo').Strategy;
