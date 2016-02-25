@@ -60,7 +60,6 @@ function getResovlePath(){
 }
 app.set('upload_file',getResovlePath());
 
-
 /**
  * @desc 配置解析request的中间件
  */

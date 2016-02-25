@@ -1,7 +1,7 @@
-var Product = require('../models/product.js');
-var Photo = require('../models/photo.js');
-var Article = require('../models/article.js');
-var Connect = require('../models/connect.js');
+var Product = require('../models/demo/product.js');
+var Photo = require('../models/demo/photo.js');
+var Article = require('../models/demo/article.js');
+var Connect = require('../models/demo/connect.js');
 var then = require('thenjs');
 
 var service = {};

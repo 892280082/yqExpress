@@ -28,7 +28,7 @@ module.exports = {
 	*/
 	mongodb:{
 		open:true,//是否连接数据库
-		db:'yestart',//数据库名称
+		db:'zwzhe',//数据库名称
 		host:'localhost',//数据库地址
 		port:27017,//端口
 		cookieSecret:'yestart'//session加密

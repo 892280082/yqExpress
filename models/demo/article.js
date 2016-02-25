@@ -3,21 +3,22 @@ var Schema = mongoose.Schema;
 var objectid = require('objectid');
 //mongoose.connect('mongodb://localhost/yestart')
 
-var photo = new  Schema({ 
-	name:String,
+var article = new  Schema({ 
+	title:String,
 	picUrl:String,
 	show:Boolean,
-	linkUrl:String,
-	content:String
+	content:String,
+	clickCount:{ type:Number,default:0 },
+	createDate:{ type:Date,default:Date.now }
 });
 
- var PhotoSchema = new Schema({
- 	cate:String,   //kh  zj sb
- 	edit:Boolean,
-	typeArray : [photo]
+ var articleSchema = new Schema({
+ 	name:String,   //
+ 	picture:Boolean,
+	typeArray : [article]
 });
 
- PhotoSchema.static("push_typeArray",function(_id,pojo,cb){
+ articleSchema.static("push_typeArray",function(_id,pojo,cb){
  	pojo._id = objectid();
  	this.update({
  		"_id":_id
@@ -30,7 +31,7 @@ var photo = new  Schema({
  	});
  });
 
- PhotoSchema.static("update_typeArray"
+ articleSchema.static("update_typeArray"
  ,function(_id,updatePojo,callback){
  	var typeArrayId = updatePojo._id;
  	delete updatePojo['_id'];
@@ -46,7 +47,7 @@ var photo = new  Schema({
  	});
  });
 
- PhotoSchema.static("pull_typeArray",function(_id,typeArrayId,cb){
+ articleSchema.static("pull_typeArray",function(_id,typeArrayId,cb){
  	this.update({
  		"_id":_id,
  	},{
@@ -58,10 +59,20 @@ var photo = new  Schema({
  	})
  });
 
- var  Photo = mongoose.model("photos", PhotoSchema);
+ articleSchema.static("getTypeOne",function(_id,callback){
+ 	this.findOne({
+ 		"_id":_id,
+ 	},function(err,doc){
+ 		if(err){
+ 			console.log(err);
+ 		}
+ 		callback(err,doc);
+ 	});
+ });
 
-module.exports = Photo;
+ var  article = mongoose.model("articles", articleSchema);
 
+module.exports = article;
 
 
 
