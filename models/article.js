@@ -1,45 +1,62 @@
-
-var mongoose = require('mongoose'),
-    Schema = mongoose.Schema,
-    objectid = require('objectid');
 /***
  * @desc  文章对象
+ *        因为字段过多，故将评论和回复单独放在ArticleComment集合内，方便操作。
  * @date 2016/2/25
  * @auther yq
  */
+var mongoose = require('mongoose'),
+    Schema = mongoose.Schema,
+    objectid = require('objectid'),
+    articleComment = require('./ArticleComment');
+
 var articleSchema = new Schema({
-    /**
-     * @desc 基本属性
-     */
     _id:Schema.Types.ObjectId,//主键
     _userId:Schema.Types.ObjectId,//用户Id
-    title:String,//用户标题
-    type:[],//文章类型
-    introduce:String,//简介
-    creatTime:{type:Date,default:Date.now},//创建时间
     authorName:String,//作者
-    keyword:[],//关键字
-    status:Number,// 作品 1-待审核 2-草稿
-    reason:String,//审核未通过原因
+    title:String,//文章标题
+    type:[String],//文章类型
+    introduce:String,//简介
     content:String,//文章内容
-    isDelete:String,//是否被删除
-    checkcounts:Number,//查看次数
-    collectcounts:Number,//收藏次数
-    /**
-     * @desc 特殊属性
-     * */
+    creatTime:{type:Date,default:Date.now},//创建时间
+    keyword:[String],//关键字
+    status:Number,// 作品 0-未通过 1-待审核 2-草稿
+    reason:String,//审核未通过原因
+    isDelete:Boolean,//是否被删除
+    checkcounts:{type:Date,default:0},//查看次数
+    collectcounts:{type:Date,default:0},//收藏次数
+    attentionno:{type:Date,default:0},//关注量
     comments:[Schema.Types.ObjectId],//评论数组,储存评论_id
     imgUrl:String,//首页列表图
     topno:Number,//展示在首页的顺序
     from:String,//来源
-    otherno:[],//作者其他推荐文章
-    relationno:[],//相关文章推荐
-    articlefrom:[],//文章来源 0-名人 1-造物志
+    /**
+     * @desc 非持久化对象
+     */
+    __comments:[],
+    __othernos:[],//作者其他推荐文章
+    __relationnos:[],//相关文章推荐
+    articlefroms:[],//文章来源 0-名人 1-造物志
     bannerno:Number,//模块Banner展示
     bigimgurl:String,//首页banner
     coverimgurl:[],//列表的图片
     bannerurl:[],//列表的banner
     sortno:Number,//排序
-    attentionno:Number,//关注量
 });
 
+articleSchema.statics("getAriticle",function(ariticle,callback){
+    articleComment.find(
+        {"_id":ariticle._id},
+        function(err,docs){
+            if(err)
+            {
+                console.log(err);
+            }
+            ariticle.
+
+        }
+    )
+})
+
+
+var  article = mongoose.model("articles", articleSchema);
+module.exports = article;

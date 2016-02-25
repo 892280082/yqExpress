@@ -1,6 +1,7 @@
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     objectid = require('objectid');
+//mongoose.connect("mongodb://localhost/zwzhetest");
 
 /**
  * @desc 回复对象
@@ -24,7 +25,10 @@ var commentSchema = new Schema({
     userName:String,//评论用户姓名
     content:String,//评论内容
     creatTime:{type:Date,default:Date.now},//评论时间
-    praiseCounts:Number,//赞次数
-    replays:[replaySchema]//回复数组
+    praiseCounts:{type:Number,default:0},//赞次数
+    replays:[replaySchema],//回复数组
+    testId:[]
 })
+var  articleComment = mongoose.model("articleComment", commentSchema);
 
+module.exports = articleComment;
