@@ -10,7 +10,8 @@
       "global": {
         "jquery": "jquery"
       }
-    }
+    },
+    "dist":"./dist"
   },
   "author": "",
   "license": "ISC",

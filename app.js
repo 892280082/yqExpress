@@ -71,16 +71,18 @@ app.use(cookieParser());//解析cookie
 /**
  * @desc 配置数据库和session
  */
-var mongoUrl = 'mongodb://'+config.mongodb.host+":"+
-		(config.mongodb.port || 27017)+"/"+config.mongodb.db;
-config.main.debug && console.log("数据库连接地址: "+mongoUrl);
-var mongooseDb  = mongoose.connect(mongoUrl);
-mongooseDb.connection.on('open',function(err){
-	err && console.log(err);
-	if(config.main.debug && !err){
-		console.log("mongoose:数据库连接成功");
-	}
-})
+if(config.mongodb.open) {
+	var mongoUrl = 'mongodb://' + config.mongodb.host + ":" +
+		(config.mongodb.port || 27017) + "/" + config.mongodb.db;
+	config.main.debug && console.log("数据库连接地址: " + mongoUrl);
+	var mongooseDb = mongoose.connect(mongoUrl);
+	mongooseDb.connection.on('open', function (err) {
+		err && console.log(err);
+		if (config.main.debug && !err) {
+			console.log("mongoose:数据库连接成功");
+		}
+	})
+}
 
 app.use(session({ //配置mongodb为session容器
   secret:config.mongodb.cookieSecret,
