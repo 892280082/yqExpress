@@ -112,27 +112,34 @@ customSchema.statics.validateUser = function(name,password,callback){
  * @param callback {Function} - 回调函数
  */
 customSchema.statics.pushAriticle = function(_cusId,article,callback){
-    var _ariId = objectid();
-    var _this = this;
-    article._id = _ariId;
-    article._userId = objectid(_cusId);
-    article = new Article(article);
-    then(function(defer){
-        article.save(function(err){
-            defer(err);
-        })
-    }).then(function(err){
-        _this.update(
-            {"_id":_cusId},
-            { "$push":{ "articles":_ariId }}
-            ,function(err){
-                err && console.log(err);
-                return callback(err);
-            })
-    }).fail(function(defer,err){
-        console.log(err);
-        return callback(err);
-    })
+    mongooseUtil.addInnerCollection({
+        parentId:_cusId,
+        collecname:"articles",
+        childPojo:article,
+        childDao:Article,
+        callback:callback
+    },this);
+    //var _ariId = objectid();
+    //var _this = this;
+    //article._id = _ariId;
+    //article._userId = objectid(_cusId);
+    //article = new Article(article);
+    //then(function(defer){
+    //    article.save(function(err){
+    //        defer(err);
+    //    })
+    //}).then(function(err){
+    //    _this.update(
+    //        {"_id":_cusId},
+    //        { "$push":{ "articles":_ariId }}
+    //        ,function(err){
+    //            err && console.log(err);
+    //            return callback(err);
+    //        })
+    //}).fail(function(defer,err){
+    //    console.log(err);
+    //    return callback(err);
+    //})
 }
 
 /**
@@ -156,23 +163,31 @@ module.exports = custom;
 
 /**********************方法测试*******************************/
 
-// custom.pushAriticle(
-//      "56cfe6524d59aa7426a23c18",
-//     {"title":"我是文章2"},function(err){
-//         !err && console.log("pushAriticle 测试OK");
-// })
 
-//parent 56cfe6524d59aa7426a23c18
-//child 56cfe6cc0f1ac28820000001
+//custom.pullAriticle(
+//    "56cfe6524d59aa7426a23c18",
+//    "56cfe6cc0f1ac28820000001",
+//    function(err){
+//        console.log(err);
+//    });
 
+    then(function(next){   //保存文章
+        custom.pushAriticle("56cfe6524d59aa7426a23c18",{
+            "title":"新的文件夹123"
+        },function(err,childId){
+           next(err,childId);
+        })
+    }).then(function(next,childId){ //通过用户id和文章id
+        Article.findOne({"_userId":"56cfe6524d59aa7426a23c18","_id":childId},
+            function(err,doc){
+                next(err,doc);
+            })
+    }).then(function(next,doc){
+        console.log("文章",doc);
 
-custom.pullAriticle(
-    "56cfe6524d59aa7426a23c18",
-    "56cfe6cc0f1ac28820000001",
-    function(err){
+    }).fail(function(next,err){
         console.log(err);
-    });
-
+    })
 
 
 

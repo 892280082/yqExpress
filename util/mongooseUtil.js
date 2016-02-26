@@ -17,10 +17,10 @@ exports.removeInnerCollection =  function(option,_this){
         collecname = option.collecname,
         childCollection = option.childCollection,
         callback = option.callback;
-    var pushObject = {};
-    pushObject[collecname]=parentId;
+    var pullObject = {};
+    pullObject[collecname]=parentId;
 
-    if(!childCollection) {
+    if(!childCollection) { //直接删除子类
         then(function(next){
             childDao.remove({
                 "_id": childId
@@ -29,7 +29,7 @@ exports.removeInnerCollection =  function(option,_this){
             })
         }).then(function(next){
             _this.update({"_id": parentId}, {
-                "$pull": pushObject
+                "$pull": pullObject
             }, function (err) {
                 err && console.log(err);
                 callback(err);
@@ -38,25 +38,63 @@ exports.removeInnerCollection =  function(option,_this){
             console.log(err);
             return callback(err);
         })
-    }else{
-        var pushChildObject = {};
-        pushChildObject[childCollection] = childId;
+    }else{  //在子类的collection中删除对象
+        var pullChildObject = {};
+        pullChildObject[childCollection] = childId;
         then(function(next){
             childDao.update({"_id":childId},
-                {"$pull":pushChildObject},
+                {"$pull":pullChildObject},
                 function(err){
                     next(err);
                 })
         }).then(function(next){
             _this.update({"_id": parentId}, {
-                "$pull": pushObject
-            }, function (err) {
+                "$pull": pullObject
+            }, function (err,info) {
                 err && console.log(err);
-                callback(err);
+                callback(err,info);
             })
         }).fail(function(next,err){
             console.log(err);
             return callback(err);
         })
     }
+}
+
+/**
+ * @param option {{
+     parentId:String,
+     collecname:String,
+     childPojo:Object,
+     childDao:Object,
+     callback:Function
+   }} - 参数
+ * @param _this {Object} - mongoose的statics函数this
+ */
+exports.addInnerCollection =  function(option,_this){
+    var parentId = option.parentId,
+        childDao = option.childDao,
+        childPojo = option.childPojo,
+        callback = option.callback,
+        collecname =  option.collecname;
+
+        var pushObject = {};
+        pushObject[collecname]=parentId;
+
+        then(function(next){
+            childPojo = new childDao(childPojo);
+            childPojo.save(function(err){
+                next(err,childPojo._id);
+            })
+        }).then(function(next,_id){
+            _this.update({"_id":parentId},{
+                "$push":pushObject
+            },function(err,info){
+                err && console.log(err);
+                return callback(err,_id);
+            })
+        }).fail(function(next,err){
+            console.log(err);
+            return callback(err);
+        })
 }

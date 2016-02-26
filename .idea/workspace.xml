@@ -34,17 +34,14 @@
       <file leaf-file-name="Custom.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/models/Custom.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7010135">
-              <caret line="61" column="46" selection-start-line="61" selection-start-column="46" selection-end-line="61" selection-end-column="46" />
+            <state vertical-scroll-proportion="0.6283784">
+              <caret line="183" column="14" selection-start-line="183" selection-start-column="14" selection-end-line="183" selection-end-column="14" />
               <folding>
                 <element signature="n#!!doc;n#crptoUserPassword#0" expanded="false" />
                 <element signature="n#!!block;n#crptoUserPassword#0" expanded="false" />
                 <element signature="e#2203#2367#0" expanded="false" />
                 <element signature="e#2369#2496#0" expanded="false" />
-                <element signature="e#2565#2842#0" expanded="false" />
                 <element signature="e#2844#2958#0" expanded="false" />
-                <element signature="e#3028#3621#0" expanded="false" />
-                <element signature="e#3623#3733#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -63,8 +60,8 @@
       <file leaf-file-name="mongooseUtil.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/util/mongooseUtil.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-5.133333">
-              <caret line="7" column="21" selection-start-line="7" selection-start-column="21" selection-end-line="7" selection-end-column="21" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="88" column="35" selection-start-line="88" selection-start-column="35" selection-end-line="88" selection-end-column="35" />
               <folding />
             </state>
           </provider>
@@ -74,9 +71,9 @@
         <entry file="file://$PROJECT_DIR$/models/Article.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="20" column="11" selection-start-line="20" selection-start-column="4" selection-end-line="20" selection-end-column="11" />
+              <caret line="19" column="11" selection-start-line="19" selection-start-column="4" selection-end-line="19" selection-end-column="11" />
               <folding>
-                <element signature="e#1340#1393#0" expanded="false" />
+                <element signature="e#1305#1358#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -105,7 +102,7 @@
         <entry file="file://$PROJECT_DIR$/models/product.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="12" column="23" selection-start-line="12" selection-start-column="23" selection-end-line="12" selection-end-column="23" />
+              <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -132,6 +129,7 @@
         <option value="$PROJECT_DIR$/models/ArticleComment.js" />
         <option value="$PROJECT_DIR$/models/demo/connect.js" />
         <option value="$PROJECT_DIR$/models/Article.js" />
+        <option value="$PROJECT_DIR$/models/product.js" />
         <option value="$PROJECT_DIR$/util/mongooseUtil.js" />
         <option value="$PROJECT_DIR$/models/Custom.js" />
       </list>
@@ -382,10 +380,7 @@
             <element signature="n#!!block;n#crptoUserPassword#0" expanded="false" />
             <element signature="e#2203#2367#0" expanded="false" />
             <element signature="e#2369#2496#0" expanded="false" />
-            <element signature="e#2565#2842#0" expanded="false" />
             <element signature="e#2844#2958#0" expanded="false" />
-            <element signature="e#3028#3621#0" expanded="false" />
-            <element signature="e#3623#3733#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -395,7 +390,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#1340#1393#0" expanded="false" />
+            <element signature="e#1305#1358#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -489,22 +484,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/util/mongooseUtil.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.133333">
-          <caret line="7" column="21" selection-start-line="7" selection-start-column="21" selection-end-line="7" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/product.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="12" column="23" selection-start-line="12" selection-start-column="23" selection-end-line="12" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/models/ArticleComment.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -522,13 +501,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/Article.js">
+    <entry file="file://$PROJECT_DIR$/models/product.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="20" column="11" selection-start-line="20" selection-start-column="4" selection-end-line="20" selection-end-column="11" />
-          <folding>
-            <element signature="e#1340#1393#0" expanded="false" />
-          </folding>
+          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -540,19 +517,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/util/mongooseUtil.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="88" column="35" selection-start-line="88" selection-start-column="35" selection-end-line="88" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/Article.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="19" column="11" selection-start-line="19" selection-start-column="4" selection-end-line="19" selection-end-column="11" />
+          <folding>
+            <element signature="e#1305#1358#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/models/Custom.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7010135">
-          <caret line="61" column="46" selection-start-line="61" selection-start-column="46" selection-end-line="61" selection-end-column="46" />
+        <state vertical-scroll-proportion="0.6283784">
+          <caret line="183" column="14" selection-start-line="183" selection-start-column="14" selection-end-line="183" selection-end-column="14" />
           <folding>
             <element signature="n#!!doc;n#crptoUserPassword#0" expanded="false" />
             <element signature="n#!!block;n#crptoUserPassword#0" expanded="false" />
             <element signature="e#2203#2367#0" expanded="false" />
             <element signature="e#2369#2496#0" expanded="false" />
-            <element signature="e#2565#2842#0" expanded="false" />
             <element signature="e#2844#2958#0" expanded="false" />
-            <element signature="e#3028#3621#0" expanded="false" />
-            <element signature="e#3623#3733#0" expanded="false" />
           </folding>
         </state>
       </provider>

@@ -17,7 +17,6 @@ var mongoose = require('mongoose'),
     AriticleCollection = require('./AriticleCollection');
 
 var articleSchema = new Schema({
-    _id:Schema.Types.ObjectId,//主键
     _userId:Schema.Types.ObjectId,//用户Id
     authorName:String,//作者
     title:String,//文章标题

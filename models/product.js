@@ -8,7 +8,6 @@ var mongoose = require('mongoose'),
     objectid = require('objectid');
 
 var productSchema = new Schema({
-    _id:Schema.Types.ObjectId,//主键
     _userId:Schema.Types.ObjectId,//用户Id
     title:String,//产品名称
     price:Number,//价格
