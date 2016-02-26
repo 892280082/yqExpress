@@ -3,31 +3,39 @@
  *        因为字段过多，故将评论和回复单独放在ArticleComment集合内，方便操作。
  * @date 2016/2/25
  * @auther yq
+ *
+ * @api model层
+ * 1.pushCollection 像收藏集合中添加用户id
+ * 2.pullCollection 在集合中删除用户id
+ * @api pojo层
+ *
+ * @_api
  */
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
-    objectid = require('objectid');
+    objectid = require('objectid'),
+    AriticleCollection = require('./AriticleCollection');
 
 var articleSchema = new Schema({
     _id:Schema.Types.ObjectId,//主键
     _userId:Schema.Types.ObjectId,//用户Id
     authorName:String,//作者
     title:String,//文章标题
-    type:[String],//文章类型
     introduce:String,//简介
     content:String,//文章内容
     creatTime:{type:Date,default:Date.now},//创建时间
-    keyword:[String],//关键字
     status:Number,// 作品 0-未通过 1-待审核 2-草稿
     reason:String,//审核未通过原因
     isDelete:Boolean,//是否被删除
     checkcounts:{type:Number,default:0},//查看次数
-    collectcounts:{type:Number,default:0},//收藏次数
-    attentionno:{type:Number,default:0},//关注量
-    comments:[Schema.Types.ObjectId],//评论数组,储存评论_id
     imgUrl:String,//首页列表图
     topno:Number,//展示在首页的顺序
     from:String,//来源
+    /** 集合*/
+    type:[String],//文章类型
+    keyword:[String],//关键字
+    collections:[Schema.Types.ObjectId],//收藏次数 添加用户id
+    comments:[Schema.Types.ObjectId],//评论数组,储存评论_id
     /**
      * @desc 非持久化对象
      */
@@ -42,17 +50,58 @@ var articleSchema = new Schema({
     sortno:Number,//排序
 });
 
-/****************************************************************************************
- * @desc model层方法
- * 1.addPraise 文章的赞+1
- * 2.addCheck 查看次数+1
- ****************************************************************************************/
 
+
+/**
+ * @desc 文章查看次数+1
+ * @param {Object} - _airId
+ */
  articleSchema.statics.addCheck = function(_airId){
-     this.update({"_id":_airId},function(err,fino){
+     this.update({"_id":_airId},{
+         "$inc":{ "checkcounts":1}
+     },function(err){
          err && console.log(err);
      })
  }
+
+/**@desc 像收藏集合中添加用户id
+ * @param {Object} - _airId 文章id
+ * @param {Object} - _userId 用户id
+ * @param {Function} - 回调函数
+ */
+articleSchema.statics.pushCollection = function(_airId,_userId,callback){
+    this.update({"_id":_airId},{
+        "$push":{ "collections":objectid(_userId)}
+    },function(err){
+        if(err){
+            console.log(err);
+        }else{
+            AriticleCollection.addRecord(_userId,_airId);//增加记录
+            callback(err);
+        }
+    })
+}
+
+
+/**@desc 在集合中删除用户id
+ * @param {Object} - _airId 文章id
+ * @param {Object} - _userId 用户id
+ * @param {Function} - 回调函数
+ */
+articleSchema.statics.pullCollection = function(_airId,_userId,callback){
+    this.update({"_id":_airId},{
+        "$pull":{ "collections":objectid(_userId)}
+    },function(err){
+        if(err){
+            console.log(err);
+        }else{
+            AriticleCollection.removeRecord(_userId,_airId);//删除记录
+            callback(err);
+        }
+    })
+}
+
+
 
 
 
