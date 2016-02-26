@@ -26,9 +26,8 @@ var mongoose = require('mongoose'),
     then = require('thenjs'),
     mongooseUtil = require("../util/mongooseUtil");
     Article = require('./Article'),//文章集合
-    product = require('./product');//产品集合
+    Product = require('./product');//产品集合
 
-mongoose.connect("mongodb://localhost/zwzhetest");
 
 var customSchema = new Schema({
     name:String,//用户姓名
@@ -112,6 +111,8 @@ customSchema.statics.validateUser = function(name,password,callback){
  * @param callback {Function} - 回调函数
  */
 customSchema.statics.pushAriticle = function(_cusId,article,callback){
+    if(!article._userId)
+        return callback("article._userId 不能为空");
     mongooseUtil.addInnerCollection({
         parentId:_cusId,
         collecname:"articles",
@@ -119,30 +120,10 @@ customSchema.statics.pushAriticle = function(_cusId,article,callback){
         childDao:Article,
         callback:callback
     },this);
-    //var _ariId = objectid();
-    //var _this = this;
-    //article._id = _ariId;
-    //article._userId = objectid(_cusId);
-    //article = new Article(article);
-    //then(function(defer){
-    //    article.save(function(err){
-    //        defer(err);
-    //    })
-    //}).then(function(err){
-    //    _this.update(
-    //        {"_id":_cusId},
-    //        { "$push":{ "articles":_ariId }}
-    //        ,function(err){
-    //            err && console.log(err);
-    //            return callback(err);
-    //        })
-    //}).fail(function(defer,err){
-    //    console.log(err);
-    //    return callback(err);
-    //})
 }
 
 /**
+ * @desc 删除文章
  * @param _cusId {String} - 用户id
  * @param _ariId {String} - 文章对象
  * @param callback {Function} - 回调函数
@@ -157,38 +138,152 @@ customSchema.statics.pullAriticle = function(_cusId,_ariId,callback){
     },this);
 }
 
+/**
+ *
+ * @param _cusId {String} - 用户id
+ * @param product {Object} - 产品对象
+ * @param callback {Function} - 回调函数
+ */
+customSchema.statics.pushProduct = function(_cusId,pro,callback){
+    if(!pro._userId)
+        return callback("product._userId 不能为空");
+    mongooseUtil.addInnerCollection({
+        parentId:_cusId,
+        collecname:"productions",
+        childPojo:pro,
+        childDao:Product,
+        callback:callback
+    },this);
+}
+
+/**
+ * @desc 删除产品
+ * @param _cusId {String} - 用户id
+ * @param _proId {String} - 产品对象
+ * @param callback {Function} - 回调函数
+ */
+customSchema.statics.pullProduct = function(_cusId,_proId,callback){
+    mongooseUtil.removeInnerCollection({
+        "parentId":_cusId,
+        "childId":_proId,
+        "childDao":Product,
+        "collecname":"productions",
+        "callback":callback
+    },this);
+}
+
+/**
+ * @desc 关注用户
+ * @param _selfId {String} - 关注方
+ * @param _otherId {String} - 被关注方
+ * @param callback {Function} - 回调函数
+ */
+customSchema.statics.pushAttentions = function(_selfId,_otherId,callback){
+    _selfId = objectid(_selfId);
+    _otherId = objectid(_otherId);
+    mongooseUtil.dealAllCollectionId({
+        parentId:_selfId,
+        collecname:"attentions",
+        childId:_otherId,
+        childDao:this,
+        childCollecname:"followers",
+        parentPojo:_otherId,
+        childPojo:_selfId,
+        callback:callback
+    },this);
+}
+
+/**
+ * @desc 取消关注
+ * @param _selfId {String} - 取消关注方
+ * @param _otherId {String} - 被关注方
+ * @param callback {Function} - 回调函数
+ */
+customSchema.statics.pullAttentions = function(_selfId,_otherId,callback){
+    mongooseUtil.dealAllCollectionId({
+        parentId:_selfId,
+        collecname:"-attentions",
+        childId:_otherId,
+        childDao:this,
+        childCollecname:"-followers",
+        parentPojo:_otherId,
+        childPojo:_selfId,
+        callback:callback
+    },this);
+}
+
+
 
 var  custom = mongoose.model("customs", customSchema);
 module.exports = custom;
 
 /**********************方法测试*******************************/
+function TEST() {
+    mongoose.connect("mongodb://localhost/zwzhetest");
 
-
-//custom.pullAriticle(
-//    "56cfe6524d59aa7426a23c18",
-//    "56cfe6cc0f1ac28820000001",
-//    function(err){
-//        console.log(err);
-//    });
-
-    then(function(next){   //保存文章
-        custom.pushAriticle("56cfe6524d59aa7426a23c18",{
-            "title":"新的文件夹123"
-        },function(err,childId){
-           next(err,childId);
+    (function(){
+        then(function (next) {   //保存文章
+            var ariticle = {
+                "title": "新的文件夹123",
+            }
+            ariticle._userId = "56cfe6524d59aa7426a23c18",
+                custom.pushAriticle("56cfe6524d59aa7426a23c18", ariticle, function (err, childId) {
+                    next(err, childId);
+                })
+        }).then(function (next, childId) { //通过用户id和文章id
+            Article.findOne({
+                    "_userId": "56cfe6524d59aa7426a23c18",
+                    "_id": childId
+                },
+                function (err, doc) {
+                    doc ? console.log("pushAriticle 执行成功")
+                        : console.log("pushAriticle 执行失败");
+                    next(err, doc);
+                })
+        }).then(function (next, doc) {
+            custom.pullAriticle(
+                "56cfe6524d59aa7426a23c18",
+                doc._id,
+                function (err) {
+                    !err ? console.log("pullAriticle 执行成功")
+                        : console.log("pullAriticle 执行失败");
+                }
+            )
+        }).fail(function (next, err) {
+            console.log("pushAriticle 执行失败");
+            console.log("pullAriticle 执行失败");
         })
-    }).then(function(next,childId){ //通过用户id和文章id
-        Article.findOne({"_userId":"56cfe6524d59aa7426a23c18","_id":childId},
-            function(err,doc){
-                next(err,doc);
+    })();
+
+    (function(){
+        var cus1 = new custom({name:"小张"});
+        var cus2 = new custom({name:"小王"});
+        then(function(next){
+            cus1.save(function(err){
+                next(err);
             })
-    }).then(function(next,doc){
-        console.log("文章",doc);
+        }).then(function(next){
+            cus2.save(function(err){
+                next(err);
+            })
+        }).then(function(next){
+            custom.pushAttentions(cus1._id,cus2._id,function(err){
+                   err ? console.log("pushAttentions 执行失败")
+                       : console.log("pushAttentions 执行成功");
+                   next(err);
+            })
+        }).then(function(next){
+            custom.pullAttentions(cus1._id,cus2._id,function(err){
+                err ? console.log("pullAttentions 执行失败")
+                    : console.log("pullAttentions 执行成功");
+                next(null);
+            })
+        }).fail(function(next,err){
+            console.log("pushAttentions 执行失败");
+            console.log("pullAttentions 执行失败");
+        })
+    })();
+}
 
-    }).fail(function(next,err){
-        console.log(err);
-    })
-
-
-
+TEST();
 /***********************************************************/
