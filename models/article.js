@@ -6,8 +6,7 @@
  */
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
-    objectid = require('objectid'),
-    articleComment = require('./ArticleComment');
+    objectid = require('objectid');
 
 var articleSchema = new Schema({
     _id:Schema.Types.ObjectId,//主键
@@ -22,9 +21,9 @@ var articleSchema = new Schema({
     status:Number,// 作品 0-未通过 1-待审核 2-草稿
     reason:String,//审核未通过原因
     isDelete:Boolean,//是否被删除
-    checkcounts:{type:Date,default:0},//查看次数
-    collectcounts:{type:Date,default:0},//收藏次数
-    attentionno:{type:Date,default:0},//关注量
+    checkcounts:{type:Number,default:0},//查看次数
+    collectcounts:{type:Number,default:0},//收藏次数
+    attentionno:{type:Number,default:0},//关注量
     comments:[Schema.Types.ObjectId],//评论数组,储存评论_id
     imgUrl:String,//首页列表图
     topno:Number,//展示在首页的顺序
@@ -32,7 +31,7 @@ var articleSchema = new Schema({
     /**
      * @desc 非持久化对象
      */
-    __comments:[],
+    __comments:[],//评论数组
     __othernos:[],//作者其他推荐文章
     __relationnos:[],//相关文章推荐
     articlefroms:[],//文章来源 0-名人 1-造物志
@@ -43,19 +42,18 @@ var articleSchema = new Schema({
     sortno:Number,//排序
 });
 
-articleSchema.statics("getAriticle",function(ariticle,callback){
-    articleComment.find(
-        {"_id":ariticle._id},
-        function(err,docs){
-            if(err)
-            {
-                console.log(err);
-            }
-            ariticle.
+/****************************************************************************************
+ * @desc model层方法
+ * 1.addPraise 文章的赞+1
+ * 2.addCheck 查看次数+1
+ ****************************************************************************************/
 
-        }
-    )
-})
+ articleSchema.statics.addCheck = function(_airId){
+     this.update({"_id":_airId},function(err,fino){
+         err && console.log(err);
+     })
+ }
+
 
 
 var  article = mongoose.model("articles", articleSchema);
