@@ -24,10 +24,10 @@ var from = mailConf.prefix+" "+"<"+mailConf.auth.user+">";
 /**
  * @desc 发送邮件主要函数
  * @param params {{
- *  to:String,
- *  subject:String,
- *  html:String
- * }} -m 发送邮件的必须参数
+    to:String,
+    subject:String,
+    html:String
+   }} -m 发送邮件的必须参数
  *
  * @param callback {Function} -m 回调函数
  *
