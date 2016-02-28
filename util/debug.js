@@ -1,6 +1,20 @@
 "use strict;"
 var debug = require("debug"),
-    _ = require("underscore");
+    _ = require("underscore"),
+    debugConfig = require("../conf/debug_config"),
+    mongoose = require("mongoose");
+
+//连接数据库
+if(debugConfig.dataBase.open)
+{
+    var mongooseDb = mongoose.connect(debugConfig.dataBase.url);
+    mongooseDb.connection.on('open', function (err) {
+        err && console.log(err);
+        !err ? console.log("测试数据库连接成功")
+             : console.log("测试数据库连接失败");
+    })
+}
+
 
 /**
  * @desc  输出测试结果报表
@@ -56,7 +70,7 @@ var TaskQue = {};
 //任务参数
 var taskParam = {
     //最大延迟时间
-    _maxTimeout:20*1000,
+    _maxTimeout: debugConfig.maxTimeout || 20*1000,
     getAllTask:function(){
         return _.chain(TaskQue).values().map(function(ele){
             return _.values(ele.methods);

@@ -1,0 +1,84 @@
+/**
+ * @desc 测试用户model的API
+ */
+    var custom = require("../models/Custom"),
+        debug = require("../util/debug")("customTest");
+      Article = require("../models/Article"),
+          then = require('thenjs'),
+     objectid = require('objectid');
+
+    debug.set("pushAriticle","用来保存文章");
+    debug.set("pullAriticle","用来删除文章");
+    (function(){
+        var cusId = objectid();
+        then(function(next){
+            var cus = new custom({_id:cusId,name:"haha"});
+            cus.save(function(err){
+                next(err);
+            })
+        }).then(function (next) {   //保存文章
+
+            var ariticle = {
+                "title": "新的文件夹123",
+            }
+            ariticle._userId = cusId;
+            custom.pushAriticle(cusId, ariticle, function (err, childId) {
+                next(err, childId);
+            })
+        }).then(function (next, childId) { //通过用户id和文章id
+            Article.findOne({
+                    "_userId":cusId,
+                    "_id": childId
+                },
+                function (err, doc) {
+                    doc ? debug.done("pushAriticle")
+                        : debug.done("pushAriticle",err);
+                    next(err, doc);
+                })
+        }).then(function (next, doc) {
+            custom.pullAriticle(
+                cusId,
+                doc._id,
+                function (err) {
+                    !err ? debug.done("pullAriticle")
+                        : debug.done("pullAriticle",err);
+                }
+            )
+        }).fail(function (next, err) {
+            debug.done("pullAriticle",err);
+            debug.done("pushAriticle",err);
+        })
+    })();
+
+
+    debug.set("pushAttentions","关注用户");
+    debug.set("pullAttentions","取消关注用户");
+    (function(){
+        var cus1 = new custom({name:"小张1","_id":objectid()});
+        var cus2 = new custom({name:"小王1","_id":objectid()});
+        then(function(next){
+            cus1.save(function(err){
+                next(err);
+            })
+        }).then(function(next){
+            cus2.save(function(err){
+                next(err);
+            })
+        }).then(function(next){
+            custom.pushAttentions(cus1._id,cus2._id,function(err){
+                err ? debug.done("pushAttentions",err)
+                    : debug.done("pushAttentions");
+                next(err);
+            })
+        }).then(function(next){
+            custom.pullAttentions(cus1._id,cus2._id,function(err){
+                err ? debug.done("pullAttentions",err)
+                    : debug.done("pullAttentions");
+                next(null);
+            })
+        }).fail(function(next,err){
+            debug.done("pushAttentions",err);
+            debug.done("pullAttentions",err);
+        })
+    })();
+
