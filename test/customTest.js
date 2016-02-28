@@ -2,10 +2,11 @@
  * @desc 测试用户model的API
  */
     var custom = require("../models/Custom"),
-        debug = require("../util/debug")("customTest");
+        debug = require("../util/debug")("customTest"),
       Article = require("../models/Article"),
           then= require('thenjs'),
      objectid = require('objectid');
+
 
     debug.set("pushAriticle","用来保存文章");
     debug.set("pullAriticle","用来删除文章");

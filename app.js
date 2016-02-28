@@ -74,7 +74,7 @@ if(config.mongodb.open) {
 	var mongoUrl = 'mongodb://' + config.mongodb.host + ":" +
 		(config.mongodb.port || 27017) + "/" + config.mongodb.db;
 	config.main.debug && console.log("数据库连接地址: " + mongoUrl);
-	var mongooseDb = mongoose.connect(mongoUrl);
+	var  mongooseDb = mongoose.connect(mongoUrl);
 	mongooseDb.connection.on('open', function (err) {
 		err && console.log(err);
 		if (config.main.debug && !err) {

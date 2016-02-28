@@ -2,7 +2,6 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     objectid = require('objectid'),
     Ariticle = require('Article');
-//mongoose.connect("mongodb://localhost/zwzhetest");
 
 /**
  * @desc 回复对象
