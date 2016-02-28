@@ -4,7 +4,7 @@
     var custom = require("../models/Custom"),
         debug = require("../util/debug")("customTest");
       Article = require("../models/Article"),
-          then = require('thenjs'),
+          then= require('thenjs'),
      objectid = require('objectid');
 
     debug.set("pushAriticle","用来保存文章");
@@ -81,4 +81,36 @@
             debug.done("pullAttentions",err);
         })
     })();
+
+debug.set("saveUser","保存用户的操作").set("validateUser","验证用户登陆");
+(function(){
+    then(function(next){
+        var name = "sdfsdf"+(Math.random()*100000);
+        var cus = new custom({ "name":name,password:"123abc" });
+        cus.saveUser(function(err){
+            !err && debug.done("saveUser");
+            next(err,cus);
+        })
+    }).then(function(next,cus){
+        custom.validateUser(cus.name,"123abc",function(err,doc){
+            if(!err){
+                if(doc) {
+                    if (doc.name == cus.name) {
+                        debug.done("validateUser");
+                    } else {
+                        debug.done("validateUser", "用户查找的结果不对");
+                    }
+                }else{
+                    debug.done("validateUser","找不到用户");
+                }
+            }else{
+                debug.done("validateUser",err);
+            }
+        })
+    }).fail(function(next,err){
+        debug.done("saveUser",err);
+        debug.done("validateUser",err);
+    })
+})()
+
 

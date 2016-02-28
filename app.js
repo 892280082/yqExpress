@@ -91,6 +91,12 @@ if(config.mongodb.open) {
 			}));
 		}
 	})
+	mongooseDb.connection.on('error', function (err) {
+		err && console.log(err);
+		if (config.main.debug && err) {
+			console.log("mongoose:数据库连接错误");
+		}
+	})
 }
 
 

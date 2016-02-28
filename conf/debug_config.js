@@ -1,9 +1,8 @@
 /**
  * @desc 测试框架配置文件
  * */
-
 var main = {
-    maxTimeout:30*1000,
+    maxTimeout:5*1000,
     dataBase:{
         "open":true,
         "url":"mongodb://localhost/zwzhetest"

@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "test":"node ./util/tsesDebug.js"
+    "test":"node ./conf/debug_config.js"
   },
   "dependencies": {
     "body-parser": "~1.13.2",

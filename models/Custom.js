@@ -76,9 +76,22 @@ function crptoUserPassword(password){
  * @param callback {Function} - 回调函数
  */
 customSchema.methods.saveUser = function(callback){
-    this.password = crptoUserPassword(this.password);//加密用户密码
-    this.save(function(err){
-        err && console.log(err);
+    var customPojo = this;
+    then(function(next){
+        custom.findOne({
+            "name":customPojo.name
+        },function(err,doc){
+            if(doc)
+                return callback("用户已经存在");
+            next(err);
+        })
+    }).then(function(next){
+        customPojo.password = crptoUserPassword(customPojo.password);//加密用户密码
+        customPojo.save(function(err){
+            err && console.log(err);
+            return callback(err);
+        })
+    }).fail(function(next,err){
         return callback(err);
     })
 }
@@ -88,6 +101,7 @@ customSchema.methods.saveUser = function(callback){
  * @param name {String} - 用户名
  * @param password {String} - 用户密码
  * @param callback {Function} - 回调函数
+ * @returns 用户对象
  */
 customSchema.statics.validateUser = function(name,password,callback){
     password = crptoUserPassword(password);
@@ -95,12 +109,8 @@ customSchema.statics.validateUser = function(name,password,callback){
         "name":name,
         "password":password
     },function(err,doc){
-        if(err){
-            console.log(err);
-            return callback(err);
-        }else{
-            return doc;
-        }
+        err && console.log(err);
+        callback(err,doc);
     })
 }
 
