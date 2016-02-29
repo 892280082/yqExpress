@@ -127,8 +127,8 @@ header .rt_nav li .quit_icon:before{content:"Q";}
 .table tr:nth-child(odd){background:#f8f8f8;}
 .table tr:hover{background:#f9f9f9;}
 .table td a{color:#19a97b;margin:0 5px;cursor:pointer;}
-.table td .inner_btn{background:#F9F;color:white;padding:5px 8px;border-radius:2px;}
-.table td .inner_btn:hover{background:#ffa4ff;color:#f8f8f8;}
+.table td .inner_btn{background:#19a97b;color:white;padding:5px 8px;border-radius:2px;}
+.table td .inner_btn:hover{background:#19a97b;color:#f8f8f8;}
 .table td .cut_title{width:265px;}
 .paging{margin:8px 0;overflow:hidden;text-align:right;}
 .paging a{background:#19a97b;border:1px #139667 solid;color:white;padding:5px 8px;display:inline-block;cursor:pointer;}

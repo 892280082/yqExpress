@@ -1,6 +1,6 @@
 {
   "spm": {
-    "main": "login.js",
+    "main": "customer.js",
     "build": {
       "global": {
         "jquery": "jquery",

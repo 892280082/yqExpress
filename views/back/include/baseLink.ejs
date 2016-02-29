@@ -8,3 +8,49 @@
 <script src="/back/public/js/Particleground.js"></script>
 <!--angular-->
 <script src="/bower_components/angular/angular.min.js"></script>
+
+<script type="text/javascript">
+    (function($){
+        $(window).load(function(){
+            $("a[rel='load-content']").click(function(e){
+                e.preventDefault();
+                var url=$(this).attr("href");
+                $.get(url,function(data){
+                    $(".content .mCSB_container").append(data); //load new content inside .mCSB_container
+                    //scroll-to appended content
+                    $(".content").mCustomScrollbar("scrollTo","h2:last");
+                });
+            });
+            $(".content").delegate("a[href='top']","click",function(e){
+                e.preventDefault();
+                $(".content").mCustomScrollbar("scrollTo",$(this).attr("href"));
+            });
+        });
+    })(jQuery);
+
+
+    $(function(){
+        //默认收起
+        $(".subparent").each(function(){
+            $(this).addClass("open");
+            $(this).parent().find("dd").hide();
+        })
+        //二级菜单点击
+        $(".subparent").each(function(){
+            $(this).click(function(e){
+                if($(this).hasClass("open")){
+                    $(this).removeClass("open");
+                    $(this).parent().find("dd").show();
+                }else {
+                    $(this).addClass("open");
+                    $(this).parent().find("dd").hide();
+                }
+            })
+        })
+        // 三级菜单点击
+        $('.sub-menus').find("a").click(function(e) {
+            $(".sub-menus a.active").removeClass("active")
+            $(this).addClass("active");
+        });
+    })
+</script>

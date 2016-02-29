@@ -22,7 +22,7 @@
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     objectid = require('objectid'),
-    crypto = require('crypto'),
+    md5 = require('md5'),
     then = require('thenjs'),
     mongooseUtil = require("../util/mongooseUtil");
     Article = require('./Article'),//文章集合
@@ -69,8 +69,7 @@ var customSchema = new Schema({
  * @returns {String}
  */
 function crptoUserPassword(password){
-    var hasher=crypto.createHash("md5");
-    return hasher.update(password).digest('hex');
+    return md5(password);
 }
 /**
  * @param callback {Function} - 回调函数
@@ -104,7 +103,6 @@ customSchema.methods.saveUser = function(callback){
  * @returns 用户对象
  */
 customSchema.statics.validateUser = function(name,password,callback){
-    password = crptoUserPassword(password);
     this.findOne({
         "name":name,
         "password":password

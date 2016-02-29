@@ -93,7 +93,7 @@ debug.set("saveUser","保存用户的操作").set("validateUser","验证用户�
             next(err,cus);
         })
     }).then(function(next,cus){
-        custom.validateUser(cus.name,"123abc",function(err,doc){
+        custom.validateUser(cus.name,cus.password,function(err,doc){
             if(!err){
                 if(doc) {
                     if (doc.name == cus.name) {

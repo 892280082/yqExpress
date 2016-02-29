@@ -27,7 +27,7 @@ module.exports = function(app){
     //处理验证码请求
     app.get('/yanzhenma', function (req, res) {
         var ranNumber = parseInt(Math.random()*9000+1000);
-        req.session.YANZHENMA = ranNumber;
+        req.session.yanzhenma = ranNumber;
         var p = new captchapng(80,30,ranNumber); // width,height,numeric captcha
         p.color(92, 189, 171, 255);  // First color: background (red, green, blue, alpha)
         p.color(255, 255, 255, 255); // Second color: paint (red, green, blue, alpha)
