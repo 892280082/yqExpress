@@ -149,7 +149,6 @@ customSchema.statics.pullAriticle = function(_cusId,_ariId,callback){
 }
 
 /**
- *
  * @param _cusId {String} - 用户id
  * @param product {Object} - 产品对象
  * @param callback {Function} - 回调函数

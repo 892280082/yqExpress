@@ -1,5 +1,6 @@
-var ueditor = require("ueditor");
-var multer = require ( 'multer' );
+var ueditor = require("ueditor"),
+    multer = require ( 'multer'),
+    captchapng = require('captchapng');
 
 module.exports = function(app){
     //配置上传multer插件
@@ -22,6 +23,20 @@ module.exports = function(app){
             }
         })
     });
+
+    //处理验证码请求
+    app.get('/yanzhenma', function (req, res) {
+        console.log(req.session);
+        var ranNumber = parseInt(Math.random()*9000+1000);
+        var p = new captchapng(80,30,ranNumber); // width,height,numeric captcha
+        p.color(0, 110, 8, 0);  // First color: background (red, green, blue, alpha)
+        p.color(80, 80, 80, 255); // Second color: paint (red, green, blue, alpha)
+        var img = p.getBase64();
+        var imgbase64 = new Buffer(img,'base64');
+        res.set('Content-Type', 'image/png');
+        res.send(imgbase64);
+    })
+
 
     //配置上传请求
     app.post('/upload',upload.single('fileName'),function(req,res){

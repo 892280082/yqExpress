@@ -71,6 +71,7 @@ app.use(cookieParser());//解析cookie
  * @desc 配置数据库和session
  */
 if(config.mongodb.open) {
+
 	var mongoUrl = 'mongodb://' + config.mongodb.host + ":" +
 		(config.mongodb.port || 27017) + "/" + config.mongodb.db;
 	config.main.debug && console.log("数据库连接地址: " + mongoUrl);
@@ -79,16 +80,6 @@ if(config.mongodb.open) {
 		err && console.log(err);
 		if (config.main.debug && !err) {
 			console.log("mongoose:数据库连接成功");
-			app.use(session({ //配置mongodb为session容器
-			  secret:config.mongodb.cookieSecret,
-			  key:config.mongodb.db,
-			  cookie:{ secure:false,maxAge:1000*60*60*24*30},
-			  store:new MongoStore({
-			    db:config.mongodb.db,
-			    host:config.mongodb.host,
-			    port:config.mongodb.port
-			  })
-			}));
 		}
 	})
 	mongooseDb.connection.on('error', function (err) {
@@ -97,8 +88,19 @@ if(config.mongodb.open) {
 			console.log("mongoose:数据库连接错误");
 		}
 	})
+	app.use(session({ //配置mongodb为session容器
+		resave: false,
+		saveUninitialized: true,
+		secret:config.mongodb.cookieSecret,
+		key:config.mongodb.db,
+		cookie:{ secure:false,maxAge:1000*60*60*24*30},
+		store:new MongoStore({
+			db:config.mongodb.db,
+			host:config.mongodb.host,
+			port:config.mongodb.port
+		})
+	}));
 }
-
 
 //配置路由
 app.set("configRoute",config.router);
