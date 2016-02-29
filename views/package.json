@@ -11,12 +11,14 @@
         "jquery": "jquery"
       }
     },
-    "dist":"./dist"
+    "dist": "./dist"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "crypto": "0.0.3",
     "jquery": "^2.2.1",
+    "md5": "^2.0.0",
     "thenjs": "^2.0.2",
     "underscore": "^1.8.3"
   }

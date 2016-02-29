@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="login">
 <head>
 <meta charset="utf-8"/>
 <title>后台登录</title>
@@ -16,36 +16,32 @@ $(document).ready(function() {
     dotColor: '#5cbdaa',
     lineColor: '#5cbdaa'
   });
-  //验证码
-  createCode();
-  //测试提交，对接程序删除即可
-  $(".submit_btn").click(function(){
-	  location.href="/back/main";
-	  });
 });
 </script>
+    <script src="../dist/login.js"></script>
 </head>
-<body>
+<body ng-controller="main">
 <dl class="admin_login">
  <dt>
   <strong>站点后台管理系统</strong>
   <em>Management System</em>
  </dt>
  <dd class="user_icon">
-  <input type="text" placeholder="账号" class="login_txtbx"/>
+  <input type="text" placeholder="账号"  class="login_txtbx"/>
  </dd>
  <dd class="pwd_icon">
   <input type="password" placeholder="密码" class="login_txtbx"/>
  </dd>
  <dd class="val_icon">
-  <div class="checkcode">
-    <input type="text" id="J_codetext" placeholder="验证码" maxlength="4" class="login_txtbx">
-    <canvas class="J_codeimg" id="myCanvas" onclick="createCode()">对不起，您的浏览器不支持canvas，请下载最新版浏览器!</canvas>
+  <div class="checkcode" style="width: 210px;background:#5cbdab">
+    <input type="text" placeholder="验证码" maxlength="4" class="login_txtbx" >
+      <img   id="YANZHENMAPic"  style="float:right;padding-top: 8px;margin-right: 4px;"
+             ng-src="{{ picUrl }}" alt="验证码"  ng-click="changePic();" />
   </div>
-  <input type="button" value="验证码核验" class="ver_btn" onClick="validate();">
+  <input type="button" value="更换验证码" class="ver_btn" ng-click="changePic();">
  </dd>
  <dd>
-  <input type="button" value="立即登陆" class="submit_btn"/>
+  <input type="button" value="立即登陆" class="submit_btn" ng-click="" />
  </dd>
  <dd>
   <p>© 2015-2016 DeathGhost 版权所有</p>

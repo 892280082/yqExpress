@@ -1,0 +1,15 @@
+{
+  "spm": {
+    "main": "login.js",
+    "build": {
+      "global": {
+        "jquery": "jquery",
+        "angular": "angular"
+      }
+    },
+    "dest": "../dist"
+  },
+  "dependencies": {
+    "crypto": "0.0.3"
+  }
+}
