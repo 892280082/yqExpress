@@ -70,7 +70,7 @@ var article = new  Schema({
  	});
  });
 
- var  article = mongoose.model("articles", articleSchema);
+ var  article = mongoose.model("articles123123", articleSchema);
 
 module.exports = article;
 

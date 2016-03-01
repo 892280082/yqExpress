@@ -88,7 +88,7 @@ customSchema.methods.saveUser = function(callback){
         customPojo.password = crptoUserPassword(customPojo.password);//加密用户密码
         customPojo.save(function(err){
             err && console.log(err);
-            return callback(err);
+            return callback(err,customPojo);
         })
     }).fail(function(next,err){
         return callback(err);

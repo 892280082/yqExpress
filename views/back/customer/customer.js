@@ -3,11 +3,11 @@
  * @author yq
  * @date 2016/2/29
  * */
-
 var angular = require("angular");
 var _ = require('underscore');
 /***加载显示插件****/
 require("../../lib/src/service/angular-showCtrl.js");
+/**加载ueditor插件*/
 require("../../lib/src/directive/angular-ueditor.js");
 ///**加载上传插件*/
 require("../../bower_components/angular/angular-file-upload.min.js");
@@ -17,28 +17,21 @@ require("./src/service/dataService");
 require("./src/controller/main");
 
 var app = angular.module('myApp',[
+    'loadDate',//代码有全局变量,只能外部引入,不能被压缩。
     'angularFileUpload',
     'service.showCtrl',
     'service.dataService',
-    'controller.main']);
+    'controller.main'
+    ]);
 
-//app.directive('tsArticlelist'
-//    ,function(){
-//        return {
-//            restrict:'EAC',
-//            templateUrl:'articlelist'
-//        }
-//    }).directive('tsCatelist'
-//    ,function(){
-//        return {
-//            restrict:'EAC',
-//            templateUrl:'catelist'
-//        }
-//    }).directive('tsArticleadd'
-//    ,function(){
-//        return {
-//            restrict:'EAC',
-//            templateUrl:'articleadd'
-//        }
-//    })
-
+app.directive('tsCuslist',function(){
+        return {
+            restrict:'EAC',
+            templateUrl:'cuslist'
+        }
+    }).directive('tsCusadd',function(){
+        return {
+            restrict:'EAC',
+            templateUrl:'cusadd'
+        }
+    })

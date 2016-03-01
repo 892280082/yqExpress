@@ -53,6 +53,19 @@ router.post('/cusGetAllData',function(req,res){
 	})
 })
 
+//获取所有用户信息
+router.post('/cusSaveCustom',function(req,res){
+	var pojo = req.body.pojo;
+	var cus = new Custom(pojo);
+	cus.saveUser(function(err,doc){
+		err && console.log(err);
+		!err ? res.json({ "result":doc,"err":null})
+		     : res.json({ "result":null,"err":"注册错误"});
+	});
+})
+
+
+
 
 
 

@@ -4,18 +4,25 @@
     <meta charset="UTF-8">
     <% include ../include/baseLink %>
     <title>用户信息管理</title>
+    <style>
+        .datatable td {  width: 100px;  }
+    </style>
+    <script type="text/javascript" src="/back/dist/customer.js"></script>
 </head>
-<script type="text/javascript" src="/back/dist/customer.js"></script>
 <body ng-controller="main">
 <div class="rt_content">
+    <ts-cuslist ng-if="show.cuslist"></ts-cuslist>
+    <ts-cusadd ng-if="show.cusadd"></ts-cusadd>
+</div>
+<!-- 用户列表页面 -->
+<script type="text/ng-template" id="cuslist">
     <div class="page_title">
-        <h2 class="fl">用户信息管理</h2>
+        <h2 class="fl">用户信息列表</h2>
     </div>
     <section>
-        <label>标签</label> <input type="text" class="textbox" />
-        <label>标签</label>
+        <label>姓名:</label>
         <input type="text" class="textbox textbox_295" placeholder="class=295px..."/>
-        <label>标签</label>
+        <label>标签:</label>
         <input type="text" class="textbox textbox_225" placeholder="class=225px..."/>
         <select class="select">
             <option>下拉菜单</option>
@@ -26,52 +33,28 @@
     <section>
         <div class="page_title">
             <h2 class="fl">例如产品详情标题</h2>
-            <a class="fr top_rt_btn">右侧按钮</a>
+            <a class="fr top_rt_btn"  ng-click="changeIntoEdit()">添加用户</a>
         </div>
         <table class="table">
             <tr>
-                <th>项目1</th>
-                <th>项目2</th>
-                <th>项目3</th>
-                <th>项目4</th>
-                <th>项目5</th>
-                <th>项目6</th>
-                <th>项目7</th>
+                <th>用户姓名</th>
+                <th>真实姓名</th>
+                <th>性别</th>
+                <th>用户职业</th>
+                <th>联系方式</th>
+                <th>用户身份</th>
+                <th>删除</th>
             </tr>
-            <tr>
-                <td style="width:265px;"><div class="cut_title ellipsis">265px宽·长标题字符串截取，仅适合单行截取，多行截取程序定义一下。</div></td>
-                <td>内容二</td>
-                <td>内容三</td>
-                <td>内容四</td>
-                <td>内容五</td>
-                <td>内容六</td>
+            <tr ng-repeat="cus in array_custom">
+                <td ng-click="changeIntoEdit(cus);">{{ cus.name }}</td>
+                <td>{{ cus.realName }}</td>
+                <td>{{ cus.sex ? '女' : '男' }}</td>
+                <td>{{ cus.job }}</td>
+                <td>{{ cus.phoneNumber }}</td>
+                <td>{{ cus.usertype == 1 ? '普通用户' : '名人' }}</td>
                 <td>
-                    <a href="#">表内链接</a>
-                    <a href="#" class="inner_btn">表内按钮</a>
-                </td>
-            </tr>
-            <tr>
-                <td style="width:265px;"><div class="cut_title ellipsis">265px宽·长标题字符串截取，仅适合单行截取，多行截取程序定义一下。</div></td>
-                <td>内容二</td>
-                <td>内容三</td>
-                <td>内容四</td>
-                <td>内容五</td>
-                <td>内容六</td>
-                <td>
-                    <a href="#">表内链接</a>
-                    <a href="#" class="inner_btn">表内按钮</a>
-                </td>
-            </tr>
-            <tr>
-                <td style="width:265px;"><div class="cut_title ellipsis">265px宽·长标题字符串截取，仅适合单行截取，多行截取程序定义一下。</div></td>
-                <td>内容二</td>
-                <td>内容三</td>
-                <td>内容四</td>
-                <td>内容五</td>
-                <td>内容六</td>
-                <td>
-                    <a href="#">表内链接</a>
-                    <a href="#" class="inner_btn">表内按钮</a>
+
+
                 </td>
             </tr>
         </table>
@@ -85,6 +68,162 @@
             <a>最后一页</a>
         </aside>
     </section>
-</div>
+</script>
+<!-- 用户添加编辑页面-->
+<script type="text/ng-template" id="cusadd" >
+    <h2 class="fl" ng-if="!pojo_custo._id">用户数据添加</h2>
+    <h2 class="fl" ng-if="pojo_custo._id">用户数据编辑</h2>
+    </div>
+    <section>
+        <form
+            name="subForm"
+            ng-submit="saveOrUpdate()"
+        >
+        <table class="datatable">
+            <tr>
+                <td colspan="6" style="text-align: center;" ><h1>用户基本信息</h1></td>
+            </tr>
+            <tr>
+                <td><label>昵称:</label></td>
+                <td><input type="text"  ng-model="pojo_custom.name"  name="t_name"
+                           class="textbox" required /><br/></td>
+                <td><i ng-show="subForm.t_name.$error.required">请输入名称</i></td>
+                <td><label>密码:</label></td>
+                <td><input type="password"  ng-model="pojo_custom.password" name="t_password"
+                           class="textbox" required /><br/></td>
+                <td><i ng-show="subForm.t_password.$error.required">请输入密码</i></td>
+            </tr>
+            <tr>
+                <td><label>真实姓名:</label></td>
+                <td><input type="text"  ng-model="pojo_custom.realName"  name="t_realName"
+                           class="textbox" required /><br/></td>
+                <td><i ng-show="subForm.t_realName.$error.required">请输入真实姓名</i></td>
+                <td><label>性别:</label></td>
+                <td>男<input type="radio"   ng-model="pojo_custom.sex" ng-value="0"
+                           class="textbox" />
+                    女<input type="radio"  ng-model="pojo_custom.sex" ng-value="1"
+                           class="textbox" /><br/>
+                </td>
+            </tr>
+            <tr>
+                <td><label>职业:</label></td>
+                <td><input type="text"  ng-model="pojo_custom.job" class="textbox"
+                           name="t_job" required /><br/></td>
+                <td><i ng-show="subForm.t_job.$error.required">请输入职业</i></td>
+                <td><label>邮箱:</label></td>
+                <td><input type="email"  ng-model="pojo_custom.email" class="textbox" name="t_email" required
+                            /><br/></td>
+                <td><i ng-show="subForm.t_email.$error.required">请输入邮箱</i></td>
+            </tr>
+            <tr>
+                <td><label>生日:</label></td>
+                <td><input type="text"  ng-model="pojo_custom.birthday"  date-picker required
+                           class="textbox Wdate" /><br/></td>
+                <td></td>
+                <td><label>学历:</label></td>
+                <td><input type="text"  ng-model="pojo_custom.educational" required name="t_educational"
+                           class="textbox" /><br/></td>
+                <td><i ng-show="subForm.t_educational.$error.required">请输入学历</i></td>
+            </tr>
+            <tr>
+                <td><label>用户类型:</label></td>
+                <td><select ng-model="pojo_custom.usertype" name="t_usertype"
+                            ng-options="m.value as m.name for m in userPowers">
+                        <option value="">-- 请选择 --</option>
+                    </select>
+                </td>
+                <td><i ng-show="subForm.t_usertype.$error.required">请选择用户类型</i></td>
+                <td><label>能力标签:</label></td>
+                <td><input type="text"  ng-model="pojo_custom.ability" class="textbox" required
+                            name="t_ability" placeholder="标签请用逗号隔开" /><br/></td>
+                <td><i ng-show="subForm.t_ability.$error.required">请输入能力标签</i></td>
+            </tr>
+            <tr>
+                <td colspan="2"><label>用户介绍:</label></td>
+                <td colspan="4"><textarea ng-model="pojo_custom.introduce" name="t_introduce" required></textarea></td>
+            </tr>
+            <tr>
+                <td colspan="6" style="text-align: center;" ><h1>用户联系方式</h1></td>
+            </tr>
+            <tr>
+                <td><label>联系方式:</label></td>
+                <td><input type="text"  ng-model="pojo_custom.phoneNumber" name="t_phoneNumber" required
+                           class="textbox" /><br/></td>
+                <td><i ng-show="subForm.t_phoneNumber.$error.required">联系方式</i></td>
+                <td><label>微博:</label></td>
+                <td><input type="text"  ng-model="pojo_custom.weibo" class="textbox" name="t_weibo" required
+                            /><br/></td>
+                <td><i ng-show="subForm.t_weibo.$error.required">请输入微博账号</i></td>
+            </tr>
+            <tr>
+                <td><label>QQ:</label></td>
+                <td><input type="text"  ng-model="pojo_custom.qq" class="textbox"  required name="t_qq"
+                            /><br/></td>
+                <td><i ng-show="subForm.t_qq.$error.required">请输入QQ账号</i></td>
+            </tr>
+            <td colspan="6" style="text-align: center;" ><h1>用户地址</h1></td>
+            <tr>
+                <td><label>省份:</label></td>
+                <td><input type="text"  ng-model="pojo_custom.provice" class="textbox"
+                           required name="t_provice" /><br/></td>
+                <td><i ng-show="subForm.t_qq.$error.required">请输入省份</i></td>
+                <td><label>城市:</label></td>
+                <td><input type="text"  ng-model="pojo_custom.city" class="textbox"
+                           required name="t_city"/><br/></td>
+                <td><i ng-show="subForm.t_city.$error.required">请输入城市</i></td>
+            </tr>
+            <tr>
+                <td><label>邮编:</label></td>
+                <td><input type="text"  ng-model="pojo_custom.postAddress" class="textbox" 
+                             required name="t_postAddress"/><br/></td>
+                <td><i ng-show="subForm.t_weibo.$error.required">请输入邮编</i></td>
+                <td><label>详细地址:</label></td>
+                <td><input type="text"  ng-model="pojo_custom.detailAddress" class="textbox"   
+                            required name="t_detailAddress" /><br/></td>
+                <td><i ng-show="subForm.t_detailAddress.$error.required">请输入邮编</i></td>
+            </tr>
+            <td colspan="6" style="text-align: center;" ><h1>用户图片</h1></td>
+            <tr>
+                <td><label>图像:</label></td>
+                <td><input type="text"  ng-model="pojo_custom.imgurl" class="textbox"  
+                           required name="t_imgurl" /><br/></td>
+                <td><i ng-show="subForm.t_detailAddress.$error.required">请输入图像</i></td>
+                <td><label>封面:</label></td>
+                <td><input type="text"  ng-model="pojo_custom.coverimgurl" class="textbox"  
+                    required name="t_coverimgurl" /><br/></td>
+                <td><i ng-show="subForm.t_detailAddress.$error.required">请输入封面</i></td>
+            </tr>
+            <tr>
+                <td><label>大图:</label></td>
+                <td><input type="text"  ng-model="pojo_custom.bigimgurl" class="textbox" 
+                     required name="t_bigimgurl" /><br/></td>
+                 <td><i ng-show="subForm.t_detailAddress.$error.required">请输入大图</i></td>
+            </tr>
+            <td  ng-if="pojo_custom.articles && pojo_custom.productions"
+                 colspan="6" style="text-align: center;" >用户数据></td>
+            <tr ng-if="pojo_custom.articles && pojo_custom.productions">
+                <td><label>文章数量:</label></td>
+                <td>{{ pojo_custom.articles.length }}</td>
+                <td>提示</td>
+                <td><label>创品数量:</label></td>
+                <td>{{ pojo_custom.productions.length }}</td>
+                <td>提示</td>
+            </tr>
+            <tr ng-if="pojo_custom.followers && pojo_custom.attentions">
+                <td><label>用户粉丝:</label></td>
+                <td>{{ pojo_custom.followers.length }}</td>
+                <td>提示</td>
+                <td><label>用户粉丝:</label></td>
+                <td>{{ pojo_custom.attentions.length }}</td>
+                <td>提示</td>
+            </tr>
+            <tr>
+                <td colspan="3"><input  type="submit" ng-disabled="subForm.$invalid" value="提交" /></td>
+                <td colspan="3"><input type="button"  ng-click="toPageList();"  value="取消" /></td>
+            </tr>
+        </table>
+        </form>
+    </section>
+</script>
 </body>
 </html>
