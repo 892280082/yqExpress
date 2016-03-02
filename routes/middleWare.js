@@ -41,7 +41,7 @@ module.exports = function(app){
     app.post('/upload',upload.single('fileName'),function(req,res){
         req.file.path = req.file.path.replace("upload", "download");
         var pathArray = [];
-        if(process.platform.indexOf('win')>-1){
+        if(app.get('isWindow')){
             pathArray = req.file.path.split("\\");
         }else{
             pathArray = req.file.path.split("/");

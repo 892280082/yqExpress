@@ -48,14 +48,23 @@ app.use(function(req,res,next){
 })
 app.use(express.static(viewConfig.relativePath));
 
-/**
+//判断操作系统
+var system = process.platform;
+if(system === 'win32' || system === 'win64') {
+	app.set('isWindow');
+}else{
+	app.set('isLinux');
+}
+
+	/**
  * @desc 配置文件上传路径
  */
 function getResovlePath(){
 	var path;
-	if(process.platform.indexOf('win')>-1){ //判断是window系统
+	var system = process.platform;
+	if(app.get('isWindow')){ //判断是window系统
 		path = config.main.winUploadDir;
-	}else { //如果是Linux或者mac
+	}else{ //如果是Linux或者mac
 		path =  config.main.uploadDir;
 		if (path.indexOf('/') != 0)
 			path = path.join(__dirname, path);
