@@ -1,15 +1,45 @@
 /**
-*@work 简单分页服务
-*@Method $init(数组对象,分页大小);
-*@Method $next 下一页
-*@Method $last 上一页
-*@Method $showPage(页数) 指定一页
-*@Mthod $search({查询条件}) //只匹配第一个且只允许匹配一个条件
-*/
+ * @desc 前端分页插件  后续会增加和后端互通实现 前段+后端分页
+ * @author yq
+ * @date 2016/3/2
+ */
+
+/*
+* @API
+* 1. $init(数组对象,分页大小);
+* 2. $next 下一页
+* 3. $last 上一页
+* 4. $showPage(页数) 指定一页
+* 5. $search({查询条件}) //只匹配第一个且只允许匹配一个条件
+* 6. $push 添加一个元素
+* 7. $remove 删除一个元素
+*
+* @param
+* 1. $toLast {Boolean} 上一页
+* 2. $toNext {Boolean} 下一页
+* 3. $totalPage {Number} 总个数
+*
+* **/
+/**
+ * @param array {Array} 数组
+ * @param obj {Object} 删除对象
+ */
+function removeArray(array,obj){
+		var flag = false;
+		for(var i=0;i<array.length;i++){
+			if(array[i] == obj){
+				flag = !flag;
+				break;
+			}
+		}
+		if(flag)array.splice(i,1);
+}
+
+
 angular.module("service.pageResult",[])
 .service("pageResult",[
 	function(){
-		this._array = [];
+		this._array = [];//缓存接受的数组
 		this.$array = [];
 		this.$pageSize = 0;
 		this.$pageCount = 0;
@@ -64,7 +94,7 @@ angular.module("service.pageResult",[])
 			}
 			this.$pageCount = parseInt(this.$pageCount);
 			this.$showPage(1);
-			return this;	
+			return this;
 		};
 		this.$next = function(){
 			var tempCurPage = this.$curPage+1;
@@ -81,10 +111,9 @@ angular.module("service.pageResult",[])
 			}
 		};
 		this.$showPage = function(curPage){
-			var tempCurPage = curPage;
-			if(this._juageCurpage(tempCurPage)){
-				this.$array = this._getArrayByCur(tempCurPage);
-				this.$curPage = tempCurPage;
+			if(this._juageCurpage(curPage)){
+				this.$array = this._getArrayByCur(curPage);
+				this.$curPage = curPage;
 			}
 		};
 		this.$search = function(searchPojo){
@@ -104,4 +133,12 @@ angular.module("service.pageResult",[])
 				}
 			}
 		};
+		this.$push = function(pojo){
+			this._array.splice(0, 0,pojo);
+			this.$init(this._array,this.$pageSize);
+		};
+		this.$remove = function(pojo){
+			removeArray(this._array,pojo);
+			this.$init(this._array,this.$pageSize).$showPage(this.$curPage);
+		}
 }]);

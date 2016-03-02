@@ -60,44 +60,35 @@
             $scope.changeIntoEdit = function(custom){
                 if(!custom){
                     $scope.pojo_custom = {
-                            name:"name",//用户姓名
-                            job:"job",//用户职业
-                            password:"password",//密码
-                            introduce:String,//用户介绍
-                            email:String,//邮件
-                            postAddress:String,//邮编
-                            realName:String,//真实姓名
-                            provice:String,//省份
-                            city:String,//城市
-                            detailAddress:String,//详细地址
-                            phoneNumber:String,//联系方式
-                            ability:String,//能力标签
-                            creatTime:{type:Date,default:Date.now},//添加时间
+                         title:String,//产品名称
+                            price:Number,//价格
+                            imgUrl:String,//封面url
+                            imgBigUrl:String,//大图
+                            introduce:String,//简介
+                            guige:String,//规格
+                            detailimgarr:String,//详情页banner URL 集合，逗号隔开
                             bannerurl:String,//
-                            topno:Number,//首页baner顺序
-                            imgurl:String,//图像
-                            usertype:{type:Number,default:0},//用户身份 0->普通用户 1->管理员 2->人物
-                            focusno:Number,//人物聚焦
+                            converturl:String,//
+                            taobaoUrl:String,//淘宝商品url
+                            creatTime:{type:Date,default:Date.now},//创建时间
+                            type:[],//创品类型
+                            kucun:Number,//库存
+                            isDelete:Number,//是否下架
+                            topno:Number,//在首页的顺序
                             bannerno:Number,//模块Banner展示
-                            sex:{type:Number,default:0},//性别 0男1女
-                            bigimgurl:String,//大图
-                            coverimgurl:String,//封面url
-                            birthday:{type:Date,default:null},//生日
-                            educational:String,//学历
-                            qq:String,//QQ
-                            weibo:String,//微
+                            sortno:Number,//排序
+                            attentionno:Number,//关注量
                     };
                 $scope.pojo_custom = _.mapObject($scope.pojo_custom, function(val, key) {
-                        return key + _.random(0,1000);
+                        if(val == Number){
+                            return key + _.random(0,1000);
+                        }else if(val == String){
+                            return key + "str"+_.random(0,1000);
+                        }else if(val == Array){
+                            return "a b c"+" "+_.random(0,1000);
+                        }
                 });
-                $scope.pojo_custom.sex = 1;
-                $scope.pojo_custom.email = "223423@sadf";
-                $scope.pojo_custom.usertype ="1";
-                $scope.pojo_custom.birthday = "2014-5-8";
-                $scope.pojo_custom.phoneNumber =15678954584;
-                $scope.pojo_custom.topno =234234;
-                $scope.pojo_custom.bannerno =234;
-                $scope.pojo_custom.focusno =234;
+                $scope.pojo_custom.price = 23;
                 $scope.pojo_custom.creatTime = new Date();
             }else{
                     $scope.pojo_custom = custom;
@@ -140,7 +131,7 @@
                 }
             }
             /**************************上传配置**************************/
-             //配置任务图像上传
+             //配置大图图像上传
             var uploader = $scope.uploader = new FileUploader({
                 url: '/upload',
                 alias:'fileName'
@@ -149,29 +140,18 @@
                 item.upload();
             };
             uploader.onCompleteItem = function(fileItem, response, status, headers) {
-                $scope.pojo_custom.imgurl = response.path;
+                $scope.pojo_custom.imgBigUrl = response.path;
             };
             //配置封面上传
-            var uploaderCoverimgurl = $scope.uploaderCoverimgurl = new FileUploader({
+            var uploaderBannerurl = $scope.uploaderBannerurl = new FileUploader({
                 url: '/upload',
                 alias:'fileName'
             });
-            uploaderCoverimgurl.onAfterAddingFile = function(item) {
+            uploaderBannerurl.onAfterAddingFile = function(item) {
                 item.upload();
             };
-            uploaderCoverimgurl.onCompleteItem = function(fileItem, response, status, headers) {
-                $scope.pojo_custom.coverimgurl = response.path;
-            };
-            //配置大图上传
-            var uploader_bigimgurl = $scope.uploader_bigimgurl = new FileUploader({
-                url: '/upload',
-                alias:'fileName'
-            });
-            uploader_bigimgurl.onAfterAddingFile = function(item) {
-                item.upload();
-            };
-            uploader_bigimgurl.onCompleteItem = function(fileItem, response, status, headers) {
-                $scope.pojo_custom.bigimgurl = response.path;
+            uploaderBannerurl.onCompleteItem = function(fileItem, response, status, headers) {
+                $scope.pojo_custom.bannerurl = response.path;
             };
     }])
 

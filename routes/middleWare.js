@@ -40,6 +40,13 @@ module.exports = function(app){
     //配置上传请求
     app.post('/upload',upload.single('fileName'),function(req,res){
         req.file.path = req.file.path.replace("upload", "download");
+        var pathArray = [];
+        if(process.platform.indexOf('win')>-1){
+            pathArray = req.file.path.split("\\");
+        }else{
+            pathArray = req.file.path.split("/");
+        }
+        req.file.path = '/download/'+pathArray[pathArray.length-2]+'/'+pathArray[pathArray.length-1];
         res.json(req.file);
     });
 
@@ -50,7 +57,7 @@ module.exports = function(app){
 
     //处理通用下载请求
     app.use('/download/*',function(req,res){
-        var directURl = req.baseUrl.replace("download", "upload");
+       var  directURl = app.get("upload_file")+req.baseUrl.replace("download", "");
         res.download(directURl);
     })
 

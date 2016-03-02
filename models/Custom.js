@@ -8,7 +8,7 @@
  * 1.validateUser 验证用户，使用md5算法 ok
  * 2.pushAriticle 添加文章
  * 3.pullAriticle 删除文章
- * 4.pushProduct 添加产品
+ * 4.pushProduct 添加产品  call('err',{保存后的产品对象})
  * 5.pullProduct 删除产品
  * 6.pushAttentions 添加关注，被关注的一方pushfollowers
  * 7.pullAttentions 取消关注  被关注的一方pullfollowers
@@ -154,13 +154,27 @@ customSchema.statics.pullAriticle = function(_cusId,_ariId,callback){
 customSchema.statics.pushProduct = function(_cusId,pro,callback){
     if(!pro._userId)
         return callback("product._userId 不能为空");
-    mongooseUtil.addInnerCollection({
-        parentId:_cusId,
-        collecname:"productions",
-        childPojo:pro,
-        childDao:Product,
-        callback:callback
-    },this);
+    then(function(next){
+        custom.findOne({"_id":_cusId},function(err,doc){
+            if(doc){
+                pro._userName = doc.name;
+            }else{
+                return callback('该用户不存在');
+            }
+            next(err);
+        })
+    }).then(function(next){
+        mongooseUtil.addInnerCollection({
+            parentId:_cusId,
+            collecname:"productions",
+            childPojo:pro,
+            childDao:Product,
+            callback:callback
+        },this);
+    }).fail(function(next,err){
+        err && console.log(err);
+        return callback('创品保存错误');
+    })
 }
 
 /**

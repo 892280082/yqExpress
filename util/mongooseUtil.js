@@ -66,11 +66,11 @@ exports.addInnerCollection =  function(option,_this){
                 "$push":pushObject
             },function(err,info){
                 err && console.log(err);
-                return callback(err,_id);
+                return callback(err,childPojo);
             })
         }).fail(function(next,err){
             console.log(err);
-            return callback(err);
+            return callback('保存失败');
         })
 }
 

@@ -3,7 +3,6 @@
  * @auther yq
  * @date 2016/2/22
  */
-
 var express = require('express'),
 	path = require('path'),
 	logger = require('morgan'),
@@ -53,10 +52,16 @@ app.use(express.static(viewConfig.relativePath));
  * @desc 配置文件上传路径
  */
 function getResovlePath(){
-	var path = config.main.uploadDir;
-	if(path.indexOf('/')!=0)
-		path = path.join(__dirname,path);
+	var path;
+	if(process.platform.indexOf('win')>-1){ //判断是window系统
+		path = config.main.winUploadDir;
+	}else { //如果是Linux或者mac
+		path =  config.main.uploadDir;
+		if (path.indexOf('/') != 0)
+			path = path.join(__dirname, path);
+	}
 	config.main.debug && console.log("文件上传地址:"+path);
+	return path;
 }
 app.set('upload_file',getResovlePath());
 

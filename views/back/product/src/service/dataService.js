@@ -6,9 +6,9 @@ angular.module('service.dataService',[]).service("dataService",["$http"
     ,function($http){
     		//获取所有数据，利用前台分页
             this.getAllCustomData = function(searchPojo){
-                return $http.post('/back/cusGetAllData',{"searchPojo":searchPojo});
+                return $http.post('/back/proGetAllData',{"searchPojo":searchPojo});
             };
-            //提交数据
+            //保存数据
             this.saveCustomer = function(customer){
             	return $http.post('/back/cusSaveCustom',{"pojo":customer});
             };
