@@ -5,9 +5,8 @@
  *@version 1.0.1
  */
     var _ = require("underscore");
-    angular.module("controller.main",[
-                                        "ng.ueditor"
-    ]).controller('main',['$scope','showCtrl','dataService','FileUploader','pageResult'
+    angular.module("controller.main",["ng.ueditor"]).
+    controller('main',['$scope','showCtrl','dataService','FileUploader','pageResult'
         ,function($scope,showCtrl,dataService,FileUploader,pageResult){
             /************************数据模型****************************/
             //设置用户的权限分配
@@ -44,7 +43,7 @@
 
             //删除方法
             $scope.removeCustom = function(cus){
-                dataService.removeCustomer(cus._id)
+                dataService.removeCustomer(cus._id,cus._userId)
                     .success(function(data){
                         if(data.err){
                             alert(data.result);
@@ -60,7 +59,7 @@
             $scope.changeIntoEdit = function(custom){
                 if(!custom){
                     $scope.pojo_custom = {
-                         title:String,//产品名称
+                             title:String,//产品名称
                             price:Number,//价格
                             imgUrl:String,//封面url
                             imgBigUrl:String,//大图
@@ -81,14 +80,15 @@
                     };
                 $scope.pojo_custom = _.mapObject($scope.pojo_custom, function(val, key) {
                         if(val == Number){
-                            return key + _.random(0,1000);
+                            return _.random(0,1000);
                         }else if(val == String){
                             return key + "str"+_.random(0,1000);
-                        }else if(val == Array){
+                        }else if(val == Array || val == []){
                             return "a b c"+" "+_.random(0,1000);
                         }
                 });
-                $scope.pojo_custom.price = 23;
+                $scope.pojo_custom._userId = "56d6574c841d3fa413325f2e";
+                $scope.pojo_custom.type = "a b c";
                 $scope.pojo_custom.creatTime = new Date();
             }else{
                     $scope.pojo_custom = custom;
@@ -103,6 +103,9 @@
 
             //保存或者更新方法
             $scope.saveOrUpdate = function(){
+                var array = $scope.pojo_custom.type;
+                if(_.isString(array))
+                $scope.pojo_custom.type = array.split(' ');
                 //保存
                 if(!$scope.pojo_custom._id){
                     dataService.saveCustomer($scope.pojo_custom)
@@ -111,7 +114,7 @@
                             $scope.array_custom.$push(data.result);
                             $scope.show.$set('cuslist');
                         }else{
-                            alert(data.result);
+                            alert(data.err);
                         }
                     }).error(function(data){
                          alert("保存错误");
@@ -120,11 +123,8 @@
                     //更新
                     dataService.updateCustomer($scope.pojo_custom)
                         .success(function(data){
-                            if(!data.err){
-                                $scope.show.$set('cuslist');
-                            }else{
-                                alert("更新错误");
-                            }
+                            !data.err ?  $scope.show.$set('cuslist')
+                                      :   alert(data.err);
                         }).error(function(data){
                             alert("更新错误");
                         })

@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE HTML>
 <html lang="en" ng-app="myApp">
 <style type="text/css">
 .waptitle{width:100%;height:45px; line-height: 45px;border-bottom:1px solid #e1e1e1; font-size:14px;font-family: "microsoft yahei"; font-weight: bold;}
@@ -39,6 +39,7 @@
         </div>
         <table class="table">
             <tr>
+                <th>ID</th>
                 <th>创品名称</th>
                 <th>创品类型</th>
                 <th>创品价格</th>
@@ -48,9 +49,12 @@
                 <th>操作</th>
             </tr>
             <tr ng-repeat="cus in array_custom.$array">
+                <td>{{ $index + 1}}</td>
                 <td ng-click="changeIntoEdit(cus);">{{ cus.title }}</td>
-                <td ng-repeat="type in cus.type">
-                    <span>{{type}}</span>&nbsp;
+                <td>
+                    <span ng-repeat="type in cus.type">
+                        <span>{{type}}</span>&nbsp;&nbsp;
+                    </span>
                 </td>
                 <td>{{ cus.price }}</td>
                 <td>{{ cus.kucun }}</td>
@@ -119,7 +123,7 @@
                 <td colspan="1"><label>创品介绍:</label></td>
                 <td colspan="5"><textarea class="textarea" style="width:635px;height:100px;" 
                     ng-model="pojo_custom.introduce" name="t_introduce"    required></textarea></td>
-            </tr>
+            </tr>   
             <tr>
                 <td><label>首页排序:</label></td>
                 <td><input type="text"  ng-model="pojo_custom.sortno" name="t_sortno" required 

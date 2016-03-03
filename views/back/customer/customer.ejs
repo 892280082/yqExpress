@@ -39,6 +39,7 @@
         </div>
         <table class="table">
             <tr>
+                <th>ID</th>
                 <th>用户姓名</th>
                 <th>真实姓名</th>
                 <th>性别</th>
@@ -48,6 +49,7 @@
                 <th>操作</th>
             </tr>
             <tr ng-repeat="cus in array_custom.$array">
+                <td>{{ $index + 1}}</td>
                 <td ng-click="changeIntoEdit(cus);">{{ cus.name }}</td>
                 <td>{{ cus.realName }}</td>
                 <td>{{ cus.sex ? '女' : '男' }}</td>
@@ -68,7 +70,6 @@
 </script>
 <!-- 用户添加编辑页面-->
 <script type="text/ng-template" id="cusadd" >
-
     <div class="page_title top1">
         <h2 class="fl">{{ pojo_custo._id ? '用户编辑' : '用户添加' }}</h2>
         <a class="fr top_rt_btn" ng-click="toPageList();" >返回</a>

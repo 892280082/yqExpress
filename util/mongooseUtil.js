@@ -1,5 +1,20 @@
 var objectid = require("objectid"),
     then = require("thenjs");
+/**
+ * @desc mongoose 工具
+ * @date 2016/2/25
+ * @auther yq
+ *
+ * @api
+ * 1.createShell  -指令生成器
+ * 2.addInnerCollection  -父类的子集合添加子对象的Id,子对象在新集合中创建。
+ * 3.removeInnerCollection -addInnerCollection的逆方法，同时删除在父对象中的子集合id和子集合中的对象
+ * 4.dealAllCollectionId -处理子父间的集合关系
+ * 5.saveSingle -保存单个Pojo
+ * 6.removeSingleById -通过ID删除单个POJO
+ * 7.updateSingleById -通过ID更新单个POJO
+ */
+
 
 /**
  * @desc 指令生成器
@@ -7,14 +22,19 @@ var objectid = require("objectid"),
  * @param collecname {String} - 集合名
  * @param pojo {Object} - 对象
  * @returns {Object}
+ * @example
+ * createShell("$update",'articles',{do:"aa"})
+ * return {"$update":{ "articles":{ do:"aa "}}}
+ * @needUpdate $update 可以加-$update
  */
-function createShell(shell,collecname,pojo){
+exports.createShell = function(shell,collecname,pojo){
     var innerShell = {};
     innerShell[collecname] = pojo;
     var outShell = {};
     outShell[shell] = innerShell;
     return outShell;
 }
+
 
 /**
  * @desc 父类的子集合添加子对象的Id,子对象在新集合中创建。
@@ -54,7 +74,6 @@ exports.addInnerCollection =  function(option,_this){
         collecname =  option.collecname;
 
         var pushObject = {};
-        pushObject[collecname]=parentId;
 
         then(function(next){
             childPojo = new childDao(childPojo);
@@ -62,6 +81,7 @@ exports.addInnerCollection =  function(option,_this){
                 next(err,childPojo._id);
             })
         }).then(function(next,_id){
+            pushObject[collecname]=_id;
             _this.update({"_id":parentId},{
                 "$push":pushObject
             },function(err,info){
@@ -73,7 +93,6 @@ exports.addInnerCollection =  function(option,_this){
             return callback('保存失败');
         })
 }
-
 
 /**
  * @desc addInnerCollection的逆方法，同事删除在父对象中的子集合id和子集合中的对象
@@ -104,7 +123,7 @@ exports.removeInnerCollection =  function(option,_this){
         childCollection = option.childCollection,
         callback = option.callback;
     var pullObject = {};
-    pullObject[collecname]=parentId;
+    pullObject[collecname]=childId;
 
     if(!childCollection) { //直接删除子类
         then(function(next){
@@ -114,6 +133,8 @@ exports.removeInnerCollection =  function(option,_this){
                 next(err);
             })
         }).then(function(next){
+            console.log("mongooseUTil 136",pullObject);
+
             _this.update({"_id": parentId}, {
                 "$pull": pullObject
             }, function (err) {
@@ -124,9 +145,10 @@ exports.removeInnerCollection =  function(option,_this){
             console.log(err);
             return callback(err);
         })
-    }else{  //在子类的collection中删除对象
+    }else{  //在子类的集合中删除对象
         var pullChildObject = {};
         pullChildObject[childCollection] = childId;
+        console.log("mongooseUtil 149",pullChildObject);
         then(function(next){
             childDao.update({"_id":childId},
                 {"$pull":pullChildObject},
@@ -175,14 +197,14 @@ exports.dealAllCollectionId = function(option,_this){
     var parentShell = {};
     var childShell = {};
     if(collecname.indexOf("-") == 0){
-        parentShell = createShell("$pull",collecname.slice(1),parentPojo);
+        parentShell = exports.createShell("$pull",collecname.slice(1),parentPojo);
     }else{
-        parentShell = createShell("$push",collecname,parentPojo);
+        parentShell = exports.createShell("$push",collecname,parentPojo);
     }
     if(childCollecname.indexOf("-") == 0){
-        childShell = createShell("$pull",childCollecname.slice(1),childPojo);
+        childShell = exports.createShell("$pull",childCollecname.slice(1),childPojo);
     }else{
-        childShell = createShell("$push",childCollecname,childPojo);
+        childShell = exports.createShell("$push",childCollecname,childPojo);
     }
 
     then(function(next){
@@ -200,3 +222,43 @@ exports.dealAllCollectionId = function(option,_this){
     })
 }
 
+/**
+ * @desc 保存单个信息
+ * @param pojo {Object} - 保存对象
+ * @param Dao {Object} - 保存Dao
+ * @param callback {Function} - 回调函数
+ */
+exports.saveSingle = function(pojo,Dao,callback){
+    var newPojo = new Dao(pojo);
+    newPojo.save(function(err){
+        callback(err);
+    })
+}
+
+/**
+ * @desc 删除单个信息
+ * @param _id {String} -m id
+ * @param Dao {Object} - mongoose model
+ * @param callback {Function} 回调函数
+ */
+exports.removeSingleById = function(_id,Dao,callback){
+    Dao.remove({"_id":_id},function(err,info){
+        callback(err,info);
+    })
+}
+
+/**
+ * @desc 更新单个信息
+ * @param pojo {Object} - 更新对象
+ * @param Dao {Object} - mongoose model
+ * @param callback {Function} 回调函数
+ */
+exports.updateSingleById = function(pojo,Dao,callback){
+    if(!pojo._id)
+        return callback('mongooseUtil->updateSingleById ERRIR: no id param ');
+    var _id = pojo._id;
+    delete  pojo._id;
+    Dao.update({"_id":_id},pojo,function(err,info){
+        return callback(err,info);
+    })
+}

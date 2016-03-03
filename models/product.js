@@ -9,7 +9,6 @@ var mongoose = require('mongoose'),
 
 var productSchema = new Schema({
     _userId:Schema.Types.ObjectId,//用户Id
-
     title:String,//产品名称
     price:Number,//价格
     imgUrl:String,//封面url

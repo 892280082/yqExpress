@@ -5,9 +5,8 @@
  *@version 1.0.1
  */
     var _ = require("underscore");
-    angular.module("controller.main",[
-                                        "ng.ueditor"
-    ]).controller('main',['$scope','showCtrl','dataService','FileUploader','pageResult'
+    angular.module("controller.main",["ng.ueditor"]).
+    controller('main',['$scope','showCtrl','dataService','FileUploader','pageResult'
         ,function($scope,showCtrl,dataService,FileUploader,pageResult){
             /************************数据模型****************************/
             //设置用户的权限分配
@@ -18,6 +17,11 @@
             $scope.array_custom = [];
             //查询Pojo
             $scope.search_custom = {name:""};
+             //文章类型
+            $scope.articleStatus = [{name:"未通过",value:0},
+                                   {name:"待审核",value:1},
+                                    {name:"草稿",value:2},
+                                    {name:"审核通过",value:3}];
             /*********************注册show service**************************/
             $scope.show = showCtrl;
             $scope.show.$regist('cuslist',['cuslist'],true);
@@ -44,7 +48,7 @@
 
             //删除方法
             $scope.removeCustom = function(cus){
-                dataService.removeCustomer(cus._id)
+                dataService.removeCustomer(cus._id,cus._userId)
                     .success(function(data){
                         if(data.err){
                             alert(data.result);
@@ -60,45 +64,39 @@
             $scope.changeIntoEdit = function(custom){
                 if(!custom){
                     $scope.pojo_custom = {
-                            name:"name",//用户姓名
-                            job:"job",//用户职业
-                            password:"password",//密码
-                            introduce:String,//用户介绍
-                            email:String,//邮件
-                            postAddress:String,//邮编
-                            realName:String,//真实姓名
-                            provice:String,//省份
-                            city:String,//城市
-                            detailAddress:String,//详细地址
-                            phoneNumber:String,//联系方式
-                            ability:String,//能力标签
-                            creatTime:{type:Date,default:Date.now},//添加时间
-                            bannerurl:String,//
-                            topno:Number,//首页baner顺序
-                            imgurl:String,//图像
-                            usertype:{type:Number,default:0},//用户身份 0->普通用户 1->管理员 2->人物
-                            focusno:Number,//人物聚焦
-                            bannerno:Number,//模块Banner展示
-                            sex:{type:Number,default:0},//性别 0男1女
-                            bigimgurl:String,//大图
-                            coverimgurl:String,//封面url
-                            birthday:{type:Date,default:null},//生日
-                            educational:String,//学历
-                            qq:String,//QQ
-                            weibo:String,//微
+                        _userId:String,//用户Id
+                        authorName:String,//作者
+                        title:String,//文章标题
+                        introduce:String,//简介
+                        content:String,//文章内容
+                        status:Number,// 作品 0-未通过 1-待审核 2-草稿 3-审核通过
+                        reason:String,//审核未通过原因
+                        topno:Number,//展示在首页的顺序
+                        bannerFlag:Boolean,//是否开启banner展示
+                        bannerurl:String,//列表的banner
+                        imgUrl:String,//首页列表图
+                        from:String,//来源
+                        /** 集合*/
+                        type:[],//文章类型
+                        keyword:[],//关键字
+                        checkcounts:Number,//查看次数
+                        collections:[],//收藏次数 添加用户id
+                        comments:[],//评论数组,储存评论_id
                     };
                 $scope.pojo_custom = _.mapObject($scope.pojo_custom, function(val, key) {
-                        return key + _.random(0,1000);
+                        if(val == Number){
+                            return _.random(0,1000);
+                        }else if(val == String){
+                            return key + "str"+_.random(0,1000);
+                        }else if(val == Array || val == []){
+                            return "a b c"+" "+_.random(0,1000);
+                        }
                 });
-                $scope.pojo_custom.sex = 1;
-                $scope.pojo_custom.email = "223423@sadf";
-                $scope.pojo_custom.usertype ="1";
-                $scope.pojo_custom.birthday = "2014-5-8";
-                $scope.pojo_custom.phoneNumber =15678954584;
-                $scope.pojo_custom.topno =234234;
-                $scope.pojo_custom.bannerno =234;
-                $scope.pojo_custom.focusno =234;
+                $scope.pojo_custom._userId = "56d6574c841d3fa413325f2e";
+                $scope.pojo_custom.type = "a b c";
                 $scope.pojo_custom.creatTime = new Date();
+                $scope.pojo_custom.bannerFlag = false;
+                $scope.pojo_custom.keyword = " keyword a b c g";
             }else{
                     $scope.pojo_custom = custom;
                 }
@@ -112,6 +110,9 @@
 
             //保存或者更新方法
             $scope.saveOrUpdate = function(){
+                var array = $scope.pojo_custom.keyword;
+                if(_.isString(array))
+                    $scope.pojo_custom.keyword = array.split(' ');
                 //保存
                 if(!$scope.pojo_custom._id){
                     dataService.saveCustomer($scope.pojo_custom)
@@ -120,7 +121,7 @@
                             $scope.array_custom.$push(data.result);
                             $scope.show.$set('cuslist');
                         }else{
-                            alert(data.result);
+                            alert(data.err);
                         }
                     }).error(function(data){
                          alert("保存错误");
@@ -129,18 +130,15 @@
                     //更新
                     dataService.updateCustomer($scope.pojo_custom)
                         .success(function(data){
-                            if(!data.err){
-                                $scope.show.$set('cuslist');
-                            }else{
-                                alert("更新错误");
-                            }
+                            !data.err ?  $scope.show.$set('cuslist')
+                                      :   alert(data.err);
                         }).error(function(data){
                             alert("更新错误");
                         })
                 }
             }
             /**************************上传配置**************************/
-             //配置任务图像上传
+             //配置大图图像上传
             var uploader = $scope.uploader = new FileUploader({
                 url: '/upload',
                 alias:'fileName'
@@ -149,29 +147,18 @@
                 item.upload();
             };
             uploader.onCompleteItem = function(fileItem, response, status, headers) {
-                $scope.pojo_custom.imgurl = response.path;
+                $scope.pojo_custom.imgUrl = response.path;
             };
             //配置封面上传
-            var uploaderCoverimgurl = $scope.uploaderCoverimgurl = new FileUploader({
+            var uploaderBannerurl = $scope.uploaderBannerurl = new FileUploader({
                 url: '/upload',
                 alias:'fileName'
             });
-            uploaderCoverimgurl.onAfterAddingFile = function(item) {
+            uploaderBannerurl.onAfterAddingFile = function(item) {
                 item.upload();
             };
-            uploaderCoverimgurl.onCompleteItem = function(fileItem, response, status, headers) {
-                $scope.pojo_custom.coverimgurl = response.path;
-            };
-            //配置大图上传
-            var uploader_bigimgurl = $scope.uploader_bigimgurl = new FileUploader({
-                url: '/upload',
-                alias:'fileName'
-            });
-            uploader_bigimgurl.onAfterAddingFile = function(item) {
-                item.upload();
-            };
-            uploader_bigimgurl.onCompleteItem = function(fileItem, response, status, headers) {
-                $scope.pojo_custom.bigimgurl = response.path;
+            uploaderBannerurl.onCompleteItem = function(fileItem, response, status, headers) {
+                $scope.pojo_custom.bannerurl = response.path;
             };
     }])
 

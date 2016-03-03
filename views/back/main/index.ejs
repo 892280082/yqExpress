@@ -19,34 +19,30 @@
  </ul>
 </header>
 <% include ../include/main_left.ejs %>
-
+<script type="text/javascript" language="javascript">
+    function iFrameHeight() {
+        var ifm= document.getElementById("contentframe");
+        var subWeb = document.frames ? document.frames["contentframe"].document :
+                ifm.contentDocument;
+        if(ifm != null && subWeb != null) {
+            ifm.height = subWeb.body.scrollHeight;
+        }
+    }
+    //退出登录
+    function logout(){
+        $.post("/back/logoutUser",{},function(data){
+            if(data.result){
+                window.location.href="/back/login"
+            }
+        });
+    }
+</script>
 <section class="rt_wrap content mCustomScrollbar">
-   <iframe   id="contentframe"  name="contentframe"
-             width="100%" height="100%" frameborder="0"
+   <iframe   id="contentframe"  name="contentframe" scrolling="yes"
+             width="100%" height="300%" frameborder="0"
              framespacing="0" onload="iFrameHeight()">
    </iframe >
- <script type="text/javascript" language="javascript">
-  function iFrameHeight() {
-   var ifm= document.getElementById("contentframe");
-   var subWeb = document.frames ? document.frames["contentframe"].document :
-           ifm.contentDocument;
-   if(ifm != null && subWeb != null) {
-    ifm.height = subWeb.body.scrollHeight;
-   }
-  }
 
-   //退出登录
- function logout(){
-     $.post("/back/logoutUser",{},function(data){
-         if(data.result){
-             window.location.href="/back/login"
-         }
-     });
- }
- </script>
 </section>
 </body>
-<script>
-
-</script>
 </html>

@@ -8,13 +8,13 @@
  * 1.validateUser 验证用户，使用md5算法 ok
  * 2.pushAriticle 添加文章
  * 3.pullAriticle 删除文章
- * 4.pushProduct 添加产品  call('err',{保存后的产品对象})
- * 5.pullProduct 删除产品
+ * 4.pushProduct -添加产品  -call('err',{保存后的产品对象})
+ * 5.pullProduct 删除产品 -call('err',删除信息)
  * 6.pushAttentions 添加关注，被关注的一方pushfollowers
  * 7.pullAttentions 取消关注  被关注的一方pullfollowers
  *
  * @api pojo层
- * 1.saveUser 保存用户，并配置加密算法(md5)  ok
+ * 1.saveUser - 保存用户，并配置加密算法(md5)ok  -call('err',保存后的user对象)
  *
  * @_api
  * crptoUserPassword 加密用户密码
@@ -24,7 +24,7 @@ var mongoose = require('mongoose'),
     objectid = require('objectid'),
     md5 = require('md5'),
     then = require('thenjs'),
-    mongooseUtil = require("../util/mongooseUtil");
+    mongooseUtil = require("../util/mongooseUtil"),
     Article = require('./Article'),//文章集合
     Product = require('./product');//产品集合
 
@@ -152,6 +152,7 @@ customSchema.statics.pullAriticle = function(_cusId,_ariId,callback){
  * @param callback {Function} - 回调函数
  */
 customSchema.statics.pushProduct = function(_cusId,pro,callback){
+    var _this = this;
     if(!pro._userId)
         return callback("product._userId 不能为空");
     then(function(next){
@@ -170,7 +171,7 @@ customSchema.statics.pushProduct = function(_cusId,pro,callback){
             childPojo:pro,
             childDao:Product,
             callback:callback
-        },this);
+        },_this);
     }).fail(function(next,err){
         err && console.log(err);
         return callback('创品保存错误');

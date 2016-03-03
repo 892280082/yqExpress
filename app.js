@@ -50,10 +50,11 @@ app.use(express.static(viewConfig.relativePath));
 
 //判断操作系统
 var system = process.platform;
-if(system === 'win32' || system === 'win64') {
-	app.set('isWindow');
+console.log('system',system);
+if(system.indexOf('win32') >-1 || system.indexOf('win64') >-1) {
+	app.set('isWindow',true);
 }else{
-	app.set('isLinux');
+	app.set('isLinux',true);
 }
 
 	/**

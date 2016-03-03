@@ -114,4 +114,31 @@ debug.set("saveUser","保存用户的操作").set("validateUser","验证用户�
     })
 })()
 
-
+debug.set("pushProduct","保存用户的创品");
+debug.set("pullProduct","删除用户的创品");
+(function(){
+    var cusId = objectid();
+    then(function(next){
+        var cus = new custom({_id:cusId,name:"hahaaaaa"+Math.random()*10000});
+        cus.saveUser(function(err){
+            next(err);
+        })
+    }).then(function (next) {   //保存文章
+        var product = {
+            "title": "测试的产品",
+        }
+        product._userId = cusId;
+        custom.pushAriticle(cusId, product, function (err, childPojo) {
+            !err&&debug.done("pushProduct");
+            next(err,childPojo);
+        })
+    }).then(function(next,childPojo){
+        custom.pullAriticle(cusId,childPojo._id,function(err){
+            !err ? debug.done("pullProduct")
+                 : debug.done("pullProduct");
+        })
+    }).fail(function (next, err) {
+        debug.done("pushProduct",err);
+        debug.done("pullProduct",err);
+    })
+})();

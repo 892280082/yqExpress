@@ -23,16 +23,18 @@ var articleSchema = new Schema({
     introduce:String,//简介
     content:String,//文章内容
     creatTime:{type:Date,default:Date.now},//创建时间
-    status:Number,// 作品 0-未通过 1-待审核 2-草稿
+    status:Number,// 作品 0-未通过 1-待审核 2-草稿 3-审核通过
     reason:String,//审核未通过原因
-    isDelete:Boolean,//是否被删除
-    checkcounts:{type:Number,default:0},//查看次数
-    imgUrl:String,//首页列表图
     topno:Number,//展示在首页的顺序
+    bannerFlag:Boolean,//是否开启banner展示
+    bannerurl:String,//列表的banner
+    imgUrl:String,//首页列表图
     from:String,//来源
+    content:String,//文章内容
     /** 集合*/
-    type:[String],//文章类型
+    type:String,//文章类型
     keyword:[String],//关键字
+    checkcounts:{type:Number,default:0},//查看次数
     collections:[Schema.Types.ObjectId],//收藏次数 添加用户id
     comments:[Schema.Types.ObjectId],//评论数组,储存评论_id
     /**
@@ -42,11 +44,6 @@ var articleSchema = new Schema({
     __othernos:[],//作者其他推荐文章
     __relationnos:[],//相关文章推荐
     articlefroms:[],//文章来源 0-名人 1-造物志
-    bannerno:Number,//模块Banner展示
-    bigimgurl:String,//首页banner
-    coverimgurl:[],//列表的图片
-    bannerurl:[],//列表的banner
-    sortno:Number,//排序
 });
 
 

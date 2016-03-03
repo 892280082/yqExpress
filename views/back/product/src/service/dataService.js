@@ -10,15 +10,15 @@ angular.module('service.dataService',[]).service("dataService",["$http"
             };
             //保存数据
             this.saveCustomer = function(customer){
-            	return $http.post('/back/cusSaveCustom',{"pojo":customer});
+            	return $http.post('/back/proSaveSingle',{"pojo":customer});
             };
             //删除数据
-            this.removeCustomer = function(_id){
-                return $http.post('/back/cusRemoveCustom/'+_id,{});
+            this.removeCustomer = function(_id,_userId){
+                return $http.post('/back/proRemoveSingle',{"_id":_id,"_userId":_userId});
             };
             //更新方法
             this.updateCustomer = function(cus){
-                return $http.post('/back/updateCustorm',{"updatePojo":cus});
+                return $http.post('/back/proUpdateSingle',{"updatePojo":cus});
             };
 
     }]);

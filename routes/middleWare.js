@@ -70,7 +70,7 @@ module.exports = function(app){
     }
 
     //配置ueditor编辑器后台
-    app.use("/public/plugin/ueditor/ueditor", ueditor("", function(req, res, next) {
+    app.use("/plugin/ueditor/ueditor", ueditor("", function(req, res, next) {
         // ueditor 发起上传图片请求
         if (req.query.action === 'uploadimage') {
             var foo = req.ueditor;
@@ -88,7 +88,7 @@ module.exports = function(app){
         // 客户端发起其它请求
         else {
             res.setHeader('Content-Type', 'application/json');
-            res.redirect('/public/plugin/ueditor/nodejs/config.json');
+            res.redirect('/plugin/ueditor/nodejs/config.json');
         }
     }));
 

@@ -1,7 +1,9 @@
 var express = require('express'),
 	md5 = require("md5"),
 	Custom = require("../../models/Custom"),
-	Product = require("../../models/product");
+	mongooseUtil = require("../../util/mongooseUtil"),
+	Article = require("../../models/Article"),
+	Product = require("../../models/product"),
 	router = express.Router();
 
 //进入登陆页面
@@ -48,7 +50,6 @@ router.get('/toCusDeal',function(req,res){
 //获取所有用户信息
 router.post('/cusGetAllData',function(req,res){
 	var pojo = req.body.searchPojo;
-	console.log("pojo"+"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",pojo);
 	Custom.find(pojo,function(err,docs){
 		err && res.json({"result":false,error:err});
 		res.json({"result":docs,"error":null});
@@ -119,11 +120,11 @@ router.post('/proGetAllData',function(req,res){
 //保存创品信息
 router.post('/proSaveSingle',function(req,res){
 	var pojo = req.body.pojo;
-	var _cusId = pojo._cusId;
-	if(!_cusId){
+	var _userId = pojo._userId;
+	if(!_userId){
 		return res.json({"err":'缺少用户信息'});
 	}
-	Custom.pushProduct(_cusId,pojo,function(err,newPojo){
+	Custom.pushProduct(_userId,pojo,function(err,newPojo){
 		if(err){
 			return res.json({ "err":err });
 		}else{
@@ -132,6 +133,98 @@ router.post('/proSaveSingle',function(req,res){
 	})
 })
 
+//删除创品信息
+router.post('/proRemoveSingle',function(req,res){
+	var _id = req.body._id;
+	var _userId = req.body._userId;
+	if(!_id && !_userId)
+		res.json({"err":true,"result":"no _id param!"});
+	Custom.pullProduct(_userId,_id,function(err,info){
+		if(err){
+			console.log(err);
+			return res.json({ "err":"删除错误"});
+		}else{
+			return res.json({  "result":info });
+		}
+	})
+})
 
+//更新创品信息
+router.post('/proUpdateSingle',function(req,res){
+	var pro = req.body.updatePojo;
+	if(!pro || !pro._id)
+		res.json({"err":"no customer param!"});
 
+	mongooseUtil.updateSingleById(pro,Product,function(err,info){
+		if(err){
+			return res.json({ "err":"更新错误"});
+		}else{
+			return res.json({ "result":info });
+		}
+	})
+})
+
+//进入文章显示页面
+router.get('/toArticlePage',function(req,res){
+	res.render("back/article/article");
+})
+
+//获取所有文章信息
+router.post('/artGetAllData',function(req,res){
+	var pojo = req.body.searchPojo;
+	Article.find(pojo,function(err,docs){
+		if(err)
+		{
+			console.log(err);
+			return res.json({ "err":"接口出错"});
+		}
+		res.json({"result":docs,"error":null});
+	})
+})
+
+//保存单篇文章
+router.post('/artSaveSingle',function(req,res){
+	var pojo = req.body.pojo;
+	var _userId = pojo._userId;
+	if(!_userId){
+		return res.json({"err":'缺少用户信息'});
+	}
+	Custom.pushAriticle(_userId,pojo,function(err,newPojo){
+		if(err){
+			return res.json({ "err":err });
+		}else{
+			return res.json({ "result":newPojo });
+		}
+	})
+})
+
+//删除文章信息
+router.post('/artRemoveSingle',function(req,res){
+	var _id = req.body._id;
+	var _userId = req.body._userId;
+	if(!_id && !_userId)
+		res.json({"err":true,"result":"no _id param!"});
+	Custom.pullAriticle(_userId,_id,function(err,info){
+		if(err){
+			return res.json({ "err":err});
+		}else{
+			return res.json({ "result":info });
+		}
+	})
+})
+
+//更新文章信息
+router.post('/artUpdateSingle',function(req,res){
+	var pro = req.body.updatePojo;
+	if(!pro || !pro._id)
+		res.json({"err":"no customer param!"});
+
+	mongooseUtil.updateSingleById(pro,Article,function(err,info){
+		if(err){
+			return res.json({ "err":"更新错误"});
+		}else{
+			return res.json({ "result":info });
+		}
+	})
+})
 module.exports = router;
