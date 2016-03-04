@@ -133,8 +133,6 @@ exports.removeInnerCollection =  function(option,_this){
                 next(err);
             })
         }).then(function(next){
-            console.log("mongooseUTil 136",pullObject);
-
             _this.update({"_id": parentId}, {
                 "$pull": pullObject
             }, function (err) {
@@ -226,12 +224,12 @@ exports.dealAllCollectionId = function(option,_this){
  * @desc 保存单个信息
  * @param pojo {Object} - 保存对象
  * @param Dao {Object} - 保存Dao
- * @param callback {Function} - 回调函数
+ * @param callback {Function} - call('err',{保存后的对象})
  */
 exports.saveSingle = function(pojo,Dao,callback){
     var newPojo = new Dao(pojo);
     newPojo.save(function(err){
-        callback(err);
+        callback(err,newPojo);
     })
 }
 

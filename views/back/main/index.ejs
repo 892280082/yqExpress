@@ -1,48 +1,16 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta charset="utf-8"/>
 <title>后台管理系统</title>
 <meta name="author" content="DeathGhost" />
  <% include ../include/baseLink %>
- <script type="text/javascript">
- </script>
 </head>
-<body>
-<header>
- <h1><img src="/back/public/images/admin_logo.png"/></h1>
- <ul class="rt_nav">
-  <li><a href="" target="_blank" class="website_icon">站点首页</a></li>
-  <li><a href="#" class="admin_icon">DeathGhost</a></li>
-  <li><a href="#" class="set_icon">账号设置</a></li>
-  <li><a href="#" onclick="logout();" class="quit_icon">安全退出</a></li>
- </ul>
-</header>
-<% include ../include/main_left.ejs %>
-<script type="text/javascript" language="javascript">
-    function iFrameHeight() {
-        var ifm= document.getElementById("contentframe");
-        var subWeb = document.frames ? document.frames["contentframe"].document :
-                ifm.contentDocument;
-        if(ifm != null && subWeb != null) {
-            ifm.height = subWeb.body.scrollHeight;
-        }
-    }
-    //退出登录
-    function logout(){
-        $.post("/back/logoutUser",{},function(data){
-            if(data.result){
-                window.location.href="/back/login"
-            }
-        });
-    }
-</script>
-<section class="rt_wrap content mCustomScrollbar">
-   <iframe   id="contentframe"  name="contentframe" scrolling="yes"
-             width="100%" height="300%" frameborder="0"
-             framespacing="0" onload="iFrameHeight()">
-   </iframe >
-
-</section>
-</body>
+<frameset rows="59,*" cols="*" frameborder="no" border="0" framespacing="0">
+    <frame src="/back/main_top" name="topFrame" noresize="noresize" id="topFrame"/>
+    <frameset cols="213,*" frameborder="no" border="0" framespacing="0" scrolling="yes" >
+        <frame src="/back/main_left" name="leftFrame" scrolling="no" scrolling="yes" id="leftFrame"/>
+        <frame src="/back/toCusDeal" name="mainFrame" scrolling="yes" scrolling="yes" id="mainFrame"/>
+    </frameset>
+</frameset>
 </html>

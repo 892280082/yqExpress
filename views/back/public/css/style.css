@@ -1,6 +1,5 @@
 @charset "UTF-8";
 @import url(jquery.mCustomScrollbar.css);
-html{overflow-y:hidden;}
 body{margin:0;height:100%;}
 a:active,a:hover{outline:0}
 button,input,optgroup,select,textarea{color:inherit;font:inherit;margin:0}
@@ -91,7 +90,7 @@ header .rt_nav li .admin_icon:before{content:"U";}
 header .rt_nav li .set_icon:before{content:"S";}
 header .rt_nav li .quit_icon:before{content:"Q";}
 /*aside nav*/
-.lt_aside_nav{width:210px;height:100%;position:absolute;top:70px;left:0;background:#fcfcfc;}
+.lt_aside_nav{width:210px;height:100%;position:absolute;left:0;background:#fcfcfc;}
 .lt_aside_nav h2{text-align:center;border-bottom:1px #b6b6b6 solid;margin:0;height:45px;line-height:45px;background:#efefef;}
 .lt_aside_nav h2 a{display:block;color:#333333;font-size:14px;text-shadow:0 0 2px white;}
 .lt_aside_nav ul{margin-bottom:75px;}
@@ -128,6 +127,7 @@ header .rt_nav li .quit_icon:before{content:"Q";}
 .table tr:hover{background:#f9f9f9;}
 .table td a{color:#19a97b;margin:0 5px;cursor:pointer;}
 .table td .inner_btn{background:#19a97b;color:white;padding:5px 8px;border-radius:2px;}
+.table td .inner_red_btn{background:red;color:white;padding:5px 8px;border-radius:2px;}
 .table td .inner_btn:hover{background:#19a97b;color:#f8f8f8;}
 .table td .cut_title{width:265px;}
 .paging{margin:8px 0;overflow:hidden;text-align:right;}
@@ -205,3 +205,19 @@ header .rt_nav li .quit_icon:before{content:"Q";}
 .tiput input{width:200px;}
 .top1{margin-top:5px;}
 .table td { text-align: center;  }
+
+dl.list1{line-height:38px;margin:15px 0;width: 100%;}
+dl.list1 dt,dl.list1 dd{float:left;display:inline;}
+dl.list1 dt{margin-left:20px;}
+dl.list1 dd .ipu1{width:200px;border: 1px #139667 solid;
+    height: 26px;
+    line-height: 26px;
+    padding: 5px;
+    font-size: 12px;
+    vertical-align: middle;
+}
+dl.list1 dd.tis{width:80px;height:35px;}
+* html .clearfix {height:1%;}
+html[xmlns] .clearfix {display:block;}
+.clearfix:after {content:"";display:block;	height:0;clear:both;visibility:hidden;}
+.clear, .divider {clear:both;}

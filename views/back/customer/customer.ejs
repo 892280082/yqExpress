@@ -131,8 +131,8 @@
             </tr>
             <tr>
                 <td class="tname"><label>用户类型:</label></td>
-                <td class="tiput"><select ng-model="pojo_custom.usertype" name="t_usertype"
-                            ng-options="m.value as m.name for m in userPowers">
+                <td class="tiput"><select  ng-model="pojo_custom.usertype" name="t_usertype"
+                            ng-options="m.usertype as m.name for m in userPowers">
                         <option value="">-- 请选择 --</option>
                     </select>
                 </td>

@@ -9,8 +9,6 @@
     controller('main',['$scope','showCtrl','dataService','FileUploader','pageResult'
         ,function($scope,showCtrl,dataService,FileUploader,pageResult){
             /************************数据模型****************************/
-            //设置用户的权限分配
-            $scope.userPowers = [{name:"普通用户",value:"1"},{name:"名人",value:"2"}]
             //注册或者添加的中间变量
             $scope.pojo_custom = {};
             //保存用户数据数组
@@ -77,6 +75,7 @@
                             bannerno:Number,//模块Banner展示
                             sortno:Number,//排序
                             attentionno:Number,//关注量
+                            status:Boolean
                     };
                 $scope.pojo_custom = _.mapObject($scope.pojo_custom, function(val, key) {
                         if(val == Number){
@@ -87,6 +86,7 @@
                             return "a b c"+" "+_.random(0,1000);
                         }
                 });
+                 $scope.pojo_custom.status = _.random(1,100)%2 == 0;
                 $scope.pojo_custom._userId = "56d6574c841d3fa413325f2e";
                 $scope.pojo_custom.type = "a b c";
                 $scope.pojo_custom.creatTime = new Date();
@@ -95,6 +95,11 @@
                 }
                 this.show.$set("cusadd");
             }
+
+            $scope.dealProStatus = function(cus){
+                cus.status = !cus.status;
+                $scope.saveOrUpdate(cus);
+            }
             /***********************添加或编辑用户页面*****************************/
             //返回用户列表页面
             $scope.toPageList = function(){
@@ -102,7 +107,9 @@
             }
 
             //保存或者更新方法
-            $scope.saveOrUpdate = function(){
+            $scope.saveOrUpdate = function(cus){
+                if(cus)
+                    $scope.pojo_custom = cus;
                 var array = $scope.pojo_custom.type;
                 if(_.isString(array))
                 $scope.pojo_custom.type = array.split(' ');

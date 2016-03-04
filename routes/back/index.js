@@ -4,6 +4,7 @@ var express = require('express'),
 	mongooseUtil = require("../../util/mongooseUtil"),
 	Article = require("../../models/Article"),
 	Product = require("../../models/product"),
+	Active = require("../../models/Active"),
 	router = express.Router();
 
 //进入登陆页面
@@ -40,6 +41,16 @@ router.post('/logoutUser',function(req,res){
 //后台主页面
 router.get('/main',function(req,res){
 	res.render("back/main/index");
+})
+
+//后台头部页面
+router.get('/main_top',function(req,res){
+	res.render("back/main/main_top");
+})
+
+//后台左边引导栏目页面
+router.get('/main_left',function(req,res){
+	res.render("back/main/main_left");
 })
 
 //后台用户管理页面
@@ -227,4 +238,59 @@ router.post('/artUpdateSingle',function(req,res){
 		}
 	})
 })
+
+//进入活动列表页面
+router.get('/toActivePage',function(req,res){
+	res.render("back/active/active");
+})
+
+//获取所有活动信息
+router.post('/actGetAllData',function(req,res){
+	var pojo = req.body.searchPojo;
+	Active.find(pojo,function(err,docs){
+		if(err)
+		{
+			console.log(err);
+			return res.json({ "err":"接口出错"});
+		}
+		res.json({"result":docs,"error":null});
+	})
+})
+
+//保存一项活动信息
+router.post('/actSaveSingle',function(req,res){
+	var active = req.body.pojo;
+	if(!active)
+		return res.json({'err':'缺少活动信息'});
+	mongooseUtil.saveSingle(active,Active,function(err,pojo){
+		!err ? res.json({'result':pojo}) : res.json({'err':'保存错误'});
+	})
+})
+
+//保存一项活动信息
+router.post('/actRemoveSingle',function(req,res){
+	var _id = req.body._id;
+	if(!_id)
+		res.json({ "err":'no _id param!' });
+	mongooseUtil.removeSingleById(_id,Active,function(err,info){
+		!err ? res.json({ 'result':info }):res.json({ 'err':err });
+	});
+})
+
+//更新活动信息
+//更新文章信息
+router.post('/actUpdateSingle',function(req,res){
+	var pro = req.body.updatePojo;
+	if(!pro || !pro._id)
+		res.json({"err":"no active param!"});
+
+	mongooseUtil.updateSingleById(pro,Active,function(err,info){
+		if(err){
+			return res.json({ "err":"更新错误"});
+		}else{
+			return res.json({ "result":info });
+		}
+	})
+})
+
 module.exports = router;

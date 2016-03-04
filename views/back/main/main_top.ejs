@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>后台管理系统</title>
+    <meta name="author" content="DeathGhost" />
+    <% include ../include/baseLink %>
+    <script type="text/javascript" language="javascript">
+        function iFrameHeight() {
+            var ifm= document.getElementById("contentframe");
+            var subWeb = document.frames ? document.frames["contentframe"].document :
+                    ifm.contentDocument;
+            if(ifm != null && subWeb != null) {
+                ifm.height = subWeb.body.scrollHeight;
+            }
+        }
+        //退出登录
+        function logout(){
+            $.post("/back/logoutUser",{},function(data){
+                if(data.result){
+                    window.location.href="/back/login"
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+<header>
+    <h1><img src="/back/public/images/admin_logo.png"/></h1>
+    <ul class="rt_nav">
+        <li><a href="" target="_blank" class="website_icon">站点首页</a></li>
+        <li><a href="#" class="admin_icon">DeathGhost</a></li>
+        <li><a href="#" class="set_icon">账号设置</a></li>
+        <li><a href="#" onclick="logout();" class="quit_icon">安全退出</a></li>
+    </ul>
+</header>
+</body>
+</html>

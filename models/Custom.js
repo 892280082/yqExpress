@@ -1,4 +1,3 @@
-
 /****************************************************************************************
  * @desc 用户表
  * @date 2016/2/25
@@ -30,11 +29,11 @@ var mongoose = require('mongoose'),
 
 
 var customSchema = new Schema({
-    name:String,//用户姓名
+    name:{ type:String, unique: true },//用户姓名
     job:String,//用户职业
     password:String,//密码
     introduce:String,//用户介绍
-    email:String,//邮件
+    email:{ type:String, unique: true },//邮件
     postAddress:String,//邮编
     realName:String,//真实姓名
     provice:String,//省份
@@ -54,8 +53,8 @@ var customSchema = new Schema({
     coverimgurl:String,//封面url
     birthday:{type:Date,default:null},//生日
     educational:String,//学历
-    qq:String,//QQ
-    weibo:String,//微博
+    qq:{ type:String, unique: true },//QQ
+    weibo:{ type:String, unique: true },//微博
 
     articles:[Schema.Types.ObjectId],//用户文章
     productions:[Schema.Types.ObjectId],//创品数量
@@ -76,12 +75,12 @@ function crptoUserPassword(password){
  */
 customSchema.methods.saveUser = function(callback){
     var customPojo = this;
-    then(function(next){
+    then(function(next){ //检查用户名
         custom.findOne({
             "name":customPojo.name
         },function(err,doc){
             if(doc)
-                return callback("用户已经存在");
+                return callback("该用户名已注册");
             next(err);
         })
     }).then(function(next){
@@ -201,8 +200,6 @@ customSchema.statics.pullProduct = function(_cusId,_proId,callback){
  * @param callback {Function} - 回调函数
  */
 customSchema.statics.pushAttentions = function(_selfId,_otherId,callback){
-    _selfId = objectid(_selfId);
-    _otherId = objectid(_otherId);
     mongooseUtil.dealAllCollectionId({
         parentId:_selfId,
         collecname:"attentions",

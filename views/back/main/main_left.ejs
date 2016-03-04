@@ -1,40 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>后台管理系统</title>
+    <meta name="author" content="DeathGhost" />
+    <% include ../include/baseLink %>
+    <script type="text/javascript">
+    </script>
+</head>
+<body>
 <aside class="lt_aside_nav content mCustomScrollbar">
-    <h2><a href="/back/include/main_demo.html" target="contentframe">demo页</a></h2>
+    <h2><a href="/back/include/main_demo.html" target="mainFrame">demo页</a></h2>
     <ul class="sub-menus">
         <li>
             <dl>
                 <dt class="subparent">用户信息</dt>
                 <!--当前链接则添加class:active-->
-                <dd><a href="/back/toCusDeal"  target="contentframe" class="active">用户列表</a></dd>
+                <dd><a href="/back/toCusDeal"  target="mainFrame" class="active">用户列表</a></dd>
             </dl>
         </li>
         <li>
             <dl>
                 <dt class="subparent">创品信息</dt>
-                <dd><a href="/back/toProducs"  target="contentframe">创品列表</a></dd>
+                <dd><a href="/back/toProducs"  target="mainFrame">创品列表</a></dd>
             </dl>
         </li>
         <li>
             <dl>
                 <dt class="subparent">文章管理</dt>
-                <dd><a href="/back/toArticlePage"  target="contentframe">文章列表</a></dd>
+                <dd><a href="/back/toArticlePage"  target="mainFrame">文章列表</a></dd>
             </dl>
         </li>
         <li>
             <dl>
-                <dt class="subparent">基础设置</dt>
-                <dd><a href="#">站点基础设置</a></dd>
-                <dd><a href="#">SEO设置</a></dd>
-                <dd><a href="#">SQL语句查询</a></dd>
-                <dd><a href="#">模板管理</a></dd>
+                <dt class="subparent">活动管理</dt>
+                <dd><a href="/back/toActivePage" target="mainFrame">活动列表</a></dd>
             </dl>
         </li>
         <li>
             <dl>
-                <dt class="subparent">营销管理</dt>
-                <dd><a href="#">订阅列表</a></dd>
-                <dd><a href="#">邮件群发</a></dd>
-                <dd><a href="#">优惠打折</a></dd>
+                <dt class="subparent">管理员管理</dt>
             </dl>
         </li>
         <li>
@@ -53,3 +58,6 @@
         </li>
     </ul>
 </aside>
+</body>
+</html>
+
