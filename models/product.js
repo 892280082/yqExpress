@@ -7,6 +7,8 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     objectid = require('objectid');
 
+    mongoose.connect('mongodb://localhost/zwzhe');
+
 var productSchema = new Schema({
     _userId:Schema.Types.ObjectId,//用户Id
     title:String,//产品名称
@@ -34,3 +36,5 @@ var productSchema = new Schema({
 
 var  product = mongoose.model("products", productSchema);
 module.exports = product;
+
+

@@ -60,10 +60,21 @@ router.get('/toCusDeal',function(req,res){
 
 //获取所有用户信息
 router.post('/cusGetAllData',function(req,res){
-	var pojo = req.body.searchPojo;
-	Custom.find(pojo,function(err,docs){
-		err && res.json({"result":false,error:err});
-		res.json({"result":docs,"error":null});
+	//Custom.find(pojo,function(err,docs){
+	//	err && res.json({"result":false,error:err});
+	//	res.json({"result":docs,"error":null});
+	//})
+	mongooseUtil.pagination({
+		query:req.body.query,
+		limit:req.body.limit,
+		skip:req.body.skip,
+		model:Custom,
+	},function(err,result){
+		if(err) {
+			res.json({err: err});
+		}else{
+			res.json({result:result});
+		}
 	})
 })
 
@@ -278,7 +289,6 @@ router.post('/actRemoveSingle',function(req,res){
 })
 
 //更新活动信息
-//更新文章信息
 router.post('/actUpdateSingle',function(req,res){
 	var pro = req.body.updatePojo;
 	if(!pro || !pro._id)

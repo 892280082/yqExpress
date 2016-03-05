@@ -26,13 +26,8 @@
 
             //初始获取所有用户信息
             function getAllCus(search){
-             dataService.getAllCustomData(search)
-                .success(function(data){
-                        if(data.result){
-                            $scope.array_custom = pageResult.$init(data.result,15);
-                        }
-                }).error(function(data){
-                        console.log(data);
+                pageResult.$loadInit({url:"/back/cusGetAllData",limit:10},function(err,_this){
+                    $scope.array_custom = _this;
                 })
             }
             getAllCus();

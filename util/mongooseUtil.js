@@ -1,4 +1,5 @@
 var objectid = require("objectid"),
+    _ = require('underscore'),
     then = require("thenjs");
 /**
  * @desc mongoose 工具
@@ -13,6 +14,7 @@ var objectid = require("objectid"),
  * 5.saveSingle -保存单个Pojo
  * 6.removeSingleById -通过ID删除单个POJO
  * 7.updateSingleById -通过ID更新单个POJO
+ * 8.pagination -分页工具
  */
 
 
@@ -237,9 +239,11 @@ exports.saveSingle = function(pojo,Dao,callback){
  * @desc 删除单个信息
  * @param _id {String} -m id
  * @param Dao {Object} - mongoose model
- * @param callback {Function} 回调函数
+ * @param callback - 回调函数 call{total:'共有多少条记录',docs:'查询的结果集合'}
  */
 exports.removeSingleById = function(_id,Dao,callback){
+    if(!_.isString(_id))
+        callback('_id type error');
     Dao.remove({"_id":_id},function(err,info){
         callback(err,info);
     })
@@ -253,10 +257,65 @@ exports.removeSingleById = function(_id,Dao,callback){
  */
 exports.updateSingleById = function(pojo,Dao,callback){
     if(!pojo._id)
-        return callback('mongooseUtil->updateSingleById ERRIR: no id param ');
+        return callback('mongooseUtil->updateSingleById ERRIR: no id param  ');
+    if(!_.isString(pojo._id))
+        return callback('mongooseUtil->updateSingleById ERRIR:  id type Error');
     var _id = pojo._id;
     delete  pojo._id;
     Dao.update({"_id":_id},pojo,function(err,info){
         return callback(err,info);
+    })
+}
+
+/**
+ * @desc mongoose 分页工具
+ * @param params {{ query:Object,skip:Number?,limit:Number?,model:Object }}
+ * @param callback -回调函数  callback{total:'查询的数量',docs:'查询的文档集合','skip':'跳过多少页','limit':'限制分页条数'}
+ * @example
+     var serachPojo = { title:"tit", type:"地方"}
+     var mongooseUtil = require('../util/mongooseUtil');
+     var condition = {'title':{$regex: serachPojo.title, $options:'i'}}
+     mongooseUtil.pagination({
+        query:condition,
+        model:product,
+        limit:2
+    },function(err,result){
+        console.log(result);
+    })
+ */
+exports.pagination = function(params,callback){
+    var model = params.model;
+    if(!model)
+        callback('mongooseUtil ->pagination :   no set Dao');
+
+    var condition = params.query || {},
+        skip = params.skip || 0,
+        limit = params.limit || 200;
+
+    var query = model.find({});
+    _.mapObject(condition,function(value,key){
+        query.where(key,value);
+    });
+
+    query.skip(skip);
+    query.limit(limit);
+
+    then(function(next){
+        query.exec(function (err, docs) {
+            next(err,docs);
+        });
+    }).then(function(next,docs){
+        query.limit(0);
+        query.count().exec(function(err,length){
+            return callback(err,{
+                total:length,
+                docs:docs,
+                skip:skip,
+                limit:limit
+            })
+        });
+    }).fail(function(next,err){
+        err && console.log(err);
+        return callback('mongooseUtil ->pagination :   search Dao fail');
     })
 }
