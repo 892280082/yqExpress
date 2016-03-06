@@ -7,7 +7,6 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     objectid = require('objectid');
 
-    mongoose.connect('mongodb://localhost/zwzhe');
 
 var productSchema = new Schema({
     _userId:Schema.Types.ObjectId,//用户Id

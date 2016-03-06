@@ -25,7 +25,7 @@ function ArrayRemoveHead(array,size){
 
 //删除数组尾部个数
 function ArrayRemovePop(array,size){
-    return array.splice(array.length-10,10);
+    return array.splice(array.length-10,size);
 }
 
 //合并数组 array1~array2的顺序
@@ -42,10 +42,10 @@ angular.module("service.pageResult",[])
         this._server_url ="";
         this._server_pojo = {
             query:{},
-            skip:0,
+            skip:1,
             limit:10
         };
-        this.$pageSize = 5;//页面显示数据条数
+        this.$pageSize = 10;//页面显示数据条数
         this.$totalSize = 0;//总共页数
         this.$curPage = 1;//当前页
         this.$pageCount = 0;//总页数
@@ -64,6 +64,7 @@ angular.module("service.pageResult",[])
             this._update();
         };
         this._update = function(){
+            var _this = this;
             //判断上一页和下一页的状态
             this.$curPage <= 1 ? this.$last = false
                                : this.$last = true;
@@ -77,8 +78,16 @@ angular.module("service.pageResult",[])
             //判断 this._readCache 长度大于150 则删除数组尾部的pageSize单位
 
             //判断 this._nextCache 长度小于等于pageSize 则再请求服务器 将数据放入缓存尾部
-
-
+            if(this.$curPage <= this.$pageCount && this._nextCache.length <= this.$pageSize*2 ){
+                $http.post(this._server_url,this._server_pojo)
+                .success(function(data){
+                    data.err && console.log(data.err);
+                    _this._server_pojo.skip++;
+                    _this._nextCache = concactArray(_this._nextCache,data.result.docs);
+                }).error(function(data){
+                    console.log('与后台请求错误');
+                })
+            }
         };
         this.$loadInit = function(param,callback){
             if(param.query)
@@ -89,9 +98,13 @@ angular.module("service.pageResult",[])
                 this._server_pojo.limit = param.limit;
             this._server_url = param.url;
             var _this = this;
-            $http.post(this._server_url,this._server_pojo)
-                .success(function(data){
+            $http.post(this._server_url,{
+                query:this._server_pojo.query,
+                skip:this._server_pojo.skip,
+                limit:this._server_pojo.limit*4
+            }).success(function(data){
                     data.err && console.log(data.err);
+                    _this._server_pojo.skip++;
 
                     _this._nextCache = data.result.docs;
                     _this.$array = ArrayRemoveHead(_this._nextCache,_this.$pageSize);

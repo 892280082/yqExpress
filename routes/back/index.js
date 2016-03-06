@@ -67,7 +67,7 @@ router.post('/cusGetAllData',function(req,res){
 	mongooseUtil.pagination({
 		query:req.body.query,
 		limit:req.body.limit,
-		skip:req.body.skip,
+		skip:req.body.skip*req.body.limit,
 		model:Custom,
 	},function(err,result){
 		if(err) {

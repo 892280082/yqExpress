@@ -238,3 +238,17 @@ module.exports = custom;
 
 
 /***********************************************************/
+
+//mongoose.connect('mongodb://localhost/zwzhe');
+//
+//for(var i=0;i<200;i++){
+//    var a = new custom({
+//        name:"name"+  ~~(Math.random()*10000),
+//        email:"email"+  ~~(Math.random()*10000),
+//        qq:"qq"+  ~~(Math.random()*10000),
+//        weibo:"weibo"+  ~~(Math.random()*10000),
+//    })
+//    a.save(function(err){
+//        console.log(err);
+//    });
+//}
