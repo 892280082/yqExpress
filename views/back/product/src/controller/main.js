@@ -7,8 +7,8 @@
     var _ = require("underscore");
     var $ = require("jquery");
     angular.module("controller.main",["ng.ueditor"]).
-    controller('main',['$scope','showCtrl','dataService','FileUploader','pageResult','userPageResult'
-        ,function($scope,showCtrl,dataService,FileUploader,pageResult,userPageResult){
+    controller('main',['$scope','showCtrl','dataService','FileUploader','pageResult','userPageResult',"$window"
+        ,function($scope,showCtrl,dataService,FileUploader,pageResult,userPageResult,$window){
             /************************数据模型****************************/
             //注册或者添加的中间变量
             $scope.pojo_custom = {};
@@ -71,6 +71,9 @@
 
             //删除方法
             $scope.removeCustom = function(cus){
+                var tFlag = $window.confirm("真的要添加吗");
+                if(!tFlag)
+                    return false;
                 dataService.removeCustomer(cus._id,cus._userId)
                     .success(function(data){
                         if(data.err){

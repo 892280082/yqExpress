@@ -6,8 +6,8 @@
  */
     var _ = require("underscore");
     angular.module("controller.main",["ng.ueditor"]).
-    controller('main',['$scope','showCtrl','dataService','FileUploader','pageResult'
-        ,function($scope,showCtrl,dataService,FileUploader,pageResult){
+    controller('main',['$scope','showCtrl','dataService','FileUploader','pageResult',"$window"
+        ,function($scope,showCtrl,dataService,FileUploader,pageResult,$window){
             /************************数据模型****************************/
             //设置用户的权限分配
             $scope.userPowers = [{name:"普通用户",value:"1"},{name:"名人",value:"2"}]
@@ -46,6 +46,9 @@
 
             //删除方法
             $scope.removeCustom = function(cus){
+                var tFlag = $window.confirm("真的要添加吗");
+                if(!tFlag)
+                    return false;
                 dataService.removeCustomer(cus._id,cus._userId)
                     .success(function(data){
                         if(data.err){
