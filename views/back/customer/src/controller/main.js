@@ -17,7 +17,7 @@
             //保存用户数据数组
             $scope.array_custom = [];
             //查询Pojo
-            $scope.search_custom = {name:""};
+            $scope.search_custom = {"$$_name":"",usertype:""};
             /*********************注册show service**************************/
             $scope.show = showCtrl;
             $scope.show.$regist('cuslist',['cuslist'],true);
@@ -25,16 +25,17 @@
             /***********************分类列表页面************************/
 
             //初始获取所有用户信息
-            function getAllCus(search){
-                pageResult.$loadInit({url:"/back/cusGetAllData",limit:10},function(err,_this){
-                    $scope.array_custom = _this;
-                })
-            }
-            getAllCus();
+            pageResult.$loadInit({
+                                url:"/back/cusGetAllData",
+                                pageSize:15,
+                                query:{},
+            },function(err,result){
+                $scope.array_custom = result;
+            })
 
             //查询方法
             $scope.search = function(){
-                getAllCus($scope.search_custom);
+                $scope.array_custom.$search($scope.search_custom);
             }
 
             //删除方法
@@ -114,7 +115,7 @@
                     dataService.saveCustomer($scope.pojo_custom)
                     .success(function(data){
                         if(!data.err){
-                            $scope.array_custom.$push(data.result);
+                            $scope.array_custom.$add(data.result);
                             $scope.show.$set('cuslist');
                         }else{
                             alert(data.result);

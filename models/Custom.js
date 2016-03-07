@@ -239,16 +239,30 @@ module.exports = custom;
 
 /***********************************************************/
 
-//mongoose.connect('mongodb://localhost/zwzhe');
-//
-//for(var i=0;i<200;i++){
-//    var a = new custom({
-//        name:"name"+  ~~(Math.random()*10000),
-//        email:"email"+  ~~(Math.random()*10000),
-//        qq:"qq"+  ~~(Math.random()*10000),
-//        weibo:"weibo"+  ~~(Math.random()*10000),
-//    })
-//    a.save(function(err){
-//        console.log(err);
-//    });
-//}
+// mongoose.connect('mongodb://localhost/zwzhe');
+
+
+
+// (function(i){
+//     var _arg = arguments;
+//     if(i<10000){
+//         var a = new custom({
+//                    name:"name"+  1000+i,
+//                    email:"email"+  ~~(Math.random()*100000),
+//                    qq:"qq"+  ~~(Math.random()*100000),
+//                    weibo:"weibo"+  ~~(Math.random()*100000),
+//                 })
+//        a.save(function(err){
+//             !err && console.log("save number:"+i);
+//              _arg.callee(i+1);
+//        });
+//     }else{
+//         console.log(" save finshed");
+//     }
+// })(9000);
+
+
+
+// custom.remove(null,function(err){
+//     !err && console.log("删除成功");
+// })

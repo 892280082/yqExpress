@@ -18,7 +18,12 @@
     </div>
     <section>
         <label>姓名:</label>
-        <input type="text" class="textbox textbox_295"  ng-model="search_custom.name" />
+        <input type="text" class="textbox textbox_295"  ng-model="search_custom.$$_name" />
+        <label>用户类型:</label>
+            <select  ng-model="search_custom.usertype" name="t_usertype"
+                                   ng-options="m.usertype as m.name for m in userPowers">
+                <option value="">-- 请选择 --</option>
+            </select>
         <input type="button" value="查询"  ng-click="search();" class="group_btn"/>
     </section>
     <section>
@@ -66,8 +71,7 @@
             <!--<a>1</a>-->
             <a>{{ array_custom.$curPage }}/{{ array_custom.$pageCount }}</a>
             <a ng-show="array_custom.$next"  ng-click="array_custom.$toNext()">下一页</a>
-            <a href="">当前页:{{ array_custom.$curPage }}</a>
-            <a>总条数:{{ array_custom.$totalPage }}</a>
+            <a>总条数:{{ array_custom.$totalSize }}</a>
         </aside>
     </section>
 </script>
@@ -208,7 +212,7 @@
                 <td class="tname"><label>大图:</label></td>
                 <td class="tiput">
                     <input type="file" nv-file-select="" uploader="uploader_bigimgurl"  name="t_bigimgurl" />
-                   <img ng-src="{{ pojo_custom.bigimgurl}}" width="160px" height="140px" ng-if="pojo_custom.bigimgurl"/>
+                    <img ng-src="{{ pojo_custom.bigimgurl}}" width="160px" height="140px" ng-if="pojo_custom.bigimgurl"/>
                 </td>
                 <td class="tip"><span class="errorTips" ng-show="subForm.t_bigimgurl.$error.required">请输入大图</span></td>
             </tr>

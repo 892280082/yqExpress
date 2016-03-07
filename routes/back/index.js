@@ -60,21 +60,15 @@ router.get('/toCusDeal',function(req,res){
 
 //获取所有用户信息
 router.post('/cusGetAllData',function(req,res){
-	//Custom.find(pojo,function(err,docs){
-	//	err && res.json({"result":false,error:err});
-	//	res.json({"result":docs,"error":null});
-	//})
 	mongooseUtil.pagination({
 		query:req.body.query,
 		limit:req.body.limit,
 		skip:req.body.skip*req.body.limit,
+		sort:req.body.sort,
 		model:Custom,
 	},function(err,result){
-		if(err) {
-			res.json({err: err});
-		}else{
-			res.json({result:result});
-		}
+		!err ? res.json({result:result})
+			 : res.json({err: err});
 	})
 })
 

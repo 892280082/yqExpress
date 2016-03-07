@@ -269,7 +269,7 @@ exports.updateSingleById = function(pojo,Dao,callback){
 
 /**
  * @desc mongoose 分页工具
- * @param params {{ query:Object,skip:Number?,limit:Number?,model:Object }}
+ * @param params {{ query:Object,skip:Number?,limit:Number?,model:Object,sort:Object }}
  * @param callback -回调函数  callback{total:'查询的数量',docs:'查询的文档集合','skip':'跳过多少页','limit':'限制分页条数'}
  * @example
      var serachPojo = { title:"tit", type:"地方"}
@@ -290,7 +290,8 @@ exports.pagination = function(params,callback){
 
     var condition = params.query || {},
         skip = params.skip || 0,
-        limit = params.limit || 200;
+        limit = params.limit || 200,
+        sort = params.sort || {'_id':-1};
 
     var query = model.find({});
     _.mapObject(condition,function(value,key){
@@ -299,6 +300,7 @@ exports.pagination = function(params,callback){
 
     query.skip(skip);
     query.limit(limit);
+    query.sort(sort);
 
     then(function(next){
         query.exec(function (err, docs) {
