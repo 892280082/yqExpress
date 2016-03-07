@@ -20,4 +20,8 @@ angular.module('service.dataService',[]).service("dataService",["$http"
             this.updateCustomer = function(cus){
                 return $http.post('/back/proUpdateSingle',{"updatePojo":cus});
             };
+            //获取用户信息接口
+            this.getAllUserData = function(searchPojo){
+                return $http.post('/back/cusGetAllData',{"searchPojo":searchPojo});
+            };
     }]);

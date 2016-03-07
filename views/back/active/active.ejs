@@ -18,7 +18,7 @@
     </div>
     <section>
         <label>姓名:</label>
-        <input type="text" class="textbox textbox_295"  ng-model="search_custom.name" />
+        <input type="text" class="textbox textbox_295"  ng-model="search_custom.$$_title" />
         <input type="button" value="查询"  ng-click="search();" class="group_btn"/>
     </section>
     <section>
@@ -66,10 +66,11 @@
             </tr>
         </table>
         <aside class="paging">
-            <a ng-show="array_custom.$toLast"  ng-click="array_custom.$last()">上一页</a>
+            <a ng-show="array_custom.$last"  ng-click="array_custom.$toLast()">上一页</a>
             <!--<a>1</a>-->
             <a>{{ array_custom.$curPage }}/{{ array_custom.$pageCount }}</a>
-            <a ng-show="array_custom.$toNext"  ng-click="array_custom.$next()">下一页</a>
+            <a ng-show="array_custom.$next"  ng-click="array_custom.$toNext()">下一页</a>
+            <a>总条数:{{ array_custom.$totalSize }}</a>
         </aside>
     </section>
 </script>

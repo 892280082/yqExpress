@@ -10,7 +10,7 @@ require("../../lib/jsExtend.js");
 /***加载显示插件****/
 require("../../lib/src/service/angular-showCtrl.js");
 /**加载分页插件*/
-require("../../lib/src/service/angular-pageResult.js");
+require("../../lib/src/service/angular_pageResult.js");
 /**加载ueditor插件*/
 require("../../lib/src/directive/angular-ueditor.js");
 ///**加载上传插件*/
@@ -25,7 +25,7 @@ var app = angular.module('myApp',[
     'angularFileUpload',
     'service.showCtrl',
     'service.dataService',
-    'service.pageResult',
+    'service_pageResult',
     'controller.main'
     ]);
 

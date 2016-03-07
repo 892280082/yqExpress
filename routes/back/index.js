@@ -122,14 +122,15 @@ router.get('/toProducs',function(req,res){
 
 //获取所有创品信息接口
 router.post('/proGetAllData',function(req,res){
-	var pojo = req.body.searchPojo;
-	Product.find(pojo,function(err,docs){
-		if(err)
-		{
-			console.log(err);
-			return res.json({ "err":"接口出错","result":null });
-		}
-		res.json({"result":docs,"error":null});
+	mongooseUtil.pagination({
+		query:req.body.query,
+		limit:req.body.limit,
+		skip:req.body.skip*req.body.limit,
+		sort:req.body.sort,
+		model:Product,
+	},function(err,result){
+		!err ? res.json({result:result})
+			 : res.json({err: err});
 	})
 })
 
@@ -187,14 +188,15 @@ router.get('/toArticlePage',function(req,res){
 
 //获取所有文章信息
 router.post('/artGetAllData',function(req,res){
-	var pojo = req.body.searchPojo;
-	Article.find(pojo,function(err,docs){
-		if(err)
-		{
-			console.log(err);
-			return res.json({ "err":"接口出错"});
-		}
-		res.json({"result":docs,"error":null});
+	mongooseUtil.pagination({
+		query:req.body.query,
+		limit:req.body.limit,
+		skip:req.body.skip*req.body.limit,
+		sort:req.body.sort,
+		model:Article,
+	},function(err,result){
+		!err ? res.json({result:result})
+			 : res.json({err: err});
 	})
 })
 
@@ -251,14 +253,15 @@ router.get('/toActivePage',function(req,res){
 
 //获取所有活动信息
 router.post('/actGetAllData',function(req,res){
-	var pojo = req.body.searchPojo;
-	Active.find(pojo,function(err,docs){
-		if(err)
-		{
-			console.log(err);
-			return res.json({ "err":"接口出错"});
-		}
-		res.json({"result":docs,"error":null});
+	mongooseUtil.pagination({
+		query:req.body.query,
+		limit:req.body.limit,
+		skip:req.body.skip*req.body.limit,
+		sort:req.body.sort,
+		model:Active,
+	},function(err,result){
+		!err ? res.json({result:result})
+			 : res.json({err: err});
 	})
 })
 

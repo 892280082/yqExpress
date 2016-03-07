@@ -6,8 +6,8 @@
  */
     var _ = require("underscore");
     angular.module("controller.main",["ng.ueditor"]).
-    controller('main',['$scope','showCtrl','dataService','FileUploader','pageResult'
-        ,function($scope,showCtrl,dataService,FileUploader,pageResult){
+    controller('main',['$scope','showCtrl','dataService','FileUploader','pageResult',"userPageResult"
+        ,function($scope,showCtrl,dataService,FileUploader,pageResult,userPageResult){
             /************************数据模型****************************/
             //设置用户的权限分配
             $scope.userPowers = [{name:"普通用户",value:"1"},{name:"名人",value:"2"}]
@@ -16,7 +16,7 @@
             //保存用户数据数组
             $scope.array_custom = [];
             //查询Pojo
-            $scope.search_custom = {name:""};
+            $scope.search_custom = {"$$_title":""};
              //文章类型
             $scope.articleStatus = [{name:"未通过",value:0},
                                    {name:"待审核",value:1},
@@ -28,22 +28,19 @@
             $scope.show.$regist('cusadd',['cusadd']);
             /***********************分类列表页面************************/
 
+            /************************查询用户*****************************/
             //初始获取所有用户信息
-            function getAllCus(search){
-             dataService.getAllCustomData(search)
-                .success(function(data){
-                        if(data.result){
-                            $scope.array_custom = pageResult.$init(data.result,30);
-                        }
-                }).error(function(data){
-                        console.log(data);
-                })
-            }
-            getAllCus();
+            pageResult.$loadInit({
+                                url:"/back/artGetAllData",
+                                pageSize:15,
+                                query:{},
+            },function(err,result){
+                $scope.array_custom = result;
+            })
 
             //查询方法
             $scope.search = function(){
-                getAllCus($scope.search_custom);
+                $scope.array_custom.$search($scope.search_custom);
             }
 
             //删除方法
@@ -60,6 +57,8 @@
                     })
             }
 
+            /************************查询用户*****************************/
+            
             //进入添加页面
             $scope.changeIntoEdit = function(custom){
                 if(!custom){
@@ -118,7 +117,7 @@
                     dataService.saveCustomer($scope.pojo_custom)
                     .success(function(data){
                         if(!data.err){
-                            $scope.array_custom.$push(data.result);
+                            $scope.array_custom.$add(data.result);
                             $scope.show.$set('cuslist');
                         }else{
                             alert(data.err);
@@ -137,6 +136,38 @@
                         })
                 }
             }
+
+            /****************************查询用户**********************************/
+            //用户pojo
+            $scope.array_user = [];
+            $scope.search_user = {"$$_name":"","usertype":""};
+            $scope.userPowers = [{name:"普通用户",usertype:1},{name:"名人",usertype:2}];
+
+            //打开查询用户界面
+            $scope.chooseUser = function(){
+                //初始获取所有用户信息
+                 $(".pop_bg").fadeIn();
+            }
+
+            userPageResult.$loadInit({
+                                url:"/back/cusGetAllData",
+                                pageSize:12,
+                                query:{},
+            },function(err,result){
+                $scope.array_user = result;
+            })
+            //查询方法
+            $scope.searchUser = function(){
+                $scope.array_user.$search($scope.search_user);
+            }
+
+            $scope.doChooseUser = function(cus){
+                $scope.pojo_custom.authorName = cus.name;
+                $scope.pojo_custom._userId = cus._id;
+                $(".pop_bg").fadeOut();
+            }
+
+            /**************************************************************************/
             /**************************上传配置**************************/
              //配置大图图像上传
             var uploader = $scope.uploader = new FileUploader({

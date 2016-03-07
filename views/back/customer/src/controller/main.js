@@ -17,7 +17,7 @@
             //保存用户数据数组
             $scope.array_custom = [];
             //查询Pojo
-            $scope.search_custom = {"$$_name":"",usertype:""};
+            $scope.search_custom = {"$$_title":"",usertype:""};
             /*********************注册show service**************************/
             $scope.show = showCtrl;
             $scope.show.$regist('cuslist',['cuslist'],true);

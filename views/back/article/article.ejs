@@ -42,7 +42,8 @@
             </tr>
             <tr ng-repeat="cus in array_custom.$array">
                 <td>{{ $index + 1}}</td>
-                <td  width="10%"  ng-click="changeIntoEdit(cus);">{{ cus.title }}</td>
+                <td width="10%"  style="cursor: pointer;" 
+                    ng-click="changeIntoEdit(cus);">{{ cus.title }}</td>
                 <td width="15%">
                     <span ng-repeat="type in cus.keyword">
                         <span>{{type}}</span>&nbsp;&nbsp;
@@ -65,10 +66,11 @@
             </tr>
         </table>
         <aside class="paging">
-            <a ng-show="array_custom.$toLast"  ng-click="array_custom.$last()">上一页</a>
+            <a ng-show="array_custom.$last"  ng-click="array_custom.$toLast()">上一页</a>
             <!--<a>1</a>-->
             <a>{{ array_custom.$curPage }}/{{ array_custom.$pageCount }}</a>
-            <a ng-show="array_custom.$toNext"  ng-click="array_custom.$next()">下一页</a>
+            <a ng-show="array_custom.$next"  ng-click="array_custom.$toNext()">下一页</a>
+            <a>总条数:{{ array_custom.$totalSize }}</a>
         </aside>
     </section>
 </script>
@@ -102,9 +104,12 @@
             </tr>
             <tr>
                 <td class="tname"><label>文章作者:</label></td>
-                <td class="tiput"><input type="text"  ng-model="pojo_custom._userId"  name="t_guige"
-                           class="textbox" required /><br/></td>
-                <td><span class="errorTips" ng-show="subForm._userId.$error.required">请输入作者</span></td>
+                <td class="tiput"><input type="text"  
+                                        ng-model="pojo_custom.authorName"  
+                                        name="t_authorName"
+                                        ng-click="chooseUser();"
+                                        class="textbox" required /><br/></td>
+                <td><span class="errorTips" ng-show="subForm.t_authorName.$error.required">请输入作者</span></td>
                 <td><label>文章状态:</label></td>
                 <td><select ng-model="pojo_custom.status" name="t_status"
                             ng-options="m.value as m.name for m in articleStatus">
@@ -184,5 +189,82 @@
         </form>
     </section>
 </script>
+
+<!--弹出框效果-->
+<script>
+    $(document).ready(function(){
+        //弹出文本性提示框
+        $("#showPopTxt").click(function(){
+            $(".pop_bg").fadeIn();
+        });
+        // //弹出：确认按钮
+        // $(".trueBtn").click(function(){
+        //     alert("你点击了确认！");//测试
+        //     $(".pop_bg").fadeOut();
+        // });
+        //弹出：取消或关闭按钮
+        $(".falseBtn").click(function(){
+            $(".pop_bg").fadeOut();
+        });
+    });
+</script>
+<section class="pop_bg">
+    <div class="pop_cont" style="width: 950px;height: 650px;left: 26%">
+        <!--title-->
+        <div class="">
+        <h3>选定用户<input style="float: right;"  type="button" value="关闭" class="input_btn falseBtn"/></h3>
+        </div>
+        <!--content-->
+        <div class="pop_cont_input">
+        <section style="text-align: left;">
+            <label style="width: 100px;">用户名:</label>
+            <input type="text" class="textbox textbox_295" 
+                    style="width: 200px;"
+                    ng-change="searchUser();"
+                   ng-model="search_user.$$_name" />
+           <label>用户类型:</label>
+            <select  ng-model="search_user.usertype" 
+                     ng-change="searchUser();"
+                     ng-options="m.usertype as m.name for m in userPowers">
+                <option value="">-- 请选择 --</option>
+            </select>
+            <input type="button" value="查询"  ng-click="searchUser();" class="group_btn"/>
+        </section>
+        <table class="table">
+            <tr>
+                <th>ID</th>
+                <th>名称</th>
+                <th>真实姓名</th>
+                <th>性别</th>
+                <th>用户身份</th>
+                <th>创品数量</th>
+                <th>操作</th>
+            </tr>
+            <tr ng-repeat="cus in array_user.$array">
+                <td>{{ $index + 1}}</td>
+                <td width="20%" ng-click="doChooseUser(cus);" 
+                style="cursor: pointer;" >{{ cus.name }}</td>
+                <td width="20%" >{{ cus.realName }}</td>
+                <td width="7%" >{{ cus.sex ? '女' : '男' }}</td>
+                <td width="15%" >
+                    <span ng-show="cus.usertype == 1">普通人</span>
+                    <span ng-show="cus.usertype == 2">名人</span>
+                </td>
+                <td width="7%" >{{ cus.productions.length }}</td>
+                <td>
+                    <a class="inner_btn"  ng-click="doChooseUser(cus);"  href="#">确定</a>
+                </td>
+            </tr>
+            </table>
+        </div>
+        <aside class="paging">
+            <a ng-show="array_user.$last"  ng-click="array_user.$toLast()">上一页</a>
+            <!--<a>1</a>-->
+            <a>{{ array_user.$curPage }}/{{ array_user.$pageCount }}</a>
+            <a ng-show="array_user.$next"  ng-click="array_user.$toNext()">下一页</a>
+            <a>总条数:{{ array_user.$totalSize }}</a>
+        </aside>
+    </div>
+</section>
 </body>
 </html>

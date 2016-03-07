@@ -16,7 +16,7 @@
             //保存用户数据数组
             $scope.array_custom = [];
             //查询Pojo
-            $scope.search_custom = {name:""};
+            $scope.search_custom = {"$$_title":""};
              //文章类型
             $scope.articleStatus = [{name:"未通过",value:0},
                                    {name:"待审核",value:1},
@@ -27,23 +27,22 @@
             $scope.show.$regist('cuslist',['cuslist'],true);
             $scope.show.$regist('cusadd',['cusadd']);
             /***********************分类列表页面************************/
-            //初始获取所有用户信息
-            function getAllCus(search){
-             dataService.getAllCustomData(search)
-                .success(function(data){
-                        if(data.result){
-                            $scope.array_custom = pageResult.$init(data.result,30);
-                        }
-                }).error(function(data){
-                        console.log(data);
-                })
-            }
-            getAllCus();
+
+
+            //初始获取所有活动信息
+            pageResult.$loadInit({
+                                url:"/back/actGetAllData",
+                                pageSize:15,
+                                query:{},
+            },function(err,result){
+                $scope.array_custom = result;
+            })
 
             //查询方法
             $scope.search = function(){
-                getAllCus($scope.search_custom);
+                $scope.array_custom.$search($scope.search_custom);
             }
+
 
             //删除方法
             $scope.removeCustom = function(cus){

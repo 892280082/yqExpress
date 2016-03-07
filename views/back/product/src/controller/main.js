@@ -5,39 +5,69 @@
  *@version 1.0.1
  */
     var _ = require("underscore");
+    var $ = require("jquery");
     angular.module("controller.main",["ng.ueditor"]).
-    controller('main',['$scope','showCtrl','dataService','FileUploader','pageResult'
-        ,function($scope,showCtrl,dataService,FileUploader,pageResult){
+    controller('main',['$scope','showCtrl','dataService','FileUploader','pageResult','userPageResult'
+        ,function($scope,showCtrl,dataService,FileUploader,pageResult,userPageResult){
             /************************数据模型****************************/
             //注册或者添加的中间变量
             $scope.pojo_custom = {};
             //保存用户数据数组
             $scope.array_custom = [];
             //查询Pojo
-            $scope.search_custom = {name:""};
+            $scope.search_custom = {"$$_name":""};
+
             /*********************注册show service**************************/
             $scope.show = showCtrl;
             $scope.show.$regist('cuslist',['cuslist'],true);
             $scope.show.$regist('cusadd',['cusadd']);
             /***********************分类列表页面************************/
 
-            //初始获取所有用户信息
-            function getAllCus(search){
-             dataService.getAllCustomData(search)
-                .success(function(data){
-                        if(data.result){
-                            $scope.array_custom = pageResult.$init(data.result,30);
-                        }
-                }).error(function(data){
-                        console.log(data);
-                })
-            }
-            getAllCus();
+            //初始获取所有创品信息
+            pageResult.$loadInit({
+                                url:"/back/proGetAllData",
+                                pageSize:5,
+                                query:{},
+            },function(err,result){
+                $scope.array_custom = result;
+            })
 
             //查询方法
             $scope.search = function(){
-                getAllCus($scope.search_custom);
+                $scope.array_custom.$search($scope.search_custom);
             }
+
+            /****************************查询用户**********************************/
+            //用户pojo
+            $scope.array_user = [];
+            $scope.search_user = {"$$_name":"","usertype":""};
+            $scope.userPowers = [{name:"普通用户",usertype:1},{name:"名人",usertype:2}];
+
+            //打开查询用户界面
+            $scope.chooseUser = function(){
+                //初始获取所有用户信息
+                 $(".pop_bg").fadeIn();
+            }
+
+            userPageResult.$loadInit({
+                                url:"/back/cusGetAllData",
+                                pageSize:12,
+                                query:{},
+            },function(err,result){
+                $scope.array_user = result;
+            })
+            //查询方法
+            $scope.searchUser = function(){
+                $scope.array_user.$search($scope.search_user);
+            }
+
+            $scope.doChooseUser = function(cus){
+                $scope.pojo_custom._userName = cus.name;
+                $scope.pojo_custom._userId = cus._id;
+                $(".pop_bg").fadeOut();
+            }
+
+            /**************************************************************************/
 
             //删除方法
             $scope.removeCustom = function(cus){
@@ -57,7 +87,7 @@
             $scope.changeIntoEdit = function(custom){
                 if(!custom){
                     $scope.pojo_custom = {
-                             title:String,//产品名称
+                            title:String,//产品名称
                             price:Number,//价格
                             imgUrl:String,//封面url
                             imgBigUrl:String,//大图
@@ -87,7 +117,6 @@
                         }
                 });
                  $scope.pojo_custom.status = _.random(1,100)%2 == 0;
-                $scope.pojo_custom._userId = "56d6574c841d3fa413325f2e";
                 $scope.pojo_custom.type = "a b c";
                 $scope.pojo_custom.creatTime = new Date();
             }else{
@@ -118,7 +147,7 @@
                     dataService.saveCustomer($scope.pojo_custom)
                     .success(function(data){
                         if(!data.err){
-                            $scope.array_custom.$push(data.result);
+                            $scope.array_custom.$add(data.result);
                             $scope.show.$set('cuslist');
                         }else{
                             alert(data.err);
