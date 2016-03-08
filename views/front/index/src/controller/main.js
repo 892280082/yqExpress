@@ -174,18 +174,5 @@
             uploader_bigimgurl.onCompleteItem = function(fileItem, response, status, headers) {
                 $scope.pojo_custom.bigimgurl = response.path;
             };
-            //配置banner上传
-            var uploader_banner = $scope.uploader_banner = new FileUploader({
-                url: '/upload',
-                alias:'fileName'
-            });
-            uploader_banner.onAfterAddingFile = function(item) {
-                item.upload();
-            };
-            uploader_banner.onCompleteItem = function(fileItem, response, status, headers) {
-                $scope.pojo_custom.bannerurl = response.path;
-            };
-
-
     }])
 

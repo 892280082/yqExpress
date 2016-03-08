@@ -1,0 +1,14 @@
+{
+  "spm": {
+    "main": "customer.js",
+    "build": {
+      "global": {
+        "jquery": "jquery",
+        "angular": "angular"
+      }
+    },
+    "dest": "../dist"
+  },
+  "dependencies": {
+  }
+}

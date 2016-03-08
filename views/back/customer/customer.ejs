@@ -215,6 +215,12 @@
                     <img ng-src="{{ pojo_custom.bigimgurl}}" width="160px" height="140px" ng-if="pojo_custom.bigimgurl"/>
                 </td>
                 <td class="tip"><span class="errorTips" ng-show="subForm.t_bigimgurl.$error.required">请输入大图</span></td>
+                <td class="tname"><label>banner:</label></td>
+                <td class="tiput">
+                    <input type="file" nv-file-select="" uploader="uploader_banner"  name="t_bannerurl" /><br/>
+                    <img ng-src="{{ pojo_custom.bannerurl}}" width="160px" height="140px" ng-if="pojo_custom.bannerurl"/>
+                </td>
+                <td class="tip"><span class="errorTips" ng-show="subForm.t_bannerurl.$error.required">请输入banner</span></td>
             </tr>
             <tr ng-if="pojo_custom.articles && pojo_custom.productions">
                 <td colspan="6" style="text-align: left;" class="tle1">用户数据</td>

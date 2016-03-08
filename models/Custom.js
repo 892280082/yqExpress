@@ -42,19 +42,21 @@ var customSchema = new Schema({
     phoneNumber:String,//联系方式
     ability:String,//能力标签
     creatTime:{type:Date,default:Date.now},//添加时间
-    bannerurl:String,//
     topno:Number,//首页baner顺序
-    imgurl:String,//图像
     usertype:{type:Number,default:0},//用户身份 0->普通用户 1->管理员 2->人物
     focusno:Number,//人物聚焦
-    bannerno:Number,//模块Banner展示
     sex:{type:Number,default:0},//性别 0男1女
-    bigimgurl:String,//大图
-    coverimgurl:String,//封面url
     birthday:{type:Date,default:null},//生日
     educational:String,//学历
     qq:{ type:String, unique: true },//QQ
     weibo:{ type:String, unique: true },//微博
+
+    imgurl:String,//图像
+    coverimgurl:String,//封面url
+    bigimgurl:String,//大图
+    bannerurl:String,//封面图片
+    bannerno:Number,//模块Banner展示顺序 0 不展示
+
 
     articles:[Schema.Types.ObjectId],//用户文章
     productions:[Schema.Types.ObjectId],//创品数量
