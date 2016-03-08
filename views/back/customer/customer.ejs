@@ -5,6 +5,11 @@
     <% include ../include/baseLink %>
     <title>用户信息管理</title>
     <script type="text/javascript" src="/back/dist/customer.js"></script>
+    <script>
+        function parentChoose(){
+            window.parent.window.parentFun();
+        }
+    </script>
 </head>
 <body ng-controller="main">
 <div class="rt_content">
@@ -38,7 +43,6 @@
                 <th>真实姓名</th>
                 <th>性别</th>
                 <th>用户职业</th>
-                <th>联系方式</th>
                 <th>用户身份</th>
                 <th>文章数</th>
                 <th>创品数</th>
@@ -52,7 +56,6 @@
                 <td width="8%" >{{ cus.realName }}</td>
                 <td width="5%" >{{ cus.sex ? '女' : '男' }}</td>
                 <td width="8%" >{{ cus.job }}</td>
-                <td width="10%" >{{ cus.phoneNumber }}</td>
                 <td width="8%" >{{ cus.usertype == 1 ? '普通用户' : '名人' }}</td>
                 <td width="7%" >{{ cus.articles.length }}</td>
                 <td width="7%" >{{ cus.productions.length }}</td>
@@ -61,8 +64,7 @@
                 <td>
                     <a class="inner_btn"  ng-click="changeIntoEdit(cus);"  href="#">查看</a>
                     <a class="inner_btn"  ng-click="removeCustom(cus);"  href="#">删除</a>
-                    <a class="inner_btn"  href="#">发表文章</a>
-                    <a class="inner_btn"  href="#">添加创品</a>
+                    <a class="inner_btn"  ng-click="parentChoose(cus);"  href="#">选定</a>
                 </td>
             </tr>
         </table>

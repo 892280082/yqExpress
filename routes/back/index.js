@@ -5,6 +5,7 @@ var express = require('express'),
 	Article = require("../../models/Article"),
 	Product = require("../../models/product"),
 	Active = require("../../models/Active"),
+	WebConfig = require("../../models/WebConfig");
 	router = express.Router();
 
 //进入登陆页面
@@ -299,5 +300,49 @@ router.post('/actUpdateSingle',function(req,res){
 		}
 	})
 })
+
+//进入banner控制页面
+router.get('/toMangerBanner',function(req,res){
+	res.render("back/webMannger/banner");
+})
+
+//获取网站参数对象
+router.post('/getWebConfig',function(req,res){
+	WebConfig.findOne(function(err,doc){
+		err && console.log(err);
+		if(!err){
+			res.json({"result":doc});
+		}else{
+			res.json({"err":err});
+		}
+	})
+});
+
+//更新活动信息
+router.post('/webConfigUpSingle',function(req,res){
+	var pro = req.body.updatePojo;
+	if(!pro || !pro._id)
+		res.json({"err":"no active param!"});
+
+	mongooseUtil.updateSingleById(pro,WebConfig,function(err,info){
+		if(err){
+			return res.json({ "err":"更新错误"});
+		}else{
+			return res.json({ "result":info });
+		}
+	})
+})
+
+//保存一项活动信息
+router.post('/savetWebConfig',function(req,res){
+	var webCon = req.body.pojo;
+	if(!webCon)
+		return res.json({'err':'缺少配置信息'});
+	mongooseUtil.saveSingle(webCon,WebConfig,function(err,pojo){
+		!err ? res.json({'result':pojo}) : res.json({'err':'保存错误'});
+	})
+})
+
+
 
 module.exports = router;

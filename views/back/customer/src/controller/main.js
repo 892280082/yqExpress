@@ -1,4 +1,3 @@
-'use strict;'
 /**
  *@work 程序主控制口
  *@auther yq
@@ -185,6 +184,12 @@
             uploader_banner.onCompleteItem = function(fileItem, response, status, headers) {
                 $scope.pojo_custom.bannerurl = response.path;
             };
+            /****************父级选定****************************/
+            $scope.parentChoose = function(cus){
+                var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+                window.parent.window.parentFun(cus);
+                parent.layer.close(index);
+            }
 
 
     }])
