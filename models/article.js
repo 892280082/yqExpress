@@ -37,6 +37,8 @@ var articleSchema = new Schema({
     checkcounts:{type:Number,default:0},//查看次数
     collections:[Schema.Types.ObjectId],//收藏次数 添加用户id
     comments:[Schema.Types.ObjectId],//评论数组,储存评论_id
+    /** 从内容中抽取的图片路径 */
+    contentPicUrl:String,
     /**
      * @desc 非持久化对象
      */

@@ -146,10 +146,21 @@
                 <td  class="tiput"><input type="file" nv-file-select=""  uploader="uploaderBannerurl"  name="t_bannerurl" /><br/>
                     <img ng-src="{{ pojo_custom.bannerurl}}" width="160px" height="140px" ng-if="pojo_custom.bannerurl"/>
                 <td><span class="errorTips" ng-show="subForm.t_bannerurl.$error.required">请输入banner大图</span></td>
-                <td  class="tname"><label>缩略图:</label></td>
+                <td  class="tname"><label>封面图:</label></td>
                 <td  class="tiput"><input type="file" nv-file-select=""  uploader="uploader"  name="t_imgUrl" /><br/>
                     <img ng-src="{{ pojo_custom.imgUrl}}" width="160px" height="140px" ng-if="pojo_custom.imgUrl"/>
                 <td><span class="errorTips" ng-show="subForm.t_imgUrl.$error.required">请输入banner大图</span></td>
+            </tr>
+            <tr>
+                <td  class="tname"><label>发现的汇聚页:</label></td>
+                <td  class="tiput">
+                        <input type="text" ng-model="contentPicIndex.count" style="width:50px;background: none;"  />
+                        <input style="width: 100px;background:#139667;border:0px;color:#fff;width:70px;height:28px;border-radius:3px;"
+                               type="button" value="内容选取" ng-click="getContentPicUrl(false);"  /><br/>
+                        <input style="width: 100px;background:#139667;border:0px;color:#fff;width:70px;height:28px;border-radius:3px;"
+                               type="button" style="width: 100px;" ng-click="getContentPicUrl(true);"  value="选用封面"/>
+                    <img ng-src="{{ pojo_custom.contentPicUrl}}" width="160px" height="140px" ng-if="pojo_custom.contentPicUrl"/>
+                <td></td>
             </tr>
             <tr>
                 <td>文章内容:</td></de><td width="700px" height="500px" colspan="5">

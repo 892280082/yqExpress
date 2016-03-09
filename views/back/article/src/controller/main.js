@@ -5,6 +5,7 @@
  *@version 1.0.1
  */
     var _ = require("underscore");
+    var $ = require("jquery");
     angular.module("controller.main",["ng.ueditor"]).
     controller('main',['$scope','showCtrl','dataService','FileUploader','pageResult',"userPageResult","$window"
         ,function($scope,showCtrl,dataService,FileUploader,pageResult,userPageResult,$window){
@@ -109,6 +110,33 @@
             $scope.toPageList = function(){
                 $scope.show.$set('cuslist');
             }
+
+            //抽取图片
+            $scope.contentPicIndex = { count:1 }
+            $scope.getContentPicUrl = function(flag){
+                var picIndex = $scope.contentPicIndex.count - 1;
+                if(flag){//true 则设置封面为抽取的图片
+                    if($scope.pojo_custom.imgUrl){
+                        $scope.pojo_custom.contentPicUrl = $scope.pojo_custom.imgUrl;
+                    }else{
+                        alert("请先选取封面");
+                        return false;
+                    }
+                }
+                var htmlStr = $scope.pojo_custom.content;
+                if(htmlStr ===''){
+                    alert("请先输入文章内容");
+                    return false;
+                }
+                var imgUrl = $(htmlStr).find('img').eq(picIndex).attr("src");
+                if(!imgUrl){
+                    alert("未在内容中检索到图片");
+                    return false;
+                }else{
+                    $scope.pojo_custom.contentPicUrl = imgUrl;
+                }
+            }
+
 
             //保存或者更新方法
             $scope.saveOrUpdate = function(){

@@ -15,13 +15,17 @@
 	<div class="container projects">
     	<div class="scp_title"><span class="dtle">创品</span><span class="bytle">生活美好的事物从发现开始</span></div>
     	<div class="row sm1">
-        	<div class="col-sm-6 col-lg-3">
-            	<div class="list">
-            		<a href="#"><img src="images/product_1.jpg" class="m1fximg" /></a>                    
-                    <div class="oter"><span class="cprice">￥322.00</span><span class="name">作者：乔布斯</span></div>
-                    <p class="title"><a href="#">你是我无与伦比的美丽你是我无与伦比的美丽你是我无与伦比的美丽你是我无与伦比的美丽，BABY</a></p>
+        <%    _.each(products,function(ele){  %>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="list">
+                        <a href="#">
+                        <img  width="226" height="221" src="<%- ele.imgBigUrl  %>" class="m1fximg" /></a>
+                        <div class="oter"><span class="cprice">￥<%- ele.price %></span>
+                                          <span class="name">作者：<%- ele._userName %></span></div>
+                        <p class="title"><a href="#"><%- ele.introduce %></a></p>
+                    </div>
                 </div>
-            </div>
+        <%    }) %>
         </div>
         <div class="clickmore"><a href="#">点击加载更多</a></div>
     </div>
