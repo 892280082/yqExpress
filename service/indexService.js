@@ -2,7 +2,7 @@ var WebConfig = require("../models/WebConfig");
 var Custom = require("../models/Custom");
 var Article = require("../models/Article");
 var Active = require("../models/Active");
-var Product = require("../models/Product");
+var Product = require("../models/Product1");
 var then = require("thenjs");
 
 //首页数据

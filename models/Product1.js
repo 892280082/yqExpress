@@ -3,8 +3,8 @@
  * @date 2016/2/25
  * @auther yq
  */
-var mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
 var productSchema = new Schema({
     _userId:Schema.Types.ObjectId,//用户Id
@@ -31,5 +31,3 @@ var productSchema = new Schema({
 
 var  product = mongoose.model("products", productSchema);
 module.exports = product;
-
-
