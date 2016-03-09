@@ -22,9 +22,7 @@ var activeSchema = new Schema({
     introduce:String,//简介 *
     content:String,//内容 *
     bannerUrl:String,//banner图 *
-    bannerno:Number,//在Banner模块展示的顺序
     convertUrl:String,//封面图 *
-    converno:Number,//活动推荐顺序
     creatTime:{type:Date,default:Date.now},//创建时间 *
     status:Number,//0未开始 1进行中 2活动结束 *
     checkcounts:Number,//关注量 *
@@ -35,6 +33,9 @@ var activeSchema = new Schema({
     actOverTime:Date,
     signStarTime:Date,//报名开始结束时间
     signOverTime:Date,
+    address:String,//活动地址
+    topno:Number
+
 })
 
 var  active = mongoose.model("actives", activeSchema);

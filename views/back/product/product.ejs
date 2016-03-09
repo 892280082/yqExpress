@@ -47,6 +47,7 @@
                 <th>创品库存</th>
                 <th>创品状态</th>
                 <th>所属名人</th>
+                <th>首页排序</th>
                 <th>操作</th>
             </tr>
             <tr ng-repeat="cus in array_custom.$array">
@@ -63,6 +64,7 @@
                 <td width="8%">{{ cus.kucun }}</td>
                 <td width="8%">{{ cus.status ? '上架中':'已下架' }}</td>
                 <td width="12%">{{ cus._userName }}</td>
+                <td width="8%">{{ cus.topno }}</td>
                 <td>
                     <a class="inner_btn"  ng-click="changeIntoEdit(cus);"  href="#">查看</a>
                     <a ng-click="dealProStatus(cus);"
@@ -144,9 +146,9 @@
             </tr>   
             <tr>
                 <td class="tname"><label>首页排序:</label></td>
-                <td class="tiput"><input type="text"  ng-model="pojo_custom.sortno" name="t_sortno" required 
+                <td class="tiput"><input type="text"  ng-model="pojo_custom.topno" name="t_topno" required 
                            class="textbox" /><br/></td>
-                <td><span class="errorTips" ng-show="subForm.t_sortno.$error.required">请输入首页排序</span></td>
+                <td><span class="errorTips" ng-show="subForm.t_topno.$error.required">请输入首页排序</span></td>
                 <td class="tname"><label>淘宝url:</label></td>
                 <td class="tiput"><input type="text"  ng-model="pojo_custom.taobaoUrl" name="t_taobaoUrl" required 
                            class="textbox" /><br/></td>

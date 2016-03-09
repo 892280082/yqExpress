@@ -120,6 +120,7 @@
                     dataService.saveCustomer($scope.pojo_custom)
                     .success(function(data){
                         if(!data.err){
+                            console.log(data.result);
                             $scope.array_custom.$add(data.result);
                             $scope.show.$set('cuslist');
                         }else{

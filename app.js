@@ -14,6 +14,7 @@ var express = require('express'),
 	MongoStore = require('connect-mongo')(session),
 	mongoose = require('mongoose'),
 	router = require('./routes/middleWare'),
+	ejsExtend = require('./util/ejsExtend'),
 	app = express();
 
 /**
@@ -47,6 +48,8 @@ app.use(function(req,res,next){
 	next();
 })
 app.use(express.static(viewConfig.relativePath));
+app.use(ejsExtend);
+
 
 //判断操作系统
 var system = process.platform;

@@ -61,7 +61,7 @@
                 <td>{{ cus.comments.length }}</td>
                 <td>{{ cus.collections.length }}</td>
                 <td width="13%">{{ cus.creatTime |  date:'yyyy-MM-dd HH:mm:ss' }}</td>
-                <td>{{ cus.bannerFlag ?  cus.topno : '无' }}</td>
+                <td>{{ cus.topno }}</td>
                 <td><a class="inner_btn"  ng-click="removeCustom(cus);"  href="#">删除</a></td>
             </tr>
         </table>
@@ -173,11 +173,11 @@
                 <td><span class="errorTips" ng-show="subForm.t_checkcounts.$error.required">请输入banner顺序</span></td>
             </tr>
             <tr>
-                <td class="tname"><label>查看次数:</label></td>
-                <td class="tiput"><input type="number"  ng-model="pojo_custom.checkcounts" name="t_checkcounts"
-                                         placeholder="多个关键字请用空格隔开" class="textbox" required /><br/>
+                <td class="tname"><label>首页排序:</label></td>
+                <td class="tiput"><input type="number"  ng-model="pojo_custom.topno" name="t_topno"
+                                         placeholder="从高到低" class="textbox" required /><br/>
                 </td>
-                <td><span class="errorTips" ng-show="subForm.t_checkcounts.$error.required">查看次数</span></td>
+                <td><span class="errorTips" ng-show="subForm.t_topno.$error.required">请输入排序</span></td>
             </tr>
             <tr>
                 <td colspan="3" style="text-align: center;">

@@ -42,7 +42,6 @@ var customSchema = new Schema({
     phoneNumber:String,//联系方式
     ability:String,//能力标签
     creatTime:{type:Date,default:Date.now},//添加时间
-    topno:Number,//首页baner顺序
     usertype:{type:Number,default:0},//用户身份 0->普通用户 1->管理员 2->人物
     focusno:Number,//人物聚焦
     sex:{type:Number,default:0},//性别 0男1女
@@ -50,6 +49,8 @@ var customSchema = new Schema({
     educational:String,//学历
     qq:{ type:String, unique: true },//QQ
     weibo:{ type:String, unique: true },//微博
+
+    topno:Number,//首页baner顺序
 
     imgurl:String,//图像
     coverimgurl:String,//封面url

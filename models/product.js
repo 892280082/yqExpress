@@ -4,16 +4,14 @@
  * @auther yq
  */
 var mongoose = require('mongoose'),
-    Schema = mongoose.Schema,
-    objectid = require('objectid');
-
+    Schema = mongoose.Schema;
 
 var productSchema = new Schema({
     _userId:Schema.Types.ObjectId,//用户Id
     title:String,//产品名称
     price:Number,//价格
     imgUrl:String,//封面url
-    imgBigUrl:String,//大图
+    imgBigUrl:String,//首页大图
     introduce:String,//简介
     guige:String,//规格
     detailimgarr:String,//详情页banner URL 集合，逗号隔开
@@ -25,13 +23,11 @@ var productSchema = new Schema({
     kucun:Number,//库存
     topno:Number,//在首页的顺序
     bannerno:Number,//模块Banner展示
-    sortno:Number,//排序
     attentionno:Number,//关注量
     status:Boolean,//创品状态 true 上架 false 下架
     //冗余字段
     _userName:String,//用户姓名
 })
-
 
 var  product = mongoose.model("products", productSchema);
 module.exports = product;

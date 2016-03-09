@@ -53,7 +53,7 @@ module.exports = {
 	router:{
 		"/":"index",
 		auth:"oAuth",//第三方登陆路由
-		print:"front/index",//前台路由
+		front:"front/index",//前台路由
 		back:"back/index",//后台路由
 	}
 }

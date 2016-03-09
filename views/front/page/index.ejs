@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<title>造物者首页</title>
+<% include ../include/baseLink%>
+</head>
+<!-- 首页  -->
+<script src="/front/resource/js/jquery-1.4.2.js" type="text/javascript"></script>
+<script src="/front/resource/js/jquery.backgroundpos.js" type="text/javascript"></script>
+<script src="/front/resource/js/menu.js" type="text/javascript"></script>
+<body>
+<% include ../include/head %>
+<script type="text/javascript">
+    $(document).ready(function(){
+    $('.m1a .list').hover(function(){//首页发现模块鼠标经过效果
+        $(".txthover",this).stop().animate({top:'0px'},{queue:false,duration:500});
+        $(".fszz",this).stop().animate({top:'0px'},{queue:false,duration:500});
+        $(".fszz1",this).stop().animate({top:'43px'},{queue:false,duration:500});
+    },function(){
+        $(".txthover",this).stop().animate({top:'133px'},{queue:false,duration:500});
+        $(".fszz",this).stop().animate({top:'-118px'},{queue:false,duration:500});
+        $(".fszz1",this).stop().animate({top:'-118px'},{queue:false,duration:500});
+    });
+    $('.listduct').hover(function(){//首页产品模块鼠标经过效果
+        $(".duct_zz .balck_zz",this).stop().animate({top:'0px'},{queue:false,duration:500});
+    },function(){
+        $(".duct_zz .balck_zz",this).stop().animate({top:'218px'},{queue:false,duration:500});
+    });
+});
+</script>
+<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="3000">
+   <!-- 轮播（Carousel）指标 -->
+   <ol class="carousel-indicators">
+      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+      <li data-target="#myCarousel" data-slide-to="1"></li>
+      <li data-target="#myCarousel" data-slide-to="2"></li>
+      <li data-target="#myCarousel" data-slide-to="3"></li>
+      <li data-target="#myCarousel" data-slide-to="4"></li>
+   </ol>   
+   <!-- 轮播（Carousel）项目 -->
+   <div class="carousel-inner">
+       <% show.banners.forEach(function(banner,index){  %>
+           <div class="item <%- index == 0 ? 'active':'' %> ">
+               <img src="<%- banner.picUrl %>" alt="First slide"/>
+           </div>
+       <% }) %>
+   </div>
+   <!-- 轮播（Carousel）导航 -->
+   <a class="prelt left decr" href="#myCarousel" 
+      data-slide="prev">&nbsp;</a>
+   <a class="nxtrt right decr" href="#myCarousel" 
+      data-slide="next">&nbsp;</a>
+</div>
+<div class="bs-docs-featurette">
+    <div class="container m1 projects">
+        <div class="ind2_title"><span class="dtle">发现</span><span class="bytle">生活美好的事物从发现开始</span><a href="#" style="">MORE+</a></div>
+        <div class="row m1a">
+            <%  show.articles.forEach(function(article,index){ %>
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="list">
+                            <a href="#" class="fszz1">点击查看文章</a>
+                            <div class="fszz"></div>
+                            <div class="txtwap">
+                                <div class="txthover">
+                                    <%- article.introduce %>
+                                </div>
+                            </div>
+                            <a href="#"><img src="<%- article.imgUrl %>" class="m1fximg" /></a>
+                            <p class="title"><a href="#"><%- article.title %></a></p>
+                            <div class="oter"><span class="gnumb">
+                            <%- article.checkcounts %></span>
+                            <span class="pjnumb"><%- article.comments.length %>条评论</span></div>
+                        </div>
+                    </div>
+            <%  }) %>
+        </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+        <div class="col-lg-9">
+            <div class="activlist clearfix">
+                <div class="ind3_title"><span class="dtle">最新活动</span><span class="bytle">踊跃参加积极报名，精彩活动尽在这里！</span><a href="#" style="">MORE+</a></div>
+                <%    show.actives.forEach(function(active,index){ %>
+                        <div class="actlst clearfix">
+                            <div class="row">
+                            <div class="col-lg-5">
+                                <a href="#" class="actimg"><img 
+                                width="342" height="194"
+                                src="<%- active.convertUrl %>" /></a>                        
+                            </div>
+                            <div class="col-lg-7">
+                            <div class="actxt">
+                                <div class="title"><a href="#"><%- active.title %></a></div>
+                                <div class="scon"><%- active.introduce %></div>
+                                <div class="stis">
+                                    <div class="addr"><%- active.address %></div>
+                                    <div class="date">
+                                        <%- $moment(active.actStartTime).format("YYYY-MM-DD") %>
+                                    ---
+                                        <%- $moment(active.actOverTime).format("YYYY-MM-DD") %>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                            </div>
+                        </div>
+                <%    }) %>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="peopel">
+                <div class="ind3_title"><span class="dtle">创意人</span><a href="#" style="">MORE+</a></div>
+                <div class="row"> 
+                <%    _.each(show.customs,function(ele){ %>
+                        <div class="col-lg-12">
+                        <div class="peolist">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                <div class="peoimg">
+                                    <a href="#"><img src="/front/resource/images/peozhezhao.png" class="zhezhao" />
+                                    <img  width="128" height="128"  src="<%- ele.imgurl %>" class="peusr" /></a></div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <p class="name"><a href="#"><%- ele.name %></a></p>
+                                    <p class="cntre"><%- ele.job %></p>
+                                    <p class="guoji"><%- ele.provice  %><%- ele.city  %></p>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                <%     }) %>
+                </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="ind2_title"><span class="dtle">创品</span><span class="bytle">生活美好的事物从发现开始</span><a href="#" style="">MORE+</a></div>
+        <div class="row">
+         <%   _.each(show.products,function(ele){ %>
+                <div class="col-xs-3" style="width:20%;">
+                    <div class="listduct">
+                        <a href="#"><img  width="226" height="221"  src="<%- ele.imgBigUrl %>" /></a>
+                        <p><%- ele.title %></p>
+                    </div>
+                 </div>
+         <%   }) %>
+        </div>
+    </div>
+</div>
+<% include ../include/foot %>
+</body>
+</html>

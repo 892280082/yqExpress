@@ -16,7 +16,6 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     objectid = require('objectid');
 
-
 var banner = new Schema({
     _id:Schema.Types.ObjectId,
     title:String,//标题

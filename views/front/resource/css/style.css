@@ -45,7 +45,7 @@ body{background:#f0f1f1;}
 .ind2_title span.dtle{ float:left;margin-left:15px;}
 .ind2_title span.bytle{ float:left; font-size:12px;margin-left:13px;color:#a8a8a8;padding-top:2px;height:60px;}
 .ind2_title a{ float:right; font-size:10px;color:#999;margin-right:15px;}
-.m1fximg{width:100%;border-radius:5px 5px 0 0;}
+.m1fximg{width:100%;border-radius:5px 5px 0 0;width: 284px;height: 240px;}
 .m1a .list{min-height:330px;background:#fff;border-radius:5px;margin-bottom:20px; position:relative; overflow:hidden; }
 .m1a .list p.title{ font-size:14px;height:45px; line-height:45px; text-align:left;padding:0 15px; overflow:hidden;border-bottom:1px solid #f8f8f8;}
 .m1a .list p.title a{color:#333; font-family:microsoft yahei;}

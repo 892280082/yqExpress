@@ -38,6 +38,7 @@
                 <th>收藏</th>
                 <th>投票</th>
                 <th>创建日期</th>
+                <th>首页排序</th>
                 <th>操作</th>
             </tr>
             <tr ng-repeat="cus in array_custom.$array">
@@ -54,11 +55,12 @@
                     <span ng-if="cus.status == 2">以结束</span>
                 </td>
                 <td width="15%" >{{ cus.actStartTime | date:'yyyy-MM-dd HH' }}时-{{ cus.actOverTime | date:'yyyy-MM-dd HH' }}时</td>
-                <td width="10%" >{{ cus.checkcounts }}</td>
+                <td width="6%">{{ cus.checkcounts }}</td>
                 <td width="7%" >{{ cus.likes.length }}</td>
                 <td width="7%" >{{ cus.collects.length }}</td>
                 <td width="7%" >{{ cus.votes.length }}</td>
                 <td width="13%">{{ cus.creatTime |  date:'yyyy-MM-dd HH:mm:ss' }}</td>
+                <td width="6%">{{ cus.topno }}</td>
                 <td>
                     <a class="inner_btn"  ng-click="changeIntoEdit(cus);"  href="#">查看</a>
                     <a class="inner_btn"  ng-click="removeCustom(cus);"  href="#">删除</a>
@@ -121,7 +123,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="6" style="text-align: left;" class="tle1">活动时间</td>
+                    <td colspan="6" style="text-align: left;" class="tle1">时间地址</td>
                 </tr>
                 <tr>
                     <td class="tname"><label>活动开始日期:</label></td>
@@ -146,17 +148,20 @@
                     <td></td>
                 </tr>
                 <tr>
+                    <td class="tname"><label>活动地址:</label></td>
+                    <td class="tiput"><input type="text"
+                                             ng-model="pojo_custom.address"
+                                             class="textbox" /></td>
+                    <td></td>
+                </tr>
+                <tr>
                     <td colspan="6" style="text-align: left;" class="tle1">活动推荐</td>
                 </tr>
                 <tr>
-                    <td class="tname"><label>首页banner排序:</label></td>
-                    <td class="tiput" style="width: 200px;"><input type="text"  ng-model="pojo_custom.bannerno"  name="t_bannerno"
-                                                                   class="textbox" required placeholder="首页banner的顺序" /></td>
-                    <td class="tip" ><span class="errorTips" ng-show="subForm.t_bannerno.$error.required">输入顺序</span></td>
-                    <td class="tname"><label>活动列表排序:</label></td>
-                    <td class="tiput"><input type="text"  ng-model="pojo_custom.converno" name="t_converno"
-                                             class="textbox" required  placeholder="活动详情页排序" /></td>
-                    <td><span class="errorTips" ng-show="subForm.t_converno.$error.required">请输入顺序</span></td>
+                    <td class="tname"><label>首页排序:</label></td>
+                    <td class="tiput" style="width: 200px;"><input type="text"  ng-model="pojo_custom.topno"  
+                                name="t_topno" class="textbox" required placeholder="首页banner的顺序" /></td>
+                    <td class="tip" ><span class="errorTips" ng-show="subForm.t_topno.$error.required">输入顺序</span></td>
                 </tr>
                 <tr>
                     <td colspan="6" style="text-align: left;" class="tle1">活动图像</td>

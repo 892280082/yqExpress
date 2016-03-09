@@ -25,12 +25,12 @@ var articleSchema = new Schema({
     creatTime:{type:Date,default:Date.now},//创建时间
     status:Number,// 作品 0-未通过 1-待审核 2-草稿 3-审核通过
     reason:String,//审核未通过原因
-    topno:Number,//展示在首页的顺序
     bannerFlag:Boolean,//是否开启banner展示
     bannerurl:String,//列表的banner
     imgUrl:String,//首页列表图
     from:String,//来源
     content:String,//文章内容
+    topno:Number,//展示在首页的顺序
     /** 集合*/
     type:String,//文章类型
     keyword:[String],//关键字
