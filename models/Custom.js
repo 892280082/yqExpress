@@ -25,7 +25,7 @@ var mongoose = require('mongoose'),
     then = require('thenjs'),
     mongooseUtil = require("../util/mongooseUtil"),
     Article = require('./Article'),//文章集合
-    Product = require('./product1');//产品集合
+    Product = require('./Product');//产品集合
 
 
 var customSchema = new Schema({
