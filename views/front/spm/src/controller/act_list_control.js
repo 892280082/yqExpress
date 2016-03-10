@@ -27,15 +27,16 @@
             $scope.getData = function(){
                 if($scope.requestCount){
                     $scope.array_custom.$toNext();
-                    console.log($scope.array_custom);
                 }else{
                     pageResult.$loadInit({
                         url:"/front/getActiveList",
                         pageSize:3,
                         waterfull:true,
-                        skip:1
+                        skip:0
                     },function(err,result){
                         $scope.array_custom = result;
+                        $scope.array_custom.$array = [];
+                        $scope.array_custom.$toNext();
                         $scope.requestCount++;
                     })
                 }
