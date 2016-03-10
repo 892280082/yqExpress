@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html lang="en" ng-app="myApp">
+<style type="text/css">
+    .waptitle{width:100%;height:45px; line-height: 45px;border-bottom:1px solid #e1e1e1; font-size:14px;font-family: "microsoft yahei"; font-weight: bold;}
+    .waptitle span{ float: right;padding:3px 15px;display:blcok;border:1px solid #ececec; line-height: 25px;margin-top:6px;cursor: pointer;border-radius:3px;}
+    .waptitle span:hover{background:#ececec;border:1px solid #e1e1e1;}
+    .datatable{width:1000px;margin: 0 auto;}
+    .tle1{margin-top:30px;margin-bottom:30px;;font-size:14px; font-family: "microsoft yahei";height:35px; line-height:35px;border-bottom:1px  dashed #ececec;font-weight: bold;}
+    .datatable td{padding:6px 0;}
+    .tname{width:112px; font-size: 12px;}
+    .tiput input{width:200px;}
+    .top1{margin-top:5px;}
+</style>
+<head>
+    <meta charset="UTF-8">
+    <% include ../include/baseLink %>
+    <title>用户信息管理</title>
+    <script type="text/javascript" src="/back/dist/cateMan.js"></script>
+</head>
+<body ng-controller="main">
+<!-- 用户添加编辑页面-->
+    <div class="page_title top1">
+        <h2 class="fl">{{ pojo_custo._id ? '创品编辑' : '创品添加' }}</h2>
+        <a class="fr top_rt_btn" ng-click="toPageList();" >返回</a>
+    </div>
+    <div>
+        <h2 class="fl" ng-if="pojo_custo._id">用户数据编辑</h2>
+    </div>
+    <section>
+        <form
+                name="subForm"
+                ng-submit="saveOrUpdate()"
+                >
+            <table class="datatable">
+                <tr>
+                    <td colspan="6" style="text-align: left;" class="tle1">分类基本信息</td>
+                </tr>
+                <tr>
+                    <td class="tname"><label>文章分类:</label></td>
+                    <td class="tiput">
+                        <select  ng-model="articleType" name="t_usertype"
+                                 ng-options="keyword for keyword in pojo_custom.articleCate">
+                                <option value="">-- 请选择 --</option>
+                        </select><br/>
+                    </td>
+                    <td><span class="errorTips" ng-show="subForm.t_title.$error.required">请输入创品称</span></td>
+                    <td class="tname"><label>创品价格:</label></td>
+                    <td class="tiput"><input type="number"  ng-model="pojo_custom.price" name="t_price"
+                                             class="textbox" required /><br/></td>
+                    <td><span class="errorTips" ng-show="subForm.t_price.$error.required">请输入价格</span></td>
+                </tr>
+
+                <tr>
+                    <td colspan="3" style="text-align: center;">
+                        <input class="link_btn"  type="submit" ng-disabled="subForm.$invalid" value="提交" /></td>
+                    <td colspan="3" style="text-align: center;">
+                        <input class="link_btn" type="button"  ng-click="toPageList();"  value="取消" /></td>
+                </tr>
+            </table>
+        </form>
+    </section>
+</body>
+</html>

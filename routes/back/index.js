@@ -343,6 +343,10 @@ router.post('/savetWebConfig',function(req,res){
 	})
 })
 
+//进入类型管理页面
+router.get('/toMangerCate',function(req,res){
+	res.render("back/cateMannger/cateMan");
+})
 
 
 module.exports = router;

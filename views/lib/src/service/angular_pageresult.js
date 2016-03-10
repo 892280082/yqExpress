@@ -153,7 +153,7 @@ angular.module("service_pageResult",[])
 
             //判断 则再请求服务器 将数据放入缓存尾部
             if(this.$curPage <= this.$pageCount //当前页小于总页数
-                && this._nextCache.length <= this.$pageSize*2 //当缓存的页数不足两页时查询数据库
+                && this._nextCache.length <= this.$pageSize //当缓存的页数不足两页时查询数据库
                 && this._server_pojo.skip < this.$pageCount //判断skip小于总页数
             ){
                 $http.post(this._server_url,{
@@ -181,24 +181,19 @@ angular.module("service_pageResult",[])
                 this.$pageSize = this._server_pojo.limit = param.pageSize;
             if(param.sort)
                 this._server_pojo.sort = param.sort;
-            if(param.skip) {
+            if(param.skip)
                 this._server_pojo.skip = param.skip;
-                firstLimit = this._server_pojo.limit*this._server_pojo.skip;
-            }else{
-                firstLimit = this._server_pojo.limit*this.$pass;
-            }
             this._server_url = param.url;
             var _this = this;
             $http.post(this._server_url,{
                 query:this._server_pojo.query,
                 skip:this._server_pojo.skip,
-                limit:firstLimit,
+                limit:this._server_pojo.limit*this.$pass,
                 sort:this._server_pojo.sort,
             }).success(function(data){
                     data.err && console.log(data.err);
                     _this.$dataInit(data);
                     callback(data.err,_this);
-                console.log(_this);
                 }).error(function(data){
                     callback('与后台请求错误');
             })

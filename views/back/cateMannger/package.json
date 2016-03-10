@@ -1,0 +1,14 @@
+{
+  "spm": {
+    "main": "banner.js",
+    "build": {
+      "global": {
+        "jquery": "jquery",
+        "angular": "angular"
+      }
+    },
+    "dest": "../dist"
+  },
+  "dependencies": {
+  }
+}

@@ -25,7 +25,15 @@ var banner = new Schema({
 })
 
 var webConfig = new Schema({
-    banners:[banner]
+
+    banners:[banner],//首页banner图片
+
+    articleCate:[],//文章类型
+
+    productCate:{},//产品类型
+
+    activeCate:[],//活动类型
+
 })
 
 var  webConfig = mongoose.model("webConfig", webConfig);
