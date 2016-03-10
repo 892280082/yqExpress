@@ -1,6 +1,5 @@
 {
   "spm": {
-    "main": "index.js",
     "build": {
       "global": {
         "jquery": "jquery",

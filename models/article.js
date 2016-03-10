@@ -30,7 +30,7 @@ var articleSchema = new Schema({
     imgUrl:String,//首页列表图
     from:String,//来源
     content:String,//文章内容
-    topno:Number,//展示在首页的顺序
+    topno:{ type:Number,default:0},//展示在首页的顺序
     /** 集合*/
     type:String,//文章类型
     keyword:[String],//关键字

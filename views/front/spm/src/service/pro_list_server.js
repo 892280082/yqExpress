@@ -2,7 +2,7 @@
  *@desc 提供用户数据处理接口
  *@auther yq
  */
-angular.module('service.dataService',[]).service("dataService",["$http"
+angular.module('service.pro_list_server',[]).service("pro_list_server",["$http"
     ,function($http){
     		//获取所有数据，利用前台分页
             this.getAllCustomData = function(searchPojo){

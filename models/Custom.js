@@ -27,6 +27,14 @@ var mongoose = require('mongoose'),
     Article = require('./Article'),//文章集合
     Product = require('./Product');//产品集合
 
+//推荐的创品信息
+var recommd = new Schema({
+    _id:Schema.Types.ObjectId,
+    type:Number,//1.创品 2.文章
+    picUrl:String,
+    urlId:Schema.Types.ObjectId,
+});
+
 
 var customSchema = new Schema({
     name:{ type:String, unique: true },//用户姓名
@@ -50,16 +58,16 @@ var customSchema = new Schema({
     qq:{ type:String, unique: true },//QQ
     weibo:{ type:String, unique: true },//微博
 
-    topno:Number,//首页baner顺序
+    topno:{ type:Number,default:0},//首页baner顺序
 
-    imgurl:String,//图像
+    imgurl:String,//头像
     coverimgurl:String,//封面url
     bigimgurl:String,//大图
     bannerurl:String,//封面图片
     bannerno:Number,//模块Banner展示顺序 0 不展示
-
-
+    recommens:[recommd],//推荐的创品或者文章集合
     articles:[Schema.Types.ObjectId],//用户文章
+    
     productions:[Schema.Types.ObjectId],//创品数量
     followers:[Schema.Types.ObjectId],//我的粉丝
     attentions:[Schema.Types.ObjectId],//我关注的人

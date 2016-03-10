@@ -3,6 +3,7 @@ var Custom = require("../models/Custom");
 var Article = require("../models/Article");
 var Active = require("../models/Active");
 var Product = require("../models/Product");
+var _ = require("underscore");
 var then = require("thenjs");
 
 //首页数据
@@ -63,6 +64,59 @@ exports.removeIndexCache = function(){
     indexData.cache = false;
 }
 
+/**
+ * @desc 通过用户的数组，查询用户的创品和文章共4个
+ * @param cusArray {Array} -用户信息数组
+ * @param callback {Function} -回调 callback('err',Array);
+ */
+exports.getCusAllInfoByCusArray = function(cusArray,callback){
+    then.each(cusArray,function(next,cus){
+        var searchLimit = 4 - cus.recommens.length;
+        if(searchLimit){
+            Product.find({
+                status:true,
+                _userId:cus._id
+            }).sort({"topno":-1}).limit(searchLimit).exec(function(err,pros){
+                err && defer(err);
+                _.each(pros,function(ele){
+                    cus.recommens.push({
+                        "urlId":ele._id,
+                        "picUrl":ele.imgBigUrl,
+                        "type":1,
+                    })
+                })
+                next();
+            })
+        }else{
+            next();
+        }
+    }).each(cusArray,function(next,cus){
+        var searchLimit = 4 - cus.recommens.length;
+        if(searchLimit){
+            Article.find({
+                status:3,
+                _userId:cus._id
+            }).sort({"topno":-1}).limit(searchLimit).exec(function(err,articles){
+                err && defer(err);
+                _.each(articles,function(ele){
+                    cus.recommens.push({
+                        "urlId":ele._id,
+                        "picUrl":ele.imgUrl,
+                        "type":2,
+                    })
+                })
+                next();
+            })
+        }else{
+            next();
+        }
+    }).then(function(defer){
+        return callback(null,cusArray);
+    }).fail(function(defer,err){
+        console.log(err);
+        return callback(err);
+    })
+}
 
 
 

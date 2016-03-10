@@ -66,11 +66,12 @@
                 <td width="12%">{{ cus._userName }}</td>
                 <td width="8%">{{ cus.topno }}</td>
                 <td>
-                    <a class="inner_btn"  ng-click="changeIntoEdit(cus);"  href="#">查看</a>
                     <a ng-click="dealProStatus(cus);"
                        ng-class="{true: 'inner_red_btn', false: 'inner_btn'}[!cus.status]"
                        href="#">{{ cus.status ? '下架':'上架' }}</a>
                     <a class="inner_btn"  ng-click="removeCustom(cus);"  href="#">删除</a>
+                    <a class="inner_btn"  ng-if="parentShow"   ng-click="parentChoose(cus);"
+                       href="#">选定</a>
                 </td>
             </tr>
         </table>

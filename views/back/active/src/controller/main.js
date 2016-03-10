@@ -160,5 +160,12 @@
             uploaderconvertUrl.onCompleteItem = function(fileItem, response, status, headers) {
                 $scope.pojo_custom.convertUrl = response.path;
             };
+            /****************父级选定****************************/
+            $scope.parentShow = !!window.parent.window.parentFun;
+            $scope.parentChoose = function(cus){
+                var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+                window.parent.window.parentFun(cus);
+                parent.layer.close(index);
+            }
     }])
 

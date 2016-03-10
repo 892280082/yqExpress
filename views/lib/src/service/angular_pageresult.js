@@ -118,8 +118,10 @@ angular.module("service_pageResult",[])
         this.$totalSize = 0;//总共页数
         this.$curPage = 1;//当前页
         this.$pageCount = 0;//总页数
+        this.$waterfull = false;
         this.$last = false;
         this.$next = false;
+        this.$pass = 4;
         this.$toLast = function(){
             this._nextCache = concactArray(this.$array,this._nextCache);
             this.$array = ArrayRemovePop(this._readCache,this.$pageSize);
@@ -127,8 +129,12 @@ angular.module("service_pageResult",[])
             this._update();
         };
         this.$toNext = function(){
-            this._readCache = concactArray(this._readCache,this.$array);
-            this.$array = ArrayRemoveHead(this._nextCache,this.$pageSize);
+            if(!this.$waterfull) { //普通模式
+                this._readCache = concactArray(this._readCache, this.$array);
+                this.$array = ArrayRemoveHead(this._nextCache, this.$pageSize);
+            }else{//瀑布流
+                this.$array = concactArray(this.$array,ArrayRemoveHead(this._nextCache,this.$pageSize))
+            }
             this.$curPage++;
             this._update();
         };
@@ -153,7 +159,7 @@ angular.module("service_pageResult",[])
                 $http.post(this._server_url,{
                     query:this._server_pojo.query,
                     skip:this._server_pojo.skip,
-                    limit:this._server_pojo.limit*4,})
+                    limit:this._server_pojo.limit*this.$pass,})
                 .success(function(data){
                     data.err && console.log(data.err);
                     _this._server_pojo.skip+=1;
@@ -164,25 +170,35 @@ angular.module("service_pageResult",[])
             }
         };
         this.$loadInit = function(param,callback){
+            var firstLimit;
+            if(param.waterfull)
+                this.$waterfull = param.waterfull;
+            if(param.pass)
+                this.$pass = param.pass;
             if(param.query)
                 this._server_pojo.query = param.query;
-            if(param.skip)
-                this._server_pojo.skip = param.skip;
             if(param.pageSize)
                 this.$pageSize = this._server_pojo.limit = param.pageSize;
             if(param.sort)
                 this._server_pojo.sort = param.sort;
+            if(param.skip) {
+                this._server_pojo.skip = param.skip;
+                firstLimit = this._server_pojo.limit*this._server_pojo.skip;
+            }else{
+                firstLimit = this._server_pojo.limit*this.$pass;
+            }
             this._server_url = param.url;
             var _this = this;
             $http.post(this._server_url,{
                 query:this._server_pojo.query,
                 skip:this._server_pojo.skip,
-                limit:this._server_pojo.limit*4,
+                limit:firstLimit,
                 sort:this._server_pojo.sort,
             }).success(function(data){
                     data.err && console.log(data.err);
                     _this.$dataInit(data);
                     callback(data.err,_this);
+                console.log(_this);
                 }).error(function(data){
                     callback('与后台请求错误');
             })
@@ -203,7 +219,7 @@ angular.module("service_pageResult",[])
             $http.post(this._server_url,{
                 query:this._server_pojo.query,
                 skip:this._server_pojo.skip,
-                limit:this._server_pojo.limit*4,
+                limit:this._server_pojo.limit*this.$pass,
                 sort:sort,
             }).success(function(data){
                 data.err && console.log(data.err);

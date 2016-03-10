@@ -4,7 +4,6 @@
  * @date 2016/2/29
  * */
 var angular = require("angular");
-var _ = require('underscore');
 /**加载 原型扩展*/
 require("../../lib/jsExtend.js");
 /***加载显示插件****/
@@ -16,17 +15,16 @@ require("../../lib/src/directive/angular-ueditor.js");
 ///**加载上传插件*/
 require("../../bower_components/angular/angular-file-upload.min.js");
 ///**加载后台数据接口*/
-require("./src/service/dataService");
+require("./src/service/pro_list_server.js");
 ///**加载主程序人口*/
-require("./src/controller/main");
+require("./src/controller/pro_list_control.js");
 
 var app = angular.module('myApp',[
-    'loadDate',//代码有全局变量,只能外部引入,不能被压缩。
     'angularFileUpload',
     'service.showCtrl',
-    'service.dataService',
+    'service.pro_list_server',
     pageResult.service_pageResult,
-    'controller.main'
+    'controller.pro_list_control'
     ]);
 
 app.directive('tsCuslist',function(){

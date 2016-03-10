@@ -185,6 +185,7 @@
                 $scope.pojo_custom.bannerurl = response.path;
             };
             /****************父级选定****************************/
+            $scope.parentShow = !!window.parent.window.parentFun;
             $scope.parentChoose = function(cus){
                 var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
                 window.parent.window.parentFun(cus);

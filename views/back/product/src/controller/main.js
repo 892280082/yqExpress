@@ -26,7 +26,7 @@
             //初始获取所有创品信息
             pageResult.$loadInit({
                                 url:"/back/proGetAllData",
-                                pageSize:5,
+                                pageSize:14,
                                 query:{},
             },function(err,result){
                 $scope.array_custom = result;
@@ -192,5 +192,13 @@
             uploaderBannerurl.onCompleteItem = function(fileItem, response, status, headers) {
                 $scope.pojo_custom.bannerurl = response.path;
             };
-    }])
+            /****************父级选定****************************/
+            $scope.parentShow = !!window.parent.window.parentFun;
+            $scope.parentChoose = function(cus){
+                var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+                window.parent.window.parentFun(cus);
+                parent.layer.close(index);
+            }
+
+        }])
 

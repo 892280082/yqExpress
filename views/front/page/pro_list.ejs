@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" ng-app="myApp">
 <head>
 	<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
@@ -7,8 +7,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>产品列表页</title>
 <% include ../include/baseLink %>
+<script type="text/javascript"  src="/front/dist/pro_list.js"></script>
 </head>
-<body>
+<body ng-controller="pro_list_control">
 <% include ../include/head %>
 <div class="ht100"></div>
 <div class="bs-docs-featurette">
@@ -22,12 +23,24 @@
                         <img  width="226" height="221" src="<%- ele.imgBigUrl  %>" class="m1fximg" /></a>
                         <div class="oter"><span class="cprice">￥<%- ele.price %></span>
                                           <span class="name">作者：<%- ele._userName %></span></div>
-                        <p class="title"><a href="#"><%- ele.introduce %></a></p>
+                        <p class="title"><a href="#"><%- ele.title %></a></p>
                     </div>
                 </div>
         <%    }) %>
+        <div class="col-sm-6 col-lg-3" ng-repeat="pro in array_custom.$array " >
+            <div class="list">
+                <a href="#">
+                    <img  width="226" height="221" src="{{ pro.imgBigUrl }}" class="m1fximg" /></a>
+                <div class="oter"><span class="cprice">￥{{ pro.price }}</span>
+                    <span class="name">作者：{{ pro._userName }}</span></div>
+                <p class="title"><a href="#">{{ pro.title }}</a></p>
+            </div>
         </div>
-        <div class="clickmore"><a href="#">点击加载更多</a></div>
+        </div>
+        <div class="clickmore">
+            <a href="" ng-show="array_custom.$next || requestCount == 0"  ng-click="getData();" >点击加载更多</a>
+            <a href="" ng-show="!array_custom.$next && requestCount > 0">没有更多了</a>
+        </div>
     </div>
 </div>
 <% include ../include/foot %>

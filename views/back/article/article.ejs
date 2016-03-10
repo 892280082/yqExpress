@@ -62,7 +62,11 @@
                 <td>{{ cus.collections.length }}</td>
                 <td width="13%">{{ cus.creatTime |  date:'yyyy-MM-dd HH:mm:ss' }}</td>
                 <td>{{ cus.topno }}</td>
-                <td><a class="inner_btn"  ng-click="removeCustom(cus);"  href="#">删除</a></td>
+                <td>
+                    <a class="inner_btn"  ng-click="removeCustom(cus);"  href="#">删除</a>
+                    <a class="inner_btn"  ng-if="parentShow"   ng-click="parentChoose(cus);"
+                       href="#">选定</a>
+                </td>
             </tr>
         </table>
         <aside class="paging">

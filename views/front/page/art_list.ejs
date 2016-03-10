@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" ng-app="myApp">
 <head>
 	<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
@@ -7,6 +7,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>发现列表页</title>
 <% include ../include/baseLink%>
+<script type="text/javascript"  src="/front/dist/art_list.js"></script>
 <style type="text/css">
 /* 标签重定义 */
 /* wrap */
@@ -31,7 +32,7 @@
 .box .oter span.date{ float:right;color:#999; font-size:12px;margin-right:6px;}
 </style>
 </head>
-<body>
+<body ng-controller="art_list_control">
 <% include ../include/head %>
 <div class="bs-docs-featurette">
 	<div class="container projects">
@@ -51,6 +52,17 @@
 							</div>
 						</div>
 	        	<%	}); %>
+				<div class="box" ng-repeat="ele in array_custom.$array track by ele.creatTime">
+					<div class="info">
+						<div class="pic"><img src="{{ ele.contentPicUrl }}"></div>
+						<div class="title"><a href="#">{{ ele.title }}</a></div>
+						<div class="oter">
+							<span class="brow">{{ ele.checkcounts.length }}</span>
+							<span class="like">{{ ele.collections.length }}</span>
+							<span class="date">{{ ele.creatTime | date:'yyyy-MM-dd' }}</span>
+						</div>
+					</div>
+				</div>
 			</div>
         </div>
     </div>

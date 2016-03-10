@@ -66,7 +66,8 @@
                 <td>
                     <a class="inner_btn"  ng-click="changeIntoEdit(cus);"  href="#">查看</a>
                     <a class="inner_btn"  ng-click="removeCustom(cus);"  href="#">删除</a>
-                    <a class="inner_btn"  ng-click="parentChoose(cus);"  href="#">选定</a>
+                    <a class="inner_btn"  ng-if="parentShow"   ng-click="parentChoose(cus);"  
+                    href="#">选定</a>
                 </td>
             </tr>
         </table>
@@ -207,7 +208,7 @@
                 <td colspan="6" style="text-align: left;" class="tle1">用户图像</td>
             </tr>
             <tr>
-                <td  class="tname"><label>图像:</label></td>
+                <td  class="tname"><label>头像:</label></td>
                 <td class="tiput"><input type="file" nv-file-select="" uploader="uploader"  name="t_imgurl" />
                     <img ng-src="{{ pojo_custom.imgurl}}" width="160px" height="140px" ng-if="pojo_custom.imgurl"/>
                 <td class="tip"><span class="errorTips" ng-show="subForm.t_imgurl.$error.required">请输入图像</span></td>

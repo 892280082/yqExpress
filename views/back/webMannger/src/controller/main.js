@@ -12,10 +12,10 @@
             $scope.show = showCtrl;
             $scope.show.$regist('cusadd',['cusadd'],true);
 
-            $scope.cateSelect = [{type:1,name:'用户'},
-                                 {type:2,name:'创品'},
-                                 {type:3,name:'文章'},
-                                 {type:4,name:'活动'}]
+            $scope.cateSelect = [{type:1,name:'用户',url:'/back/toCusDeal'},
+                                 {type:2,name:'创品',url:'/back/toProducs'},
+                                 {type:3,name:'文章',url:"/back/toArticlePage"},
+                                 {type:4,name:'活动',url:'/back/toActivePage'}]
 
             $scope.getSonpageResult = {};//子页面获取的对象
 
@@ -59,6 +59,7 @@
                 }
                 if(!insertPojo.picUrl){
                     alert("该对象没有设置banner图");
+                    return false;
                 }
                 $scope.webConfig.banners[index]=insertPojo;
                 $scope.$apply();
@@ -67,12 +68,15 @@
             $scope.toChange = function(arrayIndex,type){
                 $scope.bannerIndex = arrayIndex;
                 $scope.bannerType = type;
+                var typePojo  = _.find($scope.cateSelect,function(ele){
+                    return ele.type == $scope.bannerType;
+                });
                 var index = layer.open({
                     type: 2,
                     area: ['700px', '530px'],
                     fix: false, //不固定
                     maxmin: true,
-                    content: '/back/toCusDeal'
+                    content: typePojo.url
                 });
                 layer.full(index);
             }

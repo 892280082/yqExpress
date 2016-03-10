@@ -28,13 +28,13 @@ var activeSchema = new Schema({
     checkcounts:Number,//关注量 *
     likes:[Schema.Types.ObjectId],//喜欢
     votes:[Schema.Types.ObjectId],//投票
-    collects:[Schema.Types.ObjectId],//收藏
+    collects:[Schema.Types.ObjectId],//报名
     actStartTime:Date,//活动开始结束时间
     actOverTime:Date,
     signStarTime:Date,//报名开始结束时间
     signOverTime:Date,
     address:String,//活动地址
-    topno:Number
+    topno:{ type:Number,default:0}
 
 })
 

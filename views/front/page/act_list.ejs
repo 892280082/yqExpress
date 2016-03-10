@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en" ng-app="myApp">
+<head>
+	<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>活动列表页</title>
+<% include ../include/baseLink%>
+<script type="text/javascript"  src="/front/dist/act_list.js"></script>
+</head>
+<body ng-controller="act_list_control">
+<% include ../include/head %>
+<div class="ht100"></div>
+<div class="bs-docs-featurette">
+	<div class="container projects">
+    	<div class="scp_title"><span class="dtle">活动资讯</span><span class="bytle">生活美好的事物从发现开始</span></div>
+    	<div class="row sacivs">
+        	<div class="col-lg-12">
+            <%  _.each(actives,function(ele){ %>
+                    <div class="list clearfix">
+                        <div class="sacimg lt">
+                            <a href="#">
+                                <img src="<%- ele.convertUrl %>" class="huodongimg" />
+                            </a>     
+                        </div>
+                        <div class="sacrt lt">
+                            <div class="rtf">
+                                 <b>
+                                <%-  $moment.validateTime(ele.actStartTime,ele.actOverTime,['即将开始','进行中','已结束'])  %>
+                                </b>
+                                <span class="title"><a href="#"><%- ele.title %></a></span>
+                                <span class="es"><%- ele.checkcounts %>人浏览</span>
+                            </div>
+                            <div class="rts"><%- ele.introduce %></div>
+                            <div class="rtt">
+                                <div class="lt">
+                                    <p class="addr"><%- ele.address %></p>
+                                    <p class="date">
+                                        <%- $moment(ele.actStartTime).format("YYYY-MM-DD") %>
+                                        ——
+                                        <%- $moment(ele.actOverTime).format("YYYY-MM-DD") %>
+                                    </p>
+                                </div>
+                                <div class="baom rt">
+                                    <span><b><%- ele.collects.length %></b>人报名</span>
+                                    <br/>
+                                    <a href="#" class="iwant">我要报名</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            <%  })  %>
+
+                <div class="list clearfix"  ng-repeat="ele in array_custom.$array" >
+                    <div class="sacimg lt">
+                        <a href="#">
+                            <img ng-src="{{ ele.convertUrl }}" class="huodongimg" />
+                        </a>     
+                    </div>
+                    <div class="sacrt lt">
+                        <div class="rtf">
+                             <b>
+                                 {{ validateTime(ele.actStartTime,ele.actOverTime,['即将开始','进行中','已结束']); }}
+                            </b>
+                            <span class="title"><a href="#">{{ ele.title }}</a></span>
+                            <span class="es">{{ ele.checkcounts }}人浏览</span>
+                        </div>
+                        <div class="rts">{{ ele.introduce }}</div>
+                        <div class="rtt">
+                            <div class="lt">
+                                <p class="addr">{{ ele.address }}</p>
+                                <p class="date">
+                                    {{ ele.actStartTime | date:'yyyy-MM-dd' }}
+                                    ——
+                                    {{ ele.actOverTime | date:'yyyy-MM-dd' }}
+                                </p>
+                            </div>
+                            <div class="baom rt">
+                                <span><b>{{ ele.collects.length }}</b>人报名</span>
+                                <br/>
+                                <a href="#" class="iwant">我要报名</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clickmore"><a href="" ng-click="getData();" >点击加载更多</a></div>
+    </div>
+</div>
+<% include ../include/foot %>
+</body>
+</html>

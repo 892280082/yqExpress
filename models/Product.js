@@ -21,10 +21,10 @@ var productSchema = new Schema({
     creatTime:{type:Date,default:Date.now},//创建时间
     type:[],//创品类型
     kucun:Number,//库存
-    topno:Number,//在首页的顺序
+    topno:{ type:Number,default:0},//在首页的顺序
     bannerno:Number,//模块Banner展示
     attentionno:Number,//关注量
-    status:Boolean,//创品状态 true 上架 false 下架
+    status:Boolean,//创品状态 true 上架中 false 已下架
     //冗余字段
     _userName:String,//用户姓名
 })
