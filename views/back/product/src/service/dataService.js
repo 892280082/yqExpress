@@ -24,4 +24,8 @@ angular.module('service.dataService',[]).service("dataService",["$http"
             this.getAllUserData = function(searchPojo){
                 return $http.post('/back/cusGetAllData',{"searchPojo":searchPojo});
             };
+            //获取分类数据
+            this.getConfig = function(){
+                return $http.post('/back/getWebConfig',{});
+            };
     }]);

@@ -121,7 +121,7 @@ angular.module("service_pageResult",[])
         this.$waterfull = false;
         this.$last = false;
         this.$next = false;
-        this.$pass = 4;
+        this.$pass = 3;
         this.$toLast = function(){
             this._nextCache = concactArray(this.$array,this._nextCache);
             this.$array = ArrayRemovePop(this._readCache,this.$pageSize);
@@ -153,8 +153,9 @@ angular.module("service_pageResult",[])
 
             //判断 则再请求服务器 将数据放入缓存尾部
             if(this.$curPage <= this.$pageCount //当前页小于总页数
-                && this._nextCache.length <= this.$pageSize //当缓存的页数不足两页时查询数据库
+                && this._nextCache.length <= this.$pageSize //当缓存的页数不足一页时查询数据库
                 && this._server_pojo.skip < this.$pageCount //判断skip小于总页数
+                && this.$totalSize > this.$pageSize*this.$pass
             ){
                 $http.post(this._server_url,{
                     query:this._server_pojo.query,
@@ -170,7 +171,6 @@ angular.module("service_pageResult",[])
             }
         };
         this.$loadInit = function(param,callback){
-            var firstLimit;
             if(param.waterfull)
                 this.$waterfull = param.waterfull;
             if(param.pass)

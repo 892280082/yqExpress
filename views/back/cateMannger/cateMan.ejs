@@ -14,7 +14,7 @@
 <head>
     <meta charset="UTF-8">
     <% include ../include/baseLink %>
-    <title>用户信息管理</title>
+    <title>类别管理</title>
     <script type="text/javascript" src="/back/dist/cateMan.js"></script>
 </head>
 <body ng-controller="main">
@@ -33,28 +33,101 @@
                 >
             <table class="datatable">
                 <tr>
-                    <td colspan="6" style="text-align: left;" class="tle1">分类基本信息</td>
+                    <td colspan="6" style="text-align: left;" class="tle1">人物分类修改</td>
                 </tr>
                 <tr>
-                    <td class="tname"><label>文章分类:</label></td>
+                    <td class="tname"><label>现有分类:</label></td>
                     <td class="tiput">
-                        <select  ng-model="articleType" name="t_usertype"
-                                 ng-options="keyword for keyword in pojo_custom.articleCate">
-                                <option value="">-- 请选择 --</option>
+                        <select  ng-model="customerCate" name="t_usertype"
+                                 ng-options="(m.cateId + '-------' + m.cateName)  for m in webConfig.customerCates">
+                            <option value="">-- 请选择 --</option>
                         </select><br/>
                     </td>
-                    <td><span class="errorTips" ng-show="subForm.t_title.$error.required">请输入创品称</span></td>
-                    <td class="tname"><label>创品价格:</label></td>
-                    <td class="tiput"><input type="number"  ng-model="pojo_custom.price" name="t_price"
-                                             class="textbox" required /><br/></td>
-                    <td><span class="errorTips" ng-show="subForm.t_price.$error.required">请输入价格</span></td>
+                    <td><input type="button" value="删除分类" ng-click="removeCustomerCate();"  /></td>
+                    <td class="tname"><label>添加分类:</label></td>
+                    <td class="tiput">
+                        <input type="text"  ng-model="tempPojo.customerCate" name="t_articleCate"
+                                             class="textbox" required /><br/>
+                    </td>
+                    <td><input type="button" value="添加分类" ng-click="addCustomerCate();"  ng-show="tempPojo.customerCate"  /></td>
                 </tr>
-
                 <tr>
-                    <td colspan="3" style="text-align: center;">
-                        <input class="link_btn"  type="submit" ng-disabled="subForm.$invalid" value="提交" /></td>
-                    <td colspan="3" style="text-align: center;">
-                        <input class="link_btn" type="button"  ng-click="toPageList();"  value="取消" /></td>
+                    <td colspan="6" style="text-align: left;" class="tle1">文章分类修改</td>
+                </tr>
+                <tr>
+                    <td class="tname"><label>现有分类:</label></td>
+                    <td class="tiput">
+                        <select  ng-model="articleCate" name="t_usertype"
+                                 ng-options="(m.cateId + '-------' + m.cateName)  for m in webConfig.articleCates">
+                            <option value="">-- 请选择 --</option>
+                        </select><br/>
+                    </td>
+                    <td><input type="button" value="删除分类" ng-click="removeArticleCate();"  /></td>
+                    <td class="tname"><label>添加分类:</label></td>
+                    <td class="tiput">
+                        <input type="text"  ng-model="tempPojo.articleCate" name="t_articleCate"
+                                             class="textbox" required /><br/>
+                    </td>
+                    <td><input type="button" value="添加分类" ng-click="addArticleCate();"  ng-show="tempPojo.articleCate"  /></td>
+                </tr>
+                <tr>
+                <tr>
+                    <td colspan="6" style="text-align: left;" class="tle1">活动分类修改</td>
+                </tr>
+                <tr>
+                    <td class="tname"><label>现有分类:</label></td>
+                    <td class="tiput">
+                        <select  ng-model="activeCate" name="t_usertype"
+                                 ng-options="(m.cateId + '-------' + m.cateName)  for m in webConfig.activeCates">
+                            <option value="">-- 请选择 --</option>
+                        </select><br/>
+                    </td>
+                    <td><input type="button" value="删除分类" ng-click="removeActiveCate();"  /></td>
+                    <td class="tname"><label>添加分类:</label></td>
+                    <td class="tiput">
+                        <input type="text"  ng-model="tempPojo.activeCate" name="t_articleCate"
+                               class="textbox" required /><br/>
+                    </td>
+                    <td><input type="button" value="添加分类" ng-click="addActiveCate();"  ng-show="tempPojo.activeCate"  /></td>
+                </tr>
+                <tr>
+                    <td colspan="6" style="text-align: left;" class="tle1">产品分类修改</td>
+                </tr>
+                <tr>
+                    <td class="tname"><label>一级分类:</label></td>
+                    <td class="tiput">
+                        <select  ng-model="thirdProductCate" name="t_usertype"
+                                 ng-options="(m.cateId + '-------' + m.cateName)  for m in webConfig.productCates">
+                            <option value="">-- 请选择 --</option>
+                        </select><br/>
+                    </td>
+                    <td><input type="button" value="删除分类" ng-click="removeThirdProductCate();"  /></td>
+                    <td class="tname"><label>添加分类:</label></td>
+                    <td class="tiput">
+                        <input type="text"  ng-model="tempPojo.thirdProductCate" name="t_articleCate"
+                               class="textbox" /><br/>
+                    </td>
+                    <td><input type="button" value="添加分类" ng-click="addThirdProductCate();"  ng-show="tempPojo.thirdProductCate"  /></td>
+                </tr>
+                <tr>
+                    <td class="tname"><label>二级分类:</label></td>
+                    <td class="tiput">
+                        <select  ng-model="productSubCate" name="t_usertype"
+                                 ng-options="(m.cateId + '-------' + m.cateName)  for m in thirdProductCate.subCate">
+                            <option value="">-- 请选择 --</option>
+                        </select><br/>
+                    </td>
+                    <td><input type="button" value="删除分类" ng-click="removeSubProductCate();"  /></td>
+                    <td class="tname"><label>添加分类:</label></td>
+                    <td class="tiput">
+                        <input type="text"  ng-model="tempPojo.subProductCate" name="t_articleCate" placeholder="{{ thirdProductCate.cateName }}"
+                               class="textbox"  /><br/>
+                    </td>
+                    <td><input type="button" value="添加分类" ng-click="addSubProductCate();"  ng-show="tempPojo.subProductCate"  /></td>
+                </tr>
+                <tr>
+                    <td colspan="6" style="text-align: center;">
+                        <input class="link_btn"  type="button"  ng-click="saveOrUpdate();" value="保存" /></td>
                 </tr>
             </table>
         </form>

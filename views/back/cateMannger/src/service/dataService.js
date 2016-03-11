@@ -4,7 +4,7 @@
  */
 angular.module('service.dataService',[]).service("dataService",["$http"
     ,function($http){
-    		//获取所有数据，利用前台分页
+    		//获取分类数据
             this.getConfig = function(){
                 return $http.post('/back/getWebConfig',{});
             };

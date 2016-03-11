@@ -113,8 +113,4 @@ router.post('/getActiveList',function(req,res){
 	})
 })
 
-
-
-
-
 module.exports = router;

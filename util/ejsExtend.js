@@ -19,6 +19,7 @@ moment.validateTime = function(startData,overData,infos) {
 var ejsExtend = function(req,res,next){
 	res.locals._ = _;
 	res.locals.$moment = moment;
+	res.locals.$session = req.session;
 	next();
 }
 

@@ -26,6 +26,7 @@ var app = angular.module('myApp',[
     'service.showCtrl',
     'service.dataService',
     pageResult.service_pageResult,
+    "selectAddress",
     'controller.main'
     ]);
 
@@ -39,4 +40,4 @@ app.directive('tsCuslist',function(){
             restrict:'EAC',
             templateUrl:'cusadd'
         }
-    })
+    });

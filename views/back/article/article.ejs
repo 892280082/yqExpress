@@ -128,11 +128,14 @@
                 </td>
             </tr>
             <tr>
-                <td class="tname"><label>文章类型:</label></td>
-                <td class="tiput"><input type="text"  ng-model="pojo_custom.type" name="t_type"
-                                         placeholder="多个关键字请用空格隔开" class="textbox" required /><br/>
+                <td class="tname"><label>文章分类:</label></td>
+                <td class="tiput">
+                    <select  ng-model="pojo_custom.cate1" name="t_usertype"
+                             ng-options="(m.cateId + '-------' + m.cateName)  for m in webConfig.articleCates">
+                        <option value="">-- 当前:-- {{ pojo_custom.cate1.cateName }}  --</option>
+                    </select><br/>
                 </td>
-                <td><span class="errorTips" ng-show="subForm.t_type.$error.required">请输入类型</span></td>
+                <td></td>
                 <td class="tname"><label>文章关键字:</label></td>
                 <td class="tiput"><input type="text"  ng-model="pojo_custom.keyword" name="t_keyword"
                                          placeholder="多个关键字请用空格隔开" class="textbox" required /><br/>

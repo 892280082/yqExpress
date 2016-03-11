@@ -20,5 +20,8 @@ angular.module('service.dataService',[]).service("dataService",["$http"
             this.updateCustomer = function(cus){
                 return $http.post('/back/actUpdateSingle',{"updatePojo":cus});
             };
-
+            //获取分类数据
+            this.getConfig = function(){
+                return $http.post('/back/getWebConfig',{});
+            };
     }]);

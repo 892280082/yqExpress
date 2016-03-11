@@ -37,6 +37,20 @@
                 $scope.array_custom.$search($scope.search_custom);
             }
 
+            //初始获取所有分类信息
+            dataService.getConfig()
+                .success(function(data){
+                    if(data.err){
+                        console.log(data.err);
+                        alert("获取网站配置参数数据错误");
+                    }else{
+                        $scope.webConfig = data.result;
+                    }
+                }).error(function(data){
+                    alert("获取错误");
+            })
+
+
             /****************************查询用户**********************************/
             //用户pojo
             $scope.array_user = [];

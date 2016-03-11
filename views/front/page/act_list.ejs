@@ -1,13 +1,13 @@
 <!doctype html>
 <html lang="en" ng-app="myApp">
 <head>
-	<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>活动列表页</title>
-<% include ../include/baseLink%>
-<script type="text/javascript"  src="/front/dist/act_list.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>活动列表页</title>
+    <% include ../include/baseLink%>
+    <script type="text/javascript"  src="/front/dist/act_list.js"></script>
 </head>
 <body ng-controller="act_list_control">
 <% include ../include/head %>
@@ -26,7 +26,7 @@
                         </div>
                         <div class="sacrt lt">
                             <div class="rtf">
-                                 <b>
+                                <b>
                                 <%-  $moment.validateTime(ele.actStartTime,ele.actOverTime,['即将开始','进行中','已结束'])  %>
                                 </b>
                                 <span class="title"><a href="#"><%- ele.title %></a></span>

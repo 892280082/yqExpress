@@ -13,7 +13,6 @@ var productSchema = new Schema({
     imgUrl:String,//封面url
     imgBigUrl:String,//首页大图
     introduce:String,//简介
-    guige:String,//规格
     detailimgarr:String,//详情页banner URL 集合，逗号隔开
     bannerurl:String,//
     converturl:String,//
@@ -27,6 +26,12 @@ var productSchema = new Schema({
     status:Boolean,//创品状态 true 上架中 false 已下架
     //冗余字段
     _userName:String,//用户姓名
+
+    //分类1
+    cate1:{},
+    //分类2
+    cate2:{},
+
 })
 
 var  product = mongoose.model("products", productSchema);

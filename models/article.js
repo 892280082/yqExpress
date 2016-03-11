@@ -32,7 +32,7 @@ var articleSchema = new Schema({
     content:String,//文章内容
     topno:{ type:Number,default:0},//展示在首页的顺序
     /** 集合*/
-    type:String,//文章类型
+    cate1:{},//文章类型
     keyword:[String],//关键字
     checkcounts:{type:Number,default:0},//查看次数
     collections:[Schema.Types.ObjectId],//收藏次数 添加用户id

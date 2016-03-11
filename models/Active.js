@@ -18,7 +18,7 @@ var mongoose = require('mongoose'),
 
 var activeSchema = new Schema({
     title:String,//活动名称 *
-    type:[String],//创品类型 *
+    cate1:{},//类型
     introduce:String,//简介 *
     content:String,//内容 *
     bannerUrl:String,//banner图 *
@@ -35,7 +35,6 @@ var activeSchema = new Schema({
     signOverTime:Date,
     address:String,//活动地址
     topno:{ type:Number,default:0}
-
 })
 
 var  active = mongoose.model("actives", activeSchema);

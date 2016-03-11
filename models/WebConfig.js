@@ -24,15 +24,23 @@ var banner = new Schema({
     picUrl:String//图片路径
 })
 
+var thirdCate = {
+    cateId:Number,
+    cateName:String,
+    subCate:[],
+};
+
 var webConfig = new Schema({
 
     banners:[banner],//首页banner图片
 
-    articleCate:[],//文章类型
+    articleCates:[],//文章类型
 
-    productCate:{},//产品类型
+    productCates:[thirdCate],//产品类型
 
-    activeCate:[],//活动类型
+    activeCates:[],//活动类型
+
+    customerCates:[],//任务类型
 
 })
 

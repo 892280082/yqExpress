@@ -101,10 +101,14 @@
                     <td class="tiput" style="width: 200px;"><input type="text"  ng-model="pojo_custom.title"  name="t_title"
                                                                    class="textbox" required placeholder="请输入你的昵称" /></td>
                     <td class="tip" ><span class="errorTips" ng-show="subForm.t_title.$error.required">输入简介</span></td>
-                    <td class="tname"><label>类型:</label></td>
-                    <td class="tiput"><input type="text"  ng-model="pojo_custom.type" name="t_type"
-                                             class="textbox" required  placeholder="多个请用逗号隔开" /></td>
-                    <td><span class="errorTips" ng-show="subForm.t_type.$error.required">请输入类型</span></td>
+                    <td class="tname"><label>一级分类:</label></td>
+                    <td class="tiput">
+                        <select  ng-model="pojo_custom.cate1" name="t_usertype"
+                                 ng-options="(m.cateId + '-------' + m.cateName)  for m in webConfig.activeCates">
+                            <option value="">-- 当前:-- {{ pojo_custom.cate1.cateName }}  --</option>
+                        </select><br/>
+                    </td>
+                    <td></td>
                 </tr>
                 <tr>
                     <td class="tname"><label>关注量:</label></td>

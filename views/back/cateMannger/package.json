@@ -1,6 +1,6 @@
 {
   "spm": {
-    "main": "banner.js",
+    "main": "cateMan.js",
     "build": {
       "global": {
         "jquery": "jquery",
