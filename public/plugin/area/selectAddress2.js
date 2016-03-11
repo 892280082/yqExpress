@@ -7,8 +7,8 @@
   app.directive('selectAddress', function($http, $q, $compile) {
     var cityURL, delay, templateURL;
     delay = $q.defer();
-    templateURL = 'template/index.html';
-    cityURL = 'template/city.min.js';
+    templateURL = '/plugin/area/template/index.html';
+    cityURL = '/plugin/area/template/city.min.js';
     $http.get(cityURL).success(function(data) {
       return delay.resolve(data);
     });

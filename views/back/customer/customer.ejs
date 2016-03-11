@@ -188,23 +188,10 @@
             <tr>
                 <td class="tname"><label>省份:</label></td>
                 <td class="tiput">
-                    <input select-address p="p" c="c" a="a" d="d" ng-model="xxx" placeholder="请选择所在地" type="text" class="form-control" />
+                    <input select-address p="pojo_custom.provice" c="pojo_custom.city"
+                           a="pojo_custom.block" d="pojo_custom.address" ng-model="pojo_custom.addressInfo"  placeholder="请选择所在地" type="text" class="form-control" />
                 </td>
                 <td class="tip"><span class="errorTips" ng-show="subForm.t_provice.$error.required">请输入省份</span></td>
-                <td class="tname"><label>城市:</label></td>
-                <td class="tiput"><input type="text"  ng-model="pojo_custom.city" class="textbox"
-                           required name="t_city"/></td>
-                <td  class="tip"><span class="errorTips" ng-show="subForm.t_city.$error.required">请输入城市</span></td>
-            </tr>
-            <tr>
-                <td class="tname"><label>邮编:</label></td>
-                <td class="tiput"><input type="text"  ng-model="pojo_custom.postAddress" class="textbox"
-                             required name="t_postAddress"/></td>
-                <td class="tip"><span class="errorTips" ng-show="subForm.t_postAddress.$error.required">请输入邮编</span></td>
-                <td class="tname"><label>详细地址:</label></td>
-                <td class="tiput"><input type="text"  ng-model="pojo_custom.detailAddress" class="textbox"
-                            required name="t_detailAddress" /></td>
-                <td class="tip"><span class="errorTips" ng-show="subForm.t_detailAddress.$error.required">请输入详细地址</span></td>
             </tr>
             <tr>
                 <td class="tname"><label>工作单位:</label></td>

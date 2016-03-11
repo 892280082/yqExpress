@@ -17,6 +17,7 @@
             $scope.array_custom = [];
             //查询Pojo
             $scope.search_custom = {"$$_title":"",usertype:""};
+
             /*********************注册show service**************************/
             $scope.show = showCtrl;
             $scope.show.$regist('cuslist',['cuslist'],true);
@@ -25,9 +26,9 @@
 
             //初始获取所有用户信息
             pageResult.$loadInit({
-                                url:"/back/cusGetAllData",
-                                pageSize:15,
-                                query:{},
+                url:"/back/cusGetAllData",
+                pageSize:15,
+                query:{}
             },function(err,result){
                 $scope.array_custom = result;
             })
@@ -44,7 +45,6 @@
                 }).error(function(data){
                     alert("获取错误");
             })
-
 
             //查询方法
             $scope.search = function(){

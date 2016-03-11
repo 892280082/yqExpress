@@ -44,9 +44,14 @@ var customSchema = new Schema({
     email:{ type:String, unique: true },//邮件
     postAddress:String,//邮编
     realName:String,//真实姓名
+
+
     provice:String,//省份
     city:String,//城市
-    detailAddress:String,//详细地址
+    block:String,//街区
+    address:String,//详细地址
+    addressInfo:String,//地址全称
+
     phoneNumber:String,//联系方式
     ability:String,//能力标签
     creatTime:{type:Date,default:Date.now},//添加时间
