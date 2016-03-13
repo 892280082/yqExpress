@@ -50,6 +50,7 @@
           init: function() {
             element.on('click keydown', function() {
               popup.show();
+              console.log("---------------window->event",window.event);
               event.stopPropagation();
               return false;
             });
@@ -59,6 +60,7 @@
               };
             })(this));
             this.element.on('click', function() {
+              console.log("---------------window->event",window.event);3
               return event.stopPropagation();
             });
             return setTimeout((function(_this) {

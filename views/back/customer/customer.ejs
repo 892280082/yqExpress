@@ -66,7 +66,7 @@
                 <td>
                     <a class="inner_btn"  ng-click="changeIntoEdit(cus);"  href="#">查看</a>
                     <a class="inner_btn"  ng-click="removeCustom(cus);"  href="#">删除</a>
-                    <a class="inner_btn"  ng-if="parentShow"   ng-click="parentChoose(cus);"  
+                    <a class="inner_btn"  ng-if="parentShow"   ng-click="parentChoose(cus);"
                     href="#">选定</a>
                 </td>
             </tr>
@@ -111,14 +111,21 @@
             <tr>
                 <td class="tname"><label>真实姓名:</label></td>
                 <td class="tiput"><input type="text"  ng-model="pojo_custom.realName"  name="t_realName"
-                           class="textbox" required /></td>
-                <td class="tip"><span class="errorTips" ng-show="subForm.t_realName.$error.required">请输入姓名</span></td>
+                           class="textbox"/></td>
+                <td class="tip"></td>
                 <td class="tname"><label>性别:</label></td>
-                <td><input type="radio"   ng-model="pojo_custom.sex" ng-value="0"
+                <td><input type="radio"
+                           name="pojo_custom_sex"
+                           ng-model="pojo_custom.sex"
+                           ng-value="0"
                            class="textbox" />男
-                    <input type="radio"  ng-model="pojo_custom.sex" ng-value="1"
+                    <input type="radio"
+                           name="pojo_custom_sex"
+                           ng-model="pojo_custom.sex"
+                           ng-value="1"
                            class="textbox" />女
                 </td>
+                <td></td>
             </tr>
             <tr>
                 <td class="tname"><label>职业:</label></td>
@@ -126,9 +133,9 @@
                            name="t_job" required /></td>
                 <td class="tip"><span class="errorTips" ng-show="subForm.t_job.$error.required">请输入职业</span></td>
                 <td class="tname"><label>邮箱:</label></td>
-                <td class="tiput"><input type="email"  ng-model="pojo_custom.email" class="textbox" name="t_email" required
+                <td class="tiput"><input type="email"  ng-model="pojo_custom.email" class="textbox" name="t_email"
                             /></td>
-                <td class="tip"><span class="errorTips" ng-show="subForm.t_email.$error.required">请输入邮箱</span></td>
+                <td class="tip"></td>
             </tr>
             <tr>
                 <td class="tname"><label>生日:</label></td>
@@ -138,7 +145,7 @@
                 <td class="tname"><label>学校:</label></td>
                 <td class="tiput"><input type="text"  ng-model="pojo_custom.educational"  name="t_educational"
                            class="textbox" /></td>
-                <td class="tip"><span class="errorTips" ng-show="subForm.t_educational.$error.required">请输入学历</span></td>
+                <td class="tip"></td>
             </tr>
             <tr>
                 <td class="tname"><label>用户分类:</label></td>
@@ -152,7 +159,7 @@
                 <td class="tname"><label>标签:</label></td>
                 <td class="tiput"><input type="text"  ng-model="pojo_custom.ability" class="textbox"
                             name="t_ability" placeholder="标签请用逗号隔开" /></td>
-                <td class="tip"><span class="errorTips" ng-show="subForm.t_ability.$error.required">请输入能力标签</span></td>
+                <td class="tip"></td>
             </tr>
             <tr>
                 <td colspan="1"><label>用户介绍:</label></td>
@@ -169,35 +176,27 @@
                 <td class="tname"><label>微博:</label></td>
                 <td class="tiput"><input type="text"  ng-model="pojo_custom.weibo" class="textbox" name="t_weibo"
                             /></td>
-                <td  class="tip"><span class="errorTips" ng-show="subForm.t_weibo.$error.required">请输入微博账号</span></td>
+                <td  class="tip"></td>
             </tr>
             <tr>
                 <td class="tname"><label>QQ:</label></td>
                 <td class="tiput"><input type="text"  ng-model="pojo_custom.qq" class="textbox"   name="t_qq"
                             /></td>
-                <td class="tip"><span class="errorTips" ng-show="subForm.t_qq.$error.required">请输入QQ账号</span></td>
+                <td class="tip"></td>
                 <td class="tname"><label>首页排序:</label></td>
                 <td class="tiput"><input type="text"  ng-model="pojo_custom.topno" class="textbox"
                                     name="t_topno" /></td>
-                <td class="tip"><span class="errorTips" ng-show="subForm.t_topno.$error.required">
-                    请输入首页排序</span></td>
+                <td class="tip"></td>
             </tr>
             <tr>
                 <td colspan="6" style="text-align: left;" class="tle1">用户地址</td>
             </tr>
             <tr>
-                <td class="tname"><label>省份:</label></td>
-                <td class="tiput">
-                    <input select-address p="pojo_custom.provice" c="pojo_custom.city"
-                           a="pojo_custom.block" d="pojo_custom.address" ng-model="pojo_custom.addressInfo"  placeholder="请选择所在地" type="text" class="form-control" />
+                <td class="tname"><label>选择地址:</label></td>
+                <td class="tiput" colspan="5">
+                        <china-area-selector region="region1"></china-area-selector>
+                    {{ region1 }}
                 </td>
-                <td class="tip"><span class="errorTips" ng-show="subForm.t_provice.$error.required">请输入省份</span></td>
-            </tr>
-            <tr>
-                <td class="tname"><label>工作单位:</label></td>
-                <td class="tiput"><input type="text"  ng-model="pojo_custom.workUnit" class="textbox"   name="t_qq"
-                            /></td>
-                <td class="tip"></td>
             </tr>
             <tr>
                 <td colspan="6" style="text-align: left;" class="tle1">用户图像</td>
@@ -244,7 +243,7 @@
             </tr>
             <tr>
                 <td colspan="3" style="text-align: center;">
-                    <input class="link_btn"  type="submit" ng-disabled="subForm.$invalid" value="提交" /></td>
+                    <input class="link_btn" type="submit"  ng-click="saveOrUpdate();"  value="提交" /></td>
                 <td colspan="3" style="text-align: center;">
                     <input class="link_btn" type="button"  ng-click="toPageList();"  value="取消" /></td>
             </tr>

@@ -1,0 +1,44 @@
+{
+  "name": "china-area-selector",
+  "version": "0.0.11",
+  "description": "中国地区三级联动选择插件 for Angular.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/youshe/china-area-selector.git"
+  },
+  "main": "dist/china-area-selector.js",
+  "scripts": {
+    "test": "./node_modules/gulp/bin/gulp.js test"
+  },
+  "keywords": [
+    "angularjs",
+    "angular",
+    "directive",
+    "selector"
+  ],
+  "author": {
+    "name": "soliury,yanxi-com"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "coffee-script": "^1.8.0",
+    "gulp": "^3.8.10",
+    "gulp-angular-templatecache": "^1.5.0",
+    "gulp-concat": "^2.4.2",
+    "gulp-minify-css": "^0.3.11",
+    "gulp-minify-html": "^0.1.7",
+    "gulp-uglify": "^1.0.2",
+    "gulp-util": "^3.0.1",
+    "run-sequence": "^1.0.2"
+  },
+  "bugs": {
+    "url": "https://github.com/youshe/china-area-selector/issues"
+  },
+  "homepage": "https://github.com/youshe/china-area-selector",
+  "maintainers": [
+    {
+      "name": "soliury",
+      "email": "hi@lingyong.me"
+    }
+  ]
+}

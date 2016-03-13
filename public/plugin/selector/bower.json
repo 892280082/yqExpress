@@ -1,0 +1,19 @@
+{
+  "name": "china-area-selector",
+  "version": "0.0.8",
+  "description": "",
+  "main": "dist/china-area-selector.js",
+  "license": "MIT",
+  "private": false,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "npm-debug.log"
+  ],
+  "devDependencies": {
+    "angular": "~1.3.4"
+  }
+}

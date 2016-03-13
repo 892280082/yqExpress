@@ -1,0 +1,39 @@
+<div class="china-area-selector-wrapper">
+    <span ng-bind="show.province">请选择省市</span>
+    <select name="province" ng-options="province for province in provinces" ng-model="region.province">
+        <option value="">-- 选择省 --</option>
+    </select>
+    <span class="china-area-selector-icon">
+                            <span>
+
+                            </span>
+    </span>
+</div>
+
+<div class="china-area-selector-wrapper">
+    <span ng-bind="show.city">请选择市</span>
+    <select name="city" ng-options="city for city in citys" ng-model="region.city">
+        <option value="">-- 选择市 --</option>
+    </select>
+   <span class="china-area-selector-icon">
+                            <span>
+
+                            </span>
+   </span>
+</div>
+
+<div class="china-area-selector-wrapper">
+    <span ng-bind="show.area">请选择市/区/县</span>
+    <select name="area" ng-options="area for area in areas" ng-model="region.area">
+        <option value="">-- 选择市/区/县 --</option>
+    </select>
+   <span class="china-area-selector-icon">
+                            <span>
+
+                            </span>
+   </span>
+</div>
+
+
+
+

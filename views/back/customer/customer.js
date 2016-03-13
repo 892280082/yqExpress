@@ -26,7 +26,7 @@ var app = angular.module('myApp',[
     'service.showCtrl',
     'service.dataService',
     pageResult.service_pageResult,
-    "selectAddress",
+    'china-area-selector',
     'controller.main'
     ]);
 

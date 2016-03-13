@@ -1,0 +1,72 @@
+<!doctype html>
+<html ng-app="demo">
+<head>
+    <meta charset="utf-8">
+    <title>AngularJS directive demo</title>
+
+    <script src="../bower_components/angular/angular.js"></script>
+    <link rel="stylesheet" href="demo.css"/>
+</head>
+<body ng-controller="Ctrl">
+<div class="container">
+    <h1 class="text-muted">Demo</h1>
+
+    <div class="usage row">
+        <h4>Simple usage</h4>
+
+        <p>This is a simple usage of soliury.china-area-selector</p>
+        <pre>&lt;china-area-selector region="region1"&gt;&lt;/china-area-selector&gt;</pre>
+
+        <h4>初始化为空</h4>
+        <china-area-selector region="region1"></china-area-selector>
+
+        <h4>初始化为错误的省市信息</h4>
+        <china-area-selector region="region3"></china-area-selector>
+
+
+        <h4>初始化为具体的省市区</h4>
+        <china-area-selector region="region2"></china-area-selector>
+
+
+        <h4>具有wrapper的selector</h4>
+        <china-area-selector-with-wrapper region="region4"></china-area-selector-with-wrapper>
+    </div>
+
+    <div class="data">
+        region1: {{region1}}<br><br>
+        region2: {{region2}}
+    </div>
+</div>
+<br>
+
+
+<script src="../dist/china-area-selector.js"></script>
+<script>
+    var app = angular.module('demo', ['china-area-selector']);
+
+    app.controller('Ctrl', function ($scope, $timeout) {
+
+        $scope.region1 = {};
+        $scope.region4 = {};
+
+        $scope.region2 = {
+            province: '河北省',
+            city: '承德市',
+            area: '承德县'
+        };
+
+        $scope.region3 = {
+            province: 'asdfasdf'
+        };
+
+        $timeout(function () {
+            $scope.region2 = {
+                province: '北京市',
+                city: '北京市',
+                area: '海淀区'
+            };
+        }, 2000);
+    });
+</script>
+</body>
+</html>
