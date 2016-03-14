@@ -1,13 +1,13 @@
 var express = require('express');
 var router = express.Router();
 var then = require('thenjs');
-var indexWare = require("./index_ware");
 var Product = require("../../models/Product");
 var Article = require("../../models/Article");
 var mongooseUtil = require("../../util/mongooseUtil");
 var indexService = require("../../service/indexService");
 var Customer = require("../../models/Custom");
 var Active = require("../../models/Active");
+var frontWare = require("./front_ware");
 
 //创品列表页面
 router.get("/prolist",function(req,res){
@@ -112,5 +112,17 @@ router.post('/getActiveList',function(req,res){
 				: res.json({err: err});
 	})
 })
+
+//文章详情页页面
+router.get("/toArtDetail/:_id"
+	,frontWare.increaPojo(Article,"checkcounts")
+	,frontWare.addRandomArt(Article,{"status":3},{"checkcounts":-1})
+	,function(req,res){
+	var _id = req.params._id;
+	Article.findOne({"_id":_id},function(err,doc){
+		err && console.log(err);
+		res.render('front/page/art_detail',{"article":doc});
+	});
+});
 
 module.exports = router;

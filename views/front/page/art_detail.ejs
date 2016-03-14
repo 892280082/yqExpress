@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>发现详情页</title>
+    <% include ../include/baseLink%>
+    <script type="text/javascript"  src="/front/dist/act_list.js"></script>
+</head>
+<body>
+<% include ../include/head %>
+<div class="ht100"></div>
+<div class="wap clearfix">
+    <div class="on-900 clearfix lt">
+        <div class="smthing detail">
+            <div class="title">
+                <div class="lt">
+                    <h3><%- article.title %></h3>
+                    <div class="tabs">
+                    <% _.each(article.keyword,function(ele){ %>
+                         <a href="#" class="over"><%- ele %></a>
+                    <%    }) %>
+                        <span class="txtfrom">文章来源:<%- article.from %></span>
+                        <span class="leix">发表于<a href="#">游戏天地</a></span>   </div>
+                </div>
+                <div class="rt">
+                    <div class=""><span><%- $moment(article.creatTime).format("YYYY-MM-DD") %>
+                        &nbsp;&nbsp;/&nbsp;&nbsp;
+                        <%- article.checkcounts %></span></div>
+                    <div class="thingshar">我要分享</div>
+                </div>
+            </div>
+            <div class="cont">
+               <%- article.content %>
+            </div>
+            <div class="likes">
+                <span><a title="喜欢"><img src="/front/resource/images/lisk.jpg" /></a><p>_365_人喜欢</p></span>
+                <span><a title="收藏">
+                    <img src="/front/resource/images/scang.jpg"/></a><p>
+                    <%- article.collections.length  %>人收藏</p></span>
+            </div>
+        </div>
+        <div class="comment clearfix">
+            <div class="shuruk">
+                <div class="ruka"><textarea>在此输入你的评论</textarea></div>
+                <div class="rukb"><span>已有<b><%- article.__comments.length %></b>人评论</span><span class="subt"><input type="button" value="发表评论" /></span></div>
+            </div>
+            <div class="list clearfix">
+                <div class="portrait">
+                    <a href="#">
+                        <img class="zz" src="/front/resource/images/pozhezhao.png" />
+                        <img class="tx" src="/front/resource/images/toux2.jpg" />
+                    </a>
+                </div>
+                <div class="midle lt">
+                    <div class="username"><a href="#">索德斯奈</a></div>
+                    <div class="det">小伙伴们~今天~我美吗~回复邮箱发资源~~</div>
+                </div>
+                <div class="other rt">
+                    <span class="time">2016-3-11</span>
+                    <span class="time">10:33</span>
+                    <span class="time">回复（<b>478</b>）</span>
+                </div>
+                <div class="seclist">
+                    <div class="userpor">
+                        <img class="t1" src="/front/resource/images/smalzz.png" />
+                        <img class="t2" src="/front/resource/images/touxsmal1.jpg" />
+                    </div>
+                    <div class="mid">
+                        <h7>鱼丸兔子的回复</h7>
+                        <div class="nr">楼主好人~360982972@qq.com邮箱已贴,如果我是DJ你还爱我吗~你还</div>
+                    </div>
+                    <div class="date">
+                        <span class="time">2016-3-11</span>
+                        <span class="time">10:33</span>
+                        <span class="time"><a href="#">回复</a></span>
+                    </div>
+                </div>
+                <div class="seclist">
+                    <div class="userpor">
+                        <img class="t1" src="/front/resource/images/smalzz.png" />
+                        <img class="t2" src="/front/resource/images/touxsmal1.jpg" />
+                    </div>
+                    <div class="mid">
+                        <h7>鱼丸兔子的回复</h7>
+                        <div class="nr">楼主好人~360982972@qq.com邮箱已贴,如果我是DJ你还爱~</div>
+                    </div>
+                    <div class="date">
+                        <span class="time">2016-3-11</span>
+                        <span class="time">10:33</span>
+                        <span class="time"><a href="#">回复</a></span>
+                    </div>
+                </div>
+                <div class="seclist">
+                    <div class="userpor">
+                        <img class="t1" src="/front/resource/images/smalzz.png" />
+                        <img class="t2" src="/front/resource/images/touxsmal1.jpg" />
+                    </div>
+                    <div class="mid">
+                        <h7>鱼丸兔子的回复</h7>
+                        <div class="nr">楼主好人~360982972J你还爱我吗~你还爱我吗~楼主好人~360982972@qq.com邮箱已贴,如果我是DJ你还爱我吗~你还爱我吗~</div>
+                    </div>
+                    <div class="date">
+                        <span class="time">2016-3-11</span>
+                        <span class="time">10:33</span>
+                        <span class="time"><a href="#">回复</a></span>
+                    </div>
+                </div>
+            </div>
+            <div class="list clearfix">
+                <div class="portrait">
+                    <a href="#">
+                        <img class="zz" src="/front/resource/images/pozhezhao.png" />
+                        <img class="tx" src="/front/resource/images/toux3.jpg" />
+                    </a>
+                </div>
+                <div class="midle lt">
+                    <div class="username"><a href="#">索德斯奈</a></div>
+                    <div class="det">7th Psarokokalo Athens International Short Film Festival.</div>
+                </div>
+                <div class="other rt">
+                    <span class="time">2016-3-11</span>
+                    <span class="time">10:33</span>
+                    <span class="time">回复</span>
+                </div>
+            </div>
+            <div class="list clearfix">
+                <div class="portrait">
+                    <a href="#">
+                        <img class="zz" src="/front/resource/images/pozhezhao.png" />
+                        <img class="tx" src="/front/resource/images/toux1.jpg" />
+                    </a>
+                </div>
+                <div class="midle lt">
+                    <div class="username"><a href="#">索德斯奈</a></div>
+                    <div class="det">学过画画的人都很容易排这些线，制作软件用AI就可以了学过画画的人都很容易排这些线，制作软件用AI就可以了</div>
+                </div>
+                <div class="other rt">
+                    <span class="time">2016-3-11</span>
+                    <span class="time">10:33</span>
+                    <span class="time">回复</span>
+                </div>
+            </div>
+            <div class="clikemore"><span>点击加载更多</span></div>
+        </div>
+    </div>
+    <div class="on-285 clearfix rt">
+        <div class="recod">
+            <%  _.each($randomData,function(ele){  %>
+                <div class="lia">
+                    <a href="/front/toArtDetail/<%- ele._id %>"><img src="<%- ele.imgUrl %>" /></a>
+                    <p><a href="/front/toArtDetail/<%- ele._id %>"><%- ele.title %></a></p>
+                </div>
+            <%  }) %>
+        </div>
+    </div>
+</div>
+<% include ../include/foot %>
+</body>
+</html>

@@ -27,7 +27,7 @@ var articleSchema = new Schema({
     reason:String,//审核未通过原因
     bannerFlag:Boolean,//是否开启banner展示
     bannerurl:String,//列表的banner
-    imgUrl:String,//首页列表图
+    imgUrl:String,//封面图
     from:String,//来源
     content:String,//文章内容
     topno:{ type:Number,default:0},//展示在首页的顺序
@@ -43,24 +43,9 @@ var articleSchema = new Schema({
      * @desc 非持久化对象
      */
     __comments:[],//评论数组
-    __othernos:[],//作者其他推荐文章
-    __relationnos:[],//相关文章推荐
-    articlefroms:[],//文章来源 0-名人 1-造物志
 });
 
 
-
-/**
- * @desc 文章查看次数+1
- * @param {Object} - _airId
- */
- articleSchema.statics.addCheck = function(_airId){
-     this.update({"_id":_airId},{
-         "$inc":{ "checkcounts":1}
-     },function(err){
-         err && console.log(err);
-     })
- }
 
 /**@desc 像收藏集合中添加用户id
  * @param {Object} - _airId 文章id

@@ -60,15 +60,15 @@
             <%  show.articles.forEach(function(article,index){ %>
                     <div class="col-sm-6 col-lg-3">
                         <div class="list">
-                            <a href="#" class="fszz1">点击查看文章</a>
+                            <a href="/front/toArtDetail/<%- article._id %>" class="fszz1">点击查看文章</a>
                             <div class="fszz"></div>
                             <div class="txtwap">
                                 <div class="txthover">
                                     <%- article.introduce %>
                                 </div>
                             </div>
-                            <a href="#"><img src="<%- article.imgUrl %>" class="m1fximg" /></a>
-                            <p class="title"><a href="#"><%- article.title %></a></p>
+                            <a href="/front/toArtDetail/<%- article._id %>"><img src="<%- article.imgUrl %>" class="m1fximg" /></a>
+                            <p class="title"><a href="/front/toArtDetail/<%- article._id %>"><%- article.title %></a></p>
                             <div class="oter"><span class="gnumb">
                             <%- article.checkcounts %></span>
                             <span class="pjnumb"><%- article.comments.length %>条评论</span></div>

@@ -43,7 +43,7 @@
 						<div class="box">
 							<div class="info">
 								<div class="pic"><img src="<%- ele.contentPicUrl %>"></div>
-								<div class="title"><a href="#"><%- ele.title %></a></div>
+								<div class="title"><a href="/front/toArtDetail/<%- ele._id %>"><%- ele.title %></a></div>
 				                <div class="oter">
 				                	<span class="brow"><%- ele.checkcounts.length %></span>
 				                	<span class="like"><%- ele.collections.length %></span>
@@ -52,10 +52,10 @@
 							</div>
 						</div>
 	        	<%	}); %>
-				<div class="box" ng-repeat="ele in array_custom.$array track by ele.creatTime" bottom-scroll="load()">
+				<div class="box" ng-repeat="ele in array_custom.$array track by ele.creatTime">
 					<div class="info">
 						<div class="pic"><img ng-src="{{ ele.contentPicUrl }}"></div>
-						<div class="title"><a href="#">{{ ele.title }}</a></div>
+						<div class="title"><a href="/front/toArtDetail/{{ ele._id }}">{{ ele.title }}</a></div>
 						<div class="oter">
 							<span class="brow">{{ ele.checkcounts.length }}</span>
 							<span class="like">{{ ele.collections.length }}</span>
