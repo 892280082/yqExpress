@@ -6,8 +6,8 @@
     var _ = require("underscore");
     angular.module("controller.main",[
                                         "ng.ueditor"
-    ]).controller('main',['$scope','showCtrl','dataService','FileUploader','pageResult','$window','$timeout'
-        ,function($scope,showCtrl,dataService,FileUploader,pageResult,$window,$timeout){
+    ]).controller('main',['$scope','showCtrl','dataService','FileUploader','pageResult','$window'
+        ,function($scope,showCtrl,dataService,FileUploader,pageResult,$window){
             /************************数据模型****************************/
             //设置用户的权限分配
             $scope.userPowers = [{name:"普通用户",usertype:1},{name:"名人",usertype:2}]
@@ -23,28 +23,6 @@
             $scope.show.$regist('cuslist',['cuslist'],true);
             $scope.show.$regist('cusadd',['cusadd']);
             /***********************分类列表页面************************/
-
-
-            $scope.region1 = {};
-            $scope.region4 = {};
-
-            $scope.region2 = {
-                province: '河北省',
-                city: '承德市',
-                area: '承德县'
-            };
-
-            $scope.region3 = {
-                province: 'asdfasdf'
-            };
-
-            $timeout(function () {
-                $scope.region2 = {
-                    province: '北京市',
-                    city: '北京市',
-                    area: '海淀区'
-                };
-            }, 2000);
 
             //初始获取所有用户信息
             pageResult.$loadInit({
@@ -66,7 +44,7 @@
                     }
                 }).error(function(data){
                     alert("获取错误");
-            })
+                })
 
             //查询方法
             $scope.search = function(){
@@ -100,6 +78,7 @@
                 }
                 this.show.$set("cusadd");
             }
+
             /***********************添加或编辑用户页面*****************************/
             //返回用户列表页面
             $scope.toPageList = function(){

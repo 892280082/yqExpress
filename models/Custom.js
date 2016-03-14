@@ -42,15 +42,14 @@ var customSchema = new Schema({
     password:String,//密码
     introduce:String,//用户介绍
     email:{ type:String, unique: true },//邮件
-    postAddress:String,//邮编
     realName:String,//真实姓名
 
-
-    provice:String,//省份
-    city:String,//城市
-    block:String,//街区
-    address:String,//详细地址
-    addressInfo:String,//地址全称
+    address:{
+        province:String,//省份
+        city:String,//城市
+        area:String,//街区
+        detail:String,//详细地址
+    },
 
     phoneNumber:String,//联系方式
     ability:String,//能力标签

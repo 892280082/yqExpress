@@ -15,7 +15,6 @@ require("../../lib/src/directive/angular-ueditor.js");
 ///**加载上传插件*/
 require("../../bower_components/angular/angular-file-upload.min.js");
 ///**加载后台数据接口*/
-//require("./src/service/pro_list_server.js");
 ///**加载主程序人口*/
 require("./src/controller/art_list_control.js");
 

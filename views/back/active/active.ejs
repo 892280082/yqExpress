@@ -97,11 +97,13 @@
                     <td colspan="6" style="text-align: left;" class="tle1">活动基本信息</td>
                 </tr>
                 <tr>
-                    <td class="tname"><label>活动简介:</label></td>
-                    <td class="tiput" style="width: 200px;"><input type="text"  ng-model="pojo_custom.title"  name="t_title"
-                                                                   class="textbox" required placeholder="请输入你的昵称" /></td>
-                    <td class="tip" ><span class="errorTips" ng-show="subForm.t_title.$error.required">输入简介</span></td>
-                    <td class="tname"><label>一级分类:</label></td>
+                    <td class="tname"><label>活动名:</label></td>
+                    <td class="tiput" style="width: 200px;">
+                        <input type="text"  ng-model="pojo_custom.title"  name="t_title"
+                               class="textbox" required placeholder="请输入你的昵称" />
+                    </td>
+                    <td class="tip" ><span class="errorTips" ng-show="subForm.t_title.$error.required">输入名称</span></td>
+                    <td class="tname"><label>活动分类:</label></td>
                     <td class="tiput">
                         <select  ng-model="pojo_custom.cate1" name="t_usertype"
                                  ng-options="(m.cateId + '-------' + m.cateName)  for m in webConfig.activeCates">
@@ -125,8 +127,9 @@
                 <tr>
                     <td colspan="1"><label>活动介绍:</label></td>
                     <td colspan="5"><textarea class="textarea" style="width:635px;height:100px;"
-                                              ng-model="pojo_custom.introduce" name="t_introduce" required></textarea>
+                                  ng-model="pojo_custom.introduce" name="t_introduce" required></textarea>
                     </td>
+                    <td><span class="errorTips" ng-show="subForm.t_introduce.$error.required">请输入介绍</span></td>
                 </tr>
                 <tr>
                     <td colspan="6" style="text-align: left;" class="tle1">时间地址</td>
@@ -148,7 +151,7 @@
                                              date-picker required
                                              class="textbox Wdate" /></td>
                     <td></td>
-                    <td class="tname"><label>活动结束日期:</label></td>
+                    <td class="tname"><label>报名结束日期:</label></td>
                     <td class="tiput"><input type="text"  ng-model="pojo_custom.signOverTime"  date-picker required
                                              class="textbox Wdate"   /></td>
                     <td></td>
@@ -166,8 +169,8 @@
                 <tr>
                     <td class="tname"><label>首页排序:</label></td>
                     <td class="tiput" style="width: 200px;"><input type="text"  ng-model="pojo_custom.topno"  
-                                name="t_topno" class="textbox" required placeholder="首页banner的顺序" /></td>
-                    <td class="tip" ><span class="errorTips" ng-show="subForm.t_topno.$error.required">输入顺序</span></td>
+                                name="t_topno" class="textbox"  placeholder="首页banner的顺序" /></td>
+                    <td class="tip" ></td>
                 </tr>
                 <tr>
                     <td colspan="6" style="text-align: left;" class="tle1">活动图像</td>
@@ -176,13 +179,13 @@
                     <td  class="tname"><label>首页banner:</label></td>
                     <td class="tiput"><input type="file" nv-file-select="" uploader="uploader"   name="t_bannerUrl" />
                         <img ng-src="{{ pojo_custom.bannerUrl}}" width="160px" height="140px" ng-if="pojo_custom.bannerUrl"/>
-                    <td class="tip"><span class="errorTips" ng-show="subForm.bannerUrl.$error.required">请输入图像</span></td>
+                    <td class="tip"></td>
                     <td class="tname"><label>活动封面:</label></td>
                     <td class="tiput"><input type="file" nv-file-select=""  uploader="uploaderconvertUrl"
                                               name="t_convertUrl" />
                         <br/><img ng-src="{{ pojo_custom.convertUrl}}" width="160px" height="140px" ng-if="pojo_custom.convertUrl"/>
                     </td>
-                    <td class="tip"><span class="errorTips" ng-show="subForm.convertUrl.$error.required">请输入封面</span></td>
+                    <td class="tip"></td>
                 </tr>
                 <tr>
                     <td colspan="6" style="text-align: left;" class="tle1">活动详情</td>

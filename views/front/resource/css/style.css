@@ -97,8 +97,8 @@ body{background:#f0f1f1;}
 .listduct:hover p{color:#fff;}
 .listduct{ position:relative;}
 .listduct .duct_zz{position:absolute;width:100%;height:215px; overflow:hidden;}
-.listduct .duct_zz .balck_zz{width:100%;height:215px;background:#000;border-radius:5px 5px 0 0 ; position:absolute;top:215px;filter:alpha(opacity=50); 
--moz-opacity:0.5; 
+.listduct .duct_zz .balck_zz{width:100%;height:215px;background:#000;border-radius:5px 5px 0 0 ; position:absolute;top:215px;filter:alpha(opacity=50);
+-moz-opacity:0.5;
 opacity:0.5;}
 .listduct .duct_zz .over{ position:absolute; z-index:2;color:#fff;}
 /*创品列表页*/

@@ -2,11 +2,15 @@
 angular.module("loadDate",[]).directive("datePicker",function(){
     return {
         restrict:"A",
-        link:function(scope, element, attr){
+        require: "ngModel",
+        link:function(scope, element, attr,ctrl){
             element.bind("click", function () {
                 window.WdatePicker({
                     "onpicked": function () {
-                        scope.$apply(scope.date = this.value);
+                        var _this = this;
+                        scope.$apply(function(){
+                            ctrl.$setViewValue(_this.value);
+                        });
                     }
                 });
             });

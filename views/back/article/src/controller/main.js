@@ -23,6 +23,9 @@
                                    {name:"待审核",value:1},
                                     {name:"草稿",value:2},
                                     {name:"审核通过",value:3}];
+
+            $scope._ = _;
+
             /*********************注册show service**************************/
             $scope.show = showCtrl;
             $scope.show.$regist('cuslist',['cuslist'],true);
@@ -119,6 +122,7 @@
                 this.show.$set("cusadd");
             }
             /***********************添加或编辑用户页面*****************************/
+
             //返回用户列表页面
             $scope.toPageList = function(){
                 $scope.show.$set('cuslist');
@@ -133,9 +137,9 @@
                         $scope.pojo_custom.contentPicUrl = $scope.pojo_custom.imgUrl;
                     }else{
                         alert("请先选取封面");
-                        return false;
                     }
-                }
+                    return false;
+y                }
                 var htmlStr = $scope.pojo_custom.content;
                 if(htmlStr ===''){
                     alert("请先输入文章内容");
@@ -192,6 +196,10 @@
             $scope.chooseUser = function(){
                 //初始获取所有用户信息
                  $(".pop_bg").fadeIn();
+            }
+
+            $scope.manngerKey = function(){
+                $(".ttty").fadeIn();
             }
 
             userPageResult.$loadInit({

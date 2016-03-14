@@ -137,10 +137,13 @@
                 </td>
                 <td></td>
                 <td class="tname"><label>文章关键字:</label></td>
-                <td class="tiput"><input type="text"  ng-model="pojo_custom.keyword" name="t_keyword"
-                                         placeholder="多个关键字请用空格隔开" class="textbox" required /><br/>
+                <td class="tiput"><input ng-click="manngerKey();"
+                                         type="text"
+                                         placeholder="{{ pojo_custom.keyword }}"
+                                         name="t_keyword"
+                                         class="textbox" /><br/>
                 </td>
-                <td><span class="errorTips" ng-show="subForm.t_keyword.$error.required">请输入关键字</span></td>
+                <td></td>
             </tr>
             <tr>
                 <td colspan="1"><label>文章介绍:</label></td>
@@ -159,9 +162,9 @@
                 <td><span class="errorTips" ng-show="subForm.t_imgUrl.$error.required">请输入banner大图</span></td>
             </tr>
             <tr>
-                <td  class="tname"><label>发现的汇聚页:</label></td>
+                <td  class="tname"><label>汇聚页缩略图:</label></td>
                 <td  class="tiput">
-                        <input type="text" ng-model="contentPicIndex.count" style="width:50px;background: none;"  />
+                        <input type="number" ng-model="contentPicIndex.count" style="width:50px;background: none;"  />
                         <input style="width: 100px;background:#139667;border:0px;color:#fff;width:70px;height:28px;border-radius:3px;"
                                type="button" value="内容选取" ng-click="getContentPicUrl(false);"  /><br/>
                         <input style="width: 100px;background:#139667;border:0px;color:#fff;width:70px;height:28px;border-radius:3px;"
@@ -211,26 +214,32 @@
 <!--弹出框效果-->
 <script>
     $(document).ready(function(){
-        //弹出文本性提示框
+        //选定作者
         $("#showPopTxt").click(function(){
-            $(".pop_bg").fadeIn();
+            $("#pageOne").fadeIn();
         });
-        // //弹出：确认按钮
-        // $(".trueBtn").click(function(){
-        //     alert("你点击了确认！");//测试
-        //     $(".pop_bg").fadeOut();
-        // });
-        //弹出：取消或关闭按钮
         $(".falseBtn").click(function(){
-            $(".pop_bg").fadeOut();
+            $("#pageOne").fadeOut();
         });
+
+
+        //弹出关键字
+        $("#alertKeyPage").click(function(){
+            alert("hahahahahaah");
+            $("#pageKey").fadeIn();
+        });
+        $(".falseBtn").click(function(){
+            $("#pageKey").fadeOut();
+        });
+
+
     });
 </script>
-<section class="pop_bg">
+<section  id="pageOne" class="pop_bg">
     <div class="pop_cont" style="width: 950px;height: 650px;left: 26%">
         <!--title-->
         <div class="">
-        <h3>选定用户<input style="float: right;"  type="button" value="关闭" class="input_btn falseBtn"/></h3>
+        <h3>选定用户<input style="float: right;"  type="button" value="关闭" id=""  class="input_btn falseBtn"/></h3>
         </div>
         <!--content-->
         <div class="pop_cont_input">
@@ -284,5 +293,33 @@
         </aside>
     </div>
 </section>
+
+<section class="pop_bg ttty" id="pageKey" >
+    <div class="pop_cont">
+        <div class="">
+            <h3>关键字管理<input style="float: right;"  type="button" value="关闭"  class="input_btn falseBtn"/></h3>
+        </div>
+        <select  ng-model="articleKey"
+                 ng-options="m  for m in  _.difference(webConfig.articleKeys,pojo_custom.keyword)">
+                 <option value="">-- 请选择 --</option>
+        </select>
+        <input type="button" value="添加" ng-if="articleKey"
+               ng-click="pojo_custom.keyword.push(articleKey);" />
+        <br/>
+        <table style="text-align: center;">
+            <tr>
+                <td width="20%">序号</td>
+                <td width="60%">关键字</td>
+                <td width="20%">操作</td>
+            </tr>
+            <tr ng-repeat="key in pojo_custom.keyword">
+                <td>{{ $index }}</td>
+                <td>{{ key }}</td>
+                <td><input type="button"  ng-click="pojo_custom.keyword.remove(key);" value="删除"/> </td>
+            </tr>
+        </table>
+    </div>
+</section>
+
 </body>
 </html>

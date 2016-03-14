@@ -20,13 +20,11 @@
 <body ng-controller="main">
 <!-- 用户添加编辑页面-->
     <div class="page_title top1">
-        <h2 class="fl">{{ pojo_custo._id ? '创品编辑' : '创品添加' }}</h2>
-        <a class="fr top_rt_btn" ng-click="toPageList();" >返回</a>
+        <h2 class="fl"><span style="cursor: pointer;"  ng-click="show.$set('cuscate');" >分类管理</span>
+                       <span style="cursor: pointer;margin-left: 40px;" ng-click="show.$set('cuskey');" >关键字管理</span>
+        </h2>
     </div>
-    <div>
-        <h2 class="fl" ng-if="pojo_custo._id">用户数据编辑</h2>
-    </div>
-    <section>
+    <section ng-if="show.cuscate">
         <form
                 name="subForm"
                 ng-submit="saveOrUpdate()"
@@ -124,6 +122,41 @@
                                class="textbox"  /><br/>
                     </td>
                     <td><input type="button" value="添加分类" ng-click="addSubProductCate();"  ng-show="tempPojo.subProductCate"  /></td>
+                </tr>
+                <tr>
+                    <td colspan="6" style="text-align: center;">
+                        <input class="link_btn"  type="button"  ng-click="saveOrUpdate();" value="保存" /></td>
+                </tr>
+            </table>
+        </form>
+    </section>
+
+    <section ng-if="show.cuskey">
+        <form
+                name="subFormKey"
+                ng-submit="saveOrUpdate()"
+                >
+            <table class="datatable">
+                <tr>
+                    <td colspan="6" style="text-align: left;" class="tle1">文章关键字修改</td>
+                </tr>
+                <tr>
+                    <td class="tname"><label>现有分类:</label></td>
+                    <td class="tiput">
+                        <select  ng-model="articleKey"
+                                 ng-options="m  for m in webConfig.articleKeys">
+                            <option value="">-- 请选择 --</option>
+                        </select><br/>
+                    </td>
+                    <td><input type="button" value="删除分类" ng-click="webConfig.articleKeys.remove(articleKey)"  /></td>
+                    <td class="tname"><label>添加分类:</label></td>
+                    <td class="tiput">
+                        <input type="text"  ng-model="tempPojo.articleKey" name="t_articleCate"
+                               class="textbox" required /><br/>
+                    </td>
+                    <td><input type="button" value="添加分类"
+                               ng-click="webConfig.articleKeys.push(tempPojo.articleKey);tempPojo.articleKey=''"
+                               ng-show="tempPojo.articleKey"  /></td>
                 </tr>
                 <tr>
                     <td colspan="6" style="text-align: center;">

@@ -11,8 +11,8 @@
             /***********************分类列表页面************************/
 
             $scope.show = showCtrl;
-            $scope.show.$regist('cuslist',['cuslist'],true);
-            $scope.show.$regist('cusedit',['cusedit']);
+            $scope.show.$regist('cuscate',['cuscate'],true);
+            $scope.show.$regist('cuskey',['cuskey']);
 
             dataService.getConfig()
                 .success(function(data){
@@ -101,7 +101,6 @@
                     return false;
                 removeLowCate($scope.webConfig.customerCates,$scope.customerCate);
             }
-
 
             //添加文章分类
             $scope.addArticleCate = function(){
