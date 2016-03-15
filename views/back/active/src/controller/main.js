@@ -28,7 +28,6 @@
             $scope.show.$regist('cusadd',['cusadd']);
             /***********************分类列表页面************************/
 
-
             //初始获取所有活动信息
             pageResult.$loadInit({
                                 url:"/back/actGetAllData",
@@ -107,7 +106,7 @@
                             return new Date();
                         }
                 });
-                $scope.pojo_custom.type = "a b c";
+                $scope.pojo_custom.organize =
                 $scope.pojo_custom.status = true;
             }else{
                     $scope.pojo_custom = custom;

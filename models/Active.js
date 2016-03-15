@@ -34,7 +34,9 @@ var activeSchema = new Schema({
     signStarTime:Date,//报名开始结束时间
     signOverTime:Date,
     address:String,//活动地址
-    topno:{ type:Number,default:0}
+    topno:{ type:Number,default:0},
+    organize:String,
+    copyRight:String,
 })
 
 var  active = mongoose.model("actives", activeSchema);

@@ -9,6 +9,7 @@ var main = {
     },
     testTarget:[
         "../test/customTest",
+        "../test/ariticleTest"
     ]
 }
 module.exports = main;

@@ -164,6 +164,23 @@
                     <td></td>
                 </tr>
                 <tr>
+                    <td colspan="6" style="text-align: left;" class="tle1">活动申明</td>
+                </tr>
+                <tr>
+                    <td class="tname"><label>组织机构:</label></td>
+                    <td class="tiput" style="width: 200px;">
+                        <input type="text"  ng-model="pojo_custom.organize"  name="t_organize"
+                               class="textbox" required placeholder="安徽雅集文化研究中心" />
+                    </td>
+                    <td class="tip" ><span class="errorTips" ng-show="subForm.t_organize.$error.required">必填</span></td>
+                    <td class="tname"><label>版权申明:</label></td>
+                    <td class="tiput" style="width: 200px;">
+                        <input type="text"  ng-model="pojo_custom.copyRight"  name="t_copyRight"
+                               class="textbox" required placeholder="安徽雅集文化所有" />
+                    </td>
+                    <td class="tip" ><span class="errorTips" ng-show="subForm.t_copyRight.$error.required">必填</span></td>
+                </tr>
+                <tr>
                     <td colspan="6" style="text-align: left;" class="tle1">活动推荐</td>
                 </tr>
                 <tr>

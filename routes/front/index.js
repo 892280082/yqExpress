@@ -8,6 +8,7 @@ var indexService = require("../../service/indexService");
 var Customer = require("../../models/Custom");
 var Active = require("../../models/Active");
 var frontWare = require("./front_ware");
+var ArticleComment = require("../../models/ArticleComment");
 
 //创品列表页面
 router.get("/prolist",function(req,res){
@@ -115,7 +116,7 @@ router.post('/getActiveList',function(req,res){
 
 //文章详情页页面
 router.get("/toArtDetail/:_id"
-	,frontWare.increaPojo(Article,"checkcounts")
+	,frontWare.increaPojoById(Article,"checkcounts")
 	,frontWare.addRandomArt(Article,{"status":3},{"checkcounts":-1})
 	,function(req,res){
 	var _id = req.params._id;
@@ -124,5 +125,52 @@ router.get("/toArtDetail/:_id"
 		res.render('front/page/art_detail',{"article":doc});
 	});
 });
+
+//文章详情页获取评论接口
+router.post('/getArticleComments',function(req,res){
+	var query = req.body.query;
+	//query.usertype = 2;
+	mongooseUtil.pagination({
+		query:query,
+		limit:req.body.limit,
+		skip:req.body.skip*req.body.limit,
+		sort:{"creatTime":-1},
+		model:ArticleComment,
+	},function(err,result){
+		!err ? res.json({result:result})
+			: res.json({err: err});
+	})
+})
+
+//提交文章评论
+router.post('/pushArticleComment',function(req,res){
+	var pushPojo = req.body.pushPojo;
+	Article.addComment(pushPojo,function(err,pojo){
+		res.json({"err":err,"result":pojo});
+	});
+})
+
+//文章喜欢数量加1
+router.post('/increateArtilce',function(req,res){
+	mongooseUtil.increateProtoById(req.body._id,Article,'praiseCounts',function(err){
+		res.json({'err':err});
+	})
+})
+
+//文章详情页页面
+router.get("/toActivetail/:_id"
+	,frontWare.increaPojoById(Active,"checkcounts")
+	,function(req,res){
+		var _id = req.params._id;
+		Active.findOne({"_id":_id},function(err,doc){
+			err && console.log(err);
+			console.log(doc,_id);
+			res.render('front/page/active_detail',{'active':doc});
+		});
+	});
+
+
+
+
 
 module.exports = router;

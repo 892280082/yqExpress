@@ -4,7 +4,7 @@
  * @date 2016/3/14
  *
  * @API
- * 1. increaPojo -----------------增加文章的查看次数
+ * 1. increaPojoById -----------------增加文章的查看次数
  * 2. addRandomArt ---------------随机选取数据
  * 3. getComment -----------------获取评论
  *
@@ -17,7 +17,7 @@ var _ = require("underscore");
  * @param Dao {Object} -model对象
  * @param proName {String} -属性名
  */
-exports.increaPojo = function(Dao,proName){
+exports.increaPojoById = function(Dao,proName){
     return function(req,res,next){
         var shell = {};
         shell[proName]=1;

@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>发现详情页</title>
+    <% include ../include/baseLink%>
+    <script type="text/javascript">
+        function show(a){
+                $("div[id^='hdtab']").hide();
+                $("#hdtab"+a).show();
+                $(".hdcon span[class^='tab']").removeClass("over");
+                $(".tab"+a).addClass("over");
+        };
+    </script>
+</head>
+<body ng-controller="art_detail_control">
+<% include ../include/head %>
+<div class="ht100"></div>
+<div class="wap clearfix">
+    <div class="on-1200">
+        <div class="hdtop clearfix">
+            <div class="hdimg lt"><img src="/front/resource/images/hdimg.jpg" /></div>
+            <div class="mid lt">
+                <h3><%- active.title %></h3>
+                <p>组织单位：安徽雅集文化研究中心</p>
+                <p>投稿时间：2016-3-11—2016-4-11</p>
+                <div class="bq"><a href="#">美术设计</a><a href="#">创意</a><a href="#">设计标准</a></div>
+                <div class="lisk"><span class="likes"><b>768</b>人喜欢</span><span class="shar"><b>123</b>人分享</span></div>
+            </div>
+            <div class="xx rt">
+                <span class="llcs">5613次浏览</span>
+                <div class="baom">
+                 <span><b>360</b>人报名</span>
+                  <br/>
+                  <a href="#" class="iwant">我要报名</a>
+                </div>
+            </div>
+        </div>
+        <div class="hdcon clearfix">
+            <div class="title"><span class="tab1 over" onclick="show('1')">大赛简介</span><span class="tab2" onclick="show('2')">参赛作品</span><span class="tab3" onclick="show('3')">赛事播报</span></div>
+            <div class="cont" id="hdtab1">
+                <div class="hotop">
+                    <span class="tle">大赛简介</span>
+                </div>
+                <div class="nrs">
+                <img src="/front/resource/images/xq123.jpg" />
+                </div>
+            </div>
+            <div class="contb" id="hdtab2">
+                <div class="hotop">
+                    <span class="tle">参赛作品</span>
+                    <span class="works rt">作品数量<b>398</b></span>
+                    <span class="px rt"><a href="#">全部</a><a href="#">浏览数</a><a href="#">票数</a></span>
+                </div>
+                <div class="hdwork clearfix">
+                    <ul>
+                        <li>
+                            <img class="zpimg" src="/front/resource/images/3.jpg" />
+                            <h3>你是我无与伦比的美丽</h3>
+                            <div class="hdbq"><span class="zz">作者：<b>张小娴</b></span><span class="see">浏览：<b>132</b></span><span class="tp">投票：<b>576</b></span></div>
+                        </li>
+                        <li>
+                            <img class="zpimg" src="/front/resource/images/6.jpg" />
+                            <h3>你是我无与伦比的美丽</h3>
+                            <div class="hdbq"><span class="zz">作者：<b>张小娴</b></span><span class="see">浏览：<b>132</b></span><span class="tp">投票：<b>576</b></span></div>
+                        </li>
+                        <li>
+                            <img class="zpimg" src="/front/resource/images/6.jpg" />
+                            <h3>你是我无与伦比的美丽</h3>
+                            <div class="hdbq"><span class="zz">作者：<b>张小娴</b></span><span class="see">浏览：<b>132</b></span><span class="tp">投票：<b>576</b></span></div>
+                        </li>
+                        <li>
+                            <img class="zpimg" src="/front/resource/images/6.jpg" />
+                            <h3>你是我无与伦比的美丽</h3>
+                            <div class="hdbq"><span class="zz">作者：<b>张小娴</b></span><span class="see">浏览：<b>132</b></span><span class="tp">投票：<b>576</b></span></div>
+                        </li>
+                        <li>
+                            <img class="zpimg" src="/front/resource/images/6.jpg" />
+                            <h3>你是我无与伦比的美丽</h3>
+                            <div class="hdbq"><span class="zz">作者：<b>张小娴</b></span><span class="see">浏览：<b>132</b></span><span class="tp">投票：<b>576</b></span></div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="page"><span><a href="#">&lt;</a></span><span><a href="#">1</a></span><span><a href="#">2</a></span><span><a href="#">3</a></span><span><a href="#">4</a></span><span><a href="#">5</a></span><span><a href="#">&gt;</a></span></div>
+                <div class="likes">
+                <span><a title="喜欢"><img src="/front/resource/images/lisk.jpg" /></a><p>365人喜欢</p></span>
+                <span><a title="收藏"><img src="/front/resource/images/scang.jpg" /></a><p>478人收藏</p></span>
+            </div>
+            </div>
+            <div class="contc" id="hdtab3">
+                <div class="hotop">
+                    <span class="tle">赛事播报</span>
+                </div>
+                <div class="nrs">
+                我是赛事播报
+                </div>
+                <div class="likes">
+                <span><a title="喜欢"><img src="/front/resource/images/lisk.jpg" /></a><p>365人喜欢</p></span>
+                <span><a title="收藏"><img src="/front/resource/images/scang.jpg" /></a><p>478人收藏</p></span>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+<% include ../include/foot %>
+<script type="text/javascript"  src="/front/dist/"></script>
+</body>
+</html>
+
+<!--         <div class="comment clearfix">
+            <div class="shuruk">
+                <div class="ruka"><textarea>在此输入你的评论</textarea></div>
+                <div class="rukb"><span>已有<b>1205</b>人评论</span><span class="subt"><input type="button" value="发表评论" /></span></div>
+            </div>
+            <div class="list clearfix">
+                <div class="portrait">
+                    <a href="#">
+                    <img class="zz" src="/front/resource/images/pozhezhao.png" />
+                    <img class="tx" src="/front/resource/images/toux2.jpg" />
+                    </a>
+                </div>
+                <div class="midle lt">
+                    <div class="username"><a href="#">索德斯奈</a></div>
+                    <div class="det">小伙伴们~今天~我美吗~回复邮箱发资源~~</div>
+                </div>
+                <div class="other rt">
+                    <span class="time">2016-3-11</span>
+                    <span class="time">10:33</span>
+                    <span class="time">回复（<b>478</b>）</span>
+                </div>
+                <div class="seclist">
+                    <div class="userpor">
+                        <img class="t1" src="/front/resource/images/smalzz.png" />
+                        <img class="t2" src="/front/resource/images/touxsmal1.jpg" />
+                    </div>
+                    <div class="mid12">
+                        <h7>鱼丸兔子的回复</h7>
+                        <div class="nr">楼主好人~360982972@qq.com邮箱已贴,如果我是DJ你还爱我吗~你还</div>
+                    </div>
+                    <div class="date">
+                        <span class="time">2016-3-11</span>
+                        <span class="time">10:33</span>
+                        <span class="time"><a href="#">回复</a></span>
+                    </div>
+                </div>
+            </div>
+            <div class="list clearfix">
+                <div class="portrait">
+                    <a href="#">
+                    <img class="zz" src="/front/resource/images/pozhezhao.png" />
+                    <img class="tx" src="/front/resource/images/toux3.jpg" />
+                    </a>
+                </div>
+                <div class="midle lt">
+                    <div class="username"><a href="#">索德斯奈</a></div>
+                    <div class="det">7th Psarokokalo Athens International Short Film Festival.</div>
+                </div>
+                <div class="other rt">
+                    <span class="time">2016-3-11</span>
+                    <span class="time">10:33</span>
+                    <span class="time">回复</span>
+                </div>
+            </div>
+            <div class="list clearfix">
+                <div class="portrait">
+                    <a href="#">
+                    <img class="zz" src="/front/resource/images/pozhezhao.png" />
+                    <img class="tx" src="/front/resource/images/toux1.jpg" />
+                    </a>
+                </div>
+                <div class="midle lt">
+                    <div class="username"><a href="#">索德斯奈</a></div>
+                    <div class="det">学过画画的人都很容易排这些线，制作软件用AI就可以了学过画画的人都很容易排这些线，制作软件用AI就可以了</div>
+                </div>
+                <div class="other rt">
+                    <span class="time">2016-3-11</span>
+                    <span class="time">10:33</span>
+                    <span class="time">回复</span>
+                </div>
+            </div>
+            <div class="clikemore"><span>点击加载更多</span></div>
+        </div> -->

@@ -8,13 +8,14 @@ var objectid = require("objectid"),
  *
  * @api
  * 1.createShell  -指令生成器
- * 2.addInnerCollection  -父类的子集合添加子对象的Id,子对象在新集合中创建。
+ * 2.addInnerCollection  -父类的子集合添加子对象的Id,子对象在新集合中创建。-call('err','子类添加的pojo对象');
  * 3.removeInnerCollection -addInnerCollection的逆方法，同时删除在父对象中的子集合id和子集合中的对象
  * 4.dealAllCollectionId -处理子父间的集合关系
  * 5.saveSingle -保存单个Pojo
  * 6.removeSingleById -通过ID删除单个POJO
  * 7.updateSingleById -通过ID更新单个POJO
  * 8.pagination -分页工具
+ * 9.increateProtoById model一个属性的增加和减少 -call('err');
  */
 
 
@@ -320,4 +321,20 @@ exports.pagination = function(params,callback){
         err && console.log(err);
         return callback('mongooseUtil ->pagination :   search Dao fail');
     })
+}
+
+/**
+ * @param _id {String} -id
+ * @param dao {Object} -model对象
+ * @param prototype {String} -属性
+ * @param callback {Function} - 回调函数
+ * @param number {Number?} -增加的大小
+ */
+exports.increateProtoById = function(_id,dao,prototype,callback,number){
+    var shell = {};
+    shell[prototype]=1;
+    dao.update({"_id":_id},{$inc:shell},function(err){
+        err && console.log(err);
+        callback(err);
+    });
 }

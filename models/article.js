@@ -7,14 +7,17 @@
  * @api model层
  * 1.pushCollection 像收藏集合中添加用户id
  * 2.pullCollection 在集合中删除用户id
+ * 3.添加评论 addComment -call('err',保存后的评论对象)
  * @api pojo层
  *
  * @_api
  */
-var mongoose = require('mongoose'),
-    Schema = mongoose.Schema,
-    objectid = require('objectid'),
-    AriticleCollection = require('./AriticleCollection');
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+var objectid = require('objectid');
+var AriticleCollection = require('./AriticleCollection');
+var ArticleComment = require("./ArticleComment");
+var mongooseUtil = require("../util/mongooseUtil");
 
 var articleSchema = new Schema({
     _userId:Schema.Types.ObjectId,//用户Id
@@ -37,12 +40,9 @@ var articleSchema = new Schema({
     checkcounts:{type:Number,default:0},//查看次数
     collections:[Schema.Types.ObjectId],//收藏次数 添加用户id
     comments:[Schema.Types.ObjectId],//评论数组,储存评论_id
+    praiseCounts:{type:Number,default:0},//喜欢次数
     /** 从内容中抽取的图片路径 */
     contentPicUrl:String,
-    /**
-     * @desc 非持久化对象
-     */
-    __comments:[],//评论数组
 });
 
 
@@ -82,6 +82,24 @@ articleSchema.statics.pullCollection = function(_airId,_userId,callback){
             callback(err);
         }
     })
+}
+
+/**
+ * @param comment {Object} - 评论对象
+ * @param callback  {Function} - 回调函数
+ */
+articleSchema.statics.addComment = function(comment,callback){
+    if(!comment._articleId)
+        return callback('评论的文章的文章ID不能为空');
+    if(!comment._userId)
+        return callback('评论的文章用户ID不能为空');
+    mongooseUtil.addInnerCollection({
+        parentId:comment._articleId,
+        collecname:"comments",
+        childPojo:comment,
+        childDao:ArticleComment,
+        callback:callback
+    },this)
 }
 
 

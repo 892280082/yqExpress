@@ -201,6 +201,13 @@
                 <td><span class="errorTips" ng-show="subForm.t_topno.$error.required">请输入排序</span></td>
             </tr>
             <tr>
+                <td class="tname"><label>喜欢次数:</label></td>
+                <td class="tiput"><input type="number"  ng-model="pojo_custom.praiseCounts"
+                                         class="textbox"  /><br/>
+                </td>
+                <td></td>
+            </tr>
+            <tr>
                 <td colspan="3" style="text-align: center;">
                     <input class="link_btn"  type="submit" ng-disabled="subForm.$invalid" value="提交" /></td>
                 <td colspan="3" style="text-align: center;">

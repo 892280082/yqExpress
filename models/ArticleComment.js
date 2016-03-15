@@ -1,15 +1,28 @@
+/**
+ * @desc 回复对象
+ * @author yq
+ * @date 2016/3/15
+/****************************************************************************************
+ * @API model层方法
+ * 1.pushReplay 向评论添加回复
+ * 2.pullReplay 向评论删除回复
+ * 3.addReplayPraise 回复的赞+1
+ * 4.addCommentPraise 评论的赞+1
+ * 5.saveComment 添加评论，关联ariticle集合
+ * 6.removeComment 删除评论，关联ariticle集合
+ * 7.getCommentByAirId 根据文章ID获取评论
+ ****************************************************************************************/
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     objectid = require('objectid'),
-    Ariticle = require('Article');
+    Ariticle = require('./Article');
 
-/**
- * @desc 回复对象
- */
+
 var replaySchema = new Schema({
     _id:Schema.Types.ObjectId,//主键
     _userId:Schema.Types.ObjectId,//回复用户外键
     userName:String,//回复用户姓名
+    headUrl:String,//回复用户头像
     content:String,//回复内容
     creatTime:{type:Date,default:Date.now},//回复时间
     praiseCounts:Number,//赞次数
@@ -19,7 +32,6 @@ var replaySchema = new Schema({
  * @desc 评论对象
  */
 var commentSchema = new Schema({
-    _id:Schema.Types.ObjectId,//主键
     _articleId:Schema.Types.ObjectId,//文章外键
     _userId:Schema.Types.ObjectId,//评论用户外键
     userName:String,//评论用户姓名
@@ -29,16 +41,6 @@ var commentSchema = new Schema({
     replays:[replaySchema]//回复数组
 })
 
-/****************************************************************************************
- * @desc model层方法
- * 1.pushReplay 向评论添加回复
- * 2.pullReplay 向评论删除回复
- * 3.addReplayPraise 回复的赞+1
- * 4.addCommentPraise 评论的赞+1
- * 5.saveComment 添加评论，关联ariticle集合
- * 6.removeComment 删除评论，关联ariticle集合
- * 7.getCommentByAirId 根据文章ID获取评论
- ****************************************************************************************/
 
 /**
  * @desc 向评论添加回复

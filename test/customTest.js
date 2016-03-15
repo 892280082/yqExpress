@@ -1,11 +1,23 @@
 /**
  * @desc 测试用户model的API
+ * @API
+ * 1."pushAriticle","用来保存文章";
+ * 2."pullAriticle","用来删除文章";
+ * 3."pushAttentions","关注用户";
+ * 4."pullAttentions","取消关注用户";
+ * 5."saveUser","保存用户的操作";
+ * 6."validateUser","验证用户登陆";
+ * 7."pushProduct","保存用户的创品";
+ * 8."pullProduct","删除用户的创品";
  */
     var custom = require("../models/Custom"),
         debug = require("../util/debug")("customTest"),
       Article = require("../models/Article"),
           then= require('thenjs'),
      objectid = require('objectid');
+    var _ = require('underscore');
+
+
 
 
     debug.set("pushAriticle","用来保存文章");
@@ -142,3 +154,43 @@ debug.set("pullProduct","删除用户的创品");
         debug.done("pullProduct",err);
     })
 })();
+
+
+//debug.set("pushArticleComment","用来保存文章的评论");
+//(function(){
+//    var cusId = objectid();
+//    then(function(next){
+//        var cus = new custom({_id:cusId,name:"haha"+ _.random(0,100000)});
+//        cus.save(function(err){
+//            next(err);
+//        })
+//    }).then(function (next) {   //保存文章
+//        var comment = {
+//
+//        }
+//
+//
+//
+//    }).then(function (next, childId) { //通过用户id和文章id
+//        Article.findOne({
+//                "_userId":cusId,
+//                "_id": childId
+//            },
+//            function (err, doc) {
+//                doc ? debug.done("pushAriticle")
+//                    : debug.done("pushAriticle",err);
+//                next(err, doc);
+//            })
+//    }).then(function (next, doc) {
+//        custom.pullAriticle(
+//            cusId,
+//            doc._id,
+//            function (err) {
+//                !err ? debug.done("pullAriticle")
+//                    : debug.done("pullAriticle",err);
+//            }
+//        )
+//    }).fail(function (next, err) {
+//        debug.done("pushArticleComment",err);
+//    })
+//})();
