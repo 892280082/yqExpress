@@ -167,7 +167,7 @@ router.get("/toActivetail/:_id"
 			console.log(doc,_id);
 			res.render('front/page/active_detail',{'active':doc});
 		});
-	});
+});
 
 
 

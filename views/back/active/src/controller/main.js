@@ -106,7 +106,9 @@
                             return new Date();
                         }
                 });
-                $scope.pojo_custom.organize =
+                $scope.pojo_custom.organize = '安徽雅集文化研究中心';
+                $scope.pojo_custom.copyRight = '安徽雅集文化传媒版权所有';
+                $scope.pojo_custom.topno=0;
                 $scope.pojo_custom.status = true;
             }else{
                     $scope.pojo_custom = custom;
@@ -170,6 +172,20 @@
             };
             uploaderconvertUrl.onCompleteItem = function(fileItem, response, status, headers) {
                 $scope.pojo_custom.convertUrl = response.path;
+            };
+            //配置封面上传
+            var fileUpload = $scope.fileUpload = new FileUploader({
+                url: '/upload',
+                alias:'fileName'
+            });
+            fileUpload.onAfterAddingFile = function(item) {
+                item.upload();
+            };
+            fileUpload.onCompleteItem = function(fileItem, response, status, headers) {
+                if(!$scope.pojo_custom.attachment)
+                    $scope.pojo_custom.attachment = {};
+                $scope.pojo_custom.attachment.url = response.path;
+                $scope.pojo_custom.attachment.name = response.originalname;
             };
             /****************父级选定****************************/
             $scope.parentShow = !!window.parent.window.parentFun;

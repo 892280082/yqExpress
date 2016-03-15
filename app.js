@@ -53,7 +53,8 @@ app.use(ejsExtend);
 
 //判断操作系统
 var system = process.platform;
-console.log('system',system);
+if(config.main.debug)
+	console.log('当前系统:',system);
 if(system.indexOf('win32') >-1 || system.indexOf('win64') >-1) {
 	app.set('isWindow',true);
 }else{

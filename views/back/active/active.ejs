@@ -205,6 +205,20 @@
                     <td class="tip"></td>
                 </tr>
                 <tr>
+                    <td colspan="6" style="text-align: left;" class="tle1">活动附件</td>
+                </tr>
+                <tr>
+                    <td  class="tname"><label>附件上传:</label></td>
+                    <td class="tiput"><input type="file" nv-file-select="" uploader="fileUpload"/>
+                    <td class="tip"></td>
+                    <td class="tname"><label>附件下载:</label></td>
+                    <td class="tiput">
+                        <a href="/downFileName?fileurl={{pojo_custom.attachment.url }}&filename={{ pojo_custom.attachment.name }}"
+                           ng-if="pojo_custom.attachment.url" style="cursor:pointer;">{{ pojo_custom.attachment.name }}</a>
+                    </td>
+                    <td class="tip"></td>
+                </tr>
+                <tr>
                     <td colspan="6" style="text-align: left;" class="tle1">活动详情</td>
                 </tr>
                 <tr>

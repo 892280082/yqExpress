@@ -35,8 +35,13 @@ var activeSchema = new Schema({
     signOverTime:Date,
     address:String,//活动地址
     topno:{ type:Number,default:0},
-    organize:String,
-    copyRight:String,
+    organize:String,//组织机构
+    copyRight:String,//版权所有
+    fileUrl:String,//活动附件
+    attachment:{ //附件
+        url:String,//下载路径
+        name:String//文件名
+    }
 })
 
 var  active = mongoose.model("actives", activeSchema);
