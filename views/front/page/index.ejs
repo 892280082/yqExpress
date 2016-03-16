@@ -43,7 +43,7 @@
    <div class="carousel-inner">
        <% show.banners.forEach(function(banner,index){  %>
            <div class="item <%- index == 0 ? 'active':'' %> ">
-               <img src="<%- banner.picUrl %>" alt="First slide"/>
+               <a href="<%-banner.url %>"><img src="<%- banner.picUrl %>" alt="First slide"/></a>
            </div>
        <% }) %>
    </div>
@@ -123,11 +123,11 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                 <div class="peoimg">
-                                    <a href="#"><img src="/front/resource/images/peozhezhao.png" class="zhezhao" />
+                                    <a href="/front/toCusDetail"><img src="/front/resource/images/peozhezhao.png" class="zhezhao" />
                                     <img  width="128" height="128"  src="<%- ele.imgurl %>" class="peusr" /></a></div>
                                 </div>
                                 <div class="col-lg-6">
-                                    <p class="name"><a href="#"><%- ele.name %></a></p>
+                                    <p class="name"><a href="/front/toCusDetail"><%- ele.name %></a></p>
                                     <p class="cntre"><%- ele.job %></p>
                                     <p class="guoji"><%- ele.provice  %><%- ele.city  %></p>
                                 </div>

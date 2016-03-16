@@ -4,7 +4,6 @@ var indexService = require("../service/indexService");
 var appConfig = require("../conf/app_config");
 var path = require('path');
 var fs = require('fs');
-var iconv = require('iconv');
 
 //首页
 router.get("/",function(req,res){

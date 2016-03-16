@@ -42,19 +42,18 @@
                 insertPojo.type = typePojo.name;
                 if(type === 1){
                     insertPojo.title = pojo.name;
-                    insertPojo.url = pojo._id;
+                    insertPojo.url = "/front/toCusDetail/"+pojo._id;
                     insertPojo.picUrl = pojo.bannerurl;
                 }else if(type === 2){
                     insertPojo.title = pojo.title;
-                    insertPojo.url = pojo._id;
                     insertPojo.picUrl = pojo.bannerurl;
                 }else if(type === 3){
                     insertPojo.title = pojo.title;
-                    insertPojo.url = pojo._id;
+                    insertPojo.url = "/front/toArtDetail/"+pojo._id;
                     insertPojo.picUrl = pojo.bannerurl;
                 }else if(type === 4){
                     insertPojo.title = pojo.title;
-                    insertPojo.url = pojo._id;
+                    insertPojo.url = "/front/toActivetail/"+pojo._id;
                     insertPojo.picUrl = pojo.bannerUrl;
                 }
                 if(!insertPojo.picUrl){

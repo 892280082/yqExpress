@@ -169,8 +169,17 @@ router.get("/toActivetail/:_id"
 		});
 });
 
-
-
+//名人详情页
+router.get("/toCusDetail"
+	,frontWare.increaPojoById(Customer,"checkcounts")
+	,function(req,res){
+		//var _id = req.params._id;
+		//Active.findOne({"_id":_id},function(err,doc){
+		//	err && console.log(err);
+		//	console.log(doc,_id);
+		//});
+		res.render('front/page/cus_detail.ejs');
+	});
 
 
 module.exports = router;

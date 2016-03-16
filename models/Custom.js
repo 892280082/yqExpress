@@ -71,7 +71,8 @@ var customSchema = new Schema({
     bannerno:Number,//模块Banner展示顺序 0 不展示
     recommens:[recommd],//推荐的创品或者文章集合
     articles:[Schema.Types.ObjectId],//用户文章
-    
+
+    checkcounts:{type:Number,default:0},//查看次数
     productions:[Schema.Types.ObjectId],//创品数量
     followers:[Schema.Types.ObjectId],//我的粉丝
     attentions:[Schema.Types.ObjectId],//我关注的人

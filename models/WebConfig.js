@@ -25,6 +25,12 @@ var webConfig = new Schema({
 
     banners:[banner],//首页banner图片
 
+    articles:[banner],//首页文章推荐
+
+    customers:[banner],//首页用户推荐
+
+    products:[banner],//首页产品推荐
+
     articleCates:[],//文章类型
 
     articleKeys:[String],//关键字类型
