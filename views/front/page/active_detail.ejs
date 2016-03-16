@@ -22,15 +22,19 @@
             <div class="hdimg lt"><img src="/front/resource/images/hdimg.jpg" /></div>
             <div class="mid lt">
                 <h3><%- active.title %></h3>
-                <p>组织单位：安徽雅集文化研究中心</p>
-                <p>投稿时间：2016-3-11—2016-4-11</p>
-                <div class="bq"><a href="#">美术设计</a><a href="#">创意</a><a href="#">设计标准</a></div>
+                <p>组织单位：<%- active.organize %></p>
+                <p>版权机构：<%- active.copyRight %></p>
+                <p>投稿时间：<%- $moment(active.actStartTime).format('YYYY-MM-DD')  %>—
+                            <%- $moment(active.actOverTime).format('YYYY-MM-DD') %></p>
+                <div class="bq">
+                    <a href="#">美术设计</a><a href="#">创意</a><a href="#">设计标准</a>
+                </div>
                 <div class="lisk"><span class="likes"><b>768</b>人喜欢</span><span class="shar"><b>123</b>人分享</span></div>
             </div>
             <div class="xx rt">
-                <span class="llcs">5613次浏览</span>
+                <span class="llcs"><%- active.checkcounts %>次浏览</span>
                 <div class="baom">
-                 <span><b>360</b>人报名</span>
+                 <span><b><%- active.collects.length %></b>人报名</span>
                   <br/>
                   <a href="#" class="iwant">我要报名</a>
                 </div>
