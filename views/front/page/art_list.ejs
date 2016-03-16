@@ -28,7 +28,7 @@
 #wrap .box .info .title a:hover{ text-decoration:none;}
 .box .oter{height:45px; line-height:45px;margin:0 12px;}
 .box .oter span.brow{background:url(/front/resource/images/gnumb.jpg) no-repeat;padding-left:20px;color:#999; font-size:12px;margin-left:2px;}
-.box .oter span.like{background:url(/front/resource/images/gnumb.jpg) no-repeat;padding-left:20px;color:#999; font-size:12px;margin-left:16px;}
+.box .oter span.like{background:url(/front/resource/images/like.jpg) no-repeat;padding-left:20px;color:#999; font-size:12px;margin-left:16px;}
 .box .oter span.date{ float:right;color:#999; font-size:12px;margin-right:6px;}
 </style>
 </head>
@@ -42,10 +42,12 @@
 	        	<%	_.each(articles,function(ele){ %>
 						<div class="box">
 							<div class="info">
-								<div class="pic"><img src="<%- ele.contentPicUrl %>"></div>
+								<div class="pic">
+									<a href="/front/toArtDetail/<%- ele._id %>">
+									<img src="<%- ele.contentPicUrl %>"></a></div>
 								<div class="title"><a href="/front/toArtDetail/<%- ele._id %>"><%- ele.title %></a></div>
 				                <div class="oter">
-				                	<span class="brow"><%- ele.checkcounts.length %></span>
+				                	<span class="brow"><%- ele.checkcounts %></span>
 				                	<span class="like"><%- ele.collections.length %></span>
 				                	<span class="date"><%- $moment(ele.creatTime).format("YYYY-MM-DD") %></span>
 			                	</div>
@@ -54,10 +56,13 @@
 	        	<%	}); %>
 				<div class="box" ng-repeat="ele in array_custom.$array track by ele.creatTime">
 					<div class="info">
-						<div class="pic"><img ng-src="{{ ele.contentPicUrl }}"></div>
+						<div class="pic">
+							<a href="/front/toArtDetail/{{- ele._id }}">
+							<img ng-src="{{ ele.contentPicUrl }}"></a>
+						</div>
 						<div class="title"><a href="/front/toArtDetail/{{ ele._id }}">{{ ele.title }}</a></div>
 						<div class="oter">
-							<span class="brow">{{ ele.checkcounts.length }}</span>
+							<span class="brow">{{ ele.checkcounts }}</span>
 							<span class="like">{{ ele.collections.length }}</span>
 							<span class="date">{{ ele.creatTime | date:'yyyy-MM-dd' }}</span>
 						</div>

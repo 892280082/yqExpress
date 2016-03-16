@@ -146,9 +146,19 @@
                 <td></td>
             </tr>
             <tr>
-                <td colspan="1"><label>文章介绍:</label></td>
-                <td colspan="5"><textarea class="textarea" style="width:635px;height:100px;"
-                              ng-model="pojo_custom.introduce" name="t_introduce"  required></textarea>
+                <td colspan="1"><label>文章摘要:</label></td>
+                <td colspan="5"><textarea class="textarea" 
+                                    style="width:635px;height:100px;"
+                                    ng-maxlength="100"
+                                    ng-model="pojo_custom.introduce" 
+                                    name="t_introduce"  required>
+                                </textarea>
+                </td>
+                <td>
+                 <span class="errorTips" ng-show="subForm.t_introduce.$error.required">
+                        请输入摘要</span>
+                 <span class="errorTips" ng-show="subForm.t_introduce.$error.maxlength">
+                        长度限制100</span>   
                 </td>
             </tr>
             <tr>
@@ -229,20 +239,16 @@
             $("#pageOne").fadeOut();
         });
 
-
         //弹出关键字
         $("#alertKeyPage").click(function(){
-            alert("hahahahahaah");
             $("#pageKey").fadeIn();
         });
         $(".falseBtn").click(function(){
             $("#pageKey").fadeOut();
         });
-
-
     });
 </script>
-<section  id="pageOne" class="pop_bg">
+<section  id="pageOne" class="pop_bg manChooseUser">
     <div class="pop_cont" style="width: 950px;height: 650px;left: 26%">
         <!--title-->
         <div class="">
@@ -301,7 +307,7 @@
     </div>
 </section>
 
-<section class="pop_bg ttty" id="pageKey" >
+<section id="pageKey" class="pop_bg ttty"  >
     <div class="pop_cont">
         <div class="">
             <h3>关键字管理<input style="float: right;"  type="button" value="关闭"  class="input_btn falseBtn"/></h3>

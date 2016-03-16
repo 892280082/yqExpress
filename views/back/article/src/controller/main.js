@@ -195,7 +195,7 @@ y                }
             //打开查询用户界面
             $scope.chooseUser = function(){
                 //初始获取所有用户信息
-                 $(".pop_bg").fadeIn();
+                 $(".manChooseUser").fadeIn();
             }
 
             $scope.manngerKey = function(){

@@ -16,5 +16,8 @@ angular.module('service.dataService',[]).service("dataService",["$http"
             this.saveCustomer = function(customer){
                 return $http.post('/back/savetWebConfig',{"pojo":customer});
             };
-
+            //清楚缓存
+            this.removeCache = function(){
+                return $http.post('/back/cleanIndexCache',{});
+            }
     }]);

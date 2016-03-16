@@ -124,6 +124,13 @@
 
             //保存或者更新方法
             $scope.saveOrUpdate = function(){
+                dataService.removeCache()
+                    .success(function(data){
+                        if(data.err)
+                            alert("清除缓存失败");
+                    }).error(function(){
+                        alert("清除缓存失败");
+                    })
                 //保存
                 if(!$scope.webConfig._id){
                     dataService.saveCustomer($scope.webConfig)

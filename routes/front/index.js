@@ -30,7 +30,7 @@ router.get("/artlist",function(req,res){
 	})
 });
 
-//用户异步加载产品请求
+//异步加载产品请求
 router.post("/getProduct",function(req,res){
 	mongooseUtil.pagination({
 		query:req.body.query,
@@ -170,16 +170,46 @@ router.get("/toActivetail/:_id"
 });
 
 //名人详情页
-router.get("/toCusDetail"
+router.get("/toCusDetail/:_id"
 	,frontWare.increaPojoById(Customer,"checkcounts")
 	,function(req,res){
-		//var _id = req.params._id;
-		//Active.findOne({"_id":_id},function(err,doc){
-		//	err && console.log(err);
-		//	console.log(doc,_id);
-		//});
-		res.render('front/page/cus_detail.ejs');
+		var _id = req.params._id;
+		Customer.findOne({"_id":_id},function(err,doc){
+			err && console.log(err);
+			res.render('front/page/cus_detail.ejs',{"customer":doc});
+		});
 	});
 
+//获取名人的作品
+router.post("/getCurCusPro/:_id",function(req,res){
+	var query = req.body.query;
+	query._userId = req.params._id;
+	mongooseUtil.pagination({
+		query:query,
+		limit:req.body.limit,
+		skip:req.body.skip*req.body.limit,
+		sort:{"creatTime":-1},
+		model:Product,
+	},function(err,result){
+		!err ? res.json({result:result})
+			: res.json({err: err});
+	})
+})
+
+//获取名人的文章
+router.post("/getCurCusAri/:_id",function(req,res){
+	var query = req.body.query;
+	query._userId = req.params._id;
+	mongooseUtil.pagination({
+		query:query,
+		limit:req.body.limit,
+		skip:req.body.skip*req.body.limit,
+		sort:{"creatTime":-1},
+		model:Article,
+	},function(err,result){
+		!err ? res.json({result:result})
+			: res.json({err: err});
+	})
+})
 
 module.exports = router;

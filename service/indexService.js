@@ -9,59 +9,76 @@ var then = require("thenjs");
 //首页数据
 var indexData = {
     cache:false,
-    "articles":{},
-    "customs":{},
-    "actives":{},
-    "products":{},
-    "banners":{},
+    "articles":[],
+    "customs":[],
+    "actives":[],
+    "products":[],
+    "banners":[],
 };
 
 //获取首页数据
 exports.getIndexData = function(callback){
-    then(function(next){ //获取名人
-        Custom.find({
-            "usertype":2
-        }).sort({ topno:-1 }).limit(4).exec(function(err,docs){
-            indexData.customs = docs;
-            next(err);
-        })
-    }).then(function(next){//查询文章
-        Article.find({
-        }).sort({ topno:-1 }).limit(4).exec(function(err,docs){
-            indexData.articles = docs;
-            next(err);
-        })
-    }).then(function(next){//查询创品
-        Product.find({
-        }).sort({ topno:-1 }).limit(10).exec(function(err,docs){
-            indexData.products = docs;
-            next(err);
-        })
-    }).then(function(next){//查询活动
-        Active.find({
-        }).sort({ topno:-1 }).limit(3).exec(function(err,docs){
-            indexData.actives = docs;
-            next(err);
-        })
-    }).then(function(next){
-        WebConfig.findOne(function(err,doc){
-            if(err){
-                next(err);
-            }else{
-                indexData.cache = true;
-                indexData.banners = doc.banners;
-                callback(null,indexData);
-            }
+    if(indexData.cache){
+       return callback(null,indexData);
+    }else{
+        indexData.cache = true;
+    }
+    var webConfig = {};
+    then(function(next){
+        WebConfig.findOne(function(err,config){
+            indexData.banners = config.banners;
+            webConfig = config;
+            next(err,webConfig);
         });
+    }).then(function(defer){
+        then.each(webConfig.customers,function(next,value){
+            Custom.findOne({"_id":value.pojo._id},function(err,doc){
+                indexData.customs.push(doc);
+                next();
+            })
+        }).then(function(next){
+            defer();
+        })
+    }).then(function(defer){
+        then.each(webConfig.actives,function(next,value){
+            Active.findOne({"_id":value.pojo._id},function(err,doc){
+                indexData.actives.push(doc);
+                next();
+            })
+        }).then(function(next){
+            defer();
+        })
+    }).then(function(defer){
+        then.each(webConfig.articles,function(next,value){
+            Article.findOne({"_id":value.pojo._id},function(err,doc){
+                indexData.articles.push(doc);
+                next();
+            })
+        }).then(function(){
+            defer();
+        })
+    }).then(function(){
+        Product.find({}).sort({ topno:-1 }).limit(10)
+        .exec(function(err,docs){
+            indexData.products = docs;
+            return callback(err,indexData);
+        })
     }).fail(function(next,err){
         console.log("indexService - >getIndexData",err);
         callback(err);
-    });
+    })
 }
 
 //清除首页数据缓存
 exports.removeIndexCache = function(){
-    indexData.cache = false;
+    indexData = {
+        cache:false,
+        "articles":[],
+        "customs":[],
+        "actives":[],
+        "products":[],
+        "banners":[],
+    };
 }
 
 /**

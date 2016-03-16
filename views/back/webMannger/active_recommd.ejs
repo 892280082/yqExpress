@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <% include ../include/baseLink %>
     <title>用户信息管理</title>
-    <script type="text/javascript" src="/back/dist/banner.js"></script>
+    <script type="text/javascript" src="/back/dist/active_recommd.js"></script>
     <style>
         .datatable .inntdiv { width: 100%; height: 150px;}
         .datatable .inntdiv .outer { width: 100%;height: 30%; }
@@ -36,11 +36,11 @@
             ng-submit="saveOrUpdate()"
         >
         <table class="datatable" width="100%;">
-            <tr ng-repeat="pojo in webConfig.banners  ">
+            <tr ng-repeat="pojo in webConfig.actives  ">
                 <td style="text-align: left;" class="tle1" height="150px;">
                     <div class="inntdiv">
                         <div class="outer">
-                            banner{{ $index + 1 }}:选择
+                            活动{{ $index + 1 }}:选择
                             <select  ng-model="chooseResult" name="t_usertype" ng-change="toChange($index,chooseResult);"
                                      ng-options="m.type as m.name for m in cateSelect">
                                 <option value="">-- 请选择 --</option>
@@ -49,7 +49,7 @@
                                    ng-if="$index > 0"
                                    value="上移" ng-click="bannerMove($index,-1);"/>
                             <input type="button"
-                                   ng-if="$index < webConfig.banners.length -1"
+                                   ng-if="$index < webConfig.actives.length -1"
                                    value="下移" ng-click="bannerMove($index,1);"/>
                             <input type="button" value="删除" ng-click="removeBanner(pojo);"  />
                         </div>
@@ -59,11 +59,11 @@
                                     <li>标题:{{ pojo.title }}</li>
                                     <li>类型:{{ pojo.type }} </li>
                                     <li>超链接:<input type="text" ng-model="pojo.url" /> </li>
-                                    <li>图片路径: {{ pojo.picUrl }}</li>
+                                    <li>图片路径: {{ pojo.pojo.convertUrl }}</li>
                                 </ul>
                             </div>
                             <div class="right">
-                                <img width="100%;"  height="150px;" ng-src="{{ pojo.picUrl }}">
+                                <img width="100%;"  height="150px;" ng-src="{{  pojo.pojo.convertUrl }}">
                             </div>
                         </div>
                     </div>

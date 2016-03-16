@@ -5,9 +5,8 @@
     <title>发现详情页</title>
     <% include ../include/baseLink%>
 </head>
-<body ng-controller="art_detail_control">
+<body ng-controller="cus_detail_control">
 <% include ../include/head %>
-<div class="ht100"></div>
 <div class="wap clearfix">
     <div class="on-1200">
         <div class="user-top clearfix">
@@ -17,9 +16,14 @@
                     <img class="tx" src="/front/resource/images/tx2.jpg" /></div>
                 <div class="user-mid lt">
                     <div class="user-mid-top">
-                        <span class="name">吴冠中</span><span class="jop">平面设计师</span>
-                        <span class="addres">安徽合肥</span><span class="gzs"><b>586</b>人关注</span>
-                        <span class="scs"><b>162</b>人收藏</span><span class="guanz">关注</span>
+                        <span class="name"><%- customer.name %>
+                        </span><span class="jop"><%- customer.job %></span>
+                        <span class="addres">
+                            <%- customer.address.province %><%- customer.address.city %>
+                        </span>
+                        <span class="gzs"><b><%- customer.followers.length %></b>人关注</span>
+                        <span class="scs"><b><%- customer.checkcounts %></b>人查看</span>
+                        <span class="guanz">关注</span>
                     </div>
                     <div class="user-info">
                         1919年生于江苏宜兴，是20世纪现代中国绘画的代表画家，中国绘画艺术大师 。终生致力于油画民族化及中国画现代化之探索，坚韧不拔地实践着“油画民族、
@@ -82,6 +86,13 @@
     </div>
 </div>
 <% include ../include/foot %>
-<script type="text/javascript"  src="/front/dist/art_detail.js"></script>
+<script type="text/javascript"  src="/front/dist/cus_detail.js"></script>
 </body>
+
+<script type="text/javascript">
+    GLOBAL_USER_INFO = {
+        _id:"<%- customer._id %>",
+    }
+
+</script>
 </html>

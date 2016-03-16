@@ -12,7 +12,8 @@ var banner = new Schema({
     title:String,//标题
     type:String,//类型
     url:String,//连接地址
-    picUrl:String//图片路径
+    picUrl:String,//图片路径
+    pojo:{}//源对象
 })
 
 var thirdCate = {
@@ -29,7 +30,7 @@ var webConfig = new Schema({
 
     customers:[banner],//首页用户推荐
 
-    products:[banner],//首页产品推荐
+    actives:[banner],//首页产品推荐
 
     articleCates:[],//文章类型
 

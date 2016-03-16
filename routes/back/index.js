@@ -5,7 +5,8 @@ var express = require('express'),
 	Article = require("../../models/Article"),
 	Product = require("../../models/Product"),
 	Active = require("../../models/Active"),
-	WebConfig = require("../../models/WebConfig");
+	WebConfig = require("../../models/WebConfig"),
+	indexService = require("../../service/indexService");
 	router = express.Router();
 
 //进入登陆页面
@@ -348,5 +349,25 @@ router.get('/toMangerCate',function(req,res){
 	res.render("back/cateMannger/cateMan");
 })
 
+//进入文章推荐管理页面
+router.get('/toArtRecommd',function(req,res){
+	res.render("back/webMannger/articles_recommd");
+})
+
+//进入文章推荐管理页面
+router.get('/toCusRecommd',function(req,res){
+	res.render("back/webMannger/customer_recommd");
+})
+
+//进入活动推荐管理页面
+router.get('/toActiveRecommd',function(req,res){
+	res.render("back/webMannger/active_recommd");
+})
+
+//清除首页缓存
+router.post('/cleanIndexCache',function(req,res){
+	indexService.removeIndexCache();
+	res.send("缓存清楚成功!!!");
+})
 
 module.exports = router;
