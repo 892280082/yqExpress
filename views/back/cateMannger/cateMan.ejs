@@ -41,7 +41,7 @@
                             <option value="">-- 请选择 --</option>
                         </select><br/>
                     </td>
-                    <td><input type="button" value="删除分类" ng-click="removeCustomerCate();"  /></td>
+                    <td><input type="button" value="删除分类" ng-click="removeCustomerCate(customerCate);"  /></td>
                     <td class="tname"><label>添加分类:</label></td>
                     <td class="tiput">
                         <input type="text"  ng-model="tempPojo.customerCate" name="t_articleCate"
@@ -60,7 +60,7 @@
                             <option value="">-- 请选择 --</option>
                         </select><br/>
                     </td>
-                    <td><input type="button" value="删除分类" ng-click="removeArticleCate();"  /></td>
+                    <td><input type="button" value="删除分类" ng-click="removeArticleCate(articleCate);"  /></td>
                     <td class="tname"><label>添加分类:</label></td>
                     <td class="tiput">
                         <input type="text"  ng-model="tempPojo.articleCate" name="t_articleCate"
@@ -80,7 +80,7 @@
                             <option value="">-- 请选择 --</option>
                         </select><br/>
                     </td>
-                    <td><input type="button" value="删除分类" ng-click="removeActiveCate();"  /></td>
+                    <td><input type="button" value="删除分类" ng-click="removeActiveCate(activeCate);"  /></td>
                     <td class="tname"><label>添加分类:</label></td>
                     <td class="tiput">
                         <input type="text"  ng-model="tempPojo.activeCate" name="t_articleCate"
@@ -99,7 +99,7 @@
                             <option value="">-- 请选择 --</option>
                         </select><br/>
                     </td>
-                    <td><input type="button" value="删除分类" ng-click="removeThirdProductCate();"  /></td>
+                    <td><input type="button" value="删除分类" ng-click="removeThirdProductCate(thirdProductCate);"  /></td>
                     <td class="tname"><label>添加分类:</label></td>
                     <td class="tiput">
                         <input type="text"  ng-model="tempPojo.thirdProductCate" name="t_articleCate"
@@ -115,13 +115,13 @@
                             <option value="">-- 请选择 --</option>
                         </select><br/>
                     </td>
-                    <td><input type="button" value="删除分类" ng-click="removeSubProductCate();"  /></td>
+                    <td><input type="button" value="删除分类" ng-click="removeSubProductCate(thirdProductCate,productSubCate);"  /></td>
                     <td class="tname"><label>添加分类:</label></td>
                     <td class="tiput">
                         <input type="text"  ng-model="tempPojo.subProductCate" name="t_articleCate" placeholder="{{ thirdProductCate.cateName }}"
                                class="textbox"  /><br/>
                     </td>
-                    <td><input type="button" value="添加分类" ng-click="addSubProductCate();"  ng-show="tempPojo.subProductCate"  /></td>
+                    <td><input type="button" value="添加分类" ng-click="addSubProductCate(thirdProductCate,tempPojo.subProductCate);"  ng-show="tempPojo.subProductCate"  /></td>
                 </tr>
                 <tr>
                     <td colspan="6" style="text-align: center;">
