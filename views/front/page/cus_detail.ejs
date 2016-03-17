@@ -18,34 +18,13 @@
 </script>
 <body ng-controller="cus_detail_control">
 <% include ../include/head %>
-<div class="modal-header head">
-    <div class="container"><div class="clearfix">
-        <div class="logo"><a href="#"><img src="/front/resource/images/logo.jpg" /></a></div>
-        <div class="nav">
-            <ul>
-                <li><a href="#">首页</a></li>
-                <li><a href="#">造物+</a></li>
-                <li><a href="#">活动</a></li>
-                <li><a href="#">创品</a></li>
-            </ul>
-        </div>
-        <div class="hedlogin">
-            <img src="/front/resource/images/hdlogin.png" />
-            <a href="#">登录</a>/<a href="#">注册</a>
-        </div>
-        <div class="search">
-            <span><input type="text" placeholder="请输入要搜索的关键词" class="txt" /></span>
-            <span><input type="button" class="but" /></span>
-        </div>
-    </div></div>
-</div>
 <div class="wap clearfix">
     <div class="on-1200">
         <div class="user-top clearfix">
             <div class="top-wap">
                 <div class="user-head lt">
                     <img class="zz" src="/front/resource/images/txzzzzz.png" />
-                    <img class="tx" src="/front/resource/images/tx2.jpg" />
+                    <img class="tx" src="<%- customer.bigimgurl %>" />
                 </div>
                 <div class="user-mid lt">
                     <div class="user-mid-top">
@@ -59,7 +38,7 @@
                         <span class="guanz">关注</span>
                     </div>
                     <div class="user-info">
-                        12312312
+                        <%- customer.introduce %>
                     </div>
                 </div>
             </div>
@@ -81,51 +60,42 @@
                         </li>
                     </ul>
                     <div class="page">
-                        <span><a href="#">&lt;</a></span>
-                        <span><a href="#">1</a></span>
-                        <span><a href="#">2</a></span>
-                        <span><a href="#">3</a></span>
-                        <span><a href="#">4</a></span>
-                        <span><a href="#">5</a></span>
-                        <span><a href="#">&gt;</a></span>
+                        <span><a ng-show="products.$last"  
+                                ng-click="products.$toLast()">上一页</a></span>
+                        <span><a ng-show="products.$next"  
+                                ng-click="products.$toNext()">下一页</a></span>
+                        <span>
+                            <a>{{ products.$curPage }}/{{ products.$pageCount }}</a>
+                        </span>
+                        <span> <a>作品:{{ products.$totalSize }}</a></span>
                     </div>
+        </aside>
             </div>
             <div class="contfx clearfix" id="son2">
                     <ul class="clearfix">
-                        <li class="fali">
-                            <a class="imgs" href="#"><img src="/front/resource/images/fa1.jpg" /></a>
+                        <li class="fali" ng-repeat="art in articles.$array ">
+                            <a class="imgs" href="#"><img ng-src="{{ art.imgUrl }}" /></a>
                             <div class="shilt lt">
-                                <h3><a href="#">我是发现，必须点击我~来哦~</a></h3>
-                                <div class="info">故事是从一个叫做张小凡的普通少年开始的。机缘巧合，一位天音寺名为普智的高僧在临终前传授给他天音寺不外传的真法——大梵般若，希望能在张小凡身</div>
-                                <div class="lks"><span class="read">3104</span><span class="like">235</span><span class="pl">445</span></div>
-                            </div>
-                        </li>
-                        <li class="fali">
-                            <a class="imgs" href="#"><img src="/front/resource/images/6.jpg" /></a>
-                            <div class="shilt lt">
-                                <h3><a href="#">我是发现，必须点击我~来哦~</a></h3>
-                                <div class="info">故事是从一个叫做张小凡的普通少年开始的。机缘巧合，一位天音寺名为普智的高僧在临终前传授给他天音寺不外传的真法——大梵般若，希望能在张小凡身</div>
-                                <div class="lks"><span class="read">3104</span><span class="like">235</span><span class="pl">445</span></div>
-                            </div>
-                        </li>
-                        <li class="fali">
-                            <a class="imgs" href="#"><img src="/front/resource/images/6.jpg" /></a>
-                            <div class="shilt lt">
-                                <h3><a href="#">我是发现，必须点击我~来哦~</a></h3>
-                                <div class="info">故事是从一个叫做张小凡的普通少年开始的。机缘巧合，一位天音寺名为普智的高僧在临终前传授给他天音寺不外传的真法——大梵般若，希望能在张小凡身</div>
-                                <div class="lks"><span class="read">3104</span><span class="like">235</span><span class="pl">445</span></div>
-                            </div>
-                        </li>
-                        <li class="fali">
-                            <a class="imgs" href="#"><img src="/front/resource/images/6.jpg" /></a>
-                            <div class="shilt lt">
-                                <h3><a href="#">我是发现，必须点击我~来哦~</a></h3>
-                                <div class="info">故事是从一个叫做张小凡的普通少年开始的。机缘巧合，一位天音寺名为普智的高僧在临终前传授给他天音寺不外传的真法——大梵般若，希望能在张小凡身</div>
-                                <div class="lks"><span class="read">3104</span><span class="like">235</span><span class="pl">445</span></div>
+                                <h3><a href="#">{{ art.title }}</a></h3>
+                                <div class="info">{{ art.introduce }}</div>
+                                <div class="lks">
+                                    <span class="read">{{ art.checkcounts }}</span>
+                                    <span class="like">{{ art.praiseCounts }}</span>
+                                    <span class="pl">{{ art.comments.length }}</span>
+                                </div>
                             </div>
                         </li>
                     </ul>
-                    <div class="page"><span><a href="#">&lt;</a></span><span><a href="#">1</a></span><span><a href="#">2</a></span><span><a href="#">3</a></span><span><a href="#">4</a></span><span><a href="#">5</a></span><span><a href="#">&gt;</a></span></div>
+                    <div class="page">
+                        <span><a ng-show="articles.$last"  
+                                ng-click="articles.$toLast()">上一页</a></span>
+                        <span><a ng-show="articles.$next"  
+                                ng-click="articles.$toNext()">下一页</a></span>
+                        <span>
+                            <a>{{ articles.$curPage }}/{{ articles.$pageCount }}</a>
+                        </span>
+                        <span> <a>文章:{{ articles.$totalSize }}</a></span>
+                    </div>
             </div>            
         </div>
     </div>

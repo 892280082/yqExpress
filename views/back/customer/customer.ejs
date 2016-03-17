@@ -251,5 +251,32 @@
         </form>
     </section>
 </script>
+
+<section id="pageKey" class="pop_bg ttty"  >
+    <div class="pop_cont">
+        <div class="">
+            <h3>关键字管理<input style="float: right;"  type="button" value="关闭"  class="input_btn falseBtn"/></h3>
+        </div>
+        <select  ng-model="articleKey"
+                 ng-options="m  for m in  _.difference(webConfig.articleKeys,pojo_custom.keyword)">
+            <option value="">-- 请选择 --</option>
+        </select>
+        <input type="button" value="添加" ng-if="articleKey"
+               ng-click="pojo_custom.keyword.push(articleKey);" />
+        <br/>
+        <table style="text-align: center;">
+            <tr>
+                <td width="20%">序号</td>
+                <td width="60%">关键字</td>
+                <td width="20%">操作</td>
+            </tr>
+            <tr ng-repeat="key in pojo_custom.keyword">
+                <td>{{ $index }}</td>
+                <td>{{ key }}</td>
+                <td><input type="button"  ng-click="pojo_custom.keyword.remove(key);" value="删除"/> </td>
+            </tr>
+        </table>
+    </div>
+</section>
 </body>
 </html>

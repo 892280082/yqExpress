@@ -20,6 +20,7 @@ var activeSchema = new Schema({
     title:String,//活动名称 *
     cate1:{},//类型
     introduce:String,//简介 *
+    keyword:[String],//活动关键字
     content:String,//内容 *
     bannerUrl:String,//banner图 *
     convertUrl:String,//封面图 *

@@ -159,6 +159,26 @@
                                ng-show="tempPojo.articleKey"  /></td>
                 </tr>
                 <tr>
+                    <td colspan="6" style="text-align: left;" class="tle1">活动关键字修改</td>
+                </tr>
+                <tr>
+                    <td class="tname"><label>现有分类:</label></td>
+                    <td class="tiput">
+                        <select  ng-model="activeKey"
+                                 ng-options="m  for m in webConfig.activeKeys">
+                            <option value="">-- 请选择 --</option>
+                        </select><br/>
+                    </td>
+                    <td><input type="button" value="删除分类" ng-click="webConfig.activeKeys.remove(activeKey)"  /></td>
+                    <td class="tname"><label>添加分类:</label></td>
+                    <td class="tiput">
+                        <input type="text"  ng-model="tempPojo.activeKey" class="textbox"  /><br/>
+                    </td>
+                    <td><input type="button" value="添加分类"
+                               ng-click="webConfig.activeKeys.push(tempPojo.activeKey);tempPojo.activeKey=''"
+                               ng-show="tempPojo.activeKey"  /></td>
+                </tr>
+                <tr>
                     <td colspan="6" style="text-align: center;">
                         <input class="link_btn"  type="button"  ng-click="saveOrUpdate();" value="保存" /></td>
                 </tr>

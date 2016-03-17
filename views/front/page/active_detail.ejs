@@ -26,7 +26,9 @@
                 <p>投稿时间：<%- $moment(active.actStartTime).format('YYYY-MM-DD')  %>—
                             <%- $moment(active.actOverTime).format('YYYY-MM-DD') %></p>
                 <div class="bq">
-                    <a href="#">美术设计</a><a href="#">创意</a><a href="#">设计标准</a>
+                <%    _.each(active.keyword,function(key){  %>
+                        <a href="#"><%- key %></a>
+                <%    }) %>
                 </div>
                 <div class="lisk"><span class="likes"><b>768</b>人喜欢</span><span class="shar"><b>123</b>人分享</span></div>
             </div>
@@ -46,8 +48,9 @@
                     <span class="tle">大赛简介</span>
                 </div>
                 <div class="nrs">
-                <img src="/front/resource/images/xq123.jpg" />
+                    <%- active.content %>
                 </div>
+                <div class="fujian"><a href="">我是附件</a></div>
             </div>
             <div class="contb" id="hdtab2">
                 <div class="hotop">

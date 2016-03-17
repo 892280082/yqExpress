@@ -54,7 +54,7 @@
             //获取用户文章
             ariPageResult.$loadInit({
                 url:"/api/getCurCusAri/"+$scope.globalInfo._id,
-                pageSize:8,
+                pageSize:4,
                 skip:0
             },function(err,result){
                 $scope.articles = result;

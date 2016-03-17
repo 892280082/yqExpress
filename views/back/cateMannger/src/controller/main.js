@@ -20,7 +20,7 @@
                         console.log(data.err);
                         alert("获取网站配置参数数据错误");
                     }else{
-                        $scope.webConfig = data.result;
+                        $scope.webConfig = data.result || {};
                         $scope.webConfig.articleCates = $scope.webConfig.articleCates || [];
                         $scope.webConfig.activeCates = $scope.webConfig.activeCates || [];
                         $scope.webConfig.productCates = $scope.webConfig.productCates || [];

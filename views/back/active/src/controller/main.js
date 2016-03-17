@@ -17,11 +17,7 @@
             $scope.array_custom = [];
             //查询Pojo
             $scope.search_custom = {"$$_title":""};
-             //文章类型
-            $scope.articleStatus = [{name:"未通过",value:0},
-                                   {name:"待审核",value:1},
-                                    {name:"草稿",value:2},
-                                    {name:"审核通过",value:3}];
+
             /*********************注册show service**************************/
             $scope.show = showCtrl;
             $scope.show.$regist('cuslist',['cuslist'],true);
@@ -37,9 +33,16 @@
                 $scope.array_custom = result;
             })
 
+            $scope._ = _;
+
             //查询方法
             $scope.search = function(){
                 $scope.array_custom.$search($scope.search_custom);
+            }
+
+            //设置关键字
+            $scope.manngerKey = function(){
+                $(".ttty").fadeIn();
             }
 
             //初始获取所有分类信息

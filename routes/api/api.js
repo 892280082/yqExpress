@@ -6,8 +6,6 @@
  *
  * 1./getCurCusPro/:_id -通过用户ID获取创品  -call('err',docs)
  * 2./getCurCusAri/:_id -通过用户ID获取文章列表 -call('err',docs)
- *
- *
  */
 var express = require('express');
 var router = express.Router();
