@@ -25,6 +25,9 @@
                         $scope.webConfig.activeCates = $scope.webConfig.activeCates || [];
                         $scope.webConfig.productCates = $scope.webConfig.productCates || [];
                         $scope.webConfig.customerCates = $scope.webConfig.customerCates || [];
+
+                        console.log("data.result",$scope.webConfig);
+
                     }
                 }).error(function(data){
                     alert("获取错误");
