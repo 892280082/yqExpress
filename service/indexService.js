@@ -6,23 +6,32 @@ var Product = require("../models/Product");
 var _ = require("underscore");
 var then = require("thenjs");
 
-//首页数据
-var indexData = {
-    cache:false,
-    "articles":[],
-    "customs":[],
-    "actives":[],
-    "products":[],
-    "banners":[],
-};
+/**
+ * @desc 前台service
+ * @author yq
+ * @date 2016/3/14
+ * @api
+ * 1.getIndexData -获取首页数据 -call(err,data);
+ * 2.getCusAllInfoByCusArray -通过用户的数组，查询用户的创品和文章共4个 -call(err,[用户信息])
+ * */
+
+
 
 //获取首页数据
 exports.getIndexData = function(callback){
-    if(indexData.cache){
-       return callback(null,indexData);
-    }else{
-        indexData.cache = true;
-    }
+    // if(indexData.cache){
+    //    return callback(null,indexData);
+    // }else{
+    //     indexData.cache = true;
+    // }
+    var indexData = {
+        cache:false,
+        "articles":[],
+        "customs":[],
+        "actives":[],
+        "products":[],
+        "banners":[],
+    };
     var webConfig = {};
     then(function(next){
         WebConfig.findOne(function(err,config){
@@ -71,14 +80,14 @@ exports.getIndexData = function(callback){
 
 //清除首页数据缓存
 exports.removeIndexCache = function(){
-    indexData = {
-        cache:false,
-        "articles":[],
-        "customs":[],
-        "actives":[],
-        "products":[],
-        "banners":[],
-    };
+    // indexData = {
+    //     cache:false,
+    //     "articles":[],
+    //     "customs":[],
+    //     "actives":[],
+    //     "products":[],
+    //     "banners":[],
+    // };
 }
 
 /**

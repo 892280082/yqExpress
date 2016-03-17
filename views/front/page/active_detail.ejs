@@ -50,7 +50,10 @@
                 <div class="nrs">
                     <%- active.content %>
                 </div>
-                <div class="fujian"><a href="">我是附件</a></div>
+                <div class="fujian">
+                    <a href="/downFileName?fileurl=<%- active.attachment.url  %>&filename=<%- active.attachment.name  %>">
+                            <%- active.attachment.name  %>
+                    </a></div>
             </div>
             <div class="contb" id="hdtab2">
                 <div class="hotop">

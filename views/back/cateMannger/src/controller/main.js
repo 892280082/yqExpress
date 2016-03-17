@@ -36,7 +36,8 @@
                 activeCate:'',
                 thirdProductCate:'',
                 subProductCate:'',
-                customerCate:''
+                customerCate:'',
+                thirdWorkCate:'',
             }
 
             $scope.thirdProductCate={};
@@ -134,14 +135,14 @@
                 $scope.webConfig.activeCates.remove(removePojo);
             }
 
-            //添加产品二级分类
+            //添加产品一级分类
             $scope.addThirdProductCate = function(){
                 addThirdCate($scope.webConfig.productCates,$scope.tempPojo.thirdProductCate);
                 $scope.tempPojo.thirdProductCate = "";
             }
 
 
-            //删除产品二级分类
+            //删除产品一级分类
             $scope.removeThirdProductCate = function(removePojo){
                 var confirmFlag = $window.confirm("确定要删除吗,该操作不可恢复");
                 if(!confirmFlag)
@@ -170,6 +171,35 @@
                 $scope.tempEditArray = array;
                 
             }
+
+            //添加作品一级分类
+            $scope.addthirdWorkCate = function(){
+                addThirdCate($scope.webConfig.workCates,$scope.tempPojo.thirdWorkCate);
+                $scope.tempPojo.thirdWorkCate = "";
+            }
+
+            //删除作品一级分类
+            $scope.removethirdWorkCate = function(removePojo){
+                var confirmFlag = $window.confirm("确定要删除吗,该操作不可恢复");
+                if(!confirmFlag)
+                    return false;
+                $scope.webConfig.workCates.remove(removePojo);
+            }
+
+            //添加产品二级子分类
+            $scope.addSubWorkCate = function(parent){
+                addThirdCate(parent.subCate,$scope.tempPojo.subProductCate);
+                $scope.tempPojo.subProductCate = "";
+            }
+
+            //删除产品二级子分类
+            $scope.removeSubWorkCate = function(parent,child){
+                var confirmFlag = $window.confirm("确定要删除吗,该操作不可恢复");
+                if(!confirmFlag)
+                    return false;
+                removeLowCate(parent.subCate,child);
+            }
+
             /***********************添加或编辑用户页面*****************************/
             //保存或者更新方法
             $scope.saveOrUpdate = function(){

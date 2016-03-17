@@ -124,6 +124,41 @@
                     <td><input type="button" value="添加分类" ng-click="addSubProductCate(thirdProductCate,tempPojo.subProductCate);"  ng-show="tempPojo.subProductCate"  /></td>
                 </tr>
                 <tr>
+                    <td colspan="6" style="text-align: left;" class="tle1">作品分类修改</td>
+                </tr>
+                <tr>
+                    <td class="tname"><label>一级分类:</label></td>
+                    <td class="tiput">
+                        <select  ng-model="thirdWorkCate" name="t_usertype"
+                                 ng-options="(m.cateId + '-------' + m.cateName)  for m in webConfig.workCates">
+                            <option value="">-- 请选择 --</option>
+                        </select><br/>
+                    </td>
+                    <td><input type="button" value="删除分类" ng-click="removethirdWorkCate(thirdWorkCate);"  /></td>
+                    <td class="tname"><label>添加分类:</label></td>
+                    <td class="tiput">
+                        <input type="text"  ng-model="tempPojo.thirdWorkCate" name="t_articleCate"
+                               class="textbox" /><br/>
+                    </td>
+                    <td><input type="button" value="添加分类" ng-click="addthirdWorkCate();"  ng-show="tempPojo.thirdWorkCate"  /></td>
+                </tr>
+                <tr>
+                    <td class="tname"><label>二级分类:</label></td>
+                    <td class="tiput">
+                        <select  ng-model="workSubCate" name="t_usertype"
+                                 ng-options="(m.cateId + '-------' + m.cateName)  for m in thirdWorkCate.subCate">
+                            <option value="">-- 请选择 --</option>
+                        </select><br/>
+                    </td>
+                    <td><input type="button" value="删除分类" ng-click="removeSubWorkCate(thirdWorkCate,workSubCate);"  /></td>
+                    <td class="tname"><label>添加分类:</label></td>
+                    <td class="tiput">
+                        <input type="text"  ng-model="tempPojo.subProductCate" name="t_articleCate" placeholder="{{ thirdWorkCate.cateName }}"
+                               class="textbox"  /><br/>
+                    </td>
+                    <td><input type="button" value="添加分类" ng-click="addSubWorkCate(thirdWorkCate,tempPojo.subProductCate);"  ng-show="tempPojo.subProductCate"  /></td>
+                </tr>
+                <tr>
                     <td colspan="6" style="text-align: center;">
                         <input class="link_btn"  type="button"  ng-click="saveOrUpdate();" value="保存" /></td>
                 </tr>

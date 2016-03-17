@@ -1,0 +1,14 @@
+{
+  "spm": {
+    "main": "work.js",
+    "build": {
+      "global": {
+        "jquery": "jQuery",
+        "angular": "angular"
+      }
+    },
+    "dest": "../dist"
+  },
+  "dependencies": {
+  }
+}

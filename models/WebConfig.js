@@ -34,15 +34,17 @@ var webConfig = new Schema({
 
     articleCates:[],//文章类型
 
-    productCates:[thirdCate],//产品类型
-
     activeCates:[],//活动类型
 
     customerCates:[],//任务类型
 
     articleKeys:[String],//文章关键字
 
-    activeKeys:[String]//活动关键字
+    activeKeys:[String],//活动关键字
+
+    productCates:[thirdCate],//产品二级分类
+
+    workCates:[thirdCate],//作品二级分类
 
 })
 

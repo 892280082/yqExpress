@@ -113,7 +113,7 @@
                     <td></td>
                 </tr>
                 <tr>
-                    <td class="tname"><label>文章关键字:</label></td>
+                    <td class="tname"><label>活动关键字:</label></td>
                     <td class="tiput"><input ng-click="manngerKey()"
                                              type="text"
                                              placeholder="{{ pojo_custom.keyword }}"
@@ -137,9 +137,35 @@
                 <tr>
                     <td colspan="1"><label>活动介绍:</label></td>
                     <td colspan="5"><textarea class="textarea" style="width:635px;height:100px;"
-                                  ng-model="pojo_custom.introduce" name="t_introduce" required></textarea>
+                                              ng-model="pojo_custom.introduce" name="t_introduce" required></textarea>
                     </td>
                     <td><span class="errorTips" ng-show="subForm.t_introduce.$error.required">请输入介绍</span></td>
+                </tr>
+                <tr>
+                    <td colspan="6" style="text-align: left;" class="tle1">上传作品分类限定 <a href="" ng-click="resetWorkCate()">重置</a></td>
+                </tr>
+                <tr>
+                    <td class="tname"><label>一级分类:</label></td>
+                    <td class="tiput">
+                        <select  ng-model="pojo_custom._workCate1" name="t_usertype"
+                                 ng-options="(m.cateId + '----' + m.cateName)  for m in pojo_custom.workCate">
+                            <option value="">-- 请选择 --</option>
+                        </select>
+                        <a href=""
+                           ng-show="pojo_custom._workCate1"
+                           ng-click="removeCate(pojo_custom.workCate,pojo_custom._workCate1)">删除</a> <br/>
+                    </td>
+                    <td></td>
+                    <td class="tname"><label>二级分类:</label></td>
+                    <td class="tiput">
+                        <select  ng-model="pojo_custom._workCate2" name="t_usertype"
+                                 ng-options="(m.cateId + '----' + m.cateName)  for m in pojo_custom._workCate1.subCate">
+                            <option value="">-- 请选择 --</option>
+                        </select><a href=""
+                            ng-show="pojo_custom._workCate2"
+                            ng-click="removeCate(pojo_custom._workCate1.subCate,pojo_custom._workCate2)">删除</a> <br/>
+                    </td>
+                    <td></td>
                 </tr>
                 <tr>
                     <td colspan="6" style="text-align: left;" class="tle1">时间地址</td>

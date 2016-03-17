@@ -6,7 +6,8 @@ var express = require('express'),
 	Product = require("../../models/Product"),
 	Active = require("../../models/Active"),
 	WebConfig = require("../../models/WebConfig"),
-	indexService = require("../../service/indexService");
+	indexService = require("../../service/indexService"),
+	Work = require('../../models/Work'),
 	router = express.Router();
 
 //进入登陆页面
@@ -277,7 +278,7 @@ router.post('/actSaveSingle',function(req,res){
 	})
 })
 
-//保存一项活动信息
+//删除一项活动信息
 router.post('/actRemoveSingle',function(req,res){
 	var _id = req.body._id;
 	if(!_id)
@@ -369,5 +370,25 @@ router.post('/cleanIndexCache',function(req,res){
 	indexService.removeIndexCache();
 	res.send("缓存清楚成功!!!");
 })
+
+//进入作业推荐管理页面
+router.get('/toWorkMann',function(req,res){
+	res.render("back/work/work");
+});
+
+//获取作业列表
+router.post('/getWorkAllData',function(req,res){
+	mongooseUtil.pagination({
+		query:req.body.query,
+		limit:req.body.limit,
+		skip:req.body.skip*req.body.limit,
+		sort:req.body.sort,
+		model:Work,
+	},function(err,result){
+		!err ? res.json({result:result})
+			: res.json({err: err});
+	})
+});
+
 
 module.exports = router;

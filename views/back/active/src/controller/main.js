@@ -17,7 +17,10 @@
             $scope.array_custom = [];
             //查询Pojo
             $scope.search_custom = {"$$_title":""};
-
+            //获取作品分类信息
+            $scope.productCate = [];
+            //所有分类信息
+            $scope.webConfig = {};
             /*********************注册show service**************************/
             $scope.show = showCtrl;
             $scope.show.$regist('cuslist',['cuslist'],true);
@@ -56,7 +59,23 @@
                     }
                 }).error(function(data){
                     alert("获取错误");
-            })
+                })
+
+            //删除子分类
+            $scope.removeCate = function(parent,child){
+                var flag = $window.confirm("真的要删除这个分类？")
+                if(!flag)
+                    return false;
+                parent.remove(child);
+            }
+
+            //重置子分类
+            $scope.resetWorkCate = function(){
+                var tFlag = $window.confirm("真的要重置吗？");
+                if(!tFlag)
+                    return false;
+                $scope.pojo_custom.workCate = $scope.webConfig.workCates;
+            }
 
             //删除方法
             $scope.removeCustom = function(cus){
@@ -75,46 +94,60 @@
                     })
             }
 
+            //对象的拷贝
+            function deepCopy(source) {
+                var result={};
+                for (var key in source) {
+                    result[key] = typeof source[key]==='object'
+                        ? deepCopy(source[key])
+                        : source[key];
+                }
+                return result;
+            }
+
             //进入添加页面
             $scope.changeIntoEdit = function(custom){
-                if(!custom){
-                    $scope.pojo_custom = {
-                        title:String,//活动名称 *
-                        type:[String],//创品类型 *
-                        introduce:String,//简介 *
-                        content:String,//内容 *
-                        bannerUrl:String,//banner图 *
-                        bannerno:Number,//在Banner模块展示的顺序
-                        convertUrl:String,//封面图 *
-                        converno:Number,//活动推荐顺序
-                        creatTime:{type:Date,default:Date.now},//创建时间 *
-                        status:Number,//是否开放 *
-                        checkcounts:Number,//关注量 *
-                        likes:[],//喜欢
-                        votes:[],//投票
-                        collects:[],//收藏
-                        actStartTime:Date,//活动开始结束时间
-                        actOverTime:Date,
-                        signStarTime:Date,//报名开始结束时间
-                        signOverTime:Date,
-                    };
-                $scope.pojo_custom = _.mapObject($scope.pojo_custom, function(val, key) {
-                        if(val == Number){
-                            return _.random(0,1000);
-                        }else if(val == String){
-                            return key + "str"+_.random(0,1000);
-                        }else if(val == Array || val == []){
-                            return "a b c"+" "+_.random(0,1000);
-                        }else if(val == Date){
-                            return new Date();
-                        }
-                });
-                $scope.pojo_custom.organize = '安徽雅集文化研究中心';
-                $scope.pojo_custom.copyRight = '安徽雅集文化传媒版权所有';
-                $scope.pojo_custom.topno=0;
-                $scope.pojo_custom.status = true;
-            }else{
-                    $scope.pojo_custom = custom;
+                    if(!custom){
+                        $scope.pojo_custom = {
+                            title:String,//活动名称 *
+                            type:[String],//创品类型 *
+                            introduce:String,//简介 *
+                            content:String,//内容 *
+                            bannerUrl:String,//banner图 *
+                            bannerno:Number,//在Banner模块展示的顺序
+                            convertUrl:String,//封面图 *
+                            converno:Number,//活动推荐顺序
+                            creatTime:{type:Date,default:Date.now},//创建时间 *
+                            status:Number,//是否开放 *
+                            checkcounts:Number,//关注量 *
+                            likes:[],//喜欢
+                            votes:[],//投票
+                            collects:[],//收藏
+                            actStartTime:Date,//活动开始结束时间
+                            actOverTime:Date,
+                            signStarTime:Date,//报名开始结束时间
+                            signOverTime:Date,
+                        };
+                    $scope.pojo_custom = _.mapObject($scope.pojo_custom, function(val, key) {
+                            if(val == Number){
+                                return _.random(0,1000);
+                            }else if(val == String){
+                                return key + "str"+_.random(0,1000);
+                            }else if(val == Array || val == []){
+                                return "a b c"+" "+_.random(0,1000);
+                            }else if(val == Date){
+                                return new Date();
+                            }
+                    });
+                    $scope.pojo_custom.organize = '安徽雅集文化研究中心';
+                    $scope.pojo_custom.copyRight = '安徽雅集文化传媒版权所有';
+                    $scope.pojo_custom.topno=0;
+                    $scope.pojo_custom.status = true;
+                }else{
+                        $scope.pojo_custom = custom;
+                }
+                if(!$scope.pojo_custom.workCate || $scope.pojo_custom.workCate.length<1){
+                    $scope.pojo_custom.workCate =  deepCopy($scope.webConfig.workCates);
                 }
                 this.show.$set("cusadd");
             }

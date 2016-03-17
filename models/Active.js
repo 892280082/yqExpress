@@ -17,6 +17,7 @@ var mongoose = require('mongoose'),
     objectid = require('objectid');
 
 var activeSchema = new Schema({
+    /***************基本信息****************/
     title:String,//活动名称 *
     cate1:{},//类型
     introduce:String,//简介 *
@@ -26,23 +27,31 @@ var activeSchema = new Schema({
     convertUrl:String,//封面图 *
     creatTime:{type:Date,default:Date.now},//创建时间 *
     status:Number,//0未开始 1进行中 2活动结束 *
-    checkcounts:Number,//关注量 *
-    likes:[Schema.Types.ObjectId],//喜欢
-    votes:[Schema.Types.ObjectId],//投票
-    collects:[Schema.Types.ObjectId],//报名
+    organize:String,//组织机构
+    copyRight:String,//版权所有
+    topno:{ type:Number,default:0},
+    fileUrl:String,//活动附件
+    attachment:{//附件
+        url:String,//下载路径
+        name:String//文件名
+    },
+
+    /***************** 状态信息 **************/
     actStartTime:Date,//活动开始结束时间
     actOverTime:Date,
     signStarTime:Date,//报名开始结束时间
     signOverTime:Date,
     address:String,//活动地址
-    topno:{ type:Number,default:0},
-    organize:String,//组织机构
-    copyRight:String,//版权所有
-    fileUrl:String,//活动附件
-    attachment:{ //附件
-        url:String,//下载路径
-        name:String//文件名
-    }
+
+    /***************** 活动关注 **************/
+    checkcounts:Number,//关注量 *
+    likes:[Schema.Types.ObjectId],//喜欢
+    votes:[Schema.Types.ObjectId],//投票
+    collects:[Schema.Types.ObjectId],//报名
+
+    /****************作品信息*****************/
+    workCate:[],//作品分类
+    workCount:{ type:Number,default:0},//作品数量
 })
 
 var  active = mongoose.model("actives", activeSchema);
