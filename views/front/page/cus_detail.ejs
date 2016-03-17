@@ -5,94 +5,137 @@
     <title>发现详情页</title>
     <% include ../include/baseLink%>
 </head>
+<script type="text/javascript">
+    function show(a){
+            $("div[id^='son']").hide();
+            $("#son"+a).show();
+            $(".user-product .title span[class^='tab']").removeClass("over");
+            $(".tab"+a).addClass("over");
+    };
+    $(function(){
+        show(1);
+    })
+</script>
 <body ng-controller="cus_detail_control">
 <% include ../include/head %>
+<div class="modal-header head">
+    <div class="container"><div class="clearfix">
+        <div class="logo"><a href="#"><img src="/front/resource/images/logo.jpg" /></a></div>
+        <div class="nav">
+            <ul>
+                <li><a href="#">首页</a></li>
+                <li><a href="#">造物+</a></li>
+                <li><a href="#">活动</a></li>
+                <li><a href="#">创品</a></li>
+            </ul>
+        </div>
+        <div class="hedlogin">
+            <img src="/front/resource/images/hdlogin.png" />
+            <a href="#">登录</a>/<a href="#">注册</a>
+        </div>
+        <div class="search">
+            <span><input type="text" placeholder="请输入要搜索的关键词" class="txt" /></span>
+            <span><input type="button" class="but" /></span>
+        </div>
+    </div></div>
+</div>
 <div class="wap clearfix">
     <div class="on-1200">
         <div class="user-top clearfix">
             <div class="top-wap">
                 <div class="user-head lt">
                     <img class="zz" src="/front/resource/images/txzzzzz.png" />
-                    <img class="tx" src="/front/resource/images/tx2.jpg" /></div>
+                    <img class="tx" src="/front/resource/images/tx2.jpg" />
+                </div>
                 <div class="user-mid lt">
                     <div class="user-mid-top">
-                        <span class="name"><%- customer.name %>
-                        </span><span class="jop"><%- customer.job %></span>
+                        <span class="name"><%- customer.name %></span>
+                        <span class="jop"><%- customer.job %></span>
                         <span class="addres">
                             <%- customer.address.province %><%- customer.address.city %>
                         </span>
                         <span class="gzs"><b><%- customer.followers.length %></b>人关注</span>
-                        <span class="scs"><b><%- customer.checkcounts %></b>人查看</span>
+                        <span class="scs"><b><%- customer.checkcounts %></b>查看</span>
                         <span class="guanz">关注</span>
                     </div>
                     <div class="user-info">
-                        1919年生于江苏宜兴，是20世纪现代中国绘画的代表画家，中国绘画艺术大师 。终生致力于油画民族化及中国画现代化之探索，坚韧不拔地实践着“油画民族、
-“中国画现代化”的创作理念，形成了鲜明的艺术特色；他执着地守望着“在祖国、在故乡、在家园、在自己心底”的真切情感，表达了民族和大众的审美需求
-他的作品具有很高的文化品格；国内外已出版画集约40余种，文集10余种。2010年6月25日23时57分，吴冠中先生因病医治无效，在北京医院逝世
-享年91岁。
+                        12312312
                     </div>
                 </div>
             </div>
         </div>
         <div class="user-product">
             <div class="title">
-                <span>作品展示</span>
+                <span class="tab1" onclick="show('1')">作品展示</span>
+                <span class="tab2" onclick="show('2')">事</span>
             </div>
-            <div class="cont clearfix">
-                    <ul>
-                        <li>
-                            <img class="zpimg" src="/front/resource/images/3.jpg" />
-                            <h3><b>[<a href="#" class="leix">设计大赛</a>]</b>你是我无与伦比的美丽你是我无与伦比的美丽</h3>
-                            <div class="hdbq"><span class="tota">投他一票</span><span class="tp">投票：<b>576</b></span></div>
-                        </li>
-                        <li>
-                            <img class="zpimg" src="/front/resource/images/6.jpg" />
-                            <h3><b>[<a href="#" class="leix">设计大赛</a>]</b>你是我无与伦比的美丽你是我无与伦比的美丽</h3>
-                            <div class="hdbq"><span class="touta">已投票</span><span class="tp">投票：<b>576</b></span></div>
-                        </li>
-                        <li>
-                            <img class="zpimg" src="/front/resource/images/6.jpg" />
-                            <h3><b>[<a href="#" class="leix">设计大赛</a>]</b>你是我无与伦比的美丽你是我无与伦比的美丽</h3>
-                            <div class="hdbq"><span class="touta">投他一票</span><span class="tp">投票：<b>576</b></span></div>
-                        </li>
-                        <li>
-                            <img class="zpimg" src="/front/resource/images/6.jpg" />
-                            <h3><b>[<a href="#" class="leix">设计大赛</a>]</b>你是我无与伦比的美丽你是我无与伦比的美丽</h3>
-                            <div class="hdbq"><span class="touta">投他一票</span><span class="tp">投票：<b>576</b></span></div>
-                        </li>
-                        <li>
-                            <img class="zpimg" src="/front/resource/images/6.jpg" />
-                            <h3><b>[<a href="#" class="leix">设计大赛</a>]</b>你是我无与伦比的美丽你是我无与伦比的美丽</h3>
-                            <div class="hdbq"><span class="touta">投他一票</span><span class="tp">投票：<b>576</b></span></div>
-                        </li>
-                        <li>
-                            <img class="zpimg" src="/front/resource/images/6.jpg" />
-                            <h3><b>[<a href="#" class="leix">设计大赛</a>]</b>你是我无与伦比的美丽你是我无与伦比的美丽</h3>
-                            <div class="hdbq"><span class="touta">投他一票</span><span class="tp">投票：<b>576</b></span></div>
-                        </li>
-                        <li>
-                            <img class="zpimg" src="/front/resource/images/6.jpg" />
-                            <h3><b>[<a href="#" class="leix">设计大赛</a>]</b>你是我无与伦比的美丽你是我无与伦比的美丽</h3>
-                            <div class="hdbq"><span class="touta">投他一票</span><span class="tp">投票：<b>576</b></span></div>
-                        </li>
-                        <li>
-                            <img class="zpimg" src="/front/resource/images/6.jpg" />
-                            <h3><b>[<a href="#" class="leix">设计大赛</a>]</b>你是我无与伦比的美丽你是我无与伦比的美丽</h3>
-                            <div class="hdbq"><span class="touta">投他一票</span><span class="tp">投票：<b>576</b></span></div>
+            <div class="cont clearfix" id="son1" style="display:none;">
+                    <ul class="clearfix">
+                        <li ng-repeat="pro in products.$array">
+                            <img class="zpimg" ng-src="{{ pro.imgBigUrl }}" />
+                            <h3>{{ pro.title }}</h3>
+                            <div class="bt">
+                                <div class="price">￥{{ pro.price }}</div>
+                                <div class="shar"><a href="#"><img src="/front/resource/images/shar2.jpg" /></a>我要分享</div>
+                            </div>                            
                         </li>
                     </ul>
+                    <div class="page">
+                        <span><a href="#">&lt;</a></span>
+                        <span><a href="#">1</a></span>
+                        <span><a href="#">2</a></span>
+                        <span><a href="#">3</a></span>
+                        <span><a href="#">4</a></span>
+                        <span><a href="#">5</a></span>
+                        <span><a href="#">&gt;</a></span>
+                    </div>
             </div>
+            <div class="contfx clearfix" id="son2">
+                    <ul class="clearfix">
+                        <li class="fali">
+                            <a class="imgs" href="#"><img src="/front/resource/images/fa1.jpg" /></a>
+                            <div class="shilt lt">
+                                <h3><a href="#">我是发现，必须点击我~来哦~</a></h3>
+                                <div class="info">故事是从一个叫做张小凡的普通少年开始的。机缘巧合，一位天音寺名为普智的高僧在临终前传授给他天音寺不外传的真法——大梵般若，希望能在张小凡身</div>
+                                <div class="lks"><span class="read">3104</span><span class="like">235</span><span class="pl">445</span></div>
+                            </div>
+                        </li>
+                        <li class="fali">
+                            <a class="imgs" href="#"><img src="/front/resource/images/6.jpg" /></a>
+                            <div class="shilt lt">
+                                <h3><a href="#">我是发现，必须点击我~来哦~</a></h3>
+                                <div class="info">故事是从一个叫做张小凡的普通少年开始的。机缘巧合，一位天音寺名为普智的高僧在临终前传授给他天音寺不外传的真法——大梵般若，希望能在张小凡身</div>
+                                <div class="lks"><span class="read">3104</span><span class="like">235</span><span class="pl">445</span></div>
+                            </div>
+                        </li>
+                        <li class="fali">
+                            <a class="imgs" href="#"><img src="/front/resource/images/6.jpg" /></a>
+                            <div class="shilt lt">
+                                <h3><a href="#">我是发现，必须点击我~来哦~</a></h3>
+                                <div class="info">故事是从一个叫做张小凡的普通少年开始的。机缘巧合，一位天音寺名为普智的高僧在临终前传授给他天音寺不外传的真法——大梵般若，希望能在张小凡身</div>
+                                <div class="lks"><span class="read">3104</span><span class="like">235</span><span class="pl">445</span></div>
+                            </div>
+                        </li>
+                        <li class="fali">
+                            <a class="imgs" href="#"><img src="/front/resource/images/6.jpg" /></a>
+                            <div class="shilt lt">
+                                <h3><a href="#">我是发现，必须点击我~来哦~</a></h3>
+                                <div class="info">故事是从一个叫做张小凡的普通少年开始的。机缘巧合，一位天音寺名为普智的高僧在临终前传授给他天音寺不外传的真法——大梵般若，希望能在张小凡身</div>
+                                <div class="lks"><span class="read">3104</span><span class="like">235</span><span class="pl">445</span></div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="page"><span><a href="#">&lt;</a></span><span><a href="#">1</a></span><span><a href="#">2</a></span><span><a href="#">3</a></span><span><a href="#">4</a></span><span><a href="#">5</a></span><span><a href="#">&gt;</a></span></div>
+            </div>            
         </div>
     </div>
 </div>
 <% include ../include/foot %>
-<script type="text/javascript"  src="/front/dist/cus_detail.js"></script>
-</body>
-
 <script type="text/javascript">
     GLOBAL_USER_INFO = {
         _id:"<%- customer._id %>",
     }
-
 </script>
+<script type="text/javascript"  src="/front/dist/cus_detail.js"></script>
+</body>
 </html>

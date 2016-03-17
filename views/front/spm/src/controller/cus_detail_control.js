@@ -8,9 +8,19 @@
                                         "ng.ueditor"
     ]).controller('cus_detail_control',['$scope','showCtrl','FileUploader','pageResult','$window'
         ,function($scope,showCtrl,FileUploader,pageResult,$window){
+
+            //对象的拷贝
+            function deepCopy(source) {
+                var result={};
+                for (var key in source) {
+                    result[key] = typeof source[key]==='object'
+                        ? deepCopy(source[key])
+                        : source[key];
+                }
+                return result;
+            }
             //克隆
-            var ariPageResult;
-            angular.copy(pageResult,ariPageResult);
+            var ariPageResult = deepCopy(pageResult);
             /************************数据模型****************************/
             $scope.globalInfo = GLOBAL_USER_INFO;
 
@@ -19,7 +29,9 @@
             //注册或者添加的中间变量
             $scope.pojo_custom = {};
             //保存用户数据数组
-            $scope.array_custom = [];
+            $scope.products = [];
+            //保存用户文章数组
+            $scope.articles = [];
             //查询Pojo
             $scope.search_custom = {"$$_title":"",usertype:""};
 
@@ -32,25 +44,24 @@
 
             //获取用户创品
             pageResult.$loadInit({
-                url:"/front/getCurCusPro/"+$scope.globalInfo._id,
+                url:"/api/getCurCusPro/"+$scope.globalInfo._id,
                 pageSize:8,
                 skip:0
             },function(err,result){
-                $scope.array_custom = result;
+                $scope.products = result;
             })
 
             //获取用户文章
-            pageResult.$loadInit({
-                url:"/front/getCurCusAri/"+$scope.globalInfo._id,
+            ariPageResult.$loadInit({
+                url:"/api/getCurCusAri/"+$scope.globalInfo._id,
                 pageSize:8,
                 skip:0
             },function(err,result){
-                $scope.array_custom = result;
+                $scope.articles = result;
             })
 
             //查询方法
             $scope.search = function(){
-                $scope.array_custom.$search($scope.search_custom);
             }
 
             $scope.validateTime = function(startData,overData,infos) {

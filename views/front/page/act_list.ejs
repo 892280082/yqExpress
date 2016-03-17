@@ -19,7 +19,7 @@
             <%  _.each(actives,function(ele){ %>
                     <div class="list clearfix">
                         <div class="sacimg lt">
-                            <a href="#">
+                            <a href="/front/toActivetail/<%- ele._id %>">
                                 <img src="<%- ele.convertUrl %>" class="huodongimg" />
                             </a>     
                         </div>
@@ -28,7 +28,9 @@
                                 <b>
                                 <%-  $moment.validateTime(ele.actStartTime,ele.actOverTime,['即将开始','进行中','已结束'])  %>
                                 </b>
-                                <span class="title"><a href="#"><%- ele.title %></a></span>
+                                <span class="title">
+                                <a href="/front/toActivetail/<%- ele._id %>">
+                                    <%- ele.title %></a></span>
                                 <span class="es"><%- ele.checkcounts %>人浏览</span>
                             </div>
                             <div class="rts"><%- ele.introduce %></div>
@@ -51,9 +53,9 @@
                     </div>
             <%  })  %>
 
-                <div class="list clearfix"  ng-repeat="ele in array_custom.$array" >
+            <div class="list clearfix"  ng-repeat="ele in array_custom.$array" >
                     <div class="sacimg lt">
-                        <a href="#">
+                        <a href="/front/toActivetail/{{ ele._id }}">
                             <img ng-src="{{ ele.convertUrl }}" class="huodongimg" />
                         </a>     
                     </div>
@@ -62,7 +64,9 @@
                              <b>
                                  {{ validateTime(ele.actStartTime,ele.actOverTime,['即将开始','进行中','已结束']); }}
                             </b>
-                            <span class="title"><a href="#">{{ ele.title }}</a></span>
+                            <span class="title">
+                                <a href="/front/toActivetail/{{ ele._id }}">{{ ele.title }}</a>
+                            </span>
                             <span class="es">{{ ele.checkcounts }}人浏览</span>
                         </div>
                         <div class="rts">{{ ele.introduce }}</div>
@@ -85,7 +89,10 @@
                 </div>
             </div>
         </div>
-        <div class="clickmore"><a href="" ng-click="getData();" >点击加载更多</a></div>
+            <div class="clickmore">
+            <a href="" ng-show="array_custom.$next || requestCount == 0"  ng-click="getData();" >点击加载更多</a>
+            <a href="" ng-show="!array_custom.$next && requestCount > 0">没有更多了</a>
+        </div>
     </div>
 </div>
 <% include ../include/foot %>

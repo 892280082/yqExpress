@@ -180,36 +180,5 @@ router.get("/toCusDetail/:_id"
 		});
 	});
 
-//获取名人的作品
-router.post("/getCurCusPro/:_id",function(req,res){
-	var query = req.body.query;
-	query._userId = req.params._id;
-	mongooseUtil.pagination({
-		query:query,
-		limit:req.body.limit,
-		skip:req.body.skip*req.body.limit,
-		sort:{"creatTime":-1},
-		model:Product,
-	},function(err,result){
-		!err ? res.json({result:result})
-			: res.json({err: err});
-	})
-})
-
-//获取名人的文章
-router.post("/getCurCusAri/:_id",function(req,res){
-	var query = req.body.query;
-	query._userId = req.params._id;
-	mongooseUtil.pagination({
-		query:query,
-		limit:req.body.limit,
-		skip:req.body.skip*req.body.limit,
-		sort:{"creatTime":-1},
-		model:Article,
-	},function(err,result){
-		!err ? res.json({result:result})
-			: res.json({err: err});
-	})
-})
 
 module.exports = router;

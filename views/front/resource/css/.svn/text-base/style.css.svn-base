@@ -1,0 +1,84 @@
+@charset "utf-8";
+/* CSS Document */
+/* 2016.3.4  索德斯奈 */
+/*公共样式*/
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {margin:0;padding:0;border:0;}
+li{ list-style:none;}
+a{ text-decoration:none;}
+* html .clearfix {height:1%;}
+html[xmlns] .clearfix {display:block;}
+.clearfix:after {content:"";display:block;	height:0;clear:both;visibility:hidden;}
+.clear, .divider {clear:both;}
+.lt{ display:inline; float:left;}
+.rt{ display:inline; float:right;}
+body{background:#f0f1f1;}
+/**/
+.head{width:1200px;margin:0 auto;}
+.logo{ float:left;}
+.nav{ float:left;}
+.nav ul{padding-left:25px;}
+.nav ul li{ float:left; line-height:68px;margin:0 25px;}
+.nav ul li a{ font-size:16px; font-family:microsoft yahei;color:#333;}
+.search{ float:right; position:relative;padding-top:17px;margin-right:40px;}
+.search span{ float:left;}
+.search span input.txt{width:195px;height:32px;padding:0 30px 0 8px;font-size:12px; line-height:32px;color:#999;border:1px solid #e1e1e1;border-radius:3px;}
+.search span input.but{border:0px;width:30px;height:32px; position:absolute; z-index:2;right:0px;background:url(../images/sec_r.jpg) 0 1px no-repeat;}
+.hedlogin{ float:right;padding-top:18px;}
+.hedlogin a{color:#666;padding:0 3px;}
+/*发现*/
+.m1{margin-top:8px;}
+.ind2_title{height:65px; line-height:65px; font-size:16px;color:#333;font-family:microsoft yahei;}
+.ind2_title span.dtle{ float:left;margin-left:15px;}
+.ind2_title span.bytle{ float:left; font-size:12px;margin-left:13px;color:#a8a8a8;padding-top:2px;height:60px;}
+.ind2_title a{ float:right; font-size:10px;color:#999;margin-right:15px;}
+.m1fximg{width:100%;border-radius:3px 3px 0 0;}
+.m1a .list{min-height:330px;background:#fff;border-radius:3px;margin-bottom:20px; position:relative; }
+.m1a .list p.title{ font-size:14px;height:45px; line-height:45px; text-align:left;padding:0 15px; overflow:hidden;border-bottom:1px solid #f8f8f8;}
+.m1a .list p.title a{color:#333; font-family:microsoft yahei;}
+.m1a .list .oter{font-size:12px;height:45px; line-height:45px; text-align:left;margin:0 15px; overflow:hidden;color:#888;}
+.m1a .list .oter span.gnumb{background:url(../images/gnumb.jpg) no-repeat;padding-left:20px;}
+.m1a .list .oter span.pjnumb{background:url(../images/pjnumb.jpg) no-repeat;padding-left:20px;margin-left:15px;}
+.fszz{width:100%;height:118px; position:absolute;top:0; z-index:1;background:#000; display:none;}
+.txthover{width:100%;height:134px; position:absolute;top:118px; z-index:2;padding:14px;background:#fff;border-bottom:1px solid #f8f8f8; font-size:14px;color:#999; font-family:SimSun; display:none;}
+
+
+.activlist{min-height:720px;background:#fff;border-radius:3px;}
+.ind3_title{height:60px; line-height:60px; font-size:16px;color:#333;font-family:microsoft yahei;}
+.ind3_title span.dtle{ float:left;margin-left:20px;}
+.ind3_title span.bytle{ float:left; font-size:12px;margin-left:13px;color:#a8a8a8;padding-top:2px;height:60px;}
+.ind3_title a{ float:right; font-size:10px;color:#999;margin-right:20px; font-family:Arial, Helvetica, sans-serif;}
+.activlist .actlst{border-bottom:1px dashed #f4f4f4;margin:0 20px;padding:13px 0;}
+.activlist .actlst:last-of-type{border:0px;}
+.actimg{margin:0 5px;}
+
+.actimg img{border-radius:3px;width:100%;}
+.actxt{margin:0 12px;font-family:microsoft yahei;}
+.actxt .title{font-size:16px;padding-top:12px;}
+.actxt .title a{color:#333; font-size:16px;}
+.actxt .scon{font-size:13px;color:#999;padding-top:12px; line-height:22px;height:104px; overflow:hidden;}
+.actxt .stis{ font-size:14px;}
+.actxt .stis .addr,.actxt .stis .date{padding-left:18px;margin:5px 0;}
+.actxt .stis .addr{color:#c1c1c1;background:url(../images/addr_1.jpg) 0 3px no-repeat;}
+.actxt .stis .date{color:#e3c197;background:url(../images/date_1.jpg) 0 3px no-repeat;}
+
+.peopel{height:720px;background:#fff;border-radius:3px;}
+.peopel .peolist{ width:100px;}
+
+.decr{position:absolute;z-index:9999;top:0px; display:block;}
+.prelt{background:url(../images/banleft.png) center right no-repeat;position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 15%;
+    font-size: 20px;
+    color: #fff;
+    text-align: center;}
+.nxtrt{background:url(../images/banright.png) center left no-repeat;position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 15%;
+    font-size: 20px;
+    color: #fff;
+    text-align: center;}
+

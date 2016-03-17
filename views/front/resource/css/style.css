@@ -18,7 +18,7 @@ body{background:#f0f1f1;}
 .on-1200{width:1200px;}
 /**/
 .head{width:100%; position:fixed; top:0px;margin:0 auto; z-index:999;border:0px;box-shadow: 0px 2px 2px #e9e9e9;background:#fff;padding:10px 0;}
-.ht100{height:89px;}
+.ht100{height:100px;}
 .logo{ float:left;}
 .nav{ float:left;}
 .nav ul{margin-left:25px;}
@@ -338,20 +338,26 @@ opacity:0.5;}
     border-radius: 3px;
     cursor: pointer;}
 .user-mid-top span.guanz:hover{background:#e3c197;color:#fff;border:0px;padding:3px 11px;}
+.page{ text-align:center;padding:30px 0;}
+.page span a{padding:4px 10px;border:1px solid #f7f7f7; display:inline-block;color:#999;border-radius:3px; font-size:12px;margin:0 3px;}
 /*user-product*/
 .user-product{background:#fff;border-radius:5px;min-height:300px;margin-top:24px;}
 .user-product .title{height:40px;border-bottom:1px solid #f7f7f7;}
 .user-product .title span{    padding: 10px 20px;
-    display: inline-block;
+    display:block;
     cursor: pointer;
     font-size: 14px;
-    color: #666;}
+    color: #333; font-family:"microsoft yahei";border-right:1px solid #f7f7f7; float:left; font-weight:bold;}
+.user-product .title span.tab1{border-radius:5px 0 0 0;}
+.user-product .title span.over{background:#e3c197;color:#fff;}
 .user-product{}
-.user-product .cont{padding-bottom:24px;}
+.user-product .cont{padding-bottom:5px; display:none;}
 .user-product .cont ul{width:110%; font-family:"microsoft yahei";}
-.user-product .cont ul li{width:300px;height:348px;background:#fff; float:left;padding:24px;border-bottom:1px solid #f7f7f7;border-right:1px solid #f7f7f7;}
+.user-product .cont ul li{width:300px;height:368px;background:#fff; float:left;padding:24px;border-bottom:1px solid #f7f7f7;border-right:1px solid #f7f7f7;}
 .user-product .cont ul li .zpimg{width:250px;height:211px;border-radius:5px;}
-.user-product .cont ul li h3 { font-size:14px;color:#4d4d4d; line-height:22px;padding-top:10px;}
+.user-product .cont ul li h3 { font-size:14px;color:#4d4d4d; line-height:22px;padding-top:10px;height:37px; overflow:hidden;}
+.user-product .cont ul li .price{padding-top:10px;color:#ff4400; font-size:16px;}
+.user-product .cont ul li .price b{}
 .user-product .cont ul li .hdbq{}
 .user-product .cont ul li .hdbq span{ font-size:12px;color:#999;padding-right:15px;}
 .user-product .cont ul li .hdbq span b a,.user-product .cont ul li .hdbq span b{color:#e0c097;}
@@ -364,6 +370,27 @@ opacity:0.5;}
 .user-product .cont li .hdbq span.tota{font-size:12px;padding:4px 9px; display:inline-block;border-radius:3px;cursor:pointer;margin-right:10px;background:#e0c097;color:#fff;}
 .user-product .cont li h3 b{color:#999;}
 .user-product .cont li a.leix{color:#e0c097;margin:0 3px; font-size:12px;}
+.user-product .cont .shar{ font-size:12px;color:#999;padding-top:15px;}
+.user-product .cont .shar a{margin-right:10px;}
+/*事*/
+.contfx{ overflow:hidden;}
+.contfx ul{width:100%;margin-bottom:0px;}
+.contfx ul li{width:600px;height:290px; float:left;border-right:1px solid #f7f7f7;border-bottom:1px solid #f7f7f7;}
+.contfx li.fali img{width:270px;border-radius:5px;height:241px;}
+.contfx li.fali .imgs{ float:left;padding:24px;}
+.contfx li.fali:hover .imgs img{ filter:alpha(opacity=50);  
+      -moz-opacity:0.8;  
+      -khtml-opacity: 0.8;  
+      opacity: 0.8;  }
+.contfx li.fali h3{ font-size:14px; font-family:"microsoft yahei"; line-height:40px;padding-top:20px; font-weight:bold;}
+.contfx li.fali h3 a{color:#333;}
+.contfx li.fali .shilt{width:262px;}
+.contfx li.fali .info{ font-size:12px;color:#999; line-height:22px;height:180px; overflow:hidden;}
+.contfx li.fali .lks{}
+.contfx li.fali .lks span{color:#999; font-size:12px;margin-right:15px;}
+.contfx li.fali .lks span.read{background:url(../images/gnumb.jpg) 0 1px no-repeat;padding-left:25px;}
+.contfx li.fali .lks span.like{background:url(../images/like.jpg) 0 2px no-repeat;padding-left:20px;}
+.contfx li.fali .lks span.pl{background:url(../images/pjnumb.jpg) 0 1px no-repeat;padding-left:20px;}
 /* 返回顶部 */
 .cbbfixed {position: fixed;right: 10px;transition: bottom ease .3s;bottom: -85px;z-index: 3;cursor:pointer;}
 .cbbfixed .cbbtn {width: 40px;height: 40px;display: block;background-color: #d0b896;}
