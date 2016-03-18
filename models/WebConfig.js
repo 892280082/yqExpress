@@ -42,6 +42,8 @@ var webConfig = new Schema({
 
     activeKeys:[String],//活动关键字
 
+    jobCates:[],//职业分类
+
     productCates:[thirdCate],//产品二级分类
 
     workCates:[thirdCate],//作品二级分类

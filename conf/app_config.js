@@ -55,6 +55,7 @@ module.exports = {
 		auth:"oAuth",//第三方登陆路由
 		front:"front/index",//前台路由
 		back:"back/index",//后台路由
-		api:"api/api"
+		api:"api/api",
+		regist:"front/regist"
 	}
 }

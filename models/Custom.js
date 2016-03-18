@@ -1,4 +1,4 @@
-/****************************************************************************************
+ /****************************************************************************************
  * @desc 用户表
  * @date 2016/2/25
  * @auther yq
@@ -38,7 +38,7 @@ var recommd = new Schema({
 
 var customSchema = new Schema({
     name:{ type:String},//用户姓名
-    job:String,//用户职业
+    job:{},//职业分类
     password:String,//密码
     introduce:String,//用户介绍
     email:{ type:String},//邮件

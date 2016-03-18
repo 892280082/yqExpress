@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="myApp">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>邮箱注册完善信息</title>
+<% include ../include/loginLink %>
+<script type="text/javascript"  src="/front/dist/user_regist.js"></script>
+</head>
+<body style="background:#f2f2f2;" ng-controller="user_regist_control">
+<div class="loginwap">
+	<div class="logo" style="padding-top: 50px;"><a href="#"><img src="/front/resource/images/loginlogo.png" /></a></div>
+    <div class="register">
+    	<div class="tle">
+            <span class="reg-tab1 reg-phone  {{ show ? 'over':'' }}"    ng-click="show=true" >手机注册</span>
+            <span  class="reg-tab2 reg-email {{ !show ? 'over':'' }}"  ng-click="show=false">邮箱注册</span><t>已有帐号？
+        <a href="/regist/login">请登录</a></t></div>
+        <div  class="rege-a"  id="rege-s1" ng-if="show">
+        	<div class="rewp">
+                <dl>
+                    <dt>手机号码</dt>
+                    <dd><span class="ti pone-ti"></span><input class="pone wd100" type="text" placeholder="请输入手机号码" /></dd>
+                    <dt>手机验证码</dt>
+                    <dd><input class="yzm" type="text" placeholder="987236" /><span class="ponenume">获取手机验证码</span><span class="ponenume lter">已发送</span></dd>
+                    <dt>密码</dt>
+                    <dd><span class="ti pwd-ti"></span><input class="pwd wd100" type="password" placeholder="请输入密码" /></dd>
+                    <dt>确认密码</dt>
+                    <dd><span class="ti pwd-ti"></span><input class="pwd wd100" type="password" placeholder="确认密码" /></dd>
+                    <dt>昵称</dt>
+                    <dd><span class="ti nick-ti"></span><input class="nick" type="text" placeholder="请输入昵称" /></dd>
+                    <dt>职业</dt>
+                    <dd><select> <option>哈哈哈1</option></select></dd>
+                    <dd><input type="checkbox" /><t>我已认真阅读用户手册</t></dd>
+                    <dd><input class="afreg" value="提交注册" type="button" /></dd>
+                </dl>
+            </div>
+        </div>
+        <div  class="rege-b"  id="rege-s2" ng-if="!show">
+        	<div class="rewp">
+            	<dl>
+                    <dt>昵称</dt>
+                    <dd><span class="ti nick-ti"></span><input class="nick wd100" type="text" placeholder="请输入昵称" /></dd>
+                    <div class="wrois">请输入正确昵称</div>
+                    <dt>职业</dt>
+                    <dd><select> <option>哈哈哈1</option></select></dd>
+                    <dt>邮箱</dt>
+                    <dd><span class="ti pone-ti"></span><input class="pone wd100" type="text" placeholder="请输入邮箱" /></dd>
+                    <dt>密码</dt>
+                    <dd><span class="ti pwd-ti"></span><input class="pwd wd100" type="password" placeholder="请输入密码" /></dd>
+                    <dt>确认密码</dt>
+                    <dd><span class="ti pwd-ti"></span><input class="pwd wd100" type="password" placeholder="确认密码" /></dd>
+                    <dt>验证码</dt>
+                    <dd><input class="yzm" type="text" placeholder="987236" /><span class="ponenume lter">验证码</span></dd>
+                    <dd><input type="checkbox" /><t>我已认真阅读用户手册</t></dd>
+                    <dd><input class="afreg" value="提交注册" type="button" /></dd>
+                </dl>
+                <div class="emats">注册链接会发送到你的邮箱，通过点击收到的链接来注册会员信息</div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -115,7 +115,7 @@ angular.module("service_pageResult",[])
             sort:null,
         };
         this.$pageSize = this._server_pojo.limit;//页面显示数据条数
-        this.$totalSize = 0;//总共页数
+        this.$totalSize = 0;//总数
         this.$curPage = 1;//当前页
         this.$pageCount = 0;//总页数
         this.$waterfull = false;
@@ -246,6 +246,7 @@ angular.module("service_pageResult",[])
             if(this._nextCache.length>1){
                 this.$array.push(this._nextCache.splice(0,1)[0])
             }
+            this.$totalSize--;
         };
     }]);
 

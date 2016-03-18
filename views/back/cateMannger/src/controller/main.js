@@ -25,6 +25,7 @@
                         $scope.webConfig.activeCates = $scope.webConfig.activeCates || [];
                         $scope.webConfig.productCates = $scope.webConfig.productCates || [];
                         $scope.webConfig.customerCates = $scope.webConfig.customerCates || [];
+                        $scope.webConfig.jobCates = $scope.webConfig.jobCates || [];
                     }
                 }).error(function(data){
                     alert("获取错误");
@@ -38,6 +39,7 @@
                 subProductCate:'',
                 customerCate:'',
                 thirdWorkCate:'',
+                jobCate:''
             }
 
             $scope.thirdProductCate={};
@@ -87,16 +89,15 @@
 
             //删除一级分类
             var removeLowCate = function(catePojo,removePojo){
-                console.log("removeLowCate",catePojo,removePojo);
                 catePojo.remove(removePojo);
             }
 
             //添加人物分类
             $scope.addCustomerCate = function(){
-                // console.log($scope.webConfig.customerCates,$scope.tempPojo.customerCate);
                 addLowCate($scope.webConfig.customerCates,$scope.tempPojo.customerCate);
                 $scope.tempPojo.customerCate="";
             }
+
 
             //删除人物分类
             $scope.customerCate= {};
@@ -120,6 +121,22 @@
                     return false;
                 $scope.webConfig.articleCates.remove(removePojo);
             }
+
+            //添加职业分类
+            $scope.addJobCateCate = function(){
+                addLowCate($scope.webConfig.jobCates,$scope.tempPojo.jobCate);
+                $scope.tempPojo.jobCate="";
+            }
+
+            //删除职业分类
+            $scope.removejobCateCate = function(jobCate){
+                var confirmFlag = $window.confirm("确定要删除吗,该操作不可恢复");
+                if(!confirmFlag)
+                    return false;
+                $scope.webConfig.jobCates.remove(jobCate);
+            }
+
+
 
             //添加活动分类
             $scope.addActiveCate = function(){

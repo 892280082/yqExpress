@@ -123,9 +123,9 @@
                     <td></td>
                 </tr>
                 <tr>
-                    <td class="tname"><label>关注量:</label></td>
+                    <td class="tname"><label>点击量:</label></td>
                     <td class="tiput"><input type="text"  ng-model="pojo_custom.checkcounts"  name="t_checkcounts"
-                                             class="textbox" required /></td>
+                                             class="textbox"/></td>
                     <td class="tip"><span class="errorTips" ng-show="subForm.t_checkcounts.$error.required">请输入</span></td>
                     <td class="tname"><label>是否开放:</label></td>
                     <td><input type="radio"   ng-model="pojo_custom.status" ng-value="true"
@@ -137,7 +137,7 @@
                 <tr>
                     <td colspan="1"><label>活动介绍:</label></td>
                     <td colspan="5"><textarea class="textarea" style="width:635px;height:100px;"
-                                              ng-model="pojo_custom.introduce" name="t_introduce" required></textarea>
+                                              ng-model="pojo_custom.introduce" name="t_introduce" ></textarea>
                     </td>
                     <td><span class="errorTips" ng-show="subForm.t_introduce.$error.required">请输入介绍</span></td>
                 </tr>
@@ -283,7 +283,7 @@
                 </tr>
                 <tr>
                     <td colspan="3" style="text-align: center;">
-                        <input class="link_btn"  type="submit" ng-disabled="subForm.$invalid" value="提交" /></td>
+                        <input class="link_btn"  type="button" ng-click="saveOrUpdate();" value="提交" /></td>
                     <td colspan="3" style="text-align: center;">
                         <input class="link_btn" type="button"  ng-click="toPageList();"  value="取消" /></td>
                 </tr>

@@ -8,6 +8,12 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     objectid = require('objectid');
 
+var fileSchema = new Schema({
+    url:String,//路径
+    name:String,
+    introduce:String,
+})
+
 var workSchema = new Schema({
     title:String,//作品名称
     userId:Schema.Types.ObjectId,//用户ID
@@ -17,16 +23,16 @@ var workSchema = new Schema({
     cate1:{},//类型1
     cate2:{},//类型2
     introduce:String,// 作品简介 *
-    creatTime:{type:Date,default:Date.now},//创建时间 *
-    checkcounts:Number,//关注量 *
+    checkcounts:{ type:Number,default:0},//关注量 *
     likes:{ type:Number,default:0},//喜欢
+
     votes:[Schema.Types.ObjectId],//投票
     topno:{ type:Number,default:0},
-    attachment:{         //附件
-        url:String,//下载路径
-        name:String//文件名
-    },
-    fileUrls:[String],
+
+    fileUrls:[fileSchema],
+
+    creatTime:{type:Date,default:Date.now},//创建时间 *
+    editTime:{type:Date,default:Date.now},//最后修改时间
 })
 
 var  Work = mongoose.model("works", workSchema);

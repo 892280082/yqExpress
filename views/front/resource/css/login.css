@@ -1,0 +1,102 @@
+@charset "utf-8";
+/* CSS Document */
+/*2016-3-17 索德斯奈*/
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {margin:0;padding:0;border:0; font-family:"microsoft yahei";}
+li{ list-style:none;}
+a{ text-decoration:none;}
+* html .clearfix {height:1%;}
+html[xmlns] .clearfix {display:block;}
+.clearfix:after {content:"";display:block;	height:0;clear:both;visibility:hidden;}
+.clear, .divider {clear:both;}
+.loginwap{width:698px;margin:0 auto;padding-bottom:40px;}
+.loginwap .logo{ text-align:center;padding-top:100px;padding-bottom:30px;}
+.loginwap .lgocont{height:467px;background:#fff;border-radius:5px;border:1px solid #ececec;}
+.loginwap .lgocont .tle{height:57px;border-bottom:1px solid #f7f7f7; font-family:"microsoft yahei"; line-height:57px;}
+.loginwap .lgocont .tle span{padding:0 30px;color:#4d4d4d;}
+.loginwap .lgocont .tle span.hedtle{ font-size:18px; font-weight:bold;float:left; display:inline;}
+.loginwap .lgocont .tle span.nozh{ float:right; display:inline; font-size:12px;}
+.loginwap .lgocont .tle span.nozh a{color:#e4a94c; text-decoration:none;padding-left:10px;}
+.lgocont .mid{}
+.lgocont .mid .lgit{margin-top:30px;margin-left:44px;border-right:1px solid #f7f7f7;width:400px; float:left; display:inline;}
+.lgocont .mid .lgit dl{padding-top:20px;}
+.lgocont .mid .lgit dt{ font-size:14px;color:#454545;}
+.lgocont .mid .lgit dd{ position:relative;margin-left:0px;margin-top:15px;margin-bottom:22px;}
+.lgocont .mid .lgit dd .uesr,.lgocont .mid .lgit dd .userpwd{width:288px;height:38px;border-radius:5px;border:1px solid #e1e1e1;padding:0 14px 0 53px;color:#666;-moz-box-shadow:-3px 3px 3px #f6f6f6 inset;              /* For Firefox3.6+ */
+	-webkit-box-shadow:-3px 3px 3px #f6f6f6 inset;           /* For Chrome5+, Safari5+ */
+	box-shadow:-3px 3px 3px #f6f6f6 inset;                   /* For Latest Opera */}
+.lgocont .mid .lgit dd span.ti{background:url(../images/tubiao.png) no-repeat; position:absolute; z-index:2;width:24px;height:24px; display:block;}
+.lgocont .mid .lgit dd span.uesr-ti{ background-position:-24px 0;top:8px;left:14px;}
+.lgocont .mid .lgit dd span.pwd-ti{background-position:-24px -24px;top:8px;left:14px;}
+.lgocont .mid .lgit dd .yzm{width:67px;height:38px;border-radius:5px;border:1px solid #e1e1e1;padding:0 10px 0 10px;color:#666;-moz-box-shadow:-3px 3px 3px #f6f6f6 inset;              /* For Firefox3.6+ */
+	-webkit-box-shadow:-3px 3px 3px #f6f6f6 inset;           /* For Chrome5+, Safari5+ */
+	box-shadow:-3px 3px 3px #f6f6f6 inset;                   /* For Latest Opera */}
+.lgocont .mid .lgit dd .yzm:focus,.lgocont .mid .lgit dd .uesr:focus,.lgocont .mid .lgit dd .userpwd:focus{border:1px solid #eac378;}
+.lgocont .mid .lgit dd .subt{padding-top:5px; display:inline-block;}
+.lgocont .mid .lgit dd .subt input{width:120px;height:40px; cursor:pointer;border:1px solid #d2ae69;border-radius:5px;background:#eac378;color:#fff; font-size:16px;}
+.lgocont .mid .lgit dd .subt input:hover{background:#f0c87b;}
+.lgocont .lgit .rember{ font-size:14px;color:#666; float:right;margin-right:50px;}
+.lgocont .lgit .rember input{}
+.lgocont .mid .lgit dd span.lost a{color:#666; font-size:12px;margin-left:20px;}
+.oerlog{width:214px; float:right; display:inline;padding-top:49px;}
+.oerlog dl dd{margin-left:0px;padding-top:20px;}
+.oerlog dl dt{ font-size:14px;color:#666;margin-bottom:15px;width:168px; text-align:center;}
+
+/*注册*/
+.register{background:#fff;border-radius:5px;}
+.register .tle{height:57px;border-bottom:1px solid #f7f7f7; line-height:57px;}
+.register .tle .reg-phone{border-radius:5px 0 0 0;}
+.register .tle span{ cursor:pointer;padding:0 29px;display:block; text-align:center; float:left;color:#989898;}
+.register .tle span:hover,.register .tle span.over{background:#8b8b8b;color:#fff;}
+.register .tle t{ float:right;padding-right:30px; font-size:14px;color:#a7a7a7;}
+.register .tle a{color:#d1973b;}
+.register .rewp{margin:24px 50px;padding-bottom:48px;}
+.register .rewp .pone,.register .rewp .yzm,.register .rewp .pwd,.register .rewp .nick,.register .rewp .email{color:#666;border:1px solid #e1e1e1;border-radius:5px;-moz-box-shadow:-3px 3px 3px #f6f6f6 inset;-webkit-box-shadow:-3px 3px 3px #f6f6f6 inset;box-shadow:-3px 3px 3px #f6f6f6 inset;}
+.register .rewp .pone,.register .rewp .pwd,.register .rewp .nick,.register .rewp .email{width:528px;height:38px;padding:0 14px 0 53px;}
+.register .rewp .pone:focus,.register .rewp .yzm:focus,.register .rewp .pwd:focus,.register .rewp .nick:focus,.register .rewp .email:focus{border:1px solid #eac378;}
+.register .rewp .yzm{height:38px;padding:0 10px;width:54px; font-size:14px; float:left;}
+.register .rewp dt{color:#414141; font-size:14px;padding-top:20px;}
+.register .rewp dd{padding-top:12px;min-height:38px; position:relative;}
+.ponenume{padding:0 15px;background:#eac378;color:#fff; cursor:pointer; font-size:14px;height:38px; display:block; float:left; line-height:38px;border-radius:5px;margin-left:10px;border:1px solid #d2ae69;}
+.ponenume:hover{background:#f1cb81;}
+.lter{background:#999;border:0px;}
+.lter:hover{background:#999;border:0px; cursor:auto;}
+.afreg{width:598px;height:38px;border-radius:5px;background:#eac378;border:1px solid #d2ae69;cursor:pointer;color:#fff;}
+.afreg:hover{background:#f1cb81;}
+.register .rewp .ti{background:url(../images/tubiao.png) no-repeat; position:absolute; z-index:2;width:24px;height:24px; display:block;}
+.register .rewp .pone-ti{background-position:-24px -48px;top:19px;left:16px;}
+.register .rewp .pwd-ti{background-position:-24px -24px;top:19px;left:16px;}
+.register .rewp .nick-ti{background-position:-24px 0;top:19px;left:16px;}
+.register .rewp .email-ti{background-position:-24px -69px;top:19px;left:16px;}
+.register .rewp t{ font-size:14px;color:#666;}
+
+.faniu{width:120px;height:35px;background:#eac378;color:#fff;border:1px solid #d2ae69; cursor:pointer;border-radius:5px;margin-top:15px;}
+.emats{border-top:1px solid #f7f7f7;margin-top:30px;padding-top:20px;color:#999;}
+/*第三方－完善信息*/
+.user-head-up{ float:left; display:inline;margin-left:43px;padding-top:47px;}
+.user-head-up .head-img{ position:relative; font-family:"microsoft yahei";height:245px;}
+.head-img .head-zz{ position:absolute; z-index:2;}
+.head-img .userhead{width:188px;height:188px;}
+.head-img button{ position:absolute;top:202px; z-index:3;left:48px;width:90px;height:28px;background:#fff;border-radius:5px;border:1px solid #ececec; cursor:pointer;font-family:"microsoft yahei"; font-size:12px;color:#606060;}
+.head-img-txt{background:url(../images/tis.jpg) 0 3px no-repeat; font-size:12px;color:#6f6f6f;padding-left:20px; line-height:22px;}
+.rewpt{ float:right; display:inline;width:433px;margin-right:-7px;padding-top:22px;padding-bottom:56px;}
+
+.register .rewpt .pone,.register .rewpt .yzm,.register .rewpt .pwd,.register .rewpt .nick,.register .rewpt .email{color:#666;border:1px solid #e1e1e1;border-radius:5px;-moz-box-shadow:-3px 3px 3px #f6f6f6 inset;-webkit-box-shadow:-3px 3px 3px #f6f6f6 inset;box-shadow:-3px 3px 3px #f6f6f6 inset;}
+.register .rewpt .pone,.register .rewpt .pwd,.register .rewpt .nick,.register .rewpt .email{width:316px;height:38px;padding:0 14px 0 53px;}
+.register .rewpt .pone:focus,.register .rewpt .yzm:focus,.register .rewpt .pwd:focus,.register .rewpt .nick:focus,.rewpt .email:focus{border:1px solid #eac378;}
+.register .rewpt .yzm{height:38px;padding:0 10px;width:54px; font-size:14px; float:left;}
+.register .rewpt dt{color:#414141; font-size:14px;padding-top:20px;}
+.register .rewpt dd{padding-top:12px;min-height:38px; position:relative;}
+.ponenume{padding:0 15px;background:#eac378;color:#fff; cursor:pointer; font-size:14px;height:38px; display:block; float:left; line-height:38px;border-radius:5px;margin-left:10px;border:1px solid #d2ae69;}
+.ponenume:hover{background:#f1cb81;}
+.lter{background:#999;border:0px;}
+.lter:hover{background:#999;border:0px; cursor:auto;}
+.rewpt .afreg{width:148px;height:38px;border-radius:5px;background:#eac378;border:1px solid #d2ae69;cursor:pointer;color:#fff;}
+.rewpt .afreg:hover{background:#f1cb81;}
+.register .rewpt .ti{background:url(../images/tubiao.png) no-repeat; position:absolute; z-index:2;width:24px;height:24px; display:block;}
+.register .rewpt .pone-ti{background-position:-24px -48px;top:19px;left:16px;}
+.register .rewpt .pwd-ti{background-position:-24px -24px;top:19px;left:16px;}
+.register .rewpt .nick-ti{background-position:-24px 0;top:19px;left:16px;}
+.register .rewpt .email-ti{background-position:-24px -69px;top:19px;left:16px;}
+.register .rewpt t{ font-size:14px;color:#666;}
+/*错误提示*/
+.wrois{ font-size:12px;color:#F00;padding-top:10px;background:url(../images/tis1.jpg) 0 12px no-repeat;padding-left:20px;}

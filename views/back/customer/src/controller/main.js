@@ -91,7 +91,6 @@
                 if(!$scope.pojo_custom._id){
                     dataService.saveCustomer($scope.pojo_custom)
                     .success(function(data){
-                        console.log("data",data);
                         if(!data.err){
                             $scope.array_custom.$add(data.result);
                             $scope.show.$set('cuslist');

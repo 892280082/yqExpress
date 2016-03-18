@@ -25,27 +25,27 @@
 <!-- 用户列表页面 -->
 <script type="text/ng-template" id="cuslist">
     <div class="page_title">
-        <h2 class="fl">创品信息列表</h2>
+        <h2 class="fl">作业信息列表</h2>
     </div>
     <section>
-        <label>创品名:</label>
+        <label>作业名:</label>
         <input type="text" class="textbox textbox_295"  ng-model="search_custom.$$_title" />
         <input type="button" value="查询"  ng-click="search();" class="group_btn"/>
     </section>
     <section>
         <div class="page_title">
-            <h2 class="fl">创品信息展示</h2>
-            <a class="fr top_rt_btn"  ng-click="changeIntoEdit()">添加创品</a>
+            <h2 class="fl">作业信息展示</h2>
+            <a class="fr top_rt_btn"  ng-click="changeIntoEdit()">添加作业</a>
         </div>
         <table class="table">
             <tr>
                 <th>ID</th>
-                <th>创品名称</th>
-                <th>创品类型</th>
-                <th>创品价格</th>
-                <th>创品点击率</th>
-                <th>创品库存</th>
-                <th>创品状态</th>
+                <th>作业名称</th>
+                <th>作业类型</th>
+                <th>作业价格</th>
+                <th>作业点击率</th>
+                <th>作业库存</th>
+                <th>作业状态</th>
                 <th>所属名人</th>
                 <th>首页排序</th>
                 <th>操作</th>
@@ -87,7 +87,7 @@
 <!-- 用户添加编辑页面-->
 <script type="text/ng-template" id="cusadd" >
     <div class="page_title top1">
-        <h2 class="fl">{{ pojo_custo._id ? '创品编辑' : '创品添加' }}</h2>
+        <h2 class="fl">{{ pojo_custo._id ? '作业编辑' : '作业添加' }}</h2>
         <a class="fr top_rt_btn" ng-click="toPageList();" >返回</a>
     </div>
     <div>
@@ -100,25 +100,25 @@
         >
         <table class="datatable">
             <tr>
-                <td colspan="6" style="text-align: left;" class="tle1">创品基本信息</td>
+                <td colspan="6" style="text-align: left;" class="tle1">作业基本信息</td>
             </tr>
             <tr>
-                <td class="tname"><label>创品名称:</label></td>
+                <td class="tname"><label>作业名称:</label></td>
                 <td class="tiput"><input type="text"  ng-model="pojo_custom.title"  name="t_title"
-                           class="textbox" required placeholder="创品名称" /><br/></td>
-                <td><span class="errorTips" ng-show="subForm.t_title.$error.required">请输入创品称</span></td>
-                <td class="tname"><label>创品价格:</label></td>
+                           class="textbox" required placeholder="作业名称" /><br/></td>
+                <td><span class="errorTips" ng-show="subForm.t_title.$error.required">请输入作业称</span></td>
+                <td class="tname"><label>作业价格:</label></td>
                 <td class="tiput"><input type="number"  ng-model="pojo_custom.price" name="t_price"
                            class="textbox" required /><br/></td>
                 <td><span class="errorTips" ng-show="subForm.t_price.$error.required">请输入价格</span></td>
             </tr>
             <tr>
-                <td class="tname"><label>创品人:</label></td>
+                <td class="tname"><label>作业人:</label></td>
                 <td class="tiput"><input type="text"  ng-model="pojo_custom._userName"  name="_userName"
-                           class="textbox" required placeholder="创品名称"  ng-click="chooseUser();"
+                           class="textbox" required placeholder="作业名称"  ng-click="chooseUser();"
                             /><br/></td>
                 <td><span class="errorTips" ng-show="subForm._userName.$error.required">
-                            请输入创品人</span></td>
+                            请输入作业人</span></td>
             </tr>
             <tr>
                 <td class="tname"><label>一级分类:</label></td>
@@ -139,17 +139,17 @@
                 <td></td>
             </tr>
             <tr>
-                <td class="tname"><label>创品大图:</label></td>
+                <td class="tname"><label>作业大图:</label></td>
                 <td class="tiput"><input type="file" nv-file-select="" uploader="uploader"  name="t_imgBigUrl" /><br/>
                     <img ng-src="{{ pojo_custom.imgBigUrl}}" width="160px" height="140px" ng-if="pojo_custom.imgBigUrl"/>
-                <td><span class="errorTips" ng-show="subForm.t_imgBigUrl.$error.required">请输入创品大图</span></td>
+                <td><span class="errorTips" ng-show="subForm.t_imgBigUrl.$error.required">请输入作业大图</span></td>
                 <td class="tname"><label>banner大图:</label></td>
                 <td class="tiput"><input type="file" nv-file-select=""  uploader="uploaderBannerurl"  name="t_bannerurl" /><br/>
                     <img ng-src="{{ pojo_custom.bannerurl}}" width="160px" height="140px" ng-if="pojo_custom.bannerurl"/>
                 <td><span class="errorTips" ng-show="subForm.t_bannerurl.$error.required">请输入banner大图</span></td>
             </tr>
             <tr>
-                <td colspan="1"><label>创品介绍:</label></td>
+                <td colspan="1"><label>作业介绍:</label></td>
                 <td colspan="5"><textarea class="textarea" style="width:635px;height:100px;" 
                     ng-model="pojo_custom.introduce" name="t_introduce"    required></textarea></td>
             </tr>   
@@ -164,14 +164,14 @@
                 <td><span class="errorTips" ng-show="subForm.t_taobaoUrl.$error.required">请输入淘宝url</span></td>
             </tr>
             <tr>
-                <td class="tname"><label>创品状态:</label></td>
+                <td class="tname"><label>作业状态:</label></td>
                 <td>
                     <input type="radio" ng-model="pojo_custom.status" name="t_status" ng-value="true" 
                     required  />上架
                     <input type="radio" ng-model="pojo_custom.status" name="t_status" ng-value="false"
                     required  />下架
                 </td>
-                <td><span class="errorTips" ng-show="subForm.t_status.$error.required">请输入创品状态</span></td>
+                <td><span class="errorTips" ng-show="subForm.t_status.$error.required">请输入作业状态</span></td>
                 <td colspan="3"></td>
             </tr>
             <tr>
@@ -203,65 +203,5 @@
         });
     });
 </script>
-<section class="pop_bg">
-    <div class="pop_cont" style="width: 950px;height: 650px;left: 26%">
-        <!--title-->
-        <div class="">
-        <h3>选定用户<input style="float: right;"  type="button" value="关闭" class="input_btn falseBtn"/></h3>
-        </div>
-        <!--content-->
-        <div class="pop_cont_input">
-        <section style="text-align: left;">
-            <label style="width: 100px;">用户名:</label>
-            <input type="text" class="textbox textbox_295" 
-                    style="width: 200px;"
-                    ng-change="searchUser();"
-                   ng-model="search_user.$$_name" />
-           <label>用户类型:</label>
-            <select  ng-model="search_user.usertype" 
-                     ng-change="searchUser();"
-                     ng-options="m.usertype as m.name for m in userPowers">
-                <option value="">-- 请选择 --</option>
-            </select>
-            <input type="button" value="查询"  ng-click="searchUser();" class="group_btn"/>
-        </section>
-        <table class="table">
-            <tr>
-                <th>ID</th>
-                <th>名称</th>
-                <th>真实姓名</th>
-                <th>性别</th>
-                <th>用户身份</th>
-                <th>创品数量</th>
-                <th>操作</th>
-            </tr>
-            <tr ng-repeat="cus in array_user.$array">
-                <td>{{ $index + 1}}</td>
-                <td width="20%" ng-click="doChooseUser(cus);" 
-                style="cursor: pointer;" >{{ cus.name }}</td>
-                <td width="20%" >{{ cus.realName }}</td>
-                <td width="7%" >{{ cus.sex ? '女' : '男' }}</td>
-                <td width="15%" >
-                    <span ng-show="cus.usertype == 1">普通人</span>
-                    <span ng-show="cus.usertype == 2">名人</span>
-                </td>
-                <td width="7%" >{{ cus.productions.length }}</td>
-                <td>
-                    <a class="inner_btn"  ng-click="doChooseUser(cus);"  href="#">确定</a>
-                </td>
-            </tr>
-            </table>
-        </div>
-        <aside class="paging">
-            <a ng-show="array_user.$last"  ng-click="array_user.$toLast()">上一页</a>
-            <!--<a>1</a>-->
-            <a>{{ array_user.$curPage }}/{{ array_user.$pageCount }}</a>
-            <a ng-show="array_user.$next"  ng-click="array_user.$toNext()">下一页</a>
-            <a>总条数:{{ array_user.$totalSize }}</a>
-        </aside>
-    </div>
-</section>
-
-
 </body>
 </html>

@@ -50,6 +50,25 @@
                     <td><input type="button" value="添加分类" ng-click="addCustomerCate();"  ng-show="tempPojo.customerCate"  /></td>
                 </tr>
                 <tr>
+                    <td colspan="6" style="text-align: left;" class="tle1">用户职业分类修改</td>
+                </tr>
+                <tr>
+                    <td class="tname"><label>现有分类:</label></td>
+                    <td class="tiput">
+                        <select  ng-model="jobCate" name="t_usertype"
+                                 ng-options="(m.cateId + '-------' + m.cateName)  for m in webConfig.jobCates">
+                            <option value="">-- 请选择 --</option>
+                        </select><br/>
+                    </td>
+                    <td><input type="button" value="删除分类" ng-click="removejobCateCate(jobCate);"  /></td>
+                    <td class="tname"><label>添加分类:</label></td>
+                    <td class="tiput">
+                        <input type="text"  ng-model="tempPojo.jobCate" name="t_articleCate"
+                               class="textbox" required /><br/>
+                    </td>
+                    <td><input type="button" value="添加分类" ng-click="addJobCateCate();"  ng-show="tempPojo.jobCate"  /></td>
+                </tr>
+                <tr>
                     <td colspan="6" style="text-align: left;" class="tle1">文章分类修改</td>
                 </tr>
                 <tr>
@@ -89,7 +108,7 @@
                     <td><input type="button" value="添加分类" ng-click="addActiveCate();"  ng-show="tempPojo.activeCate"  /></td>
                 </tr>
                 <tr>
-                    <td colspan="6" style="text-align: left;" class="tle1">产品分类修改</td>
+                    <td colspan="6" style="text-align: left;" class="tle1">创品分类修改</td>
                 </tr>
                 <tr>
                     <td class="tname"><label>一级分类:</label></td>
@@ -124,7 +143,7 @@
                     <td><input type="button" value="添加分类" ng-click="addSubProductCate(thirdProductCate,tempPojo.subProductCate);"  ng-show="tempPojo.subProductCate"  /></td>
                 </tr>
                 <tr>
-                    <td colspan="6" style="text-align: left;" class="tle1">作品分类修改</td>
+                    <td colspan="6" style="text-align: left;" class="tle1">产品分类修改</td>
                 </tr>
                 <tr>
                     <td class="tname"><label>一级分类:</label></td>

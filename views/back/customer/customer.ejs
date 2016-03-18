@@ -56,7 +56,7 @@
                 <td width="8%"  ng-click="changeIntoEdit(cus);">{{ cus.name }}</td>
                 <td width="8%" >{{ cus.realName }}</td>
                 <td width="5%" >{{ cus.sex ? '女' : '男' }}</td>
-                <td width="8%" >{{ cus.job }}</td>
+                <td width="8%" >{{ cus.job.cateName }}</td>
                 <td width="8%" >{{ cus.cate1.cateName }}</td>
                 <td width="7%" >{{ cus.articles.length }}</td>
                 <td width="7%" >{{ cus.productions.length }}</td>
@@ -128,10 +128,14 @@
                 <td></td>
             </tr>
             <tr>
-                <td class="tname"><label>职业:</label></td>
-                <td class="tiput"><input type="text"  ng-model="pojo_custom.job" class="textbox"
-                           name="t_job"  /></td>
-                <td class="tip"><span class="errorTips" ng-show="subForm.t_job.$error.required">请输入职业</span></td>
+                <td class="tname"><label>用户分类:</label></td>
+                <td class="tiput">
+                    <select  ng-model="pojo_custom.job" name="t_usertype"
+                             ng-options="(m.cateId + '-------' + m.cateName)  for m in webConfig.jobCates">
+                        <option value="">-- 当前:-- {{ pojo_custom.job.cateName }}  --</option>
+                    </select><br/>
+                </td>
+                <td></td>
                 <td class="tname"><label>邮箱:</label></td>
                 <td class="tiput"><input type="email"  ng-model="pojo_custom.email" class="textbox" name="t_email"
                             /></td>
