@@ -37,11 +37,11 @@ var recommd = new Schema({
 
 
 var customSchema = new Schema({
-    name:{ type:String, unique: true },//用户姓名
+    name:{ type:String},//用户姓名
     job:String,//用户职业
     password:String,//密码
     introduce:String,//用户介绍
-    email:{ type:String, unique: true },//邮件
+    email:{ type:String},//邮件
     realName:String,//真实姓名
 
     address:{
@@ -59,8 +59,8 @@ var customSchema = new Schema({
     sex:{type:Number,default:0},//性别 0男1女
     birthday:{type:Date,default:null},//生日
     educational:String,//学历
-    qq:{ type:String, unique: true },//QQ
-    weibo:{ type:String, unique: true },//微博
+    qq:{ type:String},//QQ
+    weibo:{ type:String},//微博
     topno:{ type:Number,default:0},//首页baner顺序
     workUnit:String,//工作单位 非必填选项
 
@@ -92,11 +92,8 @@ function crptoUserPassword(password){
 customSchema.methods.saveUser = function(callback){
     var customPojo = this;
     then(function(next){ //检查用户名
-        custom.findOne({
-            "name":customPojo.name
-        },function(err,doc){
-            if(doc)
-                return callback("该用户名已注册");
+        var userService = require("../service/userService");
+        userService.validateUserInfo(customPojo,function(err){
             next(err);
         })
     }).then(function(next){
@@ -252,33 +249,3 @@ customSchema.statics.pullAttentions = function(_selfId,_otherId,callback){
 var  custom = mongoose.model("customs", customSchema);
 module.exports = custom;
 
-
-/***********************************************************/
-
-// mongoose.connect('mongodb://localhost/zwzhe');
-
-
-
-// (function(i){
-//     var _arg = arguments;
-//     if(i<10000){
-//         var a = new custom({
-//                    name:"name"+  1000+i,
-//                    email:"email"+  ~~(Math.random()*100000),
-//                    qq:"qq"+  ~~(Math.random()*100000),
-//                    weibo:"weibo"+  ~~(Math.random()*100000),
-//                 })
-//        a.save(function(err){
-//             !err && console.log("save number:"+i);
-//              _arg.callee(i+1);
-//        });
-//     }else{
-//         console.log(" save finshed");
-//     }
-// })(9000);
-
-
-
-// custom.remove(null,function(err){
-//     !err && console.log("删除成功");
-// })

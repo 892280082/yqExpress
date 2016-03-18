@@ -33,7 +33,7 @@
     </section>
     <section>
         <div class="page_title">
-            <h2 class="fl">例如产品详情标题</h2>
+            <h2 class="fl">用户信息展示</h2>
             <a class="fr top_rt_btn"  ng-click="changeIntoEdit()">添加用户</a>
         </div>
         <table class="table">
@@ -57,7 +57,7 @@
                 <td width="8%" >{{ cus.realName }}</td>
                 <td width="5%" >{{ cus.sex ? '女' : '男' }}</td>
                 <td width="8%" >{{ cus.job }}</td>
-                <td width="8%" >{{ cus.usertype == 1 ? '普通用户' : '名人' }}</td>
+                <td width="8%" >{{ cus.cate1.cateName }}</td>
                 <td width="7%" >{{ cus.articles.length }}</td>
                 <td width="7%" >{{ cus.productions.length }}</td>
                 <td width="7%" >{{ cus.followers.length }}</td>
@@ -105,7 +105,7 @@
                 <td class="tip" ><span class="errorTips" ng-show="subForm.t_name.$error.required">昵称错误</span></td>
                 <td class="tname"><label>密码:</label></td>
                 <td class="tiput"><input type="password"  ng-model="pojo_custom.password" name="t_password"
-                           class="textbox" required /></td>
+                           class="textbox"  /></td>
                 <td><span class="errorTips" ng-show="subForm.t_password.$error.required">请输入密码</span></td>
             </tr>
             <tr>
@@ -130,7 +130,7 @@
             <tr>
                 <td class="tname"><label>职业:</label></td>
                 <td class="tiput"><input type="text"  ng-model="pojo_custom.job" class="textbox"
-                           name="t_job" required /></td>
+                           name="t_job"  /></td>
                 <td class="tip"><span class="errorTips" ng-show="subForm.t_job.$error.required">请输入职业</span></td>
                 <td class="tname"><label>邮箱:</label></td>
                 <td class="tiput"><input type="email"  ng-model="pojo_custom.email" class="textbox" name="t_email"
@@ -202,11 +202,11 @@
                 <td colspan="6" style="text-align: left;" class="tle1">用户图像</td>
             </tr>
             <tr>
-                <td  class="tname"><label>头像:</label></td>
+                <td  class="tname"><label>头像(128*128):</label></td>
                 <td class="tiput"><input type="file" nv-file-select="" uploader="uploader"  name="t_imgurl" />
                     <img ng-src="{{ pojo_custom.imgurl}}" width="160px" height="140px" ng-if="pojo_custom.imgurl"/>
                 <td class="tip"><span class="errorTips" ng-show="subForm.t_imgurl.$error.required">请输入图像</span></td>
-                <td class="tname"><label>封面:</label></td>
+                <td class="tname"><label>封面(200*200):</label></td>
                 <td class="tiput"><input type="file" nv-file-select=""  uploader="uploaderCoverimgurl"  name="t_coverimgurl" />
                     <br/><img ng-src="{{ pojo_custom.coverimgurl}}" width="160px" height="140px" ng-if="pojo_custom.coverimgurl"/>
                 </td>
@@ -219,7 +219,7 @@
                     <img ng-src="{{ pojo_custom.bigimgurl}}" width="160px" height="140px" ng-if="pojo_custom.bigimgurl"/>
                 </td>
                 <td class="tip"><span class="errorTips" ng-show="subForm.t_bigimgurl.$error.required">请输入大图</span></td>
-                <td class="tname"><label>banner:</label></td>
+                <td class="tname"><label>banner(1920*470):</label></td>
                 <td class="tiput">
                     <input type="file" nv-file-select="" uploader="uploader_banner"  name="t_bannerurl" /><br/>
                     <img ng-src="{{ pojo_custom.bannerurl}}" width="160px" height="140px" ng-if="pojo_custom.bannerurl"/>
@@ -243,7 +243,7 @@
             </tr>
             <tr>
                 <td colspan="3" style="text-align: center;">
-                    <input class="link_btn" type="submit" ng-disabled="subForm.$invalid"  value="提交" /></td>
+                    <input class="link_btn" ng-click="saveOrUpdate()"  type="button" value="提交" /></td>
                 <td colspan="3" style="text-align: center;">
                     <input class="link_btn" type="button"  ng-click="toPageList();"  value="取消" /></td>
             </tr>

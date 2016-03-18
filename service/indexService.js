@@ -19,11 +19,6 @@ var then = require("thenjs");
 
 //获取首页数据
 exports.getIndexData = function(callback){
-    // if(indexData.cache){
-    //    return callback(null,indexData);
-    // }else{
-    //     indexData.cache = true;
-    // }
     var indexData = {
         cache:false,
         "articles":[],

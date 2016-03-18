@@ -22,7 +22,7 @@ var workSchema = new Schema({
     likes:{ type:Number,default:0},//喜欢
     votes:[Schema.Types.ObjectId],//投票
     topno:{ type:Number,default:0},
-    attachment:{    //附件
+    attachment:{         //附件
         url:String,//下载路径
         name:String//文件名
     },

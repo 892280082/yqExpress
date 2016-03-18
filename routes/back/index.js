@@ -82,7 +82,7 @@ router.post('/cusSaveCustom',function(req,res){
 	cus.saveUser(function(err,doc){
 		err && console.log(err);
 		!err ? res.json({ "result":doc,"err":null})
-		     : res.json({ "result":null,"err":"注册错误"});
+		     : res.json({ "result":null,"err":err});
 	});
 })
 

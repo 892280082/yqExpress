@@ -72,7 +72,7 @@
             $scope.changeIntoEdit = function(custom){
                 //处理select绑定问题
                 if(!custom){
-                    $scope.pojo_custom.creatTime = new Date();
+                    $scope.pojo_custom = {};
                 }else{
                     $scope.pojo_custom = custom;
                 }
@@ -91,11 +91,12 @@
                 if(!$scope.pojo_custom._id){
                     dataService.saveCustomer($scope.pojo_custom)
                     .success(function(data){
+                        console.log("data",data);
                         if(!data.err){
                             $scope.array_custom.$add(data.result);
                             $scope.show.$set('cuslist');
                         }else{
-                            alert(data.err+"手机 邮箱 微博账号重复");
+                            alert(data.err);
                         }
                     }).error(function(data){
                          alert("保存错误");
