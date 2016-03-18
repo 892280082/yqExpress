@@ -10,9 +10,16 @@
         ,function($scope,showCtrl,user_service,FileUploader,pageResult,$window){
 
             /************************数据模型****************************/
+
             $scope.show = true;
 
+            $scope.emailInfo = {};//email信息
 
+
+            /**************************提交表单****************************/
+            $scope.subEmailInof = function(){
+                alert("aaa");
+            }
 
 
             //保存或者更新方法

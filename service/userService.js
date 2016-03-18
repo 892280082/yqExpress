@@ -35,10 +35,10 @@ exports.validateUserInfo = function(infos,callback){
             })
         }
     }).then(function(next){
-        if(!infos.eamil){
+        if(!infos.email){
             next();
         }else{
-            Custom.findOne({"eamil":infos.eamil},function(err,doc){
+            Custom.findOne({"email":infos.email},function(err,doc){
                 if(err || doc){
                     next('该邮箱已存在');
                 }else{

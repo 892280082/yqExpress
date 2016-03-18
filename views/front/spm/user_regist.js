@@ -38,3 +38,36 @@ app.directive('tsCuslist',function(){
             templateUrl:'cusadd'
         }
     })
+
+
+app.directive('remoteValidation',["$http",function($http){
+    return {
+        require : 'ngModel',
+        link : function(scope, elm, attrs, ctrl) {
+            elm.bind('blur', function() {
+                var data = {};
+                data[attrs.param] = ctrl.$viewValue;
+                $http.post("/api/checkUserInfo",{"pojo":data})
+                    .success(function(data){
+                        !data.err ? ctrl.$setValidity('remote',true)
+                                  : ctrl.$setValidity('remote',false);
+                    }).error(function(data){
+                        console.log("连接服务器异常");
+                        ctrl.$setValidity('remote',false);
+                    })
+            });
+        }
+    };
+}])
+
+//$http({method: 'GET', url: 'FormValidation.jsp'}).
+//    success(function(data, status, headers, config) {
+//        if(parseInt(data)==0){
+//            ctrl.$setValidity('remote',true);
+//        }else{
+//            ctrl.$setValidity('remote',false);
+//        }
+//    }).
+//    error(function(data, status, headers, config) {
+//        ctrl.$setValidity('remote', false);
+//    });

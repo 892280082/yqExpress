@@ -17,6 +17,7 @@ var indexService = require("../../service/indexService");
 var Customer = require("../../models/Custom");
 var Active = require("../../models/Active");
 var ArticleComment = require("../../models/ArticleComment");
+var userService = require("../../service/userService");
 
 //获取名人的作品
 router.post("/getCurCusPro/:_id",function(req,res){
@@ -49,5 +50,15 @@ router.post("/getCurCusAri/:_id",function(req,res){
             : res.json({err: err});
     })
 })
+
+//获取名人的文章
+router.post("/checkUserInfo",function(req,res){
+    var validateInfo = req.body.pojo;
+    userService.validateUserInfo(validateInfo,function(err){
+        res.json({"err":err});
+    })
+})
+
+
 
 module.exports = router;

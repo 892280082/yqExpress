@@ -35,6 +35,11 @@
             </div>
         </div>
         <div  class="rege-b"  id="rege-s2" ng-if="!show">
+            <form
+                name="eForm"
+                novalidate
+                ng-submit="subEmailInof();"
+            >
         	<div class="rewp">
             	<dl>
                     <dt>昵称</dt>
@@ -43,7 +48,15 @@
                     <dt>职业</dt>
                     <dd><select> <option>哈哈哈1</option></select></dd>
                     <dt>邮箱</dt>
-                    <dd><span class="ti pone-ti"></span><input class="pone wd100" type="text" placeholder="请输入邮箱" /></dd>
+                    <dd><span class="ti pone-ti"></span>
+                        <input class="pone wd100" type="text" placeholder="请输入邮箱"
+                               ng-model="emailInfo.email"
+                               remote-validation
+                               param="email"
+                               name="e_email"
+                        /></dd>
+                    <div ng-show="eForm.e_email.$error.remote"
+                         class="wrois">该邮箱已注册</div>
                     <dt>密码</dt>
                     <dd><span class="ti pwd-ti"></span><input class="pwd wd100" type="password" placeholder="请输入密码" /></dd>
                     <dt>确认密码</dt>
@@ -51,10 +64,11 @@
                     <dt>验证码</dt>
                     <dd><input class="yzm" type="text" placeholder="987236" /><span class="ponenume lter">验证码</span></dd>
                     <dd><input type="checkbox" /><t>我已认真阅读用户手册</t></dd>
-                    <dd><input class="afreg" value="提交注册" type="button" /></dd>
+                    <dd><input class="afreg" value="提交注册" type="submit" /></dd>
                 </dl>
                 <div class="emats">注册链接会发送到你的邮箱，通过点击收到的链接来注册会员信息</div>
             </div>
+            </form>
         </div>
     </div>
 </div>
