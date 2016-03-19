@@ -28,9 +28,14 @@
                 </div>
                 <div class="user-mid lt">
                     <div class="user-mid-top">
-                        <span class="name"><%-  customer.cate1.cateId === 1  ? 
-                         customer.realName :  customer.name %></span>
-                        <span class="jop"><%- customer.job.cateName %></span>
+                        <span class="name">
+                         <%   if( customer.cate1 && customer.cate1.cateId === 1 ){  %>
+                                    <%- customer.realName %>
+                         <%   }else{ %>
+                                    <%- customer.name %>
+                         <%   } %>
+                         </span>
+                        <span class="jop"><%- customer.job ? customer.job.cateName : "" %></span>
                         <span class="addres">
                             <%- customer.address.province %><%- customer.address.city %>
                         </span>

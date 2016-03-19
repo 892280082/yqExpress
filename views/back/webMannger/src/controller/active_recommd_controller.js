@@ -54,10 +54,6 @@ angular.module("controller.main",[
                 insertPojo.url = "/front/toActivetail/"+pojo._id;
                 insertPojo.picUrl = pojo.bannerUrl;
             }
-            if(!insertPojo.picUrl){
-                alert("该对象没有设置banner图");
-                return false;
-            }
             $scope.webConfig.actives[index]=insertPojo;
             $scope.$apply();
         }

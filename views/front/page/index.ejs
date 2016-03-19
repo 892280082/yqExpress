@@ -105,8 +105,15 @@
                                     <img  width="128" height="128"  src="<%- ele.imgurl %>" class="peusr" /></a></div>
                                 </div>
                                 <div class="col-lg-6">
-                                    <p class="name"><a href="/front/toCusDetail/<%- ele._id %>">
-                                            <%- ele.name %></a></p>
+                                    <p class="name">
+                                        <a href="/front/toCusDetail/<%- ele._id %>">
+                                        <% if( ele.cate1 && ele.cate1.cateId === 1 ){  %>
+                                                    <%- ele.realName %>
+                                        <%   }else{ %>
+                                                    <%- ele.name %>
+                                        <%   } %>
+                                        </a>
+                                    </p>
                                     <p class="cntre"><%- ele.job.cateName %></p>
                                     <p class="guoji"><%- ele.provice  %><%- ele.city  %></p>
                                 </div>

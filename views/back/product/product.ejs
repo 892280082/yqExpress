@@ -106,11 +106,11 @@
                 <td class="tname"><label>创品名称:</label></td>
                 <td class="tiput"><input type="text"  ng-model="pojo_custom.title"  name="t_title"
                            class="textbox" required placeholder="创品名称" /><br/></td>
-                <td><span class="errorTips" ng-show="subForm.t_title.$error.required">请输入创品称</span></td>
+                <td><span class="errorTips" ng-show="subForm.t_title.$error.required">输入创品称</span></td>
                 <td class="tname"><label>创品价格:</label></td>
-                <td class="tiput"><input type="number"  ng-model="pojo_custom.price" name="t_price"
-                           class="textbox" required /><br/></td>
-                <td><span class="errorTips" ng-show="subForm.t_price.$error.required">请输入价格</span></td>
+                <td class="tiput"><input type="text"  ng-model="pojo_custom.price" name="t_price"
+                           class="textbox"  /><br/></td>
+                <td><span class="errorTips" ng-show="subForm.t_price.$error.required">价格</span></td>
             </tr>
             <tr>
                 <td class="tname"><label>创品人:</label></td>
@@ -139,11 +139,11 @@
                 <td></td>
             </tr>
             <tr>
-                <td class="tname"><label>创品大图:</label></td>
+                <td class="tname"><label>创品大图(226*221):</label></td>
                 <td class="tiput"><input type="file" nv-file-select="" uploader="uploader"  name="t_imgBigUrl" /><br/>
                     <img ng-src="{{ pojo_custom.imgBigUrl}}" width="160px" height="140px" ng-if="pojo_custom.imgBigUrl"/>
                 <td><span class="errorTips" ng-show="subForm.t_imgBigUrl.$error.required">请输入创品大图</span></td>
-                <td class="tname"><label>banner大图:</label></td>
+                <td class="tname"><label>banner大图(1920*470):</label></td>
                 <td class="tiput"><input type="file" nv-file-select=""  uploader="uploaderBannerurl"  name="t_bannerurl" /><br/>
                     <img ng-src="{{ pojo_custom.bannerurl}}" width="160px" height="140px" ng-if="pojo_custom.bannerurl"/>
                 <td><span class="errorTips" ng-show="subForm.t_bannerurl.$error.required">请输入banner大图</span></td>
@@ -159,7 +159,7 @@
                            class="textbox" /><br/></td>
                 <td><span class="errorTips" ng-show="subForm.t_topno.$error.required">请输入首页排序</span></td>
                 <td class="tname"><label>淘宝url:</label></td>
-                <td class="tiput"><input type="text"  ng-model="pojo_custom.taobaoUrl" name="t_taobaoUrl" required 
+                <td class="tiput"><input type="text"  ng-model="pojo_custom.taobaoUrl" name="t_taobaoUrl"
                            class="textbox" /><br/></td>
                 <td><span class="errorTips" ng-show="subForm.t_taobaoUrl.$error.required">请输入淘宝url</span></td>
             </tr>

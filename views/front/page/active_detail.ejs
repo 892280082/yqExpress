@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>发现详情页</title>
+    <title>活动详情页</title>
     <% include ../include/baseLink%>
     <script type="text/javascript">
         function show(a){
@@ -18,7 +18,7 @@
 <div class="wap clearfix">
     <div class="on-1200">
         <div class="hdtop clearfix">
-            <div class="hdimg lt"><img src="/front/resource/images/hdimg.jpg" /></div>
+            <div class="hdimg lt"><img src="<%- active.convertUrl %>" /></div>
             <div class="mid lt">
                 <h3><%- active.title %></h3>
                 <p>组织单位：<%- active.organize %></p>
@@ -42,10 +42,10 @@
             </div>
         </div>
         <div class="hdcon clearfix">
-            <div class="title"><span class="tab1 over" onclick="show('1')">大赛简介</span><span class="tab2" onclick="show('2')">参赛作品</span><span class="tab3" onclick="show('3')">赛事播报</span></div>
+            <div class="title"><span class="tab1 over" onclick="show('1')">活动简介</span><span class="tab2" onclick="show('2')">参赛作品</span><span class="tab3" onclick="show('3')">活动播报</span></div>
             <div class="cont" id="hdtab1">
                 <div class="hotop">
-                    <span class="tle">大赛简介</span>
+                    <span class="tle">活动简介</span>
                 </div>
                 <div class="nrs">
                     <%- active.content %>
@@ -98,7 +98,7 @@
             </div>
             <div class="contc" id="hdtab3">
                 <div class="hotop">
-                    <span class="tle">赛事播报</span>
+                    <span class="tle">活动播报</span>
                 </div>
                 <div class="nrs">
                 我是赛事播报

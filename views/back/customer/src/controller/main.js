@@ -73,6 +73,8 @@
                 //处理select绑定问题
                 if(!custom){
                     $scope.pojo_custom = {};
+                    $scope.pojo_custom.cate1 = $scope.webConfig.customerCates[0];
+                    $scope.pojo_custom.job = $scope.webConfig.jobCates[0];
                 }else{
                     $scope.pojo_custom = custom;
                 }

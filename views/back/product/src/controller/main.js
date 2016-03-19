@@ -103,41 +103,14 @@
             //进入添加页面
             $scope.changeIntoEdit = function(custom){
                 if(!custom){
-                    $scope.pojo_custom = {
-                            title:String,//产品名称
-                            price:Number,//价格
-                            imgUrl:String,//封面url
-                            imgBigUrl:String,//大图
-                            introduce:String,//简介
-                            guige:String,//规格
-                            detailimgarr:String,//详情页banner URL 集合，逗号隔开
-                            bannerurl:String,//
-                            converturl:String,//
-                            taobaoUrl:String,//淘宝商品url
-                            creatTime:{type:Date,default:Date.now},//创建时间
-                            type:[],//创品类型
-                            kucun:Number,//库存
-                            isDelete:Number,//是否下架
-                            topno:Number,//在首页的顺序
-                            bannerno:Number,//模块Banner展示
-                            sortno:Number,//排序
-                            attentionno:Number,//关注量
-                            status:Boolean
-                    };
-                $scope.pojo_custom = _.mapObject($scope.pojo_custom, function(val, key) {
-                        if(val == Number){
-                            return _.random(0,1000);
-                        }else if(val == String){
-                            return key + "str"+_.random(0,1000);
-                        }else if(val == Array || val == []){
-                            return "a b c"+" "+_.random(0,1000);
-                        }
-                });
-                 $scope.pojo_custom.status = _.random(1,100)%2 == 0;
-                $scope.pojo_custom.type = "a b c";
-                $scope.pojo_custom.creatTime = new Date();
-            }else{
-                    $scope.pojo_custom = custom;
+                    $scope.pojo_custom = {};
+                    $scope.pojo_custom.cate1 = $scope.webConfig.productCates[0];
+                    $scope.pojo_custom.cate2 = $scope.pojo_custom.cate1.subCate[0];
+                    $scope.pojo_custom.status = true;
+                    $scope.pojo_custom.topno = 0;
+                    $scope.pojo_custom.creatTime = new Date();
+                }else{
+                        $scope.pojo_custom = custom;
                 }
                 this.show.$set("cusadd");
             }
