@@ -165,7 +165,7 @@
                 <td class="tip"></td>
             </tr>
             <tr>
-                <td colspan="1"><label>用户介绍:</label></td>
+                <td colspan="1"><label>用户简介:</label></td>
                 <td colspan="5"><textarea class="textarea" style="width:635px;height:100px;" ng-model="pojo_custom.introduce" name="t_introduce" required></textarea></td>
             </tr>
             <tr>
@@ -229,6 +229,15 @@
                     <img ng-src="{{ pojo_custom.bannerurl}}" width="160px" height="140px" ng-if="pojo_custom.bannerurl"/>
                 </td>
                 <td class="tip"><span class="errorTips" ng-show="subForm.t_bannerurl.$error.required">请输入banner</span></td>
+            </tr>
+            <tr>
+                <td>文章内容:</td></de><td width="700px" height="500px" colspan="5">
+                    <div
+                            style="width:700px;height:500px;float:left"
+                            class="ueditor" config="config"
+                            ng-model="pojo_custom.content">
+                    </div>
+                </td>
             </tr>
             <tr ng-if="pojo_custom.articles && pojo_custom.productions">
                 <td colspan="6" style="text-align: left;" class="tle1">用户数据</td>

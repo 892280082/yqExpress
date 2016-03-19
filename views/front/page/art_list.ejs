@@ -14,6 +14,7 @@
 #wrap{width:auto;height:auto;margin:0 auto;position:relative;}
 #wrap .box{width:300px;height:auto;padding:10px;border:none;float:left;}
 #wrap .box .info{width:280px;height:auto;border-radius:5px;box-shadow:0 0 11px #e6e6e6;background:#fff;}
+#wrap .box .info .info2{padding: 14px 14px; font-size: 14px;font-family: "microsoft yahei";color:#666;}
 #wrap .box .info .pic{width:260px;height:auto;margin:0 auto;padding-top:10px;}
 #wrap .box .info .pic:hover{
 	-webkit-animation:shade 3s ease-in-out 1;
@@ -46,6 +47,11 @@
 									<a href="/front/toArtDetail/<%- ele._id %>">
 									<img src="<%- ele.contentPicUrl %>"></a></div>
 								<div class="title"><a href="/front/toArtDetail/<%- ele._id %>"><%- ele.title %></a></div>
+								<div class="info2">
+									<%- ele.introduce.length < 54 ? 
+										ele.introduce.substring(0,53) 
+										: ele.introduce.substring(0,53) + '...' %>
+								</div>
 				                <div class="oter">
 				                	<span class="brow"><%- ele.checkcounts %></span>
 				                	<span class="like"><%- ele.collections.length %></span>
@@ -61,6 +67,11 @@
 							<img ng-src="{{ ele.contentPicUrl }}"></a>
 						</div>
 						<div class="title"><a href="/front/toArtDetail/{{ ele._id }}">{{ ele.title }}</a></div>
+						<div class="info2">
+									{{  ele.introduce.length < 54 ? 
+										ele.introduce.substring(0,53) 
+										: ele.introduce.substring(0,53) + '...' }} 
+								</div>
 						<div class="oter">
 							<span class="brow">{{ ele.checkcounts }}</span>
 							<span class="like">{{ ele.collections.length }}</span>

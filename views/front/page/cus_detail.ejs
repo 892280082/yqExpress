@@ -51,10 +51,48 @@
         </div>
         <div class="user-product">
             <div class="title">
-                <span class="tab1" onclick="show('1')">作品展示</span>
+                <span class="tab1" onclick="show('1')">人</span>
                 <span class="tab2" onclick="show('2')">事</span>
+                <span class="tab3" onclick="show('3')">物</span>
             </div>
-            <div class="cont clearfix" id="son1" style="display:none;">
+            <div class="contfx clearfix" id="son1">
+                <div class="peoinfo">
+                    <div class="peotitle">
+                    <span><b><%-  customer.checkcounts %></b>人阅读</span>
+                    <span><b>0000</b>人喜欢</span></div>
+                    <div class="peo-cont"><%- customer.content %></div>
+                </div>
+            </div>
+            <div class="contfx clearfix"   id="son2">
+                    <ul class="clearfix">
+                        <li class="fali" ng-repeat="art in articles.$array ">
+                            <a class="imgs" href="/front/toArtDetail/{{ art._id }}">
+                            <img ng-src="{{ art.imgUrl }}" /></a>
+                            <div class="shilt lt">
+                                <h3><a href="#">{{ art.title }}</a></h3>
+                                <div class="info">{{ art.introduce }}</div>
+                                <div class="date">发布时间&nbsp;:&nbsp;
+                                        {{ art.creatTime | date:'yyyy-mm-dd' }}</div>
+                                <div class="lks">
+                                    <span class="read">{{ art.checkcounts }}</span>
+                                    <span class="like">{{ art.praiseCounts }}</span>
+                                    <span class="pl">{{ art.comments.length }}</span>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="page">
+                        <span><a ng-show="articles.$last"  
+                                ng-click="articles.$toLast()">上一页</a></span>
+                        <span><a ng-show="articles.$next"  
+                                ng-click="articles.$toNext()">下一页</a></span>
+                        <span>
+                            <a>{{ articles.$curPage }}/{{ articles.$pageCount }}</a>
+                        </span>
+                        <span> <a>文章:{{ articles.$totalSize }}</a></span>
+                    </div>
+            </div>     
+            <div class="cont clearfix" id="son3" style="display:none;">
                     <ul class="clearfix">
                         <li ng-repeat="pro in products.$array">
                             <a href="{{ pro.taobaoUrl }}" target="_BLANK" >
@@ -80,35 +118,7 @@
                         </span>
                         <span> <a>作品:{{ products.$totalSize }}</a></span>
                     </div>
-        </aside>
             </div>
-            <div class="contfx clearfix" id="son2">
-                    <ul class="clearfix">
-                        <li class="fali" ng-repeat="art in articles.$array ">
-                            <a class="imgs" href="/front/toArtDetail/{{ art._id }}">
-                            <img ng-src="{{ art.imgUrl }}" /></a>
-                            <div class="shilt lt">
-                                <h3><a href="#">{{ art.title }}</a></h3>
-                                <div class="info">{{ art.introduce }}</div>
-                                <div class="lks">
-                                    <span class="read">{{ art.checkcounts }}</span>
-                                    <span class="like">{{ art.praiseCounts }}</span>
-                                    <span class="pl">{{ art.comments.length }}</span>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                    <div class="page">
-                        <span><a ng-show="articles.$last"  
-                                ng-click="articles.$toLast()">上一页</a></span>
-                        <span><a ng-show="articles.$next"  
-                                ng-click="articles.$toNext()">下一页</a></span>
-                        <span>
-                            <a>{{ articles.$curPage }}/{{ articles.$pageCount }}</a>
-                        </span>
-                        <span> <a>文章:{{ articles.$totalSize }}</a></span>
-                    </div>
-            </div>            
         </div>
     </div>
 </div>

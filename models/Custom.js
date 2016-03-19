@@ -44,6 +44,7 @@ var customSchema = new Schema({
     introduce:String,//用户介绍
     email:{ type:String},//邮件
     realName:String,//真实姓名
+    content:String,//创意人介绍
 
     address:{
         province:String,//省份

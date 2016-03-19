@@ -85,19 +85,17 @@ function dealQuery(query){
             delete query[p];
             p = p.substring(3,p.length);
             query[p] = {$regex: tempParam ,$options: 'i'};
-            continue;
         }
 
         //大于
         //小于
 
-        //将中间的$换成. 方便对象深入查询 {"cate1.cateId":4}
+        //将中间的$换成. 方便对象深入查询 {}
         if(p.indexOf("$") > 0){
             var tempParam = query[p];
             delete query[p];
-            p = p.replace("$",".");
-            query[p] = tempParam;
-            continue;
+            p = p.substring(3,p.length);
+            query[p] = {$regex: tempParam ,$options: 'i'};
         }
 
     }

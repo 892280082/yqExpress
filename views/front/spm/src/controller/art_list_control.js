@@ -39,13 +39,11 @@
                     })
                 }
             }
+            
             //查询方法
             $scope.search = function(){
                 $scope.array_custom.$search($scope.search_custom);
             }
-
-
-
 
             setInterval(function(){
                 if ($(document).scrollTop() + $(window).height() > $(document).height() - 100) {

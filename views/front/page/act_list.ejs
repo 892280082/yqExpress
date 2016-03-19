@@ -28,6 +28,9 @@
                                 <b>
                                 <%-  $moment.validateTime(ele.actStartTime,ele.actOverTime,['即将开始','进行中','已结束'])  %>
                                 </b>
+                                喜欢数：<%- ele.likes.length %>
+                                收藏数：<%- ele.collects.length %>
+                                作品数：<%- ele.workCount.length || 0 %>
                                 <span class="title">
                                 <a href="/front/toActivetail/<%- ele._id %>">
                                     <%- ele.title %></a></span>
@@ -43,10 +46,8 @@
                                         <%- $moment(ele.actOverTime).format("YYYY-MM-DD") %>
                                     </p>
                                 </div>
-                                <div class="baom rt">
-                                    <span><b><%- ele.collects.length %></b>人报名</span>
-                                    <br/>
-                                    <a href="#" class="iwant">我要报名</a>
+                                <div class="baom rt"><br/>
+                                    <a href="#" class="iwant">查看详情</a>
                                 </div>
                             </div>
                         </div>
@@ -64,6 +65,9 @@
                              <b>
                                  {{ validateTime(ele.actStartTime,ele.actOverTime,['即将开始','进行中','已结束']); }}
                             </b>
+                                喜欢数：{{ ele.likes.length }}
+                                收藏数：{{ ele.collects.length }}
+                                作品数：{{ ele.workCount.length || 0 }}
                             <span class="title">
                                 <a href="/front/toActivetail/{{ ele._id }}">{{ ele.title }}</a>
                             </span>

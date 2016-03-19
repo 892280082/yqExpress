@@ -12,11 +12,18 @@ var ArticleComment = require("../../models/ArticleComment");
 
 //创品列表页面
 router.get("/prolist",function(req,res){
-	Product.find({
-		status:true
-	}).limit(12).sort({"_id":-1}).exec(function(err,docs){
-		err && console.log(err);
-		res.render('front/page/pro_list',{products:docs});
+	mongooseUtil.pagination({
+		query:{status:true},
+		limit:8,
+		skip:0,
+		sort:{"topno":-1},
+		model:Product,
+	},function(err,result){
+		console.log(result);
+		res.render('front/page/pro_list',{
+			products:result.docs,
+			total:result.total
+		});
 	})
 });
 
@@ -179,6 +186,11 @@ router.get("/toCusDetail/:_id"
 			res.render('front/page/cus_detail.ejs',{"customer":doc});
 		});
 	});
+
+//创意人事详情页
+router.get('/toArtCusDetail/:_id',function(req,res){
+	res.render('front/page/art_cus_detail');
+});
 
 
 module.exports = router;

@@ -36,10 +36,19 @@
             </div>
         </div>
         </div>
-        <div class="clickmore">
-            <a href="" ng-show="array_custom.$next || requestCount == 0"  ng-click="getData();" >点击加载更多</a>
-            <a href="" ng-show="!array_custom.$next && requestCount > 0">没有更多了</a>
-        </div>
+
+        <%    if(total>8){ %>
+                <div class="clickmore">
+                    <a href="" ng-show="array_custom.$next || requestCount == 0"  ng-click="getData();" >点击加载更多</a>
+                    <a href="" ng-show="!array_custom.$next && requestCount > 0">没有更多了</a>
+                </div>
+        <%     }else{ %>
+                <div class="clickmore">
+                    <a href="" >没有更多了</a>
+                </div>
+        <%     }  %>
+
+
     </div>
 </div>
 <% include ../include/foot %>

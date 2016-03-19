@@ -8,6 +8,7 @@
 <body ng-controller="art_detail_control">
 <% include ../include/head %>
 <div class="wap clearfix">
+
     <div class="on-900 clearfix lt">
         <div class="smthing detail">
             <div class="title">
@@ -18,15 +19,19 @@
                          <a href="#" class="over"><%- ele %></a>
                     <%    }) %>
                         <span class="txtfrom">文章来源:<%- article.from %></span>
-                        <span class="leix">发表于<a href="#">游戏天地</a></span>   </div>
+                        <span class="leix">发表于<a href="#">
+                            <%- article.cate1.cateName %></a></span>   
+                        </div>
                 </div>
                 <div class="rt">
-                    <div class=""><span><%- $moment(article.creatTime).format("YYYY-MM-DD") %>
+                    <div class="">
+                    <span>发布时间:<%- $moment(article.creatTime).format("YYYY-MM-DD") %>
                         &nbsp;&nbsp;/&nbsp;&nbsp;
-                        <%- article.checkcounts %></span></div>
+                        <%- article.checkcounts %>次浏览</span></div>
                     <div class="thingshar">我要分享</div>
                 </div>
             </div>
+            <div class="info"><%- article.introduce  %></div>
             <div class="cont">
                <%- article.content %>
             </div>
@@ -79,7 +84,23 @@
            </div>
         </div>
     </div>
+
     <div class="on-285 clearfix rt">
+        <div class="cyr-bt">
+            <div class="top">
+                <div class="top-head">
+                    <img class="zz" src="images/peozhezhao.png" />
+                    <img class="tx" src="images/peo_1.jpg" />
+                </div>
+                <div class="top-txt">
+                    <span class="name">索德斯奈</span><br />
+                    <span class="jop">职业：平面设计师</span><br />
+                    <span class="fans">粉丝：128</span><br />
+                    <span class="gz">加关注</span>
+                </div>
+            </div>
+            <div class="botttom"></div>
+        </div>
         <div class="recod">
             <%  _.each($randomData,function(ele){  %>
                 <div class="lia">
