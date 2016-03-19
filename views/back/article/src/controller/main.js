@@ -87,6 +87,8 @@
                     $scope.pojo_custom.topno = 0;
                     $scope.pojo_custom.praiseCounts = 0;
                     $scope.pojo_custom.keyword = [];
+                    $scope.pojo_custom.cate1 = $scope.webConfig.articleCates[0];
+                    $scope.pojo_custom.status = 3;
                 }else{
                         $scope.pojo_custom = custom;
                 }
