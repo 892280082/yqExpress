@@ -156,6 +156,23 @@
                         })
                 }
             }
+            //选定状态
+            $scope.validateTime = function(startData,overData,infos) {
+                var currentTime = new Date();
+                startData = new Date(startData);
+                overData = new Date(overData);
+                console.log(currentTime,overData,currentTime<overData);
+
+                if (currentTime < startData)
+                    return infos[0];
+                if (currentTime >= startData && currentTime <= overData)
+                    return infos[1];
+                else
+                    return infos[2];
+            }
+
+
+
             /**************************上传配置**************************/
              //配置大图图像上传
             var uploader = $scope.uploader = new FileUploader({

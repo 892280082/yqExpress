@@ -124,7 +124,7 @@
             <tr ng-if="!pojo_custom.status">
                 <td colspan="1"><label>未通过原因:</label></td>
                 <td colspan="5"><textarea class="textarea" style="width:635px;height:100px;"
-                                          ng-model="pojo_custom.reason" name="t_reason"  required></textarea>
+                                          ng-model="pojo_custom.reason" name="t_reason"  ></textarea>
                 </td>
             </tr>
             <tr>
@@ -162,11 +162,11 @@
                 </td>
             </tr>
             <tr>
-                <td  class="tname"><label>banner大图:</label></td>
+                <td  class="tname"><label>banner大图(1920*470):</label></td>
                 <td  class="tiput"><input type="file" nv-file-select=""  uploader="uploaderBannerurl"  name="t_bannerurl" /><br/>
                     <img ng-src="{{ pojo_custom.bannerurl}}" width="160px" height="140px" ng-if="pojo_custom.bannerurl"/>
                 <td><span class="errorTips" ng-show="subForm.t_bannerurl.$error.required">请输入banner大图</span></td>
-                <td  class="tname"><label>封面图:</label></td>
+                <td  class="tname"><label>封面图(284*240):</label></td>
                 <td  class="tiput"><input type="file" nv-file-select=""  uploader="uploader"  name="t_imgUrl" /><br/>
                     <img ng-src="{{ pojo_custom.imgUrl}}" width="160px" height="140px" ng-if="pojo_custom.imgUrl"/>
                 <td><span class="errorTips" ng-show="subForm.t_imgUrl.$error.required">请输入banner大图</span></td>
@@ -192,18 +192,10 @@
                 </td>
             </tr>
             <tr>
-                <td  class="tname"><label>是否发布:</label></td>
-                <td style="width: 200px;">
-                    <input type="radio"   ng-model="pojo_custom.bannerFlag" ng-value="true"/>是
-                    <input type="radio"  ng-model="pojo_custom.bannerFlag" ng-value="false"/>否
-                </td>
-                <td></td>
                 <td  class="tname"><label>点击量:</label></td>
                 <td class="tiput"><input type="text"  ng-model="pojo_custom.checkcounts" name="t_checkcounts" required
                            class="textbox" /><br/></td>
                 <td><span class="errorTips" ng-show="subForm.t_checkcounts.$error.required">请输入banner顺序</span></td>
-            </tr>
-            <tr>
                 <td class="tname"><label>首页排序:</label></td>
                 <td class="tiput"><input type="number"  ng-model="pojo_custom.topno" name="t_topno"
                                          placeholder="从高到低" class="textbox" required /><br/>

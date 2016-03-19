@@ -18,11 +18,11 @@
         <%    _.each(products,function(ele){  %>
                 <div class="col-sm-6 col-lg-3">
                     <div class="list">
-                        <a href="#">
+                        <a href="<%- ele.taobaoUrl %>">
                         <img  width="226" height="221" src="<%- ele.imgBigUrl  %>" class="m1fximg" /></a>
                         <div class="oter"><span class="cprice">￥<%- ele.price %></span>
                                           <span class="name">作者：<%- ele._userName %></span></div>
-                        <p class="title"><a href="#"><%- ele.title %></a></p>
+                        <p class="title"><a href="<%- ele.taobaoUrl %>"><%- ele.title %></a></p>
                     </div>
                 </div>
         <%    }) %>

@@ -17,7 +17,7 @@
         <h2 class="fl">活动信息列表</h2>
     </div>
     <section>
-        <label>姓名:</label>
+        <label>活动名称:</label>
         <input type="text" class="textbox textbox_295"  ng-model="search_custom.$$_title" />
         <input type="button" value="查询"  ng-click="search();" class="group_btn"/>
     </section>
@@ -31,8 +31,8 @@
                 <th>ID</th>
                 <th>活动标题</th>
                 <th>活动类型</th>
+                <th>报名状态</th>
                 <th>活动状态</th>
-                <th>活动时间 开始/结束</th>
                 <th>点击量</th>
                 <th>喜欢</th>
                 <th>收藏</th>
@@ -43,18 +43,16 @@
             </tr>
             <tr ng-repeat="cus in array_custom.$array">
                 <td>{{ $index + 1}}</td>
-                <td width="8%"  ng-click="changeIntoEdit(cus);">{{ cus.title }}</td>
+                <td width="8%"  style="cursor: pointer"  ng-click="changeIntoEdit(cus);">{{ cus.title }}</td>
                 <td width="10%" >
-                        <span ng-repeat="type in cus.type">
-                            <span>{{ type }}&nbsp;</span>
-                        </span>
+                    {{ cus.cate1.cateName }}
                 </td>
                 <td width="5%" >
-                    <span ng-if="cus.status == 0">未开启</span>
-                    <span ng-if="cus.status == 1">进行中</span>
-                    <span ng-if="cus.status == 2">以结束</span>
+                    {{  validateTime(cus.signStarTime,cus.signOverTime,['未开始','报名中','已截止']) }}
                 </td>
-                <td width="15%" >{{ cus.actStartTime | date:'yyyy-MM-dd HH' }}时-{{ cus.actOverTime | date:'yyyy-MM-dd HH' }}时</td>
+                <td width="5%" >
+                    {{  validateTime(cus.actStartTime,cus.actOverTime,['未开始','进行中','已结束']) }}
+                </td>
                 <td width="6%">{{ cus.checkcounts }}</td>
                 <td width="7%" >{{ cus.likes.length }}</td>
                 <td width="7%" >{{ cus.collects.length }}</td>
@@ -63,7 +61,6 @@
                 <td width="6%">{{ cus.topno }}</td>
                 <td>
                     <a class="inner_btn"  ng-click="removeCustom(cus);"  href="#">删除</a>
-                    <a class="inner_btn"  ng-click="parentChoose(cus);"  href="#">选定</a>
                     <a class="inner_btn"  ng-if="parentShow"   ng-click="parentChoose(cus);"
                        href="#">选定</a>
                 </td>
@@ -229,11 +226,11 @@
                     <td colspan="6" style="text-align: left;" class="tle1">活动图像</td>
                 </tr>
                 <tr>
-                    <td  class="tname"><label>首页banner:</label></td>
+                    <td  class="tname"><label>首页banner(1920*470):</label></td>
                     <td class="tiput"><input type="file" nv-file-select="" uploader="uploader"   name="t_bannerUrl" />
                         <img ng-src="{{ pojo_custom.bannerUrl}}" width="160px" height="140px" ng-if="pojo_custom.bannerUrl"/>
                     <td class="tip"></td>
-                    <td class="tname"><label>活动封面:</label></td>
+                    <td class="tname"><label>活动封面(342*194):</label></td>
                     <td class="tiput"><input type="file" nv-file-select=""  uploader="uploaderconvertUrl"
                                               name="t_convertUrl" />
                         <br/><img ng-src="{{ pojo_custom.convertUrl}}" width="160px" height="140px" ng-if="pojo_custom.convertUrl"/>

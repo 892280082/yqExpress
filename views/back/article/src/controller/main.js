@@ -62,7 +62,7 @@
 
             //删除方法
             $scope.removeCustom = function(cus){
-                var tFlag = $window.confirm("真的要添加吗");
+                var tFlag = $window.confirm("确定？此操作无法恢复!");
                 if(!tFlag)
                     return false;
                 dataService.removeCustomer(cus._id,cus._userId)
@@ -82,42 +82,13 @@
             //进入添加页面
             $scope.changeIntoEdit = function(custom){
                 if(!custom){
-                    $scope.pojo_custom = {
-                        _userId:String,//用户Id
-                        authorName:String,//作者
-                        title:String,//文章标题
-                        introduce:String,//简介
-                        content:String,//文章内容
-                        status:Number,// 作品 0-未通过 1-待审核 2-草稿 3-审核通过
-                        reason:String,//审核未通过原因
-                        topno:Number,//展示在首页的顺序
-                        bannerFlag:Boolean,//是否开启banner展示
-                        bannerurl:String,//列表的banner
-                        imgUrl:String,//首页列表图
-                        from:String,//来源
-                        /** 集合*/
-                        type:[],//文章类型
-                        keyword:[],//关键字
-                        checkcounts:Number,//查看次数
-                        collections:[],//收藏次数 添加用户id
-                        comments:[],//评论数组,储存评论_id
-                    };
-                $scope.pojo_custom = _.mapObject($scope.pojo_custom, function(val, key) {
-                        if(val == Number){
-                            return _.random(0,1000);
-                        }else if(val == String){
-                            return key + "str"+_.random(0,1000);
-                        }else if(val == Array || val == []){
-                            return "a b c"+" "+_.random(0,1000);
-                        }
-                });
-                $scope.pojo_custom._userId = "56d6574c841d3fa413325f2e";
-                $scope.pojo_custom.type = "a b c";
-                $scope.pojo_custom.creatTime = new Date();
-                $scope.pojo_custom.bannerFlag = false;
-                $scope.pojo_custom.keyword = " keyword a b c g";
-            }else{
-                    $scope.pojo_custom = custom;
+                    $scope.pojo_custom = {};
+                    $scope.pojo_custom.checkcounts = 0;
+                    $scope.pojo_custom.topno = 0;
+                    $scope.pojo_custom.praiseCounts = 0;
+                    $scope.pojo_custom.keyword = [];
+                }else{
+                        $scope.pojo_custom = custom;
                 }
                 this.show.$set("cusadd");
             }
@@ -157,9 +128,6 @@ y                }
 
             //保存或者更新方法
             $scope.saveOrUpdate = function(){
-                var array = $scope.pojo_custom.keyword;
-                if(_.isString(array))
-                    $scope.pojo_custom.keyword = array.split(' ');
                 //保存
                 if(!$scope.pojo_custom._id){
                     dataService.saveCustomer($scope.pojo_custom)

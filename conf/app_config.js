@@ -29,7 +29,7 @@ module.exports = {
 	*/
 	mongodb:{
 		open:true,//是否连接数据库
-		db:'zwzhe',//数据库名称 _local_test
+		db:'zwzhe_local_test',//数据库名称 _local_test
 		host:'localhost',//数据库地址
 		port:27017,//端口
 		cookieSecret:'yestart'//session加密

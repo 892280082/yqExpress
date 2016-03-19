@@ -46,6 +46,7 @@
                     insertPojo.picUrl = pojo.bannerurl;
                 }else if(type === 2){
                     insertPojo.title = pojo.title;
+                    insertPojo.url = "/front/prolist";
                     insertPojo.picUrl = pojo.bannerurl;
                 }else if(type === 3){
                     insertPojo.title = pojo.title;

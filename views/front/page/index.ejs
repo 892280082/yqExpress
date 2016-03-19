@@ -107,7 +107,7 @@
                                 <div class="col-lg-6">
                                     <p class="name"><a href="/front/toCusDetail/<%- ele._id %>">
                                             <%- ele.name %></a></p>
-                                    <p class="cntre"><%- ele.job %></p>
+                                    <p class="cntre"><%- ele.job.cateName %></p>
                                     <p class="guoji"><%- ele.provice  %><%- ele.city  %></p>
                                 </div>
                             </div>
@@ -126,8 +126,10 @@
          <%   _.each(show.products,function(ele){ %>
                 <div class="col-xs-3" style="width:20%;">
                     <div class="listduct">
-                        <a href="#"><img  width="226" height="221"  src="<%- ele.imgBigUrl %>" /></a>
-                        <p><%- ele.title %></p>
+                        <a href="/front/prolist">
+                            <img  width="226" height="221"  src="<%- ele.imgBigUrl %>" />
+                        </a>
+                        <a href="/front/prolist"><p><%- ele.title %></p><a>
                     </div>
                  </div>
          <%   }) %>

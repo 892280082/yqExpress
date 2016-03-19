@@ -15,12 +15,9 @@
 
             $scope.emailInfo = {};//email信息
 
-
             /**************************提交表单****************************/
             $scope.subEmailInof = function(){
-                alert("aaa");
             }
-
 
             //保存或者更新方法
             $scope.saveOrUpdate = function(cus){

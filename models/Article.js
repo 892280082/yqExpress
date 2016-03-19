@@ -28,7 +28,6 @@ var articleSchema = new Schema({
     creatTime:{type:Date,default:Date.now},//创建时间
     status:Number,// 作品 0-未通过 1-待审核 2-草稿 3-审核通过
     reason:String,//审核未通过原因
-    bannerFlag:Boolean,//是否开启banner展示
     bannerurl:String,//列表的banner
     imgUrl:String,//封面图
     from:String,//来源

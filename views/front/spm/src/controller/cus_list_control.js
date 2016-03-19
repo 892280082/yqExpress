@@ -30,9 +30,10 @@
                 }else{
                     pageResult.$loadInit({
                         url:"/front/getUserList",
-                        pageSize:12,
+                        pageSize:8,
                         waterfull:true,
-                        skip:0
+                        skip:1,
+                        query:{"cate1.cateId":1}
                     },function(err,result){
                         $scope.array_custom = result;
                         $scope.requestCount++;

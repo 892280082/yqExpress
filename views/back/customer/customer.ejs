@@ -25,9 +25,9 @@
         <label>姓名:</label>
         <input type="text" class="textbox textbox_295"  ng-model="search_custom.$$_name" />
         <label>用户类型:</label>
-            <select  ng-model="search_custom.usertype" name="t_usertype"
-                                   ng-options="m.usertype as m.name for m in userPowers">
-                <option value="">-- 请选择 --</option>
+            <select  ng-model="search_custom.cate1$cateId" name="t_usertype"
+                     ng-options="m.cateId as m.cateName  for m in webConfig.customerCates">
+                <option value="">-- 全部  --</option>
             </select>
         <input type="button" value="查询"  ng-click="search();" class="group_btn"/>
     </section>
@@ -128,7 +128,7 @@
                 <td></td>
             </tr>
             <tr>
-                <td class="tname"><label>用户分类:</label></td>
+                <td class="tname"><label>用户职业:</label></td>
                 <td class="tiput">
                     <select  ng-model="pojo_custom.job" name="t_usertype"
                              ng-options="(m.cateId + '-------' + m.cateName)  for m in webConfig.jobCates">

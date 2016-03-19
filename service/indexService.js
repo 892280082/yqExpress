@@ -15,8 +15,6 @@ var then = require("thenjs");
  * 2.getCusAllInfoByCusArray -通过用户的数组，查询用户的创品和文章共4个 -call(err,[用户信息])
  * */
 
-
-
 //获取首页数据
 exports.getIndexData = function(callback){
     var indexData = {
@@ -37,7 +35,7 @@ exports.getIndexData = function(callback){
     }).then(function(defer){
         then.each(webConfig.customers,function(next,value){
             Custom.findOne({"_id":value.pojo._id},function(err,doc){
-                indexData.customs.push(doc);
+                doc && indexData.customs.push(doc);
                 next();
             })
         }).then(function(next){
@@ -46,7 +44,7 @@ exports.getIndexData = function(callback){
     }).then(function(defer){
         then.each(webConfig.actives,function(next,value){
             Active.findOne({"_id":value.pojo._id},function(err,doc){
-                indexData.actives.push(doc);
+                doc && indexData.actives.push(doc);
                 next();
             })
         }).then(function(next){
@@ -55,7 +53,7 @@ exports.getIndexData = function(callback){
     }).then(function(defer){
         then.each(webConfig.articles,function(next,value){
             Article.findOne({"_id":value.pojo._id},function(err,doc){
-                indexData.articles.push(doc);
+                doc && indexData.articles.push(doc);
                 next();
             })
         }).then(function(){
@@ -101,10 +99,12 @@ exports.getCusAllInfoByCusArray = function(cusArray,callback){
                 err && defer(err);
                 _.each(pros,function(ele){
                     cus.recommens.push({
-                        "urlId":ele._id,
+                        'detailUrl':ele.taobaoUrl,
+                        "_id":ele._id,
                         "picUrl":ele.imgBigUrl,
                         "type":1,
                     })
+                    console.log(cus.recommens);
                 })
                 next();
             })
@@ -121,9 +121,10 @@ exports.getCusAllInfoByCusArray = function(cusArray,callback){
                 err && defer(err);
                 _.each(articles,function(ele){
                     cus.recommens.push({
-                        "urlId":ele._id,
+                        "_id":ele._id,
                         "picUrl":ele.imgUrl,
                         "type":2,
+                        "detailUrl":"/front/toArtDetail/"+ele._id,
                     })
                 })
                 next();

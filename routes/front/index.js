@@ -62,8 +62,8 @@ router.post('/getArticleList',function(req,res){
 //发现列表页面
 router.get("/toCusList",function(req,res){
 	Customer.find({
-		usertype:2
-	}).limit(1).sort({"topno":-1}).exec(function(err,docs){
+		"cate1.cateId":1
+	}).limit(8).sort({"topno":-1}).exec(function(err,docs){
 		err && console.log(err);
 		indexService.getCusAllInfoByCusArray(docs,function(err,docs){
 			res.render('front/page/cus_list',{customers:docs});
@@ -74,7 +74,7 @@ router.get("/toCusList",function(req,res){
 //人物汇聚页面瀑布流接口
 router.post('/getUserList',function(req,res){
 	var query = req.body.query;
-	//query.usertype = 2;
+	query["cate1.cateId"] = 1;
 	mongooseUtil.pagination({
 		query:query,
 		limit:req.body.limit,
@@ -117,7 +117,7 @@ router.post('/getActiveList',function(req,res){
 //文章详情页页面
 router.get("/toArtDetail/:_id"
 	,frontWare.increaPojoById(Article,"checkcounts")
-	,frontWare.addRandomArt(Article,{"status":3},{"checkcounts":-1})
+	,frontWare.addRandomArt(Article,{"status":3},{"checkcounts":-1},4)
 	,function(req,res){
 	var _id = req.params._id;
 	Article.findOne({"_id":_id},function(err,doc){

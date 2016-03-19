@@ -9,6 +9,8 @@ var _ = require("underscore");
 
 moment.validateTime = function(startData,overData,infos) {
 	var currentTime = new Date();
+	startData = new Date(startData);
+	overData = new Date(overData);
 	if (currentTime < startData)
 		return infos[0];
 	if (currentTime >= startData && currentTime <= overData)

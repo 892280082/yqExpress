@@ -45,12 +45,20 @@
 							<div class="info">
 								<div class="cyraro clearfix">
 									<div class="tx lt">
-										<img width="120" height="121" src="<%- ele.imgurl %>">
+										<a href="/front/toCusDetail/<%- ele._id %>">
+											<img width="120" height="121" src="<%- ele.imgurl %>">
+										</a>
 									</div>
 									<div class="txtshar rt">
 										<div class="lif">
-											<span class="name"><%- ele.name %></span>
-											<span class="jop"><%- ele.job %></span>
+											<a href="/front/toCusDetail/<%- ele._id %>">
+												<span class="name"><%- ele.name %></span>
+											</a>
+											<span class="jop">
+											<%	if(ele.job) { %>
+													<%- ele.job.cateName %>
+											<% } %>
+											</span>
 											<span class="guanz">关注</span></div>
 										<div class="lis">
 											<span class="like">喜欢：<b><%- ele.attentions.length %></b>人</span>
@@ -62,8 +70,12 @@
 								<div class="cryworks clearfix">
 									<ul class="clearfix">
 										<%	_.each(ele.recommens,function(recomen){ %>
-												<li><a href="#"><img width="128"  height="123"
-													src="<%- recomen.picUrl %>"></a></li>
+												<li>
+													<a href="<%- recomen.detailUrl %>">
+														<img width="128"  height="123"
+														src="<%- recomen.picUrl %>">
+													</a>
+												</li>
 										<%	}) %>
 									</ul>
 								</div>
@@ -75,12 +87,16 @@
 						<div class="info">
 							<div class="cyraro clearfix">
 								<div class="tx lt">
-									<img width="120" height="121" ng-src="{{ cus.imgurl }}">
+									<a href="/front/toCusDetail/{{ cus._id }}">
+										<img width="120" height="121" ng-src="{{ cus.imgurl }}">
+									</a>
 								</div>
 								<div class="txtshar rt">
 									<div class="lif">
-										<span class="name">{{ cus.name }}</span>
-										<span class="jop">{{ cus.job }}</span>
+										<a href="/front/toCusDetail/{{ cus._id }}">
+											<span class="name">{{ cus.name }}</span>
+										</a>
+										<span class="jop">{{ cus.job.cateName }}</span>
 										<span class="guanz">关注</span></div>
 									<div class="lis">
 										<span class="like">喜欢：<b>{{ cus.attentions.length }}</b>
@@ -94,8 +110,9 @@
 							<div class="cryworks clearfix">
 								<ul class="clearfix">
 									<li ng-repeat=" recomen in cus.recommens">
-										<a href="#"><img width="128" height="123" 
-														 ng-src="{{ recomen.picUrl }}">
+										<a href="{{  recomen.detailUrl }}">
+											<img width="128" height="123" 
+												 ng-src="{{ recomen.picUrl }}">
 										</a>
 									</li>
 								</ul>

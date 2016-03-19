@@ -28,8 +28,9 @@
                 </div>
                 <div class="user-mid lt">
                     <div class="user-mid-top">
-                        <span class="name"><%- customer.name %></span>
-                        <span class="jop"><%- customer.job %></span>
+                        <span class="name"><%-  customer.cate1.cateId === 1  ? 
+                         customer.realName :  customer.name %></span>
+                        <span class="jop"><%- customer.job.cateName %></span>
                         <span class="addres">
                             <%- customer.address.province %><%- customer.address.city %>
                         </span>
@@ -51,11 +52,16 @@
             <div class="cont clearfix" id="son1" style="display:none;">
                     <ul class="clearfix">
                         <li ng-repeat="pro in products.$array">
-                            <img class="zpimg" ng-src="{{ pro.imgBigUrl }}" />
+                            <a href="{{ pro.taobaoUrl }}" target="_BLANK" >
+                                <img class="zpimg" ng-src="{{ pro.imgBigUrl }}" />
+                            </a>
                             <h3>{{ pro.title }}</h3>
                             <div class="bt">
                                 <div class="price">￥{{ pro.price }}</div>
-                                <div class="shar"><a href="#"><img src="/front/resource/images/shar2.jpg" /></a>我要分享</div>
+                                <div class="shar">
+                                    <a href="#">
+                                    <img src="/front/resource/images/shar2.jpg" /></a>我要分享
+                                </div>
                             </div>                            
                         </li>
                     </ul>
@@ -74,7 +80,8 @@
             <div class="contfx clearfix" id="son2">
                     <ul class="clearfix">
                         <li class="fali" ng-repeat="art in articles.$array ">
-                            <a class="imgs" href="#"><img ng-src="{{ art.imgUrl }}" /></a>
+                            <a class="imgs" href="/front/toArtDetail/{{ art._id }}">
+                            <img ng-src="{{ art.imgUrl }}" /></a>
                             <div class="shilt lt">
                                 <h3><a href="#">{{ art.title }}</a></h3>
                                 <div class="info">{{ art.introduce }}</div>

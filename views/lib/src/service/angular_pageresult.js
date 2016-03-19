@@ -54,12 +54,9 @@ function validatePojoIsNull(pojo){
             i++;
         if(i<=0){
             return true;
-        }else{
-            return false;
         }
-    }else{
-        return false;
     }
+    return false;
 }
 
 //对象的拷贝
@@ -77,16 +74,32 @@ function deepCopy(source) {
 function dealQuery(query){
     var query = deepCopy(query);
     for(var p in query){
+        //处理属性为空 或者 属性是一个{}空对象
         if(!query[p] || validatePojoIsNull(query[p])){
             delete  query[p];
             continue;
         }
+        //处理模糊查询
         if(p.indexOf("$$_") === 0){
             var tempParam = query[p];
             delete query[p];
             p = p.substring(3,p.length);
             query[p] = {$regex: tempParam ,$options: 'i'};
+            continue;
         }
+
+        //大于
+        //小于
+
+        //将中间的$换成. 方便对象深入查询 {"cate1.cateId":4}
+        if(p.indexOf("$") > 0){
+            var tempParam = query[p];
+            delete query[p];
+            p = p.replace("$",".");
+            query[p] = tempParam;
+            continue;
+        }
+
     }
     return query;
 }
@@ -237,9 +250,12 @@ angular.module("service_pageResult",[])
             this._update();
         };
         this.$add = function(pojo){
-            var _last = this.$array.pop();
             this.$array.splice(0,0,pojo);
-            this._nextCache.splice(0,0,_last);
+            this.$totalSize++;
+            if(this.$curPage < this.$pageCount){
+                var _last = this.$array.pop();
+                this._nextCache.splice(0,0,_last);
+            }
         };
         this.$remove = function(pojo){
             removeArray(this.$array,pojo);//显示数组中删除
