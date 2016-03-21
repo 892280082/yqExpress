@@ -12,5 +12,10 @@ angular.module('service.user_service',[]).service("user_service",["$http"
             this.saveCustomer = function(customer){
             	return $http.post('/back/cusSaveCustom',{"pojo":customer});
             };
+            //用户提交邮箱注册接口
+            this.subEmailRegist = function(pojo){
+                return $http.post('/regist/emailRegist',{"pojo":pojo});
+            };
+
 
     }]);

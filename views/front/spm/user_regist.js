@@ -16,15 +16,18 @@ require("../../lib/src/directive/angular-ueditor.js");
 require("../../bower_components/angular/angular-file-upload.min.js");
 ///**加载后台数据接口*/
 require("./src/service/user_service.js");
+require("./src/service/dataService.js");
 ///**加载主程序人口*/
 require("./src/controller/user_regist_control.js");
+var _ =require("underscore");
 
 var app = angular.module('myApp',[
     'angularFileUpload',
     'service.showCtrl',
     pageResult.service_pageResult,
     'controller.user_regist_control',
-    'service.user_service'
+    'service.user_service',
+    'service.dataService',
     ]);
 
 app.directive('tsCuslist',function(){
@@ -60,14 +63,24 @@ app.directive('remoteValidation',["$http",function($http){
     };
 }])
 
-//$http({method: 'GET', url: 'FormValidation.jsp'}).
-//    success(function(data, status, headers, config) {
-//        if(parseInt(data)==0){
-//            ctrl.$setValidity('remote',true);
-//        }else{
-//            ctrl.$setValidity('remote',false);
-//        }
-//    }).
-//    error(function(data, status, headers, config) {
-//        ctrl.$setValidity('remote', false);
-//    });
+app.directive('passwordValidation',function(){
+    return {
+        require : 'ngModel',
+        scope:{
+            repassword:'='
+        },
+        link : function(scope, elm, attrs, ctrl) {
+            elm.bind('keyup', function() {
+                var flag = scope.repassword === ctrl.$viewValue;
+                ctrl.$setValidity('repassword',flag);
+                scope.$watch(function(){
+                    return scope.repassword;
+                },function(){
+                    var flag = scope.repassword === ctrl.$viewValue;
+                    ctrl.$setValidity('repassword',flag);
+                })
+                scope.$apply();
+            });
+        }
+    };
+});

@@ -6,18 +6,46 @@
  */
     var _ = require("underscore");
     angular.module("controller.user_regist_control",["ng.ueditor"]).
-    controller('user_regist_control',['$scope','showCtrl','user_service','FileUploader','pageResult',"$window"
-        ,function($scope,showCtrl,user_service,FileUploader,pageResult,$window){
+    controller('user_regist_control',['$scope','showCtrl','user_service','FileUploader','pageResult',"$window","dataService"
+        ,function($scope,showCtrl,user_service,FileUploader,pageResult,$window,dataService){
 
             /************************数据模型****************************/
-
             $scope.show = true;
 
-            $scope.emailInfo = {};//email信息
+            $scope.emailForm = {};//email信息
 
-            /**************************提交表单****************************/
-            $scope.subEmailInof = function(){
+            $scope.webConfig = {};
+
+            /**************************提交邮箱表单****************************/
+            //更换验证码
+            $scope.changePic = function(){
+                $scope.changeRandom = _.random(0,10000);
             }
+            $scope.changePic();
+
+
+            $scope.subEmailInof = function(){
+                user_service.subEmailRegist($scope.emailForm)
+                    .success(function(data){
+                        console.log(data);
+                    }).error(function(data){
+                        console.log('服务器连接失败');
+                    })
+            }
+
+            dataService.getConfig()
+                .success(function(data){
+                    if(data.err){
+                        alert("获取网站配置参数数据错误");
+                    }else{
+                        $scope.webConfig.jobCates = data.result.jobCates;
+                        $scope.emailForm.job = $scope.webConfig.jobCates[0];
+                    }
+                }).error(function(data){
+                    alert("获取错误");
+            })
+
+
 
             //保存或者更新方法
             $scope.saveOrUpdate = function(cus){
