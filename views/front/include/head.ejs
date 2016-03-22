@@ -1,3 +1,22 @@
+<script type="text/javascript">
+    function openRegist(url){
+        var index = layer.open({
+            type: 2,
+            content: url,
+            maxmin: true
+        });
+        layer.full(index);
+    }
+    function openLogin(url) {
+        layer.open({
+            type: 2,
+            area: ['700px', '530px'],
+            fix: false, //不固定
+            maxmin: true,
+            content: url
+        });
+    }
+</script>
 <div class="modal-header head">
     <div class="container"><div class="clearfix">
         <div class="logo"><a href="#"><img src="/front/resource/images/logo.jpg" /></a></div>
@@ -17,9 +36,11 @@
             </ul>
         </div>
         <div class="hedlogin">
-            <img src="/front/resource/images/hdlogin.png" />
-            <a href="/regist/login">登录</a>/
-            <a href="/regist/index">注册</a>
+            <a href="" onclick="openLogin('/regist/login')" >
+                <img src="/front/resource/images/hdlogin.png" />
+                <span style="cursor: pointer;">登录</span>/
+            </a>
+            <span style="cursor: pointer;"  onclick="openRegist('/regist/index');">注册</span>
         </div>
         <div class="search">
             <span><input type="text" placeholder="请输入要搜索的关键词" class="txt" /></span>

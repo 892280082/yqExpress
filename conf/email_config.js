@@ -13,7 +13,7 @@ module.exports = {
     //账号
     auth:{
         user:"contact@zwzhe.com",
-        pass:"ZWzhe@2016"
+        pass:"Passw0rd!"
     },
     //发送前缀
     prefix:"雅集"

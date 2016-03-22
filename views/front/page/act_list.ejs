@@ -12,29 +12,23 @@
 <body ng-controller="act_list_control">
 <% include ../include/head %>
 <div class="bs-docs-featurette">
-	<div class="container projects">
-    	<div class="scp_title"><span class="dtle">活动资讯</span><span class="bytle">生活美好的事物从发现开始</span></div>
-    	<div class="row sacivs">
-        	<div class="col-lg-12">
+    <div class="container projects">
+        <div class="scp_title"><span class="dtle">活动资讯</span><span class="bytle">生活美好的事物从发现开始</span></div>
+        <div class="row sacivs">
             <%  _.each(actives,function(ele){ %>
+                <div class="col-lg-12">
                     <div class="list clearfix">
                         <div class="sacimg lt">
-                            <a href="/front/toActivetail/<%- ele._id %>">
-                                <img src="<%- ele.convertUrl %>" class="huodongimg" />
-                            </a>     
+                            <a href="/front/toActivetail/<%- ele._id %>" target="_blank">
+                                <img src="<%- ele.convertUrl %>" class="huodongimg" /></a>
                         </div>
                         <div class="sacrt lt">
-                            <div class="rtf">
-                                <b>
-                                <%-  $moment.validateTime(ele.actStartTime,ele.actOverTime,['即将开始','进行中','已结束'])  %>
-                                </b>
-                                喜欢数：<%- ele.likes.length %>
-                                收藏数：<%- ele.collects.length %>
-                                作品数：<%- ele.workCount.length || 0 %>
+                            <div class="rtf"><b><%-  $moment.validateTime(ele.actStartTime,ele.actOverTime,['即将开始','进行中','已结束'])  %></b>
                                 <span class="title">
-                                <a href="/front/toActivetail/<%- ele._id %>">
-                                    <%- ele.title %></a></span>
-                                <span class="es"><%- ele.checkcounts %>人浏览</span>
+                                    <a href="/front/toActivetail/<%- ele._id %>" target="_blank">
+                                        <%- ele.title  %>
+                                    </a>
+                                </span>
                             </div>
                             <div class="rts"><%- ele.introduce %></div>
                             <div class="rtt">
@@ -42,36 +36,45 @@
                                     <p class="addr"><%- ele.address %></p>
                                     <p class="date">
                                         <%- $moment(ele.actStartTime).format("YYYY-MM-DD") %>
-                                        ——
+                                        —
                                         <%- $moment(ele.actOverTime).format("YYYY-MM-DD") %>
                                     </p>
                                 </div>
-                                <div class="baom rt"><br/>
-                                    <a href="#" class="iwant">查看详情</a>
+                                <div class="baom rt">
+                                    <span><b><%- ele.collects.length %></b>人报名</span>
+                                    <br/>
+                                    <a href="/front/toActivetail/<%- ele._id %>" target="_blank" class="iwant">查看详情</a>
                                 </div>
                             </div>
                         </div>
+                        <div class="bottom">
+                            <span class="es"><b><%- ele.checkcounts %></b>人浏览</span>
+                            <span><b><%- ele.likes.length %></b>人喜欢</span>
+                            <span><b><%- ele.workCount %></b>作品数</span>
+                        </div>
+                        <div class="bqian">
+                         <%   _.each(ele.keyword,function(ele){ %>
+                                <a href="#"><%- ele %></a>
+                         <%  }) %>
+                        </div>
                     </div>
+                </div>
             <%  })  %>
 
-            <div class="list clearfix"  ng-repeat="ele in array_custom.$array" >
+
+            <div class="col-lg-12" ng-repeat="ele in array_custom.$array" >
+                <div class="list clearfix">
                     <div class="sacimg lt">
-                        <a href="/front/toActivetail/{{ ele._id }}">
-                            <img ng-src="{{ ele.convertUrl }}" class="huodongimg" />
-                        </a>     
+                        <a href="/front/toActivetail/{{ ele._id }}" target="_blank">
+                            <img src="{{ ele.convertUrl }}" class="huodongimg" /></a>
                     </div>
                     <div class="sacrt lt">
-                        <div class="rtf">
-                             <b>
-                                 {{ validateTime(ele.actStartTime,ele.actOverTime,['即将开始','进行中','已结束']); }}
-                            </b>
-                                喜欢数：{{ ele.likes.length }}
-                                收藏数：{{ ele.collects.length }}
-                                作品数：{{ ele.workCount.length || 0 }}
-                            <span class="title">
-                                <a href="/front/toActivetail/{{ ele._id }}">{{ ele.title }}</a>
-                            </span>
-                            <span class="es">{{ ele.checkcounts }}人浏览</span>
+                        <div class="rtf"><b>{{ validateTime(ele.actStartTime,ele.actOverTime,['即将开始','进行中','已结束']); }}</b>
+                                <span class="title">
+                                    <a href="/front/toActivetail/{{ ele._id }}" target="_blank">
+                                        {{ ele.title  }}
+                                    </a>
+                                </span>
                         </div>
                         <div class="rts">{{ ele.introduce }}</div>
                         <div class="rtt">
@@ -86,19 +89,29 @@
                             <div class="baom rt">
                                 <span><b>{{ ele.collects.length }}</b>人报名</span>
                                 <br/>
-                                <a href="#" class="iwant">我要报名</a>
+                                <a href="/front/toActivetail/{{ ele._id }}" target="_blank" class="iwant">查看详情</a>
                             </div>
                         </div>
+                    </div>
+                    <div class="bottom">
+                        <span class="es"><b>{{ ele.checkcounts }}</b>人浏览</span>
+                        <span><b>{{ ele.likes.length }}</b>人喜欢</span>
+                        <span><b>{{ ele.workCount }}</b>作品数</span>
+                    </div>
+                    <div class="bqian">
+                        <span ng-repeat="key in ele.keyword">
+                            <a href="#">{{ key }}</a>
+                        </span>
                     </div>
                 </div>
             </div>
         </div>
-            <div class="clickmore">
+        <div class="clickmore">
             <a href="" ng-show="array_custom.$next || requestCount == 0"  ng-click="getData();" >点击加载更多</a>
             <a href="" ng-show="!array_custom.$next && requestCount > 0">没有更多了</a>
         </div>
     </div>
 </div>
-<% include ../include/foot %>
+<div class="foot"><img src="/front/resource/images/foot.jpg" /></div>
 </body>
 </html>

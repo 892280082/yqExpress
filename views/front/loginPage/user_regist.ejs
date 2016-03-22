@@ -11,30 +11,112 @@
 	<div class="logo" style="padding-top: 50px;"><a href="#"><img src="/front/resource/images/loginlogo.png" /></a></div>
     <div class="register">
     	<div class="tle">
-            <span class="reg-tab1 reg-phone  {{ show ? 'over':'' }}"    ng-click="show=true" >手机注册</span>
+            <span class="reg-tab1 reg-phone  {{ show ? 'over':'' }}"   ng-click="show=true" >手机注册</span>
             <span  class="reg-tab2 reg-email {{ !show ? 'over':'' }}"  ng-click="show=false">邮箱注册</span><t>已有帐号？
         <a href="/regist/login">请登录</a></t></div>
-        <div  class="rege-a"  id="rege-s1" ng-if="show">
+        <div  class="rege-a"  id="rege-s1" ng-show="show">
+            <form
+                    name="tForm"
+                    novalidate
+                    ng-submit="subTelInfo();">
         	<div class="rewp">
                 <dl>
                     <dt>手机号码</dt>
-                    <dd><span class="ti pone-ti"></span><input class="pone wd100" type="text" placeholder="请输入手机号码" /></dd>
+                    <dd><span class="ti pone-ti"></span>
+                        <input class="pone wd100" type="text"
+                               ng-model="telForm.phoneNumber"
+                               ng-pattern="/^(13[0-9]|15[0|3|6|7|8|9]|18[8|9])\d{8}$/"
+                               required
+                               name="t_tel"
+                               remote-validation
+                               param="phoneNumber"
+                               placeholder="请输入手机号码" />
+                        <div class="wrois"
+                             ng-if="tForm.t_tel.$error.required && tForm.t_tel.$dirty">
+                            请输入手机号</div>
+                        <div ng-if="tForm.t_tel.$error.remote"
+                             class="wrois">该手机已注册</div>
+                        <div ng-if="tForm.t_tel.$error.pattern"
+                             class="wrois">请输入正确的手机号</div>
+                    </dd>
                     <dt>手机验证码</dt>
-                    <dd><input class="yzm" type="text" placeholder="987236" /><span class="ponenume">获取手机验证码</span><span class="ponenume lter">已发送</span></dd>
+                    <dd><input class="yzm" type="text"
+                               ng-model="telForm.telYanzhenma"
+                               required
+                               name="t_yzm"
+                               placeholder=""/>
+                        <input type="button"
+                               class="ponenume {{  sendMessage < 60 ? 'lter' : '' }}"
+                               ng-click="startCount()"
+                               ng-disabled="sendMessage<60"
+                               value="{{  sendMessage < 60 ? '剩余'+sendMessage+'秒' : '获取验证码' }}" />
+                    </dd>
+                    <div ng-if="tForm.t_yzm.$error.required && tForm.t_yzm.$dirty"
+                         class="wrois">验证码不能为空</div>
                     <dt>密码</dt>
-                    <dd><span class="ti pwd-ti"></span><input class="pwd wd100" type="password" placeholder="请输入密码" /></dd>
+                    <dd><span class="ti pwd-ti"></span>
+                        <input class="pwd wd100" type="password"
+                               name="t_password"
+                               ng-model="telForm.password"
+                               placeholder="请输入密码"
+                               ng-maxlength="20"
+                               ng-minlength="6"
+                               required
+                                /></dd>
+                    <div class="wrois" ng-if="tForm.t_password.$error.required && tForm.t_password.$dirty">密码不能为空</div>
+                    <div ng-if="tForm.t_password.$error.maxlength"
+                         class="wrois">密码最长20位</div>
+                    <div ng-if="tForm.t_password.$error.minlength"
+                         class="wrois">密码最短6位</div>
                     <dt>确认密码</dt>
-                    <dd><span class="ti pwd-ti"></span><input class="pwd wd100" type="password" placeholder="确认密码" /></dd>
+                    <dd><span class="ti pwd-ti"></span>
+                        <input class="pwd wd100" placeholder="确认密码" type="password"  name="t_rePassword"
+                               ng-model="telForm.repassword"
+                               repassword=telForm.password
+                               password-validation
+                               required/></dd>
+                    <div class="wrois" ng-if="tForm.t_rePassword.$error.required && tForm.t_rePassword.$dirty">密码不能为空</div>
+                    <div class="wrois" ng-if="tForm.t_rePassword.$error.repassword">密码不一致</div>
                     <dt>昵称</dt>
-                    <dd><span class="ti nick-ti"></span><input class="nick" type="text" placeholder="请输入昵称" /></dd>
+                    <dd><span class="ti nick-ti"></span>
+                        <input class="nick wd100" type="text"
+                               ng-pattern="/^[\w\u4E00-\u9FA5\uF900-\uFA2D]*$/"
+                               required
+                               remote-validation
+                               param="name"
+                               name="t_name"
+                               ng-model = telForm.name
+                               ng-maxlength="20"
+                               placeholder="请输入昵称"/>
+                    </dd>
+                    <div class="wrois"
+                         ng-if="tForm.t_name.$error.required && tForm.t_name.$dirty">
+                        请输入昵称</div>
+                    <div ng-if="tForm.t_name.$error.remote"
+                         class="wrois">该昵称已注册</div>
+                    <div ng-if="tForm.t_name.$error.maxlength"
+                         class="wrois">昵称最长20位</div>
+                    <div ng-if="tForm.t_name.$error.pattern"
+                         class="wrois">昵称不能出现特殊字符</div>
                     <dt>职业</dt>
-                    <dd><select> <option>哈哈哈1</option></select></dd>
-                    <dd><input type="checkbox" /><t>我已认真阅读用户手册</t></dd>
-                    <dd><input class="afreg" value="提交注册" type="button" /></dd>
+                    <dd><select  ng-model="telForm.job" name="t_usertype"
+                                 ng-options="m  as m.cateName  for m in webConfig.jobCates">
+                        </select><br/>
+                    </dd>
+                    <dd><input type="checkbox" name="awesome"
+                               ng-model="tForm.policy"
+                               ng-true-value="true"
+                               ng-false-value="false" />
+                        <t>我已认真阅读用户手册</t></dd>
+                    <dd>
+                        <input ng-class="{true:'afreg',false:'afregft'}[!!(!tForm.$invalid && tForm.policy)]"
+                               ng-disabled="tForm.$invalid && tForm.policy" value="提交注册" type="submit" />
+                    </dd>
                 </dl>
             </div>
+            </form>
         </div>
-        <div  class="rege-b"  id="rege-s2" ng-if="!show">
+        <div  class="rege-b"  id="rege-s2" ng-show="!show">
             <form
                 name="eForm"
                 novalidate
@@ -43,28 +125,90 @@
         	<div class="rewp">
             	<dl>
                     <dt>昵称</dt>
-                    <dd><span class="ti nick-ti"></span><input class="nick wd100" type="text" placeholder="请输入昵称" /></dd>
-                    <div class="wrois">请输入正确昵称</div>
+                    <dd><span class="ti nick-ti"></span>
+                        <input class="nick wd100" type="text"
+                               ng-pattern="/^[\w\u4E00-\u9FA5\uF900-\uFA2D]*$/"
+                               required
+                               remote-validation
+                               param="name"
+                               name="t_name"
+                               ng-model = emailForm.name
+                               ng-maxlength="20"
+                               placeholder="请输入昵称"/>
+                    </dd>
+                    <div class="wrois"
+                         ng-if="eForm.t_name.$error.required && eForm.t_name.$dirty">
+                        请输入昵称</div>
+                    <div ng-if="eForm.t_name.$error.remote"
+                         class="wrois">该昵称已注册</div>
+                    <div ng-if="eForm.t_name.$error.maxlength"
+                         class="wrois">昵称最长20位</div>
+                    <div ng-if="eForm.t_name.$error.pattern"
+                         class="wrois">昵称不能出现特殊字符</div>
                     <dt>职业</dt>
-                    <dd><select> <option>哈哈哈1</option></select></dd>
+                    <dd><select  ng-model="emailForm.job" name="t_usertype"
+                                 ng-options="m  as m.cateName  for m in webConfig.jobCates">
+                        </select><br/>
+                    </dd>
                     <dt>邮箱</dt>
                     <dd><span class="ti pone-ti"></span>
                         <input class="pone wd100" type="text" placeholder="请输入邮箱"
-                               ng-model="emailInfo.email"
+                               ng-model="emailForm.email"
+                               ng-pattern="/^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/"
                                remote-validation
                                param="email"
-                               name="e_email"
+                               name="t_email"
+                               required
                         /></dd>
-                    <div ng-show="eForm.e_email.$error.remote"
+                    <div class="wrois"
+                         ng-if="eForm.t_email.$error.required && eForm.t_email.$dirty">
+                        请输入邮箱</div>
+                    <div ng-if="eForm.t_email.$error.remote"
                          class="wrois">该邮箱已注册</div>
+                    <div ng-if="eForm.t_email.$error.pattern"
+                         class="wrois">请输入合法邮箱</div>
                     <dt>密码</dt>
-                    <dd><span class="ti pwd-ti"></span><input class="pwd wd100" type="password" placeholder="请输入密码" /></dd>
+                    <dd><span class="ti pwd-ti"></span>
+                        <input class="pwd wd100" type="password" name="t_password"
+                               ng-model="emailForm.password"
+                               placeholder="请输入密码"
+                               ng-maxlength="20"
+                               ng-minlength="6"
+                               required
+                    /></dd>
+                    <div class="wrois" ng-if="eForm.t_password.$error.required && eForm.t_password.$dirty">密码不能为空</div>
+                    <div ng-if="eForm.t_password.$error.maxlength"
+                         class="wrois">密码最长20位</div>
+                    <div ng-if="eForm.t_password.$error.minlength"
+                         class="wrois">密码最短6位</div>
                     <dt>确认密码</dt>
-                    <dd><span class="ti pwd-ti"></span><input class="pwd wd100" type="password" placeholder="确认密码" /></dd>
+                    <dd><span class="ti pwd-ti"></span>
+                        <input class="pwd wd100" placeholder="确认密码" type="password"  name="t_rePassword"
+                               ng-model="emailForm.repassword"
+                               repassword=emailForm.password
+                               password-validation
+                               required/></dd>
+                    <div class="wrois" ng-if="eForm.t_rePassword.$error.required && eForm.t_rePassword.$dirty">密码不能为空</div>
+                    <div class="wrois" ng-if="eForm.t_rePassword.$error.repassword">密码不一致</div>
                     <dt>验证码</dt>
-                    <dd><input class="yzm" type="text" placeholder="987236" /><span class="ponenume lter">验证码</span></dd>
-                    <dd><input type="checkbox" /><t>我已认真阅读用户手册</t></dd>
-                    <dd><input class="afreg" value="提交注册" type="submit" /></dd>
+                    <dd><input class="yzm" type="text"
+                               ng-model="emailForm.yanzhenma"
+                               name="t_yzm"
+                               required
+                               placeholder="" />
+                        <span class="ponenume lter">
+                        <img  width="106" height="32"  ng-click="changePic();"
+                              src="/YANZHENMA?random={{ changeRandom }}" alt="点击切换"/></span></dd>
+                    <div class="wrois" ng-if="eForm.t_yzm.$error.required && eForm.t_yzm.$dirty">验证码不能为空</div>
+                    <dd><input type="checkbox" name="awesome"
+                               ng-model="eForm.policy"
+                               ng-true-value="true"
+                               ng-false-value="false" />
+                              <t>我已认真阅读用户手册</t></dd>
+                    <dd>
+                        <input ng-class="{true:'afreg',false:'afregft'}[!!(!eForm.$invalid && eForm.policy)]"
+                               ng-disabled="eForm.$invalid && eForm.policy" value="提交注册" type="submit" />
+                    </dd>
                 </dl>
                 <div class="emats">注册链接会发送到你的邮箱，通过点击收到的链接来注册会员信息</div>
             </div>

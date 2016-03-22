@@ -18,7 +18,7 @@ var then = require("thenjs");
 
 
 /**
- * @param infos {{ name:String?,email:String?,phoneNumber:String?,qq:String?,weibo:String? }} -提交信息
+ * @param infos {{ name:String?,email:String?,phoneNumber:String?,qq:String?,weibo:String? }} -验证用户的注册信息
  * @param callback {Function} -回调函数
  */
 exports.validateUserInfo = function(infos,callback){
@@ -87,5 +87,4 @@ exports.validateUserInfo = function(infos,callback){
         console.log("userService---->validateUserInfo:",err);
         return  callback(err);
     })
-
 }

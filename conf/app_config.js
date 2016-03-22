@@ -19,7 +19,7 @@ module.exports = {
 		 */
 		model:true,
 		debug:true,//是否开启debug模式,debug模式将打印系统插件连接信息
-		root:"lohost",//域名
+		root:"http://localhost:3000",//域名
 		port:3000,//app端口
 		uploadDir:'/upload',//配置文件上传目录,可设置相对和绝对目录
 		winUploadDir:"E:/upload"

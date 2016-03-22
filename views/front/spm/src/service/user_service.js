@@ -16,6 +16,13 @@ angular.module('service.user_service',[]).service("user_service",["$http"
             this.subEmailRegist = function(pojo){
                 return $http.post('/regist/emailRegist',{"pojo":pojo});
             };
-
+            //用户提交手机注册接口
+            this.subTelRegist = function(pojo){
+                return $http.post('/regist/telRegist',{"pojo":pojo});
+            };
+            //用户提交登录信息
+            this.subLoginInfo = function(pojo){
+                return $http.post('/regist/doValiLogin',{"pojo":pojo});
+            }
 
     }]);

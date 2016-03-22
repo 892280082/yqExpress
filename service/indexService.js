@@ -84,7 +84,7 @@ exports.removeIndexCache = function(){
 }
 
 /**
- * @desc 通过用户的数组，查询用户的创品和文章共4个
+ * @desc 通过用户的数组，查询用户的创品和文章共4个 通过热度排序
  * @param cusArray {Array} -用户信息数组
  * @param callback {Function} -回调 callback('err',Array);
  */

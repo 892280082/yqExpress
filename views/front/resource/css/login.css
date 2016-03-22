@@ -34,6 +34,10 @@ html[xmlns] .clearfix {display:block;}
 .lgocont .mid .lgit dd .subt{padding-top:5px; display:inline-block;}
 .lgocont .mid .lgit dd .subt input{width:120px;height:40px; cursor:pointer;border:1px solid #d2ae69;border-radius:5px;background:#eac378;color:#fff; font-size:16px;}
 .lgocont .mid .lgit dd .subt input:hover{background:#f0c87b;}
+.lgocont .mid .lgit dd .subtft input{width:120px;height:40px; cursor:pointer;border:0px solid #666;border-radius:5px;background:#999;color:#fff; font-size:16px;}
+.lgocont .sues{ text-align:center;color:#666;padding-top:120px;}
+.lgocont .sues span{ display:block;}
+.lgocont .sues a{color:#333; text-decoration:underline;}
 .lgocont .lgit .rember{ font-size:14px;color:#666; float:right;margin-right:50px;}
 .lgocont .lgit .rember input{}
 .lgocont .mid .lgit dd span.lost a{color:#666; font-size:12px;margin-left:20px;}
@@ -61,6 +65,7 @@ html[xmlns] .clearfix {display:block;}
 .lter{background:#999;border:0px;}
 .lter:hover{background:#999;border:0px; cursor:auto;}
 .afreg{width:598px;height:38px;border-radius:5px;background:#eac378;border:1px solid #d2ae69;cursor:pointer;color:#fff;}
+.afregft{width:598px;height:38px;border-radius:5px;background:#999;color:#fff;border:0px;}
 .afreg:hover{background:#f1cb81;}
 .register .rewp .ti{background:url(../images/tubiao.png) no-repeat; position:absolute; z-index:2;width:24px;height:24px; display:block;}
 .register .rewp .pone-ti{background-position:-24px -48px;top:19px;left:16px;}

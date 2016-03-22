@@ -45,6 +45,8 @@ var customSchema = new Schema({
     email:{ type:String},//邮件
     realName:String,//真实姓名
     content:String,//创意人介绍
+    state:{type:Number,default:0},//用户状态 0未激活不能登陆  1.手机注册 2.邮箱注册
+    randomStr:String,//邮箱验证
 
     address:{
         province:String,//省份

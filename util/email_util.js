@@ -3,9 +3,10 @@
  * @auther yq
  * @date 2016/2/24
  */
-var nodemailer = require('nodemailer'),
-    smtpTransport = require('nodemailer-smtp-transport'),
-    mailConf = require('../conf/email_config');
+var nodemailer = require('nodemailer');
+var    smtpTransport = require('nodemailer-smtp-transport');
+var    mailConf = require('../conf/email_config');
+var main_conf = require('../conf/app_config');
 
 
 var transport = nodemailer.createTransport(smtpTransport({
@@ -19,7 +20,6 @@ var transport = nodemailer.createTransport(smtpTransport({
 }));
 
 var from = mailConf.prefix+" "+"<"+mailConf.auth.user+">";
-
 
 /**
  * @desc 发送邮件主要函数
@@ -39,7 +39,7 @@ var from = mailConf.prefix+" "+"<"+mailConf.auth.user+">";
              console.log(info);
 })
  */
-function sendMail(params,callback){
+exports.sendMail = function(params,callback){
     params.from = from;
     transport.sendMail(params, function(err, info){
         err && console.log(err);
@@ -47,6 +47,16 @@ function sendMail(params,callback){
     });
 }
 
-module.exports = {
-    send:sendMail
-};
+exports.sendRegistMail = function(name,email,randomStr,callback){
+    var subject = "造物者邮箱验证";
+    var html = "<a href='"+main_conf.main.root+"/regist/validateEmailLink/"+name+"/"+randomStr+"'+>点击激活链接，验证登陆吧!></a>";
+    transport.sendMail({
+        to:email,
+        subject:subject,
+        html:html,
+        from:from
+    }, function(err, info){
+        err && console.log(err);
+        callback(err,info);
+    });
+}

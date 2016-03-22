@@ -126,11 +126,9 @@ router.get("/toArtDetail/:_id"
 	,frontWare.increaPojoById(Article,"checkcounts")
 	,frontWare.addRandomArt(Article,{"status":3},{"checkcounts":-1},4)
 	,function(req,res){
-	var _id = req.params._id;
-	Article.findOne({"_id":_id},function(err,doc){
-		err && console.log(err);
+	Article.getLink(req.params._id,function(err,doc){
 		res.render('front/page/art_detail',{"article":doc});
-	});
+	})
 });
 
 //文章详情页获取评论接口

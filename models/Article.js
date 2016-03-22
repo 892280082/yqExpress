@@ -8,6 +8,7 @@
  * 1.pushCollection 像收藏集合中添加用户id
  * 2.pullCollection 在集合中删除用户id
  * 3.添加评论 addComment -call('err',保存后的评论对象)
+ * 4.getLink      获取文章及文章作者 -call(err,获取级联后的对象)
  * @api pojo层
  *
  * @_api
@@ -18,6 +19,7 @@ var objectid = require('objectid');
 var AriticleCollection = require('./AriticleCollection');
 var ArticleComment = require("./ArticleComment");
 var mongooseUtil = require("../util/mongooseUtil");
+var then = require("thenjs");
 
 var articleSchema = new Schema({
     _userId:Schema.Types.ObjectId,//用户Id
@@ -42,8 +44,37 @@ var articleSchema = new Schema({
     praiseCounts:{type:Number,default:0},//喜欢次数
     /** 从内容中抽取的图片路径 */
     contentPicUrl:String,
+
+    /**非持久化对象*/
+    $user:{},//用户对象
 });
 
+
+/**
+ * @param _airId {String} -文章ID
+ * @param callback {Function} 回调函数
+ */
+articleSchema.statics.getLink = function(_airId,callback){
+    var _this = this;
+    then(function(next){
+        _this.findOne({"_id":_airId},function(err,doc){
+            next(err,doc);
+        });
+    }).then(function(next,article){
+        var Customer = require("./Custom");
+        Customer.findOne({"_id":article._userId},function(err,doc){
+            if(!err){
+                article.$user = doc;
+                callback(err,article);
+            }else{
+                next(err);
+            }
+        });
+    }).fail(function(next,err){
+        console.log("Article ->getLink:",err);
+        callback(err);
+    })
+}
 
 
 /**@desc 像收藏集合中添加用户id

@@ -42,6 +42,7 @@ var activeSchema = new Schema({
     signStarTime:Date,//报名开始结束时间
     signOverTime:Date,
     address:String,//活动地址
+    report:String,//活动播报
 
     /***************** 活动关注 **************/
     checkcounts:Number,//关注量 *

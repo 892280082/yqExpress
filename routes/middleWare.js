@@ -29,7 +29,7 @@ module.exports = function(app){
         var ranNumber = parseInt(Math.random()*9000+1000);
         req.session.yanzhenma = ranNumber;
         var p = new captchapng(80,30,ranNumber); // width,height,numeric captcha
-        p.color(92, 189, 171, 255);  // First color: background (red, green, blue, alpha)
+        p.color(153, 153, 153, 255);  // First color: background (red, green, blue, alpha)
         p.color(255, 255, 255, 255); // Second color: paint (red, green, blue, alpha)
         var img = p.getBase64();
         var imgbase64 = new Buffer(img,'base64');

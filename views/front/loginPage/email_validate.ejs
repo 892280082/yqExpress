@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>邮箱注册完善信息</title>
+    <% include ../include/loginLink %>
+</head>
+<body style="background:#f2f2f2;" >
+<% if(result){ %>
+    <div class="loginwap">
+                <div class="logo"><a href="#"><img src="/front/resource/images/loginlogo.png" /></a></div>
+        <div class="lgocont">
+                <div class="tle"><span class="hedtle">注册成功</span></div>
+        <div class="sues"><span><img src="/front/resource/images/sucess.jpg"/></span><br/>
+            <span>注册成功！<a href="/">立即返回首页</a></span></div>
+        </div>
+    </div>
+<%}else{ %>
+    <div class="loginwap">
+        <div class="logo"><a href="#"><img src="/front/resource/images/loginlogo.png" /></a></div>
+        <div class="lgocont">
+            <div class="tle"><span class="hedtle">注册失败</span></div>
+            <div class="sues"><span><img src="/front/resource/images/sucess.jpg"/></span><br/>
+                <span>注册失败!<a href="#">立即返回首页</a></span></div>
+        </div>
+    </div>
+<% } %>
+</body>
+</html>

@@ -1,59 +1,39 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" >
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="myApp">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>活动详情页</title>
     <% include ../include/baseLink%>
-    <script type="text/javascript">
-        function show(a){
-                $("div[id^='hdtab']").hide();
-                $("#hdtab"+a).show();
-                $(".hdcon span[class^='tab']").removeClass("over");
-                $(".tab"+a).addClass("over");
-        };
-    </script>
 </head>
-<body ng-controller="art_detail_control">
+<body>
+<script type="text/javascript">
+    $(document).ready(function(){
+    });
+    function show(a){
+        $("div[id^='hdtab']").hide();
+        $("#hdtab"+a).show();
+        $(".hdcon span[class^='tab']").removeClass("over");
+        $(".tab"+a).addClass("over");
+    };
+</script>
 <% include ../include/head %>
 <div class="wap clearfix">
     <div class="on-1200">
-        <div class="hdtop clearfix">
-            <div class="hdimg lt"><img src="<%- active.convertUrl %>" /></div>
-            <div class="mid lt">
-                <h3><%- active.title %></h3>
-                <p>组织单位：<%- active.organize %></p>
-                <p>版权机构：<%- active.copyRight %></p>
-                <p>投稿时间：<%- $moment(active.actStartTime).format('YYYY-MM-DD')  %>—
-                            <%- $moment(active.actOverTime).format('YYYY-MM-DD') %></p>
-                <div class="bq">
-                <%    _.each(active.keyword,function(key){  %>
-                        <a href="#"><%- key %></a>
-                <%    }) %>
-                </div>
-                <div class="lisk"><span class="likes"><b>768</b>人喜欢</span><span class="shar"><b>123</b>人分享</span></div>
-            </div>
-            <div class="xx rt">
-                <span class="llcs"><%- active.checkcounts %>次浏览</span>
-                <div class="baom">
-                 <span><b><%- active.collects.length %></b>人报名</span>
-                  <br/>
-                  <a href="#" class="iwant">我要报名</a>
-                </div>
-            </div>
+        <div class="active-head-img">
+            <a href="#"><img src="<%- active.convertUrl %>" width="1152" height="340" /></a>
         </div>
         <div class="hdcon clearfix">
-            <div class="title"><span class="tab1 over" onclick="show('1')">活动简介</span><span class="tab2" onclick="show('2')">参赛作品</span><span class="tab3" onclick="show('3')">活动播报</span></div>
+            <div class="title"><span class="tab1 over" onclick="show('1')">大赛简介</span><span class="tab2" onclick="show('2')">参赛作品</span><span class="tab3" onclick="show('3')">赛事播报</span></div>
             <div class="cont" id="hdtab1">
                 <div class="hotop">
-                    <span class="tle">活动简介</span>
+                    <span class="tle">大赛简介</span>
                 </div>
                 <div class="nrs">
                     <%- active.content %>
                 </div>
-                <div class="fujian">
-                    <a href="/downFileName?fileurl=<%- active.attachment.url  %>&filename=<%- active.attachment.name  %>">
-                            <%- active.attachment.name  %>
-                    </a></div>
+                <div class="fujian"><span class="fjtle"><a href="/downFileName?fileurl=<%- active.attachment.url  %>&filename=<%- active.attachment.name  %>" title="<%- active.attachment.name  %>">
+                            <img src="/front/resource/images/fujian.jpg" /></a><p>
+                            <%- active.attachment.name  %></p></span></div>
             </div>
             <div class="contb" id="hdtab2">
                 <div class="hotop">
@@ -67,56 +47,54 @@
                             <img class="zpimg" src="/front/resource/images/3.jpg" />
                             <h3>你是我无与伦比的美丽</h3>
                             <div class="hdbq"><span class="zz">作者：<b>张小娴</b></span><span class="see">浏览：<b>132</b></span><span class="tp">投票：<b>576</b></span></div>
+                            <div class="hdbq"><span class="tota">投他一票</span></div>
                         </li>
                         <li>
                             <img class="zpimg" src="/front/resource/images/6.jpg" />
                             <h3>你是我无与伦比的美丽</h3>
                             <div class="hdbq"><span class="zz">作者：<b>张小娴</b></span><span class="see">浏览：<b>132</b></span><span class="tp">投票：<b>576</b></span></div>
+                            <div class="hdbq"><span class="totaft">已投票</span></div>
                         </li>
                         <li>
                             <img class="zpimg" src="/front/resource/images/6.jpg" />
                             <h3>你是我无与伦比的美丽</h3>
                             <div class="hdbq"><span class="zz">作者：<b>张小娴</b></span><span class="see">浏览：<b>132</b></span><span class="tp">投票：<b>576</b></span></div>
+                            <div class="hdbq"><span class="tota">投他一票</span></div>
                         </li>
                         <li>
                             <img class="zpimg" src="/front/resource/images/6.jpg" />
                             <h3>你是我无与伦比的美丽</h3>
                             <div class="hdbq"><span class="zz">作者：<b>张小娴</b></span><span class="see">浏览：<b>132</b></span><span class="tp">投票：<b>576</b></span></div>
+                            <div class="hdbq"><span class="tota">投他一票</span></div>
                         </li>
                         <li>
                             <img class="zpimg" src="/front/resource/images/6.jpg" />
                             <h3>你是我无与伦比的美丽</h3>
                             <div class="hdbq"><span class="zz">作者：<b>张小娴</b></span><span class="see">浏览：<b>132</b></span><span class="tp">投票：<b>576</b></span></div>
+                            <div class="hdbq"><span class="tota">投他一票</span></div>
                         </li>
                     </ul>
                 </div>
                 <div class="page"><span><a href="#">&lt;</a></span><span><a href="#">1</a></span><span><a href="#">2</a></span><span><a href="#">3</a></span><span><a href="#">4</a></span><span><a href="#">5</a></span><span><a href="#">&gt;</a></span></div>
                 <div class="likes">
-                <span><a title="喜欢"><img src="/front/resource/images/lisk.jpg" /></a><p>365人喜欢</p></span>
-                <span><a title="收藏"><img src="/front/resource/images/scang.jpg" /></a><p>478人收藏</p></span>
-            </div>
+                    <span><a title="喜欢"><img src="/front/resource/images/lisk.jpg" /></a><p>365人喜欢</p></span>
+                    <span><a title="收藏"><img src="/front/resource/images/scang.jpg" /></a><p>478人收藏</p></span>
+                </div>
             </div>
             <div class="contc" id="hdtab3">
                 <div class="hotop">
-                    <span class="tle">活动播报</span>
+                    <span class="tle">赛事播报</span>
                 </div>
                 <div class="nrs">
-                我是赛事播报
+                    <%- active.report   %>
                 </div>
                 <div class="likes">
-                <span><a title="喜欢"><img src="/front/resource/images/lisk.jpg" /></a><p>365人喜欢</p></span>
-                <span><a title="收藏"><img src="/front/resource/images/scang.jpg" /></a><p>478人收藏</p></span>
-            </div>
+                    <span><a title="喜欢"><img src="/front/resource/images/lisk.jpg" /></a><p>365人喜欢</p></span>
+                    <span><a title="收藏"><img src="/front/resource/images/scang.jpg" /></a><p>478人收藏</p></span>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-<% include ../include/foot %>
-<script type="text/javascript"  src="/front/dist/"></script>
-</body>
-</html>
-
-<!--         <div class="comment clearfix">
+        <div class="comment clearfix">
             <div class="shuruk">
                 <div class="ruka"><textarea>在此输入你的评论</textarea></div>
                 <div class="rukb"><span>已有<b>1205</b>人评论</span><span class="subt"><input type="button" value="发表评论" /></span></div>
@@ -124,8 +102,8 @@
             <div class="list clearfix">
                 <div class="portrait">
                     <a href="#">
-                    <img class="zz" src="/front/resource/images/pozhezhao.png" />
-                    <img class="tx" src="/front/resource/images/toux2.jpg" />
+                        <img class="zz" src="/front/resource/images/pozhezhao.png" />
+                        <img class="tx" src="/front/resource/images/toux2.jpg" />
                     </a>
                 </div>
                 <div class="midle lt">
@@ -156,8 +134,8 @@
             <div class="list clearfix">
                 <div class="portrait">
                     <a href="#">
-                    <img class="zz" src="/front/resource/images/pozhezhao.png" />
-                    <img class="tx" src="/front/resource/images/toux3.jpg" />
+                        <img class="zz" src="/front/resource/images/pozhezhao.png" />
+                        <img class="tx" src="/front/resource/images/toux3.jpg" />
                     </a>
                 </div>
                 <div class="midle lt">
@@ -173,8 +151,8 @@
             <div class="list clearfix">
                 <div class="portrait">
                     <a href="#">
-                    <img class="zz" src="/front/resource/images/pozhezhao.png" />
-                    <img class="tx" src="/front/resource/images/toux1.jpg" />
+                        <img class="zz" src="/front/resource/images/pozhezhao.png" />
+                        <img class="tx" src="/front/resource/images/toux1.jpg" />
                     </a>
                 </div>
                 <div class="midle lt">
@@ -188,4 +166,10 @@
                 </div>
             </div>
             <div class="clikemore"><span>点击加载更多</span></div>
-        </div> -->
+        </div>
+    </div>
+</div>
+<% include ../include/foot %>
+<script type="text/javascript"  src="/front/dist/art_detail.js"></script>
+</body>
+</html>

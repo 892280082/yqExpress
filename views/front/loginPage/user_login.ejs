@@ -1,11 +1,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="myApp">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>造物者会员登录</title>
     <% include ../include/loginLink %>
+    <script type="text/javascript"  src="/front/dist/user_login.js"></script>
 </head>
-<body style="background:#f2f2f2;">
+<body  ng-controller="user_login_control" style="background:#f2f2f2;">
 <div class="loginwap">
     <div class="logo"><a href="#"><img src="/front/resource/images/loginlogo.png" /></a></div>
     <div class="lgocont">
@@ -13,14 +14,44 @@
         <a href="/regist/index">立即注册</a></span></div>
         <div class="mid">
             <div class="lgit">
-                <form action="#">
+                <form
+                    name="subForm"
+                    novalidate
+                    ng-submit="subInfo();">
                     <dl>
                         <dt>账户</dt>
-                        <dd><span class="ti uesr-ti"></span><input class="uesr" placeholder="邮箱/手机号码"/></dd>
+                        <dd><span class="ti uesr-ti"></span><input
+                                    type="text"
+                                    ng-model="subForm.name"
+                                    name="t_name"
+                                    required
+                                    class="uesr" placeholder="邮箱/手机号码"/></dd>
                         <dt>密码</dt>
-                        <dd><span class="ti pwd-ti"></span><input class="userpwd" placeholder="请输入密码" /></dd>
-                        <dd><input class="yzm" placeholder="验证码" /><span  class="rember"><input type="radio">记住我</span></dd>
-                        <dd><span class="subt"><input type="button" value="登录" /></span><span class="lost"><a href="#">忘记密码？</a></span></dd>
+                        <dd><span class="ti pwd-ti"></span>
+                            <input  class="userpwd"
+                                    type="password"
+                                    ng-model="subForm.password"
+                                    name="t_password"
+                                    required
+                                    placeholder="请输入密码" /></dd>
+                        <dd><input class="yzm"
+                                   type="text"
+                                   ng-model="subForm.yanzhenma"
+                                   name="t_yzm"
+                                   required
+                                   placeholder="验证码" />
+                             <img  width="106" height="32"  ng-click="changePic();"
+                                  src="/YANZHENMA?random={{ changeRandom }}" alt="点击切换"/>
+                            <span  class="rember"><input type="radio">记住我</span>
+                        </dd>
+                        <dd>
+                            <span class="subt"
+                                  ng-class="{true:'subt',false:'subtft'}[!subForm.$invalid]" >
+                                <input type="submit"
+                                       ng-disabled="subForm.$invalid"
+                                       value="登录" /></span>
+                            <span class="lost"><a href="#">忘记密码？</a></span>
+                        </dd>
                     </dl>
                 </form>
             </div>
