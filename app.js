@@ -48,7 +48,8 @@ app.use(function(req,res,next){
 	next();
 })
 app.use(express.static(viewConfig.relativePath));
-app.use(ejsExtend);
+
+
 
 
 //判断操作系统
@@ -121,6 +122,7 @@ if(config.mongodb.open) {
 }
 
 //配置路由
+app.use(ejsExtend.extend); //配置EJS扩展
 app.set("configRoute",config.router);
 router(app);
 

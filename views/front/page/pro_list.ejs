@@ -18,7 +18,7 @@
         <%    _.each(products,function(ele){  %>
                 <div class="col-sm-6 col-lg-3">
                     <div class="list">
-                        <a href="<%- ele.taobaoUrl %>">
+                        <a href="<%- ele.taobaoUrl %>" target="_blank">
                         <img  width="226" height="221" src="<%- ele.imgBigUrl  %>" class="m1fximg" /></a>
                         <div class="oter"><span class="cprice">￥<%- ele.price %></span>
                                           <span class="name">作者：<%- ele._userName %></span></div>
@@ -28,7 +28,7 @@
         <%    }) %>
         <div class="col-sm-6 col-lg-3" ng-repeat="pro in array_custom.$array " >
             <div class="list">
-                <a href="#">
+                <a href="{{ pro.taobaoUrl }}" target="_blank">
                     <img  width="226" height="221" src="{{ pro.imgBigUrl }}" class="m1fximg" /></a>
                 <div class="oter"><span class="cprice">￥{{ pro.price }}</span>
                     <span class="name">作者：{{ pro._userName }}</span></div>

@@ -16,6 +16,8 @@ var objectid = require("objectid"),
  * 7.updateSingleById -通过ID更新单个POJO
  * 8.pagination -分页工具
  * 9.increateProtoById model一个属性的增加和减少 -call('err');
+ * 10.pushInnerCollectionById 像model的内部集合推送对象 -call(err,info);
+ * 11.pushInnerCollectionById 像model的内部集合删除对象 -call(err,info);
  */
 
 
@@ -337,4 +339,31 @@ exports.increateProtoById = function(_id,dao,prototype,callback,number){
         err && console.log(err);
         callback(err);
     });
+}
+
+/**
+ * @param _id {String} -id
+ * @param Dao {Object} -model
+ * @param innerCollec {String} -内部集合名
+ * @param pojo {Object} -需要push的对象
+ * @param callback {Function} -回掉函数
+ */
+exports.pushInnerCollectionById = function(_id,Dao,innerCollec,pojo,callback){
+    var shell = exports.createShell("$push",innerCollec,pojo);
+    Dao.update({"_id":_id},shell,function(err,info){
+        if(err){
+            console.log("mongooseUtil->pushInnerCollectionById:",err);
+        }
+        return callback(err,info);
+    })
+}
+
+exports.pullInnerCollectionById = function(_id,Dao,innerCollec,pojo,callback){
+    var shell = exports.createShell("$pull",innerCollec,pojo);
+    Dao.update({"_id":_id},shell,function(err,info){
+        if(err){
+            console.log("mongooseUtil->pushInnerCollectionById:",err);
+        }
+        return callback(err,info);
+    })
 }

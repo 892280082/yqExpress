@@ -45,13 +45,14 @@
 							<div class="info">
 								<div class="cyraro clearfix">
 									<div class="tx lt">
-										<a href="/front/toCusDetail/<%- ele._id %>">
+										<a href="/front/toCusDetail/<%- ele._id %>" target="_blank">
 											<img width="120" height="121" src="<%- ele.imgurl %>">
 										</a>
 									</div>
 									<div class="txtshar rt">
 										<div class="lif">
-											<a href="/front/toCusDetail/<%- ele._id %>">
+											<a href="/front/toCusDetail/<%- ele._id %>" target="_blank">
+												<span class="name"><%- ele.realName %></span>
 												<span class="name"><%- ele.realName %></span>
 											</a>
 											<span class="jop">
@@ -87,13 +88,13 @@
 						<div class="info">
 							<div class="cyraro clearfix">
 								<div class="tx lt">
-									<a href="/front/toCusDetail/{{ cus._id }}">
+									<a href="/front/toCusDetail/{{ cus._id }}" target="_blank">
 										<img width="120" height="121" ng-src="{{ cus.imgurl }}">
 									</a>
 								</div>
 								<div class="txtshar rt">
 									<div class="lif">
-										<a href="/front/toCusDetail/{{ cus._id }}">
+										<a href="/front/toCusDetail/{{ cus._id }}" target="_blank">
 											<span class="name">{{ cus.realName }}</span>
 										</a>
 										<span class="jop">{{ cus.job.cateName }}</span>

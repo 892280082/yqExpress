@@ -94,8 +94,8 @@ function dealQuery(query){
         if(p.indexOf("$") > 0){
             var tempParam = query[p];
             delete query[p];
-            p = p.substring(3,p.length);
-            query[p] = {$regex: tempParam ,$options: 'i'};
+            p = p.replace("$",".");
+            query[p] = tempParam;
         }
 
     }

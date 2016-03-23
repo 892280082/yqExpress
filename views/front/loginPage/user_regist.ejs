@@ -1,10 +1,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" ng-app="myApp">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>邮箱注册完善信息</title>
-<% include ../include/loginLink %>
-<script type="text/javascript"  src="/front/dist/user_regist.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>邮箱注册完善信息</title>
+    <% include ../include/loginLink %>
+    <script type="text/javascript"  src="/front/dist/user_regist.js"></script>
 </head>
 <body style="background:#f2f2f2;" ng-controller="user_regist_control">
 <div class="loginwap">
@@ -104,13 +104,14 @@
                         </select><br/>
                     </dd>
                     <dd><input type="checkbox" name="awesome"
-                               ng-model="tForm.policy"
+                               ng-model="telForm.policy"
                                ng-true-value="true"
                                ng-false-value="false" />
-                        <t>我已认真阅读用户手册</t></dd>
+                        <t>我已认真阅读用户手册</t>
+                    </dd>
                     <dd>
-                        <input ng-class="{true:'afreg',false:'afregft'}[!!(!tForm.$invalid && tForm.policy)]"
-                               ng-disabled="tForm.$invalid && tForm.policy" value="提交注册" type="submit" />
+                        <input ng-class="{true:'afreg',false:'afregft'}[ !tForm.$invalid && telForm.policy]"
+                               ng-disabled="tForm.$invalid && !telForm.policy" value="提交注册" type="submit" />
                     </dd>
                 </dl>
             </div>
@@ -201,13 +202,13 @@
                               src="/YANZHENMA?random={{ changeRandom }}" alt="点击切换"/></span></dd>
                     <div class="wrois" ng-if="eForm.t_yzm.$error.required && eForm.t_yzm.$dirty">验证码不能为空</div>
                     <dd><input type="checkbox" name="awesome"
-                               ng-model="eForm.policy"
+                               ng-model="emailForm.policy"
                                ng-true-value="true"
                                ng-false-value="false" />
                               <t>我已认真阅读用户手册</t></dd>
                     <dd>
-                        <input ng-class="{true:'afreg',false:'afregft'}[!!(!eForm.$invalid && eForm.policy)]"
-                               ng-disabled="eForm.$invalid && eForm.policy" value="提交注册" type="submit" />
+                        <input ng-class="{true:'afreg',false:'afregft'}[ !eForm.$invalid && emailForm.policy]"
+                               ng-disabled="eForm.$invalid || !emailForm.policy" value="提交注册" type="submit" />
                     </dd>
                 </dl>
                 <div class="emats">注册链接会发送到你的邮箱，通过点击收到的链接来注册会员信息</div>

@@ -31,9 +31,13 @@
                 <div class="nrs">
                     <%- active.content %>
                 </div>
+
+             <%   if(active.attachment && active.attachment.name){ %>
                 <div class="fujian"><span class="fjtle"><a href="/downFileName?fileurl=<%- active.attachment.url  %>&filename=<%- active.attachment.name  %>" title="<%- active.attachment.name  %>">
                             <img src="/front/resource/images/fujian.jpg" /></a><p>
                             <%- active.attachment.name  %></p></span></div>
+             <%   } %>
+
             </div>
             <div class="contb" id="hdtab2">
                 <div class="hotop">

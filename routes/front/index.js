@@ -9,6 +9,7 @@ var Customer = require("../../models/Custom");
 var Active = require("../../models/Active");
 var frontWare = require("./front_ware");
 var ArticleComment = require("../../models/ArticleComment");
+var _  = require("underscore");
 
 //创品列表页面
 router.get("/prolist",function(req,res){
@@ -155,10 +156,85 @@ router.post('/pushArticleComment',function(req,res){
 	});
 })
 
-//文章喜欢数量加1
+//用户喜欢该篇文章
 router.post('/increateArtilce',function(req,res){
-	mongooseUtil.increateProtoById(req.body._id,Article,'praiseCounts',function(err){
-		res.json({'err':err});
+	var _id = req.body._id;
+	var userId = req.session.USER._id;
+	mongooseUtil.pushInnerCollectionById(_id,Article,'praiseCounts',userId,function(err,info){
+		res.json({"err":err,result:info});
+	})
+})
+
+//用户取消喜欢该篇文章
+router.post('/cancelLikeArt',function(req,res){
+	var _id = req.body._id;
+	var userId = req.session.USER._id;
+	mongooseUtil.pullInnerCollectionById(_id,Article,'praiseCounts',userId,function(err,info){
+		res.json({"err":err,result:info});
+	})
+})
+
+
+//用户收藏该篇文章
+router.post('/collecCurArticle',function(req,res){
+	var _ariId = req.body._id;
+	var userId = req.session.USER._id;
+	Customer.addUserCollecArticle(userId,_ariId,function(err,info){
+		res.json({"err":err,"result":'info'});
+	})
+})
+
+//用户取消收藏该篇文章
+router.post('/cancelcollecCurArt',function(req,res){
+	var _ariId = req.body._id;
+	var userId = req.session.USER._id;
+	Customer.removeUserCollecArticle(userId,_ariId,function(err,info){
+		res.json({"err":err,"result":'info'});
+	})
+})
+
+//获取用户和作者之间的状态
+router.post('/getAttentionState',function(req,res){
+	var authorId = req.body._id;//作者ID
+	var userId = req.session.USER._id;//用户ID
+	Customer.findOne({"_id":authorId},function(err,doc){
+		res.json({err:err,result:_.contains(doc.followers,userId)});
+	})
+})
+
+//用户关注其它用户
+router.post('/attentionUser',function(req,res){
+	var authorId = req.body._id;//作者ID
+	var userId = req.session.USER._id;//用户ID
+	Customer.pushAttentions(userId,authorId,function(err,info){
+		res.json({err:err,result:info});
+	})
+})
+
+//用户关注其它用户
+router.post('/cancelUserAtten',function(req,res){
+	var authorId = req.body._id;//作者ID
+	var userId = req.session.USER._id;//用户ID
+	Customer.pullAttentions(userId,authorId,function(err,info){
+		res.json({err:err,result:info});
+	})
+})
+
+
+//通过ID获取用户信息
+router.post('/getUserById',function(req,res){
+	Customer.findOne({"_id":req.body._id},function(err,doc){
+		res.json({err:err,result:doc});
+	})
+})
+
+
+//回复用户的评论
+router.post('/pushCommentReplay',function(req,res){
+	var replay = req.body.pushPojo;
+	var commentId = req.body.commentId;
+	ArticleComment.pushReplay(commentId,replay,function(err,info){
+		res.json({err:err,result:info});
 	})
 })
 
@@ -189,6 +265,15 @@ router.get("/toCusDetail/:_id"
 router.get('/toArtCusDetail/:_id',function(req,res){
 	res.render('front/page/art_cus_detail');
 });
+
+
+//前台获取文章
+router.post('/getArticleById',function(req,res){
+	var _id = req.body._id;
+	Article.findOne({"_id":_id},function(err,doc){
+		res.json({"err":err,"result":doc});
+	})
+})
 
 
 module.exports = router;

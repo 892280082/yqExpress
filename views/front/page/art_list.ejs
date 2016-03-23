@@ -44,9 +44,9 @@
 						<div class="box">
 							<div class="info">
 								<div class="pic">
-									<a href="/front/toArtDetail/<%- ele._id %>">
+									<a href="/front/toArtDetail/<%- ele._id %>" target="_blank">
 									<img src="<%- ele.contentPicUrl %>"></a></div>
-								<div class="title"><a href="/front/toArtDetail/<%- ele._id %>"><%- ele.title %></a></div>
+								<div class="title"><a href="/front/toArtDetail/<%- ele._id %>" target="_blank"><%- ele.title %></a></div>
 								<div class="info2">
 									<%- ele.introduce.length < 54 ? 
 										ele.introduce.substring(0,53) 
@@ -64,10 +64,10 @@
 				<div class="box" ng-repeat="ele in array_custom.$array track by ele.creatTime">
 					<div class="info">
 						<div class="pic">
-							<a href="/front/toArtDetail/{{- ele._id }}">
+							<a href="/front/toArtDetail/{{- ele._id }}" target="_blank">
 							<img ng-src="{{ ele.contentPicUrl }}"></a>
 						</div>
-						<div class="title"><a href="/front/toArtDetail/{{ ele._id }}">{{ ele.title }}</a></div>
+						<div class="title"><a href="/front/toArtDetail/{{ ele._id }}" target="_blank">{{ ele.title }}</a></div>
 						<div class="info2">
 									{{  ele.introduce.length < 54 ? 
 										ele.introduce.substring(0,53) 

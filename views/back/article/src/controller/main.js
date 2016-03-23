@@ -6,9 +6,20 @@
  */
     var _ = require("underscore");
     var $ = require("jquery");
+    function deepCopy(source) {
+        var result={};
+        for (var key in source) {
+            result[key] = typeof source[key]==='object'
+                ? deepCopy(source[key])
+                : source[key];
+        }
+        return result;
+    }
     angular.module("controller.main",["ng.ueditor"]).
     controller('main',['$scope','showCtrl','dataService','FileUploader','pageResult',"userPageResult","$window"
         ,function($scope,showCtrl,dataService,FileUploader,pageResult,userPageResult,$window){
+
+            userPageResult = deepCopy(pageResult);
             /************************数据模型****************************/
             //设置用户的权限分配
             $scope.userPowers = [{name:"普通用户",value:"1"},{name:"名人",value:"2"}]
@@ -41,6 +52,8 @@
             },function(err,result){
                 $scope.array_custom = result;
             })
+
+
 
             //初始获取所有分类信息
             dataService.getConfig()
@@ -85,7 +98,6 @@
                     $scope.pojo_custom = {};
                     $scope.pojo_custom.checkcounts = 0;
                     $scope.pojo_custom.topno = 0;
-                    $scope.pojo_custom.praiseCounts = 0;
                     $scope.pojo_custom.keyword = [];
                     $scope.pojo_custom.cate1 = $scope.webConfig.articleCates[0];
                     $scope.pojo_custom.status = 3;
@@ -135,7 +147,6 @@ y                }
                     dataService.saveCustomer($scope.pojo_custom)
                     .success(function(data){
                         if(!data.err){
-                            console.log(data.result);
                             $scope.array_custom.$add(data.result);
                             $scope.show.$set('cuslist');
                         }else{
@@ -159,8 +170,7 @@ y                }
             /****************************查询用户**********************************/
             //用户pojo
             $scope.array_user = [];
-            $scope.search_user = {"$$_name":"","usertype":""};
-            $scope.userPowers = [{name:"普通用户",usertype:1},{name:"名人",usertype:2}];
+            $scope.search_user = {"$$_name":""};
 
             //打开查询用户界面
             $scope.chooseUser = function(){

@@ -41,7 +41,7 @@ var articleSchema = new Schema({
     checkcounts:{type:Number,default:0},//查看次数
     collections:[Schema.Types.ObjectId],//收藏次数 添加用户id
     comments:[Schema.Types.ObjectId],//评论数组,储存评论_id
-    praiseCounts:{type:Number,default:0},//喜欢次数
+    praiseCounts:[Schema.Types.ObjectId],//喜欢次数
     /** 从内容中抽取的图片路径 */
     contentPicUrl:String,
 

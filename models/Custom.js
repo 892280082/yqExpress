@@ -11,7 +11,6 @@
  * 5.pullProduct 删除产品 -call('err',删除信息)
  * 6.pushAttentions 添加关注，被关注的一方pushfollowers
  * 7.pullAttentions 取消关注  被关注的一方pullfollowers
- *
  * @api pojo层
  * 1.saveUser - 保存用户，并配置加密算法(md5)ok  -call('err',保存后的user对象)
  *
@@ -73,13 +72,18 @@ var customSchema = new Schema({
     bigimgurl:String,//大图
     bannerurl:String,//封面图片
     bannerno:Number,//模块Banner展示顺序 0 不展示
-    recommens:[recommd],//推荐的创品或者文章集合
 
     checkcounts:{type:Number,default:0},//查看次数
-    productions:[Schema.Types.ObjectId],//创品数量
-    articles:[Schema.Types.ObjectId],//用户文章
-    followers:[Schema.Types.ObjectId],//我的粉丝
-    attentions:[Schema.Types.ObjectId],//我关注的人
+    productions:[Schema.Types.ObjectId],//创品数量 id
+    articles:[Schema.Types.ObjectId],//用户文章 id
+    followers:[Schema.Types.ObjectId],//我的粉丝 id
+    attentions:[Schema.Types.ObjectId],//我关注的人 id
+
+    /**用户的收藏*/
+    collecArticles:[Schema.Types.ObjectId],//用户收藏的文章
+
+    /**非持久化对象*/
+    recommens:[recommd],//推荐的创品或者文章集合
 });
 
 /**
@@ -219,11 +223,11 @@ customSchema.statics.pullProduct = function(_cusId,_proId,callback){
 customSchema.statics.pushAttentions = function(_selfId,_otherId,callback){
     mongooseUtil.dealAllCollectionId({
         parentId:_selfId,
+        parentPojo:_otherId,
         collecname:"attentions",
         childId:_otherId,
         childDao:this,
         childCollecname:"followers",
-        parentPojo:_otherId,
         childPojo:_selfId,
         callback:callback
     },this);
@@ -248,8 +252,49 @@ customSchema.statics.pullAttentions = function(_selfId,_otherId,callback){
     },this);
 }
 
+ /**
+  * @desc 用户收藏当前文章
+  * @param _selfId {String} - 用户ID
+  * @param _otherId {String} - 文章ID
+  * @param callback {Function} - 回调函数
+  */
+ customSchema.statics.addUserCollecArticle = function(_userId,_artId,callback){
+     var Article = require('./Article');
+     mongooseUtil.dealAllCollectionId({
+         parentId:_userId,
+         parentPojo:_artId,
+         collecname:"collecArticles",
+         childId:_artId,
+         childDao:Article,
+         childCollecname:"collections",
+         childPojo:_userId,
+         callback:callback
+     },this);
+ }
+
+ /**
+  * @desc 用户取消收藏当前文章
+  * @param _selfId {String} - 用户ID
+  * @param _otherId {String} - 文章ID
+  * @param callback {Function} - 回调函数
+  */
+ customSchema.statics.removeUserCollecArticle = function(_userId,_artId,callback){
+     var Article = require('./Article');
+     mongooseUtil.dealAllCollectionId({
+         parentId:_userId,
+         parentPojo:_artId,
+         collecname:"-collecArticles",
+         childId:_artId,
+         childDao:Article,
+         childCollecname:"-collections",
+         childPojo:_userId,
+         callback:callback
+     },this);
+ }
 
 
-var  custom = mongoose.model("customs", customSchema);
+
+
+ var  custom = mongoose.model("customs", customSchema);
 module.exports = custom;
 

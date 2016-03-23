@@ -16,6 +16,8 @@ require("../../lib/src/directive/angular-ueditor.js");
 require("../../bower_components/angular/angular-file-upload.min.js");
 ///**加载后台数据接口*/
 require("./src/service/art_detail_server.js");
+//加载用户server
+require("./src/service/user_service.js");
 ///**加载主程序人口*/
 require("./src/controller/art_detail_control.js");
 
@@ -23,6 +25,7 @@ var app = angular.module('myApp',[
     'angularFileUpload',
     'service.showCtrl',
     'service.art_detail_server',
+    'service.user_service',
     pageResult.service_pageResult,
     'controller.art_detail_control'
     ]);

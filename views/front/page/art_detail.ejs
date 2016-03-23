@@ -36,13 +36,34 @@
                <%- article.content %>
             </div>
             <div class="likes">
-                <span>
+                <span ng-show="!LikeFlag">
                     <a title="喜欢" ng-click="parseArticle();">
                     <img src="/front/resource/images/lisk.jpg" />
-                    </a><p>{{ AticleParseCount }}</p></span>
-                <span><a title="收藏">
-                    <img src="/front/resource/images/scang.jpg"/></a><p>
-                    <%- article.collections.length  %>人收藏</p></span>
+                    </a><p>{{ article.praiseCounts.length }}</p>
+                    喜欢
+                </span>
+                <span ng-show="LikeFlag">
+                    <a title="喜欢" ng-click="callParse();">
+                        <img src="/front/resource/images/lisk.jpg" />
+                    </a><p>{{ article.praiseCounts.length }}</p>
+                    不喜欢
+                </span>
+
+                <span ng-show="!collecFlag"><a title="收藏">
+                    <a href="" ng-click="addCollectArticle()">
+                        <img src="/front/resource/images/scang.jpg"/></a><p>
+                    </a>
+                    {{ article.collections.length  }}人收藏</p>
+                    收藏
+                </span>
+
+                <span ng-show="collecFlag"><a title="收藏">
+                    <a href="" ng-click="cancelCollectArticle()">
+                        <img src="/front/resource/images/scang.jpg"/></a><p>
+                    </a>
+                    {{ article.collections.length  }}人收藏</p>
+                    取消收藏
+                </span>
             </div>
         </div>
         <div class="comment clearfix">
@@ -64,7 +85,7 @@
                 <div class="portrait">
                     <a href="#">
                         <img class="zz" src="/front/resource/images/pozhezhao.png" />
-                        <img class="tx" ng-src="{{  comment.headUrl  }}"/>
+                        <img class="tx" width="70" height="70"  ng-src="{{  comment.headUrl  }}"/>
                     </a>
                 </div>
                 <div class="midle lt">
@@ -74,7 +95,31 @@
                 <div class="other rt">
                     <span class="time">{{ comment.creatTime | date:'yyyy-MM-dd' }}</span>
                     <span class="time">{{ comment.creatTime | date:'HH:mm' }}</span>
-                    <span class="time" style="cursor: pointer;" ng-click="replay(comment);">回复</span>
+                    <span class="time" style="cursor: pointer;" ng-click="comment.replayIng = true">回复</span>
+                </div>
+                <div>
+                    <div class="seclist" ng-repeat="replay in comment.replays">
+                        <div class="userpor">
+                            <img class="t1" src="/front/resource/images/smalzz.png" />
+                            <img class="t2" ng-src="{{ replay.headUrl  }}" width="44" height="44" />
+                        </div>
+                        <div class="mid">
+                            <h7>{{ replay.userName  }}</h7>
+                            <div class="nr">{{ replay.content }}</div>
+                        </div>
+                        <div class="date">
+                            <span class="time">{{ replay.creatTime | date:'yyyy-MM-dd' }}</span>
+                            <span class="time">{{ replay.creatTime | date:'HH:mm' }}</span>
+                            <span class="time"><a href="#">回复</a></span>
+                        </div>
+                    </div>
+                </div>
+                <div ng-show="comment.replayIng" class="seclist">
+                    <div class="huifu">
+                        <h7>回复叶芹</h7>
+                        <div class="nr"><textarea  ng-model="replayPojo.content"></textarea></div>
+                        <button  ng-click="sendReply(comment)">提交</button>
+                    </div>
                 </div>
             </div>
             <div class="clikemore">
@@ -100,8 +145,13 @@
                                     <span class="name"><%- user.realName %></span><br />
                                 </a>
                                 <span class="jop">职业：<%- user.job.cateName %></span><br />
-                                <span class="fans">粉丝：<%- user.followers.length %></span><br />
-                                <span class="gz">加关注</span>
+                                <span class="fans">粉丝：{{ articleAuthor.followers.length }}</span><br />
+
+                                <span ng-show="attenFlag"  ng-click="cancelAttention()"
+                                                   class="gz">取消关注</span>
+                                <span ng-show="!attenFlag" ng-click="addAttention()"
+                                                   class="gz">加关注</span>
+
                             </div>
                     </div>
                     <div class="botttom"></div>
@@ -119,9 +169,21 @@
 </div>
 <% include ../include/foot %>
 <script type="text/javascript"> 
-    GLOBAL_ARTILCE_ID = "<%- article._id %>";
-    GLOBAL_ARTILCE_PARSECOUNT = "<%- article.praiseCounts  %>";
+    GLOBAL_ARTILCE_ID = "<%- article._id %>";//文章ID
     GLOBAL_ARTILCE_COMMENTCOUNT = "<%- article.comments.length  %>";
+
+    //名人信息
+    GLOBAL_CUSTOMER = {
+        "_id":'<%- article.$user ? article.$user._id : '' %>',
+    }
+
+    //用户信息
+    GLOBAL_USER = {
+        "_id":"<%- $session.USER ? $session.USER._id : "" %>",
+        "name":"<%- $session.USER ? $session.USER.name : "" %>",
+        "headUrl":"<%- $session.USER ? $session.USER.imgurl : "" %>",
+    }
+
 </script>
 <script type="text/javascript"  src="/front/dist/art_detail.js"></script>
 </body>

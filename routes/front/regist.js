@@ -81,13 +81,14 @@ router.get("/validateEmailLink/:name/:randomstr",function(req,res){
             }
             next(err,doc);
         })
-        //"randomStr":""
     }).then(function(next,doc){
         Customer.update({"_id":doc._id},{"state":2,},function(err,info){
             if(err){
                 next(err);
             }else{
-               return res.render("front/loginPage/email_validate",{result:true});
+                doc.state = 2;
+                req.session.USER = doc;
+                return res.render("front/loginPage/email_validate",{result:true});
             }
         })
     }).fail(function(next,err){
@@ -161,5 +162,14 @@ router.post('/doValiLogin',function(req,res){
     })
 })
 
+//用户登出
+router.post('/logout',function(req,res){
+    if(req.session.USER){
+        req.session.USER = null;
+        res.json({"result":"成功登出"});
+    }else{
+        res.json({"err":"未登录!"});
+    }
+});
 
 module.exports = router;

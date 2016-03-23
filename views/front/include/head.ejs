@@ -1,21 +1,30 @@
 <script type="text/javascript">
     function openRegist(url){
         var index = layer.open({
-            type: 2,
+            type:2,
             content: url,
             maxmin: true
         });
         layer.full(index);
     }
-    function openLogin(url) {
-        layer.open({
-            type: 2,
-            area: ['700px', '530px'],
-            fix: false, //不固定
-            maxmin: true,
-            content: url
-        });
+
+    //退出登录
+    function logOut(){
+        $.post("/regist/logout",{},function(data){
+            if(!data.err){
+                layer.msg('登出成功！');
+                setTimeout(function(){
+                    window.location.reload();
+                },500)
+            }else{
+                layer.alert('用户未登录', {
+                    icon: 2,
+                    skin: 'layer-ext-moon'
+                })
+            }
+        })
     }
+
 </script>
 <div class="modal-header head">
     <div class="container"><div class="clearfix">
@@ -35,13 +44,27 @@
                 <li><a href="/front/prolist">创品</a></li>
             </ul>
         </div>
-        <div class="hedlogin">
-            <a href="" onclick="openLogin('/regist/login')" >
-                <img src="/front/resource/images/hdlogin.png" />
-                <span style="cursor: pointer;">登录</span>/
-            </a>
-            <span style="cursor: pointer;"  onclick="openRegist('/regist/index');">注册</span>
-        </div>
+
+        <%    if($session.USER){ %>
+                <% var user = $session.USER %>
+                <div class="hedlogin">
+                    <a href="" onclick="openRegist('/regist/login')" >
+                        <img src="/front/resource/images/hdlogin.png" />
+                        <span style="cursor: pointer;">个人中心</span>
+                    </a>
+                    <span><%- user.name %></span>
+                    <a  style="cursor: pointer;" onclick="logOut()">登出</a>
+                </div>
+        <%    }else{ %>
+                <div class="hedlogin">
+                        <img  onclick="openRegist('/regist/login')"
+                              src="/front/resource/images/hdlogin.png" />
+                        <span onclick="openRegist('/regist/login')"
+                              style="cursor: pointer;">登录</span>/
+                    <span style="cursor: pointer;"  onclick="openRegist('/regist/index');">注册</span>
+                </div>
+        <%    } %>
+
         <div class="search">
             <span><input type="text" placeholder="请输入要搜索的关键词" class="txt" /></span>
             <span><input type="button" class="but" /></span>

@@ -19,7 +19,6 @@ var mongoose = require('mongoose'),
 
 
 var replaySchema = new Schema({
-    _id:Schema.Types.ObjectId,//主键
     _userId:Schema.Types.ObjectId,//回复用户外键
     userName:String,//回复用户姓名
     headUrl:String,//回复用户头像
@@ -35,6 +34,7 @@ var commentSchema = new Schema({
     _articleId:Schema.Types.ObjectId,//文章外键
     _userId:Schema.Types.ObjectId,//评论用户外键
     userName:String,//评论用户姓名
+    headUrl:String,//评论用户头像
     content:String,//评论内容
     creatTime:{type:Date,default:Date.now},//评论时间
     praiseCounts:{type:Number,default:0},//赞次数
@@ -55,7 +55,7 @@ commentSchema.statics.pushReplay = function(_ariId,replay,callback){
         "$push":{ "replays":replay }
     },function(err,info){
         err && console.log(err);
-        callback(err);
+        callback(err,info);
     });
 }
 

@@ -10,7 +10,7 @@
     controller('user_login_control',['$scope','showCtrl','user_service','FileUploader','pageResult',"$window","dataService","$interval"
         ,function($scope,showCtrl,user_service,FileUploader,pageResult,$window,dataService,$interval){
             /*****************************数据Model************************************/
-                $scope.subForm = {};
+            $scope.subForm = {};
 
 
             /**************************控制器************************************/
@@ -32,11 +32,18 @@
                 user_service.subLoginInfo(cryptoPassword($scope.subForm))
                     .success(function(data){
                         if(!data.err){
-                            alert("登录成功！！！");
+                            layer.msg('登录成功！');
+                            window.parent.location.reload();
+                            setTimeout(function(){
+                                var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                                console.log(index);
+                                parent.layer.close(index);
+                            },1000)
                         }else{
+                            $scope.changePic();
                             layer.alert(data.err, {
-                                icon: 1,
-                                skin: 'layer-ext-moon' //该皮肤由layer.seaning.com友情扩展。关于皮肤的扩展规则，去这里查阅
+                                icon: 2,
+                                skin: 'layer-ext-moon'
                             })
                         }
                     }).error(function(data){

@@ -18,11 +18,11 @@ moment.validateTime = function(startData,overData,infos) {
 	else
 		return infos[2];
 }
-var ejsExtend = function(req,res,next){
+
+exports.extend = function(req,res,next){
 	res.locals._ = _;
 	res.locals.$moment = moment;
 	res.locals.$session = req.session;
 	next();
 }
 
-module.exports = ejsExtend;

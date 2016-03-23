@@ -13,7 +13,7 @@
             /************************数据模型****************************/
             $scope.show = true;
 
-            $scope.emailForm = {};//email信息
+            $scope.emailForm = {policy:false};//email信息
 
             $scope.telForm = {};//手机信息注册
 
@@ -77,12 +77,14 @@
                                 })
                             }
                         }else{
+                            $scope.changePic();
                             layer.alert(data.err, {
                                 icon: 0,
                                 skin: 'layer-ext-moon'
                             })
                         }
                     }).error(function(data){
+                        $scope.changePic();
                         layer.close(index);
                         layer.alert(data.err, {
                             icon: 0,
