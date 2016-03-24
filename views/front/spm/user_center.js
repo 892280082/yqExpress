@@ -4,6 +4,7 @@
  * @date 2016/2/29
  * */
 var angular = require("angular");
+var ngAnimate = require("angular-animate");
 require("../../lib/jsExtend.js");//加载 原型扩展
 var pageResult = require("../../lib/src/service/angular_pageresult.js");//加载分页插件
 require("../../lib/src/directive/angular-ueditor.js");//加载ueditor插件
@@ -18,6 +19,7 @@ require("../userpage/controller/user_center_collect.js");//收藏控制器
 require("../userpage/controller/user_center_work.js");//作品控制器
 
 var app = angular.module('myApp',[
+    ngAnimate,
     'ngRoute',
     'angularFileUpload',
     'controller.user_center_active',
@@ -48,5 +50,20 @@ app.config(["$routeProvider",function($routeProvider){
         });
 }]);
 
-
-
+app.animation('.view-slide-in', function () {
+    return {
+        enter: function(element, done) {
+            element.css({
+                opacity: 0.5,
+                position: "relative",
+                top: "10px",
+                left: "20px"
+            })
+                .animate({
+                    top: 0,
+                    left: 0,
+                    opacity: 1
+                }, 1000, done);
+        }
+    };
+});

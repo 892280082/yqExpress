@@ -10,7 +10,7 @@
         ,function($scope,user_service,FileUploader,pageResult,$window){
             /*****************************数据Model************************************/
 
-                alert("collect");
+                console.log("collect");
 
         }])
 
