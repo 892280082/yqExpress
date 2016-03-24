@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="myApp">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>个人中心</title>
+    <% include ../include/baseLink.ejs %>
+    <link rel="stylesheet" type="text/css" href="/front/resource/css/user.css"/>
+    <script type="text/javascript" src="/front/dist/user_center.js"></script>
+</head>
+<body>
+<%  var user = $session.USER %>
+<div class="wap clearfix">
+    <div class="on-1200">
+        <div class="personal-head">
+            <div class="per-hd">
+                <div class="per-hd-img">
+                    <a href="#"><img src="/front/resource/images/per-tx.jpg" /></a>
+                </div>
+                <div class="per-hd-name"><%- user.name %></div>
+                <div class="per-hd-jop"><%- user.job.cateName %></div>
+                <div class="per-hd-hd">
+                    <span class="fans">粉丝<b><%- user.followers.length %></b>人</span><br />
+                    <span class="shouc">收藏<b>65</b>人</span>
+                </div>
+            </div>
+        </div>
+        <div class="personal-nav">
+            <ul>
+                <li><a href="#">作品</a></li>
+                <li><a href="#" class="over">活动</a></li>
+                <li><a href="#">收藏</a></li>
+                <li><a href="#">评论</a></li>
+            </ul>
+        </div>
+        <div class="personal-cont clearfix">
+            <ul class="work clearfix">
+                <li>
+                    <div class="margin20">
+                        <img class="hdimg" src="/front/resource/images/4.jpg" />
+                        <h3><a href="#">谁说我回不到过去，时间会给我答案</a></h3>
+                        <div class="cz"><span class="date lt">活动时间：2016-3-24——2016-4-24</span></div>
+                    </div>
+                </li>
+                <li>
+                    <div class="margin20">
+                        <img class="hdimg" src="/front/resource/images/3.jpg" />
+                        <h3><a href="#">生命的意义，在身边寻求</a></h3>
+                        <div class="cz"><span class="date lt">活动时间：2016-3-24——2016-4-24</span></div>
+                    </div>
+                </li>
+                <li>
+                    <div class="margin20">
+                        <img class="hdimg" src="/front/resource/images/2.jpg" />
+                        <h3><a href="#">谁说我回不到过去，时间会给我答案</a></h3>
+                        <div class="cz"><span class="date lt">活动时间：2016-3-24——2016-4-24</span></div>
+                    </div>
+                </li>
+                <li>
+                    <div class="margin20">
+                        <img class="hdimg" src="/front/resource/images/6.jpg" />
+                        <h3><a href="#">谁说我回不到过去，时间会给我答案</a></h3>
+                        <div class="cz"><span class="date lt">活动时间：2016-3-24——2016-4-24</span></div>
+                    </div>
+                </li><li>
+                    <div class="margin20">
+                        <img class="hdimg" src="/front/resource/images/4.jpg" />
+                        <h3><a href="#">谁说我回不到过去，时间会给我答案</a></h3>
+                        <div class="cz"><span class="date lt">活动时间：2016-3-24——2016-4-24</span></div>
+                    </div>
+                </li>
+                <li>
+                    <div class="margin20">
+                        <img class="hdimg" src="/front/resource/images/4.jpg" />
+                        <h3><a href="#">谁说我回不到过去，时间会给我答案</a></h3>
+                        <div class="cz"><span class="date lt">活动时间：2016-3-24——2016-4-24</span></div>
+                    </div>
+                </li>
+                <li>
+                    <div class="margin20">
+                        <img class="hdimg" src="/front/resource/images/4.jpg" />
+                        <h3><a href="#">谁说我回不到过去，时间会给我答案</a></h3>
+                        <div class="cz"><span class="date lt">活动时间：2016-3-24——2016-4-24</span></div>
+                    </div>
+                </li>
+                <li>
+                    <div class="margin20">
+                        <img class="hdimg" src="/front/resource/images/4.jpg" />
+                        <h3><a href="#">谁说我回不到过去，时间会给我答案</a></h3>
+                        <div class="cz"><span class="date lt">活动时间：2016-3-24——2016-4-24</span></div>
+                    </div>
+                </li>
+            </ul>
+            <div class="page"><span><a href="#">&lt;</a></span><span><a href="#">1</a></span><span><a href="#">2</a></span><span><a href="#">3</a></span><span><a href="#">4</a></span><span><a href="#">5</a></span><span><a href="#">&gt;</a></span></div>
+        </div>
+    </div>
+</div>
+
+<!-- MAIN CONTENT AND INJECTED VIEWS -->
+<div id="main">
+    <!-- angular templating -->
+    <!-- this is where content will be injected -->
+    <div ng-view></div>
+
+</div>
+
+
+<% include ../include/head.ejs %>
+</body>
+</html>

@@ -19,8 +19,10 @@ var mongoose = require('mongoose'),
 
 
 var replaySchema = new Schema({
-    _userId:Schema.Types.ObjectId,//回复用户外键
+    toName:String,//被回复的昵称
+    toUserId:Schema.Types.ObjectId,//被回复用户外键
     userName:String,//回复用户姓名
+    _userId:Schema.Types.ObjectId,//回复用户外键
     headUrl:String,//回复用户头像
     content:String,//回复内容
     creatTime:{type:Date,default:Date.now},//回复时间

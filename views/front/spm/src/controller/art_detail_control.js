@@ -124,45 +124,6 @@
                     })
             }
 
-            //关注用户
-            $scope.addAttention = function(){
-                user_service.attentionUser($scope.articleAuthor._id)
-                    .success(function(data){
-                        if(!data.err){
-                            $scope.attenFlag = !$scope.attenFlag;
-                            $scope.articleAuthor.followers.push($scope.user._id);
-                        }else{
-                            console.log("推送错误");
-                        }
-                    })
-            }
-
-            //取消关注
-            $scope.cancelAttention = function(){
-                user_service.cencalAttentionUser($scope.articleAuthor._id)
-                    .success(function(data){
-                        if(!data.err){
-                            $scope.attenFlag = !$scope.attenFlag;
-                            $scope.articleAuthor.followers.remove($scope.user._id);
-                        }else{
-                            console.log("推送错误");
-                        }
-                    })
-            }
-
-
-            //获取用户状态
-            user_service.getCustomById($scope.articleAuthor._id)
-                .success(function(data){
-                    if(!data.err){
-                        $scope.attenFlag = _.contains(data.result.followers,$scope.user._id);
-                        $scope.articleAuthor = data.result;
-                    }else{
-                        console.log("推送错误");
-                    }
-                })
-
-
 
             //评论对象
             $scope.commentPojo = {
@@ -172,6 +133,7 @@
                 "headUrl": $scope.user.headUrl,
                 "content": "",
             }
+
             //评论该文章
             $scope.subComment = function () {
                 art_detail_server.pushComment($scope.commentPojo)
@@ -184,38 +146,62 @@
                     })
             }
 
+
             //回复评论
+            $scope.doCommpent = function(comment){
+                comment.tips = '评论: '+comment.userName;
+                comment.replayIng = true;
+                comment.isComment = true;
+            }
+
+            //回复评论对象
             $scope.replayPojo = {
                     _userId:String,//回复用户外键
                     userName:String,//回复用户姓名
                     headUrl:String,//回复用户头像
                     content:"",//回复内容
                     creatTime:{type:Date,default:Date.now},//回复时间
-                }
+            }
+
+            //发送回复
             $scope.sendReply = function(comment){
                 $scope.replayPojo._userId = $scope.user._id;
                 $scope.replayPojo.userName = $scope.user.name;
                 $scope.replayPojo.headUrl = $scope.user.headUrl;
                 $scope.replayPojo.creatTime = new Date();
+                $scope.replayPojo.content = comment.replayContent;
+
+                if(comment.isComment) {
+                    //评论
+                }else{
+                    //回复
+                    var targetReplay = comment.targetReplay;
+                    $scope.replayPojo.toName = targetReplay.userName;
+                    $scope.replayPojo.toUserId = targetReplay._userId;
+                }
 
                 var newPojo = _.clone($scope.replayPojo)
-                art_detail_server.sendReplay(comment._id,newPojo)
+                //请求服务器,发送评论
+                art_detail_server.sendReplay(comment._id, newPojo)
                     .success(function (data) {
                         if (!data.err) {
                             comment.replays.push(newPojo);
                             $scope.replayPojo = {};
                             comment.replayIng = false;
-                        }else{
+                            comment.replayContent = "";
+                        } else {
                             alert("评论失败");
                         }
                     })
             }
 
-            //查询方法
-            $scope.search = function(){
-                $scope.array_custom.$search($scope.search_custom);
+            //回复用户的回复
+            $scope.toReplay = function(replay,comment){
+                comment.targetReplay = replay;
+                comment.isComment = false;
+                comment.tips = '回复: '+replay.userName;
+                comment.replayIng = true;
             }
-
 
         }])
 

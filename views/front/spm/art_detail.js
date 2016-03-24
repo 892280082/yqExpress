@@ -18,6 +18,8 @@ require("../../bower_components/angular/angular-file-upload.min.js");
 require("./src/service/art_detail_server.js");
 //加载用户server
 require("./src/service/user_service.js");
+//加载用户指令server
+require("./src/directive/directive_attention.js");
 ///**加载主程序人口*/
 require("./src/controller/art_detail_control.js");
 
@@ -26,6 +28,7 @@ var app = angular.module('myApp',[
     'service.showCtrl',
     'service.art_detail_server',
     'service.user_service',
+    'directive-attention',
     pageResult.service_pageResult,
     'controller.art_detail_control'
     ]);

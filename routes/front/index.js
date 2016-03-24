@@ -197,8 +197,11 @@ router.post('/cancelcollecCurArt',function(req,res){
 router.post('/getAttentionState',function(req,res){
 	var authorId = req.body._id;//作者ID
 	var userId = req.session.USER._id;//用户ID
+
 	Customer.findOne({"_id":authorId},function(err,doc){
-		res.json({err:err,result:_.contains(doc.followers,userId)});
+		if(!doc)
+			return res.json({"result":false});
+		res.json({err:err,result:mongooseUtil.contains(doc.followers,userId)});
 	})
 })
 
@@ -275,5 +278,11 @@ router.post('/getArticleById',function(req,res){
 	})
 })
 
+//进入个人中心页面
+router.get('/toUserCenter/:_id',function(req,res){
+	if(req.session.USER._id !== req.params._id)
+		return res.send({"err":"no power!"});
+	res.render('front/userpage/main');
+})
 
 module.exports = router;

@@ -1,0 +1,49 @@
+/**
+ * @desc 处理用户数据
+ * @author yq
+ * @date 2016/2/29
+ * */
+var angular = require("angular");
+require("../../lib/jsExtend.js");//加载 原型扩展
+var pageResult = require("../../lib/src/service/angular_pageresult.js");//加载分页插件
+require("../../lib/src/directive/angular-ueditor.js");//加载ueditor插件
+require("../../bower_components/angular/angular-file-upload.min.js");//加载上传插件
+require("../../bower_components/angular/angular-route.min.js");//加载路由插件
+require("./src/service/art_detail_server.js");//创品服务
+require("./src/service/pro_list_server.js");//创品服务
+require("./src/service/dataService.js");//数据分类服务
+require("./src/service/user_service.js");//用户服务
+require("../userpage/controller/user_center_active.js");//活动控制器
+
+var app = angular.module('myApp',[
+    'ngRoute',
+    'angularFileUpload',
+    'controller.user_center_active',
+    'service.user_service',
+    pageResult.service_pageResult,
+]);
+
+
+app.config(["$routeProvider",function($routeProvider){
+        $routeProvider
+        // route for the home page
+        .when('/',{
+            templateUrl : '/front/userpage/active.html',
+            controller  : 'user_center_active'
+        })
+
+        // route for the about page
+        .when('/about', {
+            templateUrl : 'pages/about.html',
+            controller  : 'aboutController'
+        })
+
+        // route for the contact page
+        .when('/contact', {
+            templateUrl : 'pages/contact.html',
+            controller  : 'contactController'
+        });
+}]);
+
+
+

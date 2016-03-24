@@ -18,6 +18,7 @@ var objectid = require("objectid"),
  * 9.increateProtoById model一个属性的增加和减少 -call('err');
  * 10.pushInnerCollectionById 像model的内部集合推送对象 -call(err,info);
  * 11.pushInnerCollectionById 像model的内部集合删除对象 -call(err,info);
+ * 12.contains 判断数组中是否有指定的object -call(Boolean)
  */
 
 
@@ -366,4 +367,15 @@ exports.pullInnerCollectionById = function(_id,Dao,innerCollec,pojo,callback){
         }
         return callback(err,info);
     })
+}
+
+/**
+ * @param idArray {Array} -id数组
+ * @param targetId -{String} -目标ID
+ * @returns {boolean}
+ */
+exports.contains = function(idArray,targetId){
+   return !! _.find(idArray,function(ele){
+       return ele == targetId;
+   })
 }

@@ -48,10 +48,12 @@
         <%    if($session.USER){ %>
                 <% var user = $session.USER %>
                 <div class="hedlogin">
-                    <a href="" onclick="openRegist('/regist/login')" >
+
+                    <a href="/front/toUserCenter/<%-user._id  %>" >
                         <img src="/front/resource/images/hdlogin.png" />
                         <span style="cursor: pointer;">个人中心</span>
                     </a>
+
                     <span><%- user.name %></span>
                     <a  style="cursor: pointer;" onclick="logOut()">登出</a>
                 </div>

@@ -6,8 +6,8 @@
     var _ = require("underscore");
     angular.module("controller.cus_detail_control",[
                                         "ng.ueditor"
-    ]).controller('cus_detail_control',['$scope','showCtrl','FileUploader','pageResult','$window'
-        ,function($scope,showCtrl,FileUploader,pageResult,$window){
+    ]).controller('cus_detail_control',['$scope','showCtrl','FileUploader','pageResult','$window','user_service'
+        ,function($scope,showCtrl,FileUploader,pageResult,$window,user_service){
 
             //对象的拷贝
             function deepCopy(source) {

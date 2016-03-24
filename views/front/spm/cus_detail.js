@@ -14,13 +14,15 @@ var pageResult = require("../../lib/src/service/angular_pageresult.js");
 require("../../lib/src/directive/angular-ueditor.js");
 ///**加载上传插件*/
 require("../../bower_components/angular/angular-file-upload.min.js");
-///**加载后台数据接口*/
+//加载用户指令server
+require("./src/directive/directive_attention.js");
 ///**加载主程序人口*/
 require("./src/controller/cus_detail_control.js");
 
 var app = angular.module('myApp',[
     'angularFileUpload',
     'service.showCtrl',
+    'directive-attention',
     pageResult.service_pageResult,
     'controller.cus_detail_control'
     ]);

@@ -1,0 +1,60 @@
+@charset "utf-8";
+/* CSS Document */
+/* CSS 2016 3 23 索德斯奈 */
+a:active{ text-decoration:none;}
+a:visited{ text-decoration:none;}
+.ht75{height:65px;}
+.margin20{margin:20px;}
+.personal-head{height:410px;background:url(../images/user-head-bj.jpg) no-repeat;}
+.per-hd{padding-top:88px; text-align:center; font-family:"microsoft yahei";}
+.per-hd-img{}
+.per-hd-img,.per-hd-img img{ width: 209px;height:209px;border-radius:105px;}
+.per-hd-img img{border:5px solid #d7d7d7;box-shadow: 3px 3px 10px 0px #e1e1e1;-webkit-box-shadow: 3px 3px 10px 0px #e1e1e1;-moz-box-shadow: 3px 3px 10px 0px #e1e1e1;margin-top:-10px;transition: margin-top 1s, transform 1s;
+-moz-transition: margin-top 1s, -moz-transform 1s;
+-webkit-transition: margin-top 1s, -webkit-transform 1s;
+-o-transition: margin-top 1s,-o-transform 1s;}
+.per-hd-img img:hover{margin-top:-22px;}
+.per-hd-name{ font-size:20px; font-weight:bold;color:#393939;padding-top:14px;    text-shadow: 1px 1px 1px #b0b0b0;-webkit-text-shadow: 3px 3px 10px 0px #e1e1e1;-moz-text-shadow: 3px 3px 10px 0px #e1e1e1;}
+.per-hd-jop{ font-size:14px;color:#a7a7a7;padding-top:5px;}
+.per-hd-hd{ text-align:right;margin:0 24px;}
+.per-hd-hd span{ text-align:left;width:120px; display:inline-block;color:#a7a7a7; font-size:14px;height:22px;padding-left:22px;}
+.per-hd-hd span.fans{background:url(../images/per2.png) 0 3px no-repeat;}
+.per-hd-hd span.shouc{background:url(../images/per2.png) 0 -20px no-repeat;}
+.per-hd-hd span b{color:#ffa820;padding:0 5px;}
+
+.personal-nav{height:54px;border-radius:5px;background:#fff; line-height:54px;font-family:"microsoft yahei";margin-top:30px;}
+.personal-nav ul{}
+.personal-nav ul li{ float:left;width:25%; text-align:center;}
+.personal-nav ul li a{ font-size:18px;color:#414141;border-right:1px solid #f7f7f7; display:block;}
+.personal-nav ul li a:hover,.personal-nav ul li a.over{color:#e6bf70; text-decoration:none;}
+/*.personal-nav ul li a.over{border-top:4px solid #fbc647;height:54px; line-height:49px;}*/
+.personal-nav ul li{}
+.personal-cont{min-height:400px;background:#fff;border-radius:5px;margin-top:18px;}
+.personal-cont ul .margin20{margin-bottom:0px;}
+.personal-cont ul.work{padding:0px;font-family:"microsoft yahei"; }
+.personal-cont ul.work li{width:300px;float:left; display:inline;border-right:1px solid #f7f7f7;border-bottom:1px solid #f7f7f7;}
+.personal-cont ul.work .workimg{width:259px;height:222px;border-radius:5px;}
+.personal-cont ul.work .hdimg{width:259px;height:150px;border-radius:5px;}
+.personal-cont ul.work li h3{font-size:14px;height:40px; line-height:40px;}
+.personal-cont ul.work li h3 a{color:#4f4f4f;}
+.personal-cont ul.work .adr{ font-size:12px;padding-bottom:10px;}
+.personal-cont ul.work .adr a,.personal-cont ul.work .votes,.personal-cont ul.work .date{color:#a3a3a3;}
+.personal-cont ul.work .cz{border-top:1px solid #f7f7f7; font-size:12px; line-height:30px;}
+.personal-cont ul.work .votes b{ color:#ffa820;padding:0 5px;}
+
+.personal-cont .per-tab{height:70px;border-bottom:1px solid #f7f7f7; font-family:"microsoft yahei";padding:13px 13px;}
+.personal-cont .per-tab span{}
+.personal-cont .per-tab span a{padding:11px 13px; display:block; float:left;color:#4f4f4f;margin-right:24px; font-size:16px;}
+/*.personal-cont .per-tab span a:hover,.personal-cont .per-tab span a.over{background:#fbc647;color:#fff;border-radius:5px; text-decoration:none;}*/
+/*.personal-cont .sc dt,.personal-cont .sc dd{ float:left;}*/
+.personal-cont .sc{ font-family:"microsoft yahei";padding:24px;}
+.personal-cont .sc dl{ position:relative;border-bottom:1px solid #f7f7f7;padding:24px 0;}
+.personal-cont .sc dt{height:40px;}
+.personal-cont .sc dt b{ font-size:18px;color:#e6bf70;width:76px; display:inline-block;}
+.personal-cont .sc dt a{color:#666; font-size:18px;}
+.personal-cont .sc dd{margin-left:76px;color:#999;}
+.personal-cont .sc dd span{margin-right:10px; font-size:12px;}
+.personal-cont .sc dd span b{color:#999;padding-left:5px; font-weight:normal;}
+.personal-cont .sc .delet{ position:absolute;right:20px;top:69px;}
+.personal-cont .sc .delet a{background:url(../images/delet.jpg) 6px 0 no-repeat;padding-top:40px; font-size:12px;color:#999;}
+.personal-cont .sc .delet a:hover{ text-decoration:none;background:url(../images/delet2.jpg) 6px 0 no-repeat;}

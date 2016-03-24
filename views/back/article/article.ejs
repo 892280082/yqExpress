@@ -18,7 +18,12 @@
     </div>
     <section>
         <label>文章名:</label>
-        <input type="text" class="textbox textbox_295"  ng-model="search_custom.name" />
+        <input type="text" class="textbox textbox_295"  ng-model="search_custom.$$_title" />
+        <label>文章类型:</label>
+        <select  ng-model="search_custom.cate1$cateId" name="t_usertype"
+                 ng-options="m.cateId as m.cateName  for m in webConfig.articleCates">
+            <option value="">-- 全部  --</option>
+        </select>
         <input type="button" value="查询"  ng-click="search();" class="group_btn"/>
     </section>
     <section>
