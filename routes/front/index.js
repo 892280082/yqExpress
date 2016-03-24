@@ -279,8 +279,8 @@ router.post('/getArticleById',function(req,res){
 })
 
 //进入个人中心页面
-router.get('/toUserCenter/:_id',function(req,res){
-	if(req.session.USER._id !== req.params._id)
+router.get('/toUserCenter',function(req,res){
+	if(!req.session.USER._id)
 		return res.send({"err":"no power!"});
 	res.render('front/userpage/main');
 })

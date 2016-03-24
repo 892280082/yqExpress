@@ -14,11 +14,15 @@ require("./src/service/pro_list_server.js");//创品服务
 require("./src/service/dataService.js");//数据分类服务
 require("./src/service/user_service.js");//用户服务
 require("../userpage/controller/user_center_active.js");//活动控制器
+require("../userpage/controller/user_center_collect.js");//收藏控制器
+require("../userpage/controller/user_center_work.js");//作品控制器
 
 var app = angular.module('myApp',[
     'ngRoute',
     'angularFileUpload',
     'controller.user_center_active',
+    'controller.user_center_collect',
+    'controller.user_center_work',
     'service.user_service',
     pageResult.service_pageResult,
 ]);
@@ -26,22 +30,21 @@ var app = angular.module('myApp',[
 
 app.config(["$routeProvider",function($routeProvider){
         $routeProvider
-        // route for the home page
+        //活动主页
         .when('/',{
             templateUrl : '/front/userpage/active.html',
             controller  : 'user_center_active'
         })
 
-        // route for the about page
-        .when('/about', {
-            templateUrl : 'pages/about.html',
-            controller  : 'aboutController'
+        .when('/collect', {
+            templateUrl : '/front/userpage/collec.html',
+            controller  : 'user_center_collect'
         })
 
         // route for the contact page
-        .when('/contact', {
-            templateUrl : 'pages/contact.html',
-            controller  : 'contactController'
+        .when('/work', {
+            templateUrl : '/front/userpage/work.html',
+            controller  : 'user_center_work'
         });
 }]);
 
