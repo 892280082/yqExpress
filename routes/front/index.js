@@ -285,4 +285,11 @@ router.get('/toUserCenter',function(req,res){
 	res.render('front/userpage/main');
 })
 
+
+//获取用户的登陆状态
+router.post('/getLoginStatu',function(req,res){
+	res.json({result:!!req.session.USER});
+})
+
+
 module.exports = router;

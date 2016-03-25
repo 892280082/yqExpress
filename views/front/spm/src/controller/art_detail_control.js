@@ -31,6 +31,7 @@
 
 
 
+
             //用户喜欢状态
             $scope.LikeFlag = false;
             //用户收藏状态
@@ -73,17 +74,17 @@
 
             //喜欢该文章
             $scope.parseArticle = function(){
-
-
-                art_detail_server.increateParse($scope.ArticleId)
-                    .success(function(data){
-                        if(!data.err){
-                            $scope.article.praiseCounts.push($scope.user._id);
-                            $scope.LikeFlag = !$scope.LikeFlag;
-                        }else{
-                            console.log("推送错误");
-                        }
-                    })
+                user_service.validateLoginState(function(){
+                    art_detail_server.increateParse($scope.ArticleId)
+                        .success(function(data){
+                            if(!data.err){
+                                $scope.article.praiseCounts.push($scope.user._id);
+                                $scope.LikeFlag = !$scope.LikeFlag;
+                            }else{
+                                console.log("推送错误");
+                            }
+                        })
+                })
             }
 
             //取消喜欢该文章

@@ -57,5 +57,39 @@ angular.module('service.user_service',[]).service("user_service",["$http"
                 return $http.post('/front/getUserById',{"_id":_id});
             }
 
+            /**
+             * @desc 获取用户的登陆状态
+             *
+             */
+            this._user_login_state = 'init';
+            this.validateLoginState = function(callback){
+                var _this = this;
+                if(this._user_login_state === 'init') {
+                    $http.post('/front/getLoginStatu')
+                        .success(function (data) {
+                            _this._user_login_state = data.result ? 'login' : 'noLogin';
+                            _this.validateLoginState(callback);
+                        }).error(function (data) {
+                            _this._user_login_state = false;
+                        })
+                }else if(_this._user_login_state === 'noLogin'){
+
+                    layer.confirm('此功能需要会员权限', {
+                        btn: ['登陆','取消'] //按钮
+                    }, function(){
+                        var index = layer.open({
+                            type:2,
+                            content: '/regist/login',
+                            maxmin: true
+                        });
+                        layer.full(index);
+                    }, function(){
+
+                    });
+
+                }else if(_this._user_login_state === 'login'){
+                    return callback();
+                }
+            }
 
     }]);
