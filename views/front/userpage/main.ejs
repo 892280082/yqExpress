@@ -5,14 +5,16 @@
     <title>个人中心</title>
     <% include ../include/baseLink.ejs %>
     <link rel="stylesheet" type="text/css" href="/front/resource/css/user.css"/>
+    <!--<link rel="stylesheet" type="text/css" href="/front/resource/css/animate.min.css"/>-->
+    <link rel="stylesheet" type="text/css" href="/front/resource/css/ng-animation.css"/>
     <script type="text/javascript" src="/front/dist/user_center.js"></script>
     <style>
     </style>
 </head>
-<body>
+<body ng-controller="main">
 <%  var user = $session.USER %>
 <div class="wap clearfix">
-    <div class="on-1200">
+    <div class="on-1200" style="width: 1230px;">
         <div class="personal-head">
             <div class="per-hd">
                 <div class="per-hd-img">
@@ -28,15 +30,18 @@
         </div>
         <div class="personal-nav">
             <ul>
-                <li><a href="#/work">作品</a></li>
-                <li><a href="#/" class="over">活动</a></li>
-                <li><a href="#/collect">收藏</a></li>
+                <li><a href="#/work"  ng-class="getOver(1)"   ng-click="overFlag=1;" >作品</a></li>
+                <li><a href="#/active" ng-class="getOver(2)"  ng-click="overFlag=2;" >活动</a></li>
+                <li><a href="#/collect" ng-class="getOver(3)" ng-click="overFlag=3;" >收藏</a></li>
                 <li><a href="#">评论</a></li>
             </ul>
         </div>
         <div>
-            <div ng-view></div>
+            <div class="ui-view-container">
+                <div ui-view  ng-class="'animation scale-fade slide-right'"></div>
+            </div>
         </div>
+
     </div>
 </div>
 <% include ../include/head.ejs %>

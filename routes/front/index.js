@@ -280,8 +280,8 @@ router.post('/getArticleById',function(req,res){
 
 //进入个人中心页面
 router.get('/toUserCenter',function(req,res){
-	if(!req.session.USER._id)
-		return res.send({"err":"no power!"});
+	if(!req.session.USER ||  !req.session.USER._id)
+		return res.redirect("/");
 	res.render('front/userpage/main');
 })
 

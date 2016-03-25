@@ -73,6 +73,8 @@
 
             //喜欢该文章
             $scope.parseArticle = function(){
+
+
                 art_detail_server.increateParse($scope.ArticleId)
                     .success(function(data){
                         if(!data.err){
