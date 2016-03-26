@@ -71,7 +71,7 @@
 
                                 });
                             }else{
-                                layer.alert('邮箱注册成功', {
+                                layer.alert('邮箱注册成功,请前往邮箱激活', {
                                     icon: 1,
                                     skin: 'layer-ext-moon'
                                 })

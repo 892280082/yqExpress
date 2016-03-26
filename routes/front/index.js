@@ -291,5 +291,12 @@ router.post('/getLoginStatu',function(req,res){
 	res.json({result:!!req.session.USER});
 })
 
+//上传作品页面
+router.get('/toUploadWork',function(req,res){
+	if(!req.session.USER ||  !req.session.USER._id)
+		return res.redirect("/");
+	res.render('front/page/update_work');
+})
+
 
 module.exports = router;
