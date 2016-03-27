@@ -7,8 +7,8 @@
     var _ = require("underscore");
     var $ = require("jquery");
     angular.module("controller.main",["ng.ueditor"]).
-    controller('main',['$scope','showCtrl','dataService','FileUploader','pageResult','userPageResult',"$window"
-        ,function($scope,showCtrl,dataService,FileUploader,pageResult,userPageResult,$window){
+    controller('main',['$scope','showCtrl','dataService','FileUploader','userPageResult',"$window"
+        ,function($scope,showCtrl,dataService,FileUploader,userPageResult,$window){
             /************************数据模型****************************/
             //注册或者添加的中间变量
             $scope.pojo_custom = {};
@@ -22,15 +22,6 @@
             $scope.show.$regist('cuslist',['cuslist'],true);
             $scope.show.$regist('cusadd',['cusadd']);
             /***********************分类列表页面************************/
-
-            //初始获取所有创品信息
-            pageResult.$loadInit({
-                                url:"/back/proGetAllData",
-                                pageSize:14,
-                                query:{},
-            },function(err,result){
-                $scope.array_custom = result;
-            })
 
             //查询方法
             $scope.search = function(){
@@ -51,54 +42,6 @@
             })
 
 
-            /****************************查询用户**********************************/
-            //用户pojo
-            $scope.array_user = [];
-            $scope.search_user = {"$$_name":"","usertype":""};
-            $scope.userPowers = [{name:"普通用户",usertype:1},{name:"名人",usertype:2}];
-
-            //打开查询用户界面
-            $scope.chooseUser = function(){
-                //初始获取所有用户信息
-                 $(".pop_bg").fadeIn();
-            }
-
-            userPageResult.$loadInit({
-                                url:"/back/cusGetAllData",
-                                pageSize:12,
-                                query:{},
-            },function(err,result){
-                $scope.array_user = result;
-            })
-            //查询方法
-            $scope.searchUser = function(){
-                $scope.array_user.$search($scope.search_user);
-            }
-
-            $scope.doChooseUser = function(cus){
-                $scope.pojo_custom._userName = cus.name;
-                $scope.pojo_custom._userId = cus._id;
-                $(".pop_bg").fadeOut();
-            }
-
-            /**************************************************************************/
-
-            //删除方法
-            $scope.removeCustom = function(cus){
-                var tFlag = $window.confirm("真的要添加吗");
-                if(!tFlag)
-                    return false;
-                dataService.removeCustomer(cus._id,cus._userId)
-                    .success(function(data){
-                        if(data.err){
-                            alert(data.result);
-                        }else{
-                            $scope.array_custom.$remove(cus);
-                        }
-                    }).error(function(data){
-                        alert("系统错误");
-                    })
-            }
 
             //进入添加页面
             $scope.changeIntoEdit = function(custom){

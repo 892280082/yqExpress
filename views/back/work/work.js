@@ -19,6 +19,8 @@ require("../../bower_components/angular/angular-file-upload.min.js");
 require("./src/service/dataService");
 ///**加载主程序人口*/
 require("./src/controller/main");
+//分页指令
+require("../../lib/src/directive/directive_pagination.js");
 //加载user分页插件
 var userPage = require("./src/service/user_pageresult");
 
@@ -29,6 +31,7 @@ var app = angular.module('myApp',[
     'service.dataService',
     'service_pageResult',
     'controller.main',
+    'directive_pagination',
     userPage.service_userPageResult
     ]);
 

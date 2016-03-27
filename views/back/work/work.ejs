@@ -75,13 +75,10 @@
                 </td>
             </tr>
         </table>
-        <aside class="paging">
-            <a ng-show="array_custom.$last"  ng-click="array_custom.$toLast()">上一页</a>
-            <!--<a>1</a>-->
-            <a>{{ array_custom.$curPage }}/{{ array_custom.$pageCount }}</a>
-            <a ng-show="array_custom.$next"  ng-click="array_custom.$toNext()">下一页</a>
-            <a>总条数:{{ array_custom.$totalSize }}</a>
-        </aside>
+        <yq-pagination
+                url="/back/proGetAllData"
+                data="array_custom" >
+        </yq-pagination>
     </section>
 </script>
 <!-- 用户添加编辑页面-->

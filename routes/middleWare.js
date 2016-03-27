@@ -39,6 +39,11 @@ module.exports = function(app){
 
     //配置上传请求
     app.post('/upload',upload.single('fileName'),function(req,res){
+
+        if(req.file.size > app.get('app_config').main.uploadMaxSize) {
+            return res.status(500).send('file size to big');
+        }
+
         req.file.path = req.file.path.replace("upload", "download");
         var pathArray = [];
         if(app.get('isWindow')){

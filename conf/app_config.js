@@ -22,7 +22,8 @@ module.exports = {
 		root:"http://192.168.1.170:3000",//域名
 		port:3000,//app端口
 		uploadDir:'/upload',//配置文件上传目录,可设置相对和绝对目录
-		winUploadDir:"E:/upload"
+		winUploadDir:"E:/upload",
+		uploadMaxSize:1000*1000*20
 	},
 	/**
 	*@desc 配置mongodb数据库

@@ -17,6 +17,10 @@ var express = require('express'),
 	ejsExtend = require('./util/ejsExtend'),
 	app = express();
 
+
+//加载配置文件
+app.set("app_config",config);
+
 /**
  * @desc 配置开发模式和日志
  */
