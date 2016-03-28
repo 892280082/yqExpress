@@ -74,7 +74,7 @@ angular.module('service.user_service',[]).service("user_service",["$http"
                         })
                 }else if(_this._user_login_state === 'noLogin'){
 
-                    layer.confirm('此功能需要会员权限', {
+                    layer.confirm('前往登录？', {
                         btn: ['登陆','取消'] //按钮
                     }, function(){
                         var index = layer.open({

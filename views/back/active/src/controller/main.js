@@ -116,6 +116,11 @@
                     $scope.pojo_custom.copyRight = '安徽雅集文化传媒版权所有';
                     $scope.pojo_custom.topno=0;
                     $scope.pojo_custom.status = true;
+                    $scope.pojo_custom.demand = {};
+                    $scope.pojo_custom.demand.fileMax = 100;
+                    $scope.pojo_custom.demand.fileSize = 10;
+                    $scope.pojo_custom.demand.fileType = "png jpg";
+
                 }else{
                         $scope.pojo_custom = custom;
                 }
@@ -124,6 +129,7 @@
                 }
                 this.show.$set("cusadd");
             }
+
             /***********************添加或编辑用户页面*****************************/
             //返回用户列表页面
             $scope.toPageList = function(){
@@ -132,6 +138,8 @@
 
             //保存或者更新方法
             $scope.saveOrUpdate = function(){
+
+                console.log($scope.pojo_custom);
                 //保存
                 if(!$scope.pojo_custom._id){
                     dataService.saveCustomer($scope.pojo_custom)

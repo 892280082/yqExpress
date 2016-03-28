@@ -10,29 +10,38 @@ var mongoose = require('mongoose'),
 
 var fileSchema = new Schema({
     url:String,//路径
-    name:String,
-    introduce:String,
+    name:String,//文件名
+    introduce:String,//介绍
+    state:String,//状态
 })
 
 var workSchema = new Schema({
     title:String,//作品名称
     userId:Schema.Types.ObjectId,//用户ID
-    $user:{},
     actId:Schema.Types.ObjectId,//活动ID
-    $active:{},
+
+    userName:String,//用户名
+    activeName:String,//活动名
+
     cate1:{},//类型1
     cate2:{},//类型2
+
     introduce:String,// 作品简介 *
-    checkcounts:{ type:Number,default:0},//关注量 *
-    likes:{ type:Number,default:0},//喜欢
+    checkcounts:{ type:Number,default:0},//关注量
 
     votes:[Schema.Types.ObjectId],//投票
-    topno:{ type:Number,default:0},
+    topno:{ type:Number,default:0},//排序
 
     fileUrls:[fileSchema],
 
-    creatTime:{type:Date,default:Date.now},//创建时间 *
+    creatTime:{type:Date,default:Date.now},//创建时间
     editTime:{type:Date,default:Date.now},//最后修改时间
+
+    state:{type:Number,default:0},//状态 0未通过 1通过
+
+    /**非持久化对象*/
+    $user:{},//用户对象
+    $active:{},//活动对象
 })
 
 var  Work = mongoose.model("works", workSchema);

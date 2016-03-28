@@ -4,8 +4,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>活动详情页</title>
     <% include ../include/baseLink%>
+    <link rel="stylesheet" href="/front/resource/css/login.css"/>
 </head>
-<body>
+<body ng-controller="active_detail_control">
 <script type="text/javascript">
     $(document).ready(function(){
     });
@@ -20,7 +21,7 @@
 <div class="wap clearfix">
     <div class="on-1200">
         <div class="active-head-img">
-            <a href="#"><img src="<%- active.convertUrl %>" width="1152" height="340" /></a>
+            <a href="" ng-click="doJoinActive()" ><img src="<%- active.convertUrl %>" width="1152" height="340" /></a>
         </div>
         <div class="hdcon clearfix">
             <div class="title"><span class="tab1 over" onclick="show('1')">大赛简介</span><span class="tab2" onclick="show('2')">参赛作品</span><span class="tab3" onclick="show('3')">赛事播报</span></div>
@@ -100,80 +101,35 @@
         </div>
     </div>
 </div>
+
+<select-address ng-model="test1111"></select-address>
+
+<div style="display: none"  id="activeForm">
+    <div class="register" style="width: 406px;">
+        <div class="tle"><span  onclick="regshow('1')">确认报名信息</span></div>
+        <div class="rege-a clearfix" id="rege-s1">
+            <div class="rewpt" style="width: 362px;">
+                <dl>
+                    <dt>姓名</dt>
+                    <dd><span class="ti nick-ti"></span><input class="nick wd100" type="text" placeholder="请输入昵称" /></dd>
+                    <dt>手机</dt>
+                    <dd><span class="ti nick-ti"></span><input class="nick wd100" type="text" placeholder="请输入昵称" /></dd>
+                    <dt>邮箱</dt>
+                    <dd><span class="ti email-ti"></span><input class="email wd100" type="text" placeholder="请输入你的电子邮箱" /></dd>
+                    <dt>地址</dt>
+                    <dd><span class="ti email-ti"></span><input class="email wd100" type="text" placeholder="请输入你的电子邮箱" /></dd>
+                    <dt>单位</dt>
+                    <dd><span class="ti email-ti"></span><input class="email wd100" type="text" placeholder="请输入你的电子邮箱" /></dd>
+                    <dd><input type="checkbox" /><t>我已认真阅读活动规则</t></dd>
+                    <dd><input class="afreg" value="下一步" type="button" /></dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <% include ../include/foot %>
-<script type="text/javascript"  src="/front/dist/art_detail.js"></script>
+<script type="text/javascript"  src="/front/dist/active_detail.js"></script>
 </body>
 </html>
-<!--<div class="comment clearfix">-->
-    <!--<div class="shuruk">-->
-        <!--<div class="ruka"><textarea>在此输入你的评论</textarea></div>-->
-        <!--<div class="rukb"><span>已有<b>1205</b>人评论</span><span class="subt"><input type="button" value="发表评论" /></span></div>-->
-    <!--</div>-->
-    <!--<div class="list clearfix">-->
-        <!--<div class="portrait">-->
-            <!--<a href="#">-->
-                <!--<img class="zz" src="/front/resource/images/pozhezhao.png" />-->
-                <!--<img class="tx" src="/front/resource/images/toux2.jpg" />-->
-            <!--</a>-->
-        <!--</div>-->
-        <!--<div class="midle lt">-->
-            <!--<div class="username"><a href="#">索德斯奈</a></div>-->
-            <!--<div class="det">小伙伴们~今天~我美吗~回复邮箱发资源~~</div>-->
-        <!--</div>-->
-        <!--<div class="other rt">-->
-            <!--<span class="time">2016-3-11</span>-->
-            <!--<span class="time">10:33</span>-->
-            <!--<span class="time">回复（<b>478</b>）</span>-->
-        <!--</div>-->
-        <!--<div class="seclist">-->
-            <!--<div class="userpor">-->
-                <!--<img class="t1" src="/front/resource/images/smalzz.png" />-->
-                <!--<img class="t2" src="/front/resource/images/touxsmal1.jpg" />-->
-            <!--</div>-->
-            <!--<div class="mid12">-->
-                <!--<h7>鱼丸兔子的回复</h7>-->
-                <!--<div class="nr">楼主好人~360982972@qq.com邮箱已贴,如果我是DJ你还爱我吗~你还</div>-->
-            <!--</div>-->
-            <!--<div class="date">-->
-                <!--<span class="time">2016-3-11</span>-->
-                <!--<span class="time">10:33</span>-->
-                <!--<span class="time"><a href="#">回复</a></span>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
-    <!--<div class="list clearfix">-->
-        <!--<div class="portrait">-->
-            <!--<a href="#">-->
-                <!--<img class="zz" src="/front/resource/images/pozhezhao.png" />-->
-                <!--<img class="tx" src="/front/resource/images/toux3.jpg" />-->
-            <!--</a>-->
-        <!--</div>-->
-        <!--<div class="midle lt">-->
-            <!--<div class="username"><a href="#">索德斯奈</a></div>-->
-            <!--<div class="det">7th Psarokokalo Athens International Short Film Festival.</div>-->
-        <!--</div>-->
-        <!--<div class="other rt">-->
-            <!--<span class="time">2016-3-11</span>-->
-            <!--<span class="time">10:33</span>-->
-            <!--<span class="time">回复</span>-->
-        <!--</div>-->
-    <!--</div>-->
-    <!--<div class="list clearfix">-->
-        <!--<div class="portrait">-->
-            <!--<a href="#">-->
-                <!--<img class="zz" src="/front/resource/images/pozhezhao.png" />-->
-                <!--<img class="tx" src="/front/resource/images/toux1.jpg" />-->
-            <!--</a>-->
-        <!--</div>-->
-        <!--<div class="midle lt">-->
-            <!--<div class="username"><a href="#">索德斯奈</a></div>-->
-            <!--<div class="det">学过画画的人都很容易排这些线，制作软件用AI就可以了学过画画的人都很容易排这些线，制作软件用AI就可以了</div>-->
-        <!--</div>-->
-        <!--<div class="other rt">-->
-            <!--<span class="time">2016-3-11</span>-->
-            <!--<span class="time">10:33</span>-->
-            <!--<span class="time">回复</span>-->
-        <!--</div>-->
-    <!--</div>-->
-    <!--<div class="clikemore"><span>点击加载更多</span></div>-->
-<!--&lt;!&ndash;</div>&ndash;&gt;-->

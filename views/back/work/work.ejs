@@ -1,15 +1,15 @@
 <!DOCTYPE HTML>
 <html lang="en" ng-app="myApp">
 <style type="text/css">
-.waptitle{width:100%;height:45px; line-height: 45px;border-bottom:1px solid #e1e1e1; font-size:14px;font-family: "microsoft yahei"; font-weight: bold;}
-.waptitle span{ float: right;padding:3px 15px;display:blcok;border:1px solid #ececec; line-height: 25px;margin-top:6px;cursor: pointer;border-radius:3px;}
-.waptitle span:hover{background:#ececec;border:1px solid #e1e1e1;}
-.datatable{width:1000px;margin: 0 auto;}
-.tle1{margin-top:30px;margin-bottom:30px;;font-size:14px; font-family: "microsoft yahei";height:35px; line-height:35px;border-bottom:1px  dashed #ececec;font-weight: bold;}
-.datatable td{padding:6px 0;}
-.tname{width:112px; font-size: 12px;}
-.tiput input{width:200px;}
-.top1{margin-top:5px;}
+    .waptitle{width:100%;height:45px; line-height: 45px;border-bottom:1px solid #e1e1e1; font-size:14px;font-family: "microsoft yahei"; font-weight: bold;}
+    .waptitle span{ float: right;padding:3px 15px;display:blcok;border:1px solid #ececec; line-height: 25px;margin-top:6px;cursor: pointer;border-radius:3px;}
+    .waptitle span:hover{background:#ececec;border:1px solid #e1e1e1;}
+    .datatable{width:1000px;margin: 0 auto;}
+    .tle1{margin-top:30px;margin-bottom:30px;;font-size:14px; font-family: "microsoft yahei";height:35px; line-height:35px;border-bottom:1px  dashed #ececec;font-weight: bold;}
+    .datatable td{padding:6px 0;}
+    .tname{width:112px; font-size: 12px;}
+    .tiput input{width:200px;}
+    .top1{margin-top:5px;}
 </style>
 <head>
     <meta charset="UTF-8">
@@ -19,51 +19,45 @@
 </head>
 <body ng-controller="main">
 <div class="rt_content">
-    <ts-cuslist ng-if="show.cuslist"></ts-cuslist>
-    <ts-cusadd ng-if="show.cusadd"></ts-cusadd>
+    <ts-cuslist ng-show="show.cuslist"></ts-cuslist>
+    <ts-cusadd ng-show="show.cusadd"></ts-cusadd>
 </div>
 <!-- 用户列表页面 -->
 <script type="text/ng-template" id="cuslist">
     <div class="page_title">
-        <h2 class="fl">作业信息列表</h2>
+        <h2 class="fl">作品信息列表</h2>
     </div>
     <section>
-        <label>作业名:</label>
+        <label>作品名:</label>
         <input type="text" class="textbox textbox_295"  ng-model="search_custom.$$_title" />
         <input type="button" value="查询"  ng-click="search();" class="group_btn"/>
     </section>
     <section>
         <div class="page_title">
-            <h2 class="fl">作业信息展示</h2>
-            <a class="fr top_rt_btn"  ng-click="changeIntoEdit()">添加作业</a>
+            <h2 class="fl">作品信息展示</h2>
+            <a class="fr top_rt_btn"  ng-click="changeIntoEdit()">添加作品</a>
         </div>
         <table class="table">
             <tr>
                 <th>ID</th>
-                <th>作业名称</th>
-                <th>作业类型</th>
-                <th>作业价格</th>
-                <th>作业点击率</th>
-                <th>作业库存</th>
-                <th>作业状态</th>
-                <th>所属名人</th>
+                <th>作品名称</th>
+                <th>作品类型</th>
+                <th>作者</th>
+                <th>活动</th>
+                <th>状态</th>
                 <th>首页排序</th>
                 <th>操作</th>
             </tr>
             <tr ng-repeat="cus in array_custom.$array">
                 <td>{{ $index + 1}}</td>
-                <td width="12%"  style="cursor: pointer;" 
+                <td width="12%"  style="cursor: pointer;"
                     ng-click="changeIntoEdit(cus);">{{ cus.title }}</td>
                 <td width="12%">
-                    <span ng-repeat="type in cus.type">
-                        <span>{{type}}</span>&nbsp;&nbsp;
-                    </span>
+                    {{ cus.cate1.cateName }}/{{ cus.cate2.cateName }}
                 </td>
-                <td width="8%">{{ cus.price }}</td>
-                <td width="8%">{{ cus.attentionno }}</td>
-                <td width="8%">{{ cus.kucun }}</td>
-                <td width="8%">{{ cus.status ? '上架中':'已下架' }}</td>
-                <td width="12%">{{ cus._userName }}</td>
+                <td width="8%">{{ cus.$user.name }}</td>
+                <td width="8%">{{ cus.$active.title }}</td>
+                <td width="8%">{{ cus.state }}</td>
                 <td width="8%">{{ cus.topno }}</td>
                 <td>
                     <a ng-click="dealProStatus(cus);"
@@ -76,7 +70,7 @@
             </tr>
         </table>
         <yq-pagination
-                url="/back/proGetAllData"
+                url="/back/getWorkAllData"
                 data="array_custom" >
         </yq-pagination>
     </section>
@@ -84,121 +78,118 @@
 <!-- 用户添加编辑页面-->
 <script type="text/ng-template" id="cusadd" >
     <div class="page_title top1">
-        <h2 class="fl">{{ pojo_custo._id ? '作业编辑' : '作业添加' }}</h2>
+        <h2 class="fl">{{ pojo_custo._id ? '作品编辑' : '作品添加' }}</h2>
         <a class="fr top_rt_btn" ng-click="toPageList();" >返回</a>
     </div>
     <div>
-    <h2 class="fl" ng-if="pojo_custo._id">用户数据编辑</h2>
+        <h2 class="fl" ng-if="pojo_custo._id">用户数据编辑</h2>
     </div>
     <section>
         <form
-            name="subForm"
-            ng-submit="saveOrUpdate()"
-        >
-        <table class="datatable">
-            <tr>
-                <td colspan="6" style="text-align: left;" class="tle1">作业基本信息</td>
-            </tr>
-            <tr>
-                <td class="tname"><label>作业名称:</label></td>
-                <td class="tiput"><input type="text"  ng-model="pojo_custom.title"  name="t_title"
-                           class="textbox" required placeholder="作业名称" /><br/></td>
-                <td><span class="errorTips" ng-show="subForm.t_title.$error.required">请输入作业称</span></td>
-                <td class="tname"><label>作业价格:</label></td>
-                <td class="tiput"><input type="number"  ng-model="pojo_custom.price" name="t_price"
-                           class="textbox" required /><br/></td>
-                <td><span class="errorTips" ng-show="subForm.t_price.$error.required">请输入价格</span></td>
-            </tr>
-            <tr>
-                <td class="tname"><label>作业人:</label></td>
-                <td class="tiput"><input type="text"  ng-model="pojo_custom._userName"  name="_userName"
-                           class="textbox" required placeholder="作业名称"  ng-click="chooseUser();"
-                            /><br/></td>
-                <td><span class="errorTips" ng-show="subForm._userName.$error.required">
-                            请输入作业人</span></td>
-            </tr>
-            <tr>
-                <td class="tname"><label>一级分类:</label></td>
-                <td class="tiput">
-                    <select  ng-model="pojo_custom.cate1" name="t_usertype"
-                             ng-options="(m.cateId + '-------' + m.cateName)  for m in webConfig.productCates">
-                        <option value="">-- 当前:-- {{ pojo_custom.cate1.cateName }}  --</option>
-                    </select><br/>
-                </td>
-                <td></td>
-                <td class="tname"><label>二级分类:</label></td>
-                <td class="tiput">
-                    <select  ng-model="pojo_custom.cate2" name="t_usertype"
-                             ng-options="(m.cateId + '-------' + m.cateName)  for m in pojo_custom.cate1.subCate">
-                        <option value="">-- 当前--{{ pojo_custom.cate2.cateName }} --</option>
-                    </select><br/>
-                </td>
-                <td></td>
-            </tr>
-            <tr>
-                <td class="tname"><label>作业大图:</label></td>
-                <td class="tiput"><input type="file" nv-file-select="" uploader="uploader"  name="t_imgBigUrl" /><br/>
-                    <img ng-src="{{ pojo_custom.imgBigUrl}}" width="160px" height="140px" ng-if="pojo_custom.imgBigUrl"/>
-                <td><span class="errorTips" ng-show="subForm.t_imgBigUrl.$error.required">请输入作业大图</span></td>
-                <td class="tname"><label>banner大图:</label></td>
-                <td class="tiput"><input type="file" nv-file-select=""  uploader="uploaderBannerurl"  name="t_bannerurl" /><br/>
-                    <img ng-src="{{ pojo_custom.bannerurl}}" width="160px" height="140px" ng-if="pojo_custom.bannerurl"/>
-                <td><span class="errorTips" ng-show="subForm.t_bannerurl.$error.required">请输入banner大图</span></td>
-            </tr>
-            <tr>
-                <td colspan="1"><label>作业介绍:</label></td>
-                <td colspan="5"><textarea class="textarea" style="width:635px;height:100px;" 
-                    ng-model="pojo_custom.introduce" name="t_introduce"    required></textarea></td>
-            </tr>   
-            <tr>
-                <td class="tname"><label>首页排序:</label></td>
-                <td class="tiput"><input type="text"  ng-model="pojo_custom.topno" name="t_topno" required 
-                           class="textbox" /><br/></td>
-                <td><span class="errorTips" ng-show="subForm.t_topno.$error.required">请输入首页排序</span></td>
-                <td class="tname"><label>淘宝url:</label></td>
-                <td class="tiput"><input type="text"  ng-model="pojo_custom.taobaoUrl" name="t_taobaoUrl" required 
-                           class="textbox" /><br/></td>
-                <td><span class="errorTips" ng-show="subForm.t_taobaoUrl.$error.required">请输入淘宝url</span></td>
-            </tr>
-            <tr>
-                <td class="tname"><label>作业状态:</label></td>
-                <td>
-                    <input type="radio" ng-model="pojo_custom.status" name="t_status" ng-value="true" 
-                    required  />上架
-                    <input type="radio" ng-model="pojo_custom.status" name="t_status" ng-value="false"
-                    required  />下架
-                </td>
-                <td><span class="errorTips" ng-show="subForm.t_status.$error.required">请输入作业状态</span></td>
-                <td colspan="3"></td>
-            </tr>
-            <tr>
-                <td colspan="3" style="text-align: center;">
-                    <input class="link_btn"  type="submit" ng-disabled="subForm.$invalid" value="提交" /></td>
-                <td colspan="3" style="text-align: center;">
-                    <input class="link_btn" type="button"  ng-click="toPageList();"  value="取消" /></td>
-            </tr>
-        </table>
+                name="subForm"
+                ng-submit="saveOrUpdate()"
+                >
+            <table class="datatable">
+                <tr>
+                    <td colspan="6" style="text-align: left;" class="tle1">作品基本信息</td>
+                </tr>
+                <tr>
+                    <td class="tname"><label>作品名称:</label></td>
+                    <td class="tiput"><input type="text"  ng-model="pojo_custom.title"  name="t_title"
+                                             class="textbox" required placeholder="作品名称" /><br/></td>
+                    <td><span class="errorTips" ng-show="subForm.t_title.$error.required">请输入作品称</span></td>
+                    <td class="tname"><label>作品状态:</label></td>
+                    <td class="tiput"><select  ng-model="pojo_custom.state" name="t_usertype"
+                                               ng-options="m.id as m.name  for m in workState">
+                            <option value="">-- 请选择 --</option>
+                        </select><br/>
+
+                    </td>
+                    <td><span class="errorTips" ng-show="subForm.t_price.$error.required">请输入价格</span></td>
+                </tr>
+                <tr>
+                    <td class="tname"><label>作者:</label></td>
+                    <td class="tiput"><input type="text"
+                                             ng-model="pojo_custom._userName"
+                                             name="_userName"
+                                             class="textbox"
+                                     /><br/>
+                    </td>
+                    <td></td>
+                    <td class="tname"><label>活动:</label></td>
+                    <td class="tiput"><input type="text"
+                                             ng-model="pojo_custom._userName"
+                                             name="_userName"
+                                             class="textbox"
+                                /><br/>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="tname"><label>一级分类:</label></td>
+                    <td class="tiput">
+                        <select  ng-model="pojo_custom.cate1" name="t_usertype"
+                                 ng-options="(m.cateId + '-------' + m.cateName)  for m in webConfig.workCates">
+                            <option value="">-- 当前:-- {{ pojo_custom.cate1.cateName }}  --</option>
+                        </select><br/>
+                    </td>
+                    <td></td>
+                    <td class="tname"><label>二级分类:</label></td>
+                    <td class="tiput">
+                        <select  ng-model="pojo_custom.cate2" name="t_usertype"
+                                 ng-options="(m.cateId + '-------' + m.cateName)  for m in pojo_custom.cate1.subCate">
+                            <option value="">-- 当前--{{ pojo_custom.cate2.cateName }} --</option>
+                        </select><br/>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td colspan="1"><label>作品介绍:</label></td>
+                    <td colspan="5"><textarea class="textarea"
+                                              style="width:635px;height:100px;"
+                                              ng-model="pojo_custom.introduce"
+                                              name="t_introduce"
+                                              required></textarea>
+                    </td>
+                    <td><span class="errorTips" ng-show="subForm.t_introduce.$error.required">请输入作品名称</span></td>
+                </tr>
+
+                <tr>
+                    <td colspan="6" style="text-align: left;" class="tle1">作品列表&nbsp;&nbsp;&nbsp;&nbsp;共:{{ pojo_custom.fileUrls.length }}</td>
+                </tr>
+
+                <style>
+                    .worklistshow td {text-align: center;}
+                </style>
+
+                <tr>
+                    <td colspan="6">
+                        <table width="100%" ng-repeat="group in groupArray(pojo_custom.fileUrls)"  class="worklistshow">
+                                <tr>
+                                    <td ng-repeat="work in group"  width="25%">
+                                        <img width="230" ng-src="{{ work.url }}" alt="{{ work.name }}"/><br/>
+                                        {{ work.name }}
+                                    </td>
+                                </tr>
+                        </table>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="tname"><label>推荐权重:</label></td>
+                    <td class="tiput"><input type="text"  ng-model="pojo_custom.topno" name="t_topno"
+                                             class="textbox" /><br/></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td colspan="3" style="text-align: center;">
+                        <input class="link_btn"  type="submit" ng-disabled="subForm.$invalid" value="提交" /></td>
+                    <td colspan="3" style="text-align: center;">
+                        <input class="link_btn" type="button"  ng-click="toPageList();"  value="取消" /></td>
+                </tr>
+            </table>
         </form>
     </section>
-</script>
-
-<!--弹出框效果-->
-<script>
-    $(document).ready(function(){
-        //弹出文本性提示框
-        $("#showPopTxt").click(function(){
-            $(".pop_bg").fadeIn();
-        });
-        // //弹出：确认按钮
-        // $(".trueBtn").click(function(){
-        //     alert("你点击了确认！");//测试
-        //     $(".pop_bg").fadeOut();
-        // });
-        //弹出：取消或关闭按钮
-        $(".falseBtn").click(function(){
-            $(".pop_bg").fadeOut();
-        });
-    });
 </script>
 </body>
 </html>

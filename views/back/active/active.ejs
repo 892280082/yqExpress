@@ -196,6 +196,33 @@
                                              class="textbox" /></td>
                     <td></td>
                 </tr>
+
+                <tr>
+                    <td colspan="6" style="text-align: left;" class="tle1">作品要求</td>
+                </tr>
+                <tr>
+                    <td class="tname"><label>作品类型限制:</label></td>
+                    <td class="tiput" style="width: 200px;">
+                        <input type="text"  ng-model="pojo_custom.demand.fileType"  name="t_demand_type"
+                               class="textbox" required placeholder="多类型用空格隔开" />
+                    </td>
+                    <td class="tip" ></td>
+                    <td class="tname"><label>文件大小限制:</label></td>
+                    <td class="tiput" style="width: 200px;">
+                        <input type="text"  ng-model="pojo_custom.demand.fileSize"  name="t_demand_size"
+                               class="textbox" required placeholder="单位M" />
+                    </td>
+                    <td class="tip" ></td>
+                </tr>
+                <tr>
+                    <td class="tname"><label>文件个数限制:</label></td>
+                    <td class="tiput" style="width: 200px;">
+                        <input type="text"  ng-model="pojo_custom.demand.fileMax"  name="t_demand_max"
+                               class="textbox" required placeholder="最大默认100" />
+                    </td>
+                    <td class="tip" ></td>
+                </tr>
+
                 <tr>
                     <td colspan="6" style="text-align: left;" class="tle1">活动申明</td>
                 </tr>

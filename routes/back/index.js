@@ -7,6 +7,7 @@ var express = require('express'),
 	Active = require("../../models/Active"),
 	WebConfig = require("../../models/WebConfig"),
 	indexService = require("../../service/indexService"),
+	activeService = require("../../service/activeService.js"),
 	Work = require('../../models/Work'),
 	router = express.Router();
 
@@ -385,8 +386,10 @@ router.post('/getWorkAllData',function(req,res){
 		sort:req.body.sort,
 		model:Work,
 	},function(err,result){
-		!err ? res.json({result:result})
-			: res.json({err: err});
+		activeService.getAllWorkInfo(result.docs,function(err,docs){
+			!err ? res.json({result:result})
+				: res.json({err: err});
+		})
 	})
 });
 

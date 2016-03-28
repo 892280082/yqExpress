@@ -267,6 +267,7 @@ exports.updateSingleById = function(pojo,Dao,callback){
     var _id = pojo._id;
     delete  pojo._id;
     Dao.update({"_id":_id},pojo,function(err,info){
+        err && console.log(err);
         return callback(err,info);
     })
 }

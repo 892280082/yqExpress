@@ -1,3 +1,11 @@
+/**
+ * @desc 活动service
+ * @Auther yq
+ * @date 2016/3/28
+ * @API
+ * 1.getAllWorkInfo  获取完整的作品信息包括关联用户和活动  -call(err,Array|Object);
+ */
+
 var WebConfig = require("../models/WebConfig");
 var Custom = require("../models/Custom");
 var Article = require("../models/Article");
@@ -8,13 +16,11 @@ var _ = require("underscore");
 var mongooseUtil = require("../util/mongooseUtil");
 var then = require("thenjs");
 
-/**
- * @desc 前台service
- * @author yq
- * @date 2016/3/14
- * @api
- * */
 
+/**
+ * @param works {Object|Array} -m 活动
+ * @param callback {Function} -m 回调函数
+ */
 exports.getAllWorkInfo = function(works,callback){
     var arrayFlag = true;
     if(!_.isArray(works)){
@@ -26,7 +32,7 @@ exports.getAllWorkInfo = function(works,callback){
             ele.$user = doc;
             next(err);
         })
-    }).each(function(next,ele){
+    }).each(works,function(next,ele){
         Active.findOne({"_id":ele.actId},function(err,doc){
             ele.$active = doc;
             next(err);
@@ -39,7 +45,7 @@ exports.getAllWorkInfo = function(works,callback){
         }
     }).fail(function(next,err){
         console.log("activeService->getAllWorkInfo",err);
-        callback(err);
+        callback(err,works);
     })
 
 }

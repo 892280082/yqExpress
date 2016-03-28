@@ -36,6 +36,13 @@ var activeSchema = new Schema({
         name:String//文件名
     },
 
+    /***************上传作品要求****************/
+    demand:{
+        fileType:String,//上传文件的类型
+        fileSize:{type:Number,default:10*1000*1000},//单个文件大小限制
+        fileMax:{type:Number,default:-1}//上传图片的个数限制
+    },
+
     /***************** 状态信息 **************/
     actStartTime:Date,//活动开始结束时间
     actOverTime:Date,
