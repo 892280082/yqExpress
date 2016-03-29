@@ -1,119 +1,103 @@
-<!DOCTYPE html>
-<html lang="en" ng-app="myApp">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="myApp">
 <head>
-    <meta charset="UTF-8">
-    <title>show</title>
-    <style type="text/css">
-
-        .progressOut {
-            width: 600px;height: 30px;background: red;
-        }
-
-        .progressIn { background: green;height:100%;}
-
-        .normaldrop { width: 80%;margin: auto 0;height: 200px;border: solid; }
-
-    </style>
-    <% include ../include/baseLink.ejs  %>
-
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>活动列表页</title>
+    <% include ../include/baseLink%>
 </head>
-<!-- 1. nv-file-drop="" uploader="{Object}" options="{Object}" filters="{String}" -->
 <body ng-controller="upload_work_controller"
       nv-file-drop=""
       uploader="uploader"
       filters="queueLimit">
-<div>
-    <div >
-        <div >
-            <h3>Select files</h3>
-            <div ng-show="uploader.isHTML5">
-                <!-- 3. nv-file-over uploader="link" over-class="className" -->
-                <!--设置拖拽空间-->
-                <div class="normaldrop"  nv-file-over="" uploader="uploader">
-                    Base drop zone
-                </div>
-                <!-- Example: nv-file-drop="" uploader="{Object}" options="{Object}" filters="{String}" -->
-                <div class="normaldrop"
-                     nv-file-drop=""
-                     uploader="uploader"
-                     options="{ url: '/foo' }">
-                    <div nv-file-over="" uploader="uploader"  >
-                        Another drop zone with its own settings
-                    </div>
+<% include ../include/head %>
+<div class="w822 clearfix">
+    <div class="worksup">
+        <div class="title">活动报名</div>
+        <div class="cont">
+            <div class="uptle">
+                <div class="img lt"><img src="/front/resource/images/img1.jpg" /></div>
+                <div class="txt lt">
+                    <h3>{{ active.title }}</h3>
+                    <p>组织单位：{{ active.organize  }}</p>
+                    <p>投稿时间：{{ active.signStarTime | date:'yyyy-MM-dd' }}至{{ active.signOverTime | date:'yyyy-MM-dd' }}</p>
                 </div>
             </div>
-            <!--设置上传的Input
-                multiple 代表多选的   Single 代表单选
-            -->
-            Multiple
-            <input type="file" nv-file-select="" uploader="uploader" multiple  /><br/>
-            Single
-            <input type="file" nv-file-select="" uploader="uploader" />
-        </div>
-
-        <div  style="margin-bottom: 40px">
-            <h3>Upload queue</h3>
-            <p>Queue length: {{ uploader.queue.length }}</p>
-            <table>
-                <thead>
-                <tr>
-                    <th width="50%">Name</th>
-                    <th ng-show="uploader.isHTML5">Size</th>
-                    <th ng-show="uploader.isHTML5">Progress</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr  ng-class="'slide-left'" ng-repeat="item in uploader.queue">
-                    <td><strong>{{ item.file.name }}</strong></td>
-                    <td ng-show="uploader.isHTML5" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</td>
-                    <td ng-show="uploader.isHTML5">
-                        <div class="progressOut" >
-                            <div class="progressIn" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
+            <div class="uptle2">作品上传</div>
+            <div class="upcont layui-form">
+                <dl><dt>分类</dt></dl>
+                <ul style="padding-top:15px;">
+                    <li class="layui-form-li">
+                        <div class="layui-form-label">
+                            <label>分类选择</label>
+                            <select  ng-model="work.cate1" name="t_usertype"
+                                     ng-options="m as m.cateName for m in active.workCate">
+                            </select>
+                            <select  ng-model="work.cate2" name="t_usertype"
+                                     ng-options="m as m.cateName for m in work.cate1.subCate">
+                            </select>
                         </div>
-                    </td>
-                    <td class="text-center">
-                        <span ng-show="item.isSuccess"><i ></i></span>
-                        <span ng-show="item.isCancel"><i ></i></span>
-                        <span ng-show="item.isError"><i ></i></span>
-                    </td>
-                    <td nowrap>
-                        <button type="button" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
-                            <span ></span> Upload
-                        </button>
-                        <button type="button"  ng-click="item.cancel()" ng-disabled="!item.isUploading">
-                            <span></span> Cancel
-                        </button>
-                        <button type="button"  ng-click="item.remove()">
-                            <span ></span> Remove
-                        </button>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-            <div>
-                <div>
-                    Queue progress:
-                    <div>
-                        <div role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
-                    </div>
-                </div>
-                <button type="button"  ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length">
-                    <span class="glyphicon glyphicon-upload"></span> Upload all
-                </button>
-                <button type="button"ng-click="uploader.cancelAll()" ng-disabled="!uploader.isUploading">
-                    <span ></span> Cancel all
-                </button>
-                <button type="button" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length">
-                    <span ></span> Remove all
-                </button>
+                    </li>
+                </ul>
+                <dl style="margin-top:-20px;">
+                    <dt>作品</dt>
+                    <dd><p>支持<span ng-repeat="ext in active.demand.fileType.split(' ')">{{ ext }}/</span>
+                            {{ active.demand.introduce }}</p>
+                        <p>单张图片最大{{ active.demand.fileSize }},最多上传{{ active.demand.fileMax }}张图,支持批量上传.</p>
+                        <p>&nbsp;</p></dd>
+                </dl>
+                <ul class="uplist clearfix">
+                    <li ng-class="'slide-left'" ng-repeat="item in work.fileUrls">
+                        <img ng-src="{{item.url}}" />
+                        <h4><input type="text" placeholder="输入作品名" ng-model="item.name"/></h4>
+                        <div class="cz">
+                            <a class="dlt" ng-show="$index > 0"
+                               title="向左移动" ng-click="bannerMove($index,-1)">&nbsp;</a>
+                            <a class="drt" ng-show="$index < work.fileUrls.length -1"
+                               title="向右移动" ng-click="bannerMove($index,1)">&nbsp;</a>
+                            <a class="det" title="删除"
+                               ng-click="work.fileUrls.remove(item);" >&nbsp;</a>
+                        </div>
+                    </li>
+
+                    <li ng-class="'slide-left'" ng-repeat="item in uploader.queue">
+                        <img src="/front/resource/images/upsl.jpg" />
+                        <h4>{{ item.file.name }}</h4>
+                        <div class="jdu">
+                            <div class="jduing" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
+                        </div>
+                    </li>
+                    <li class="upbut" ng-show="work.fileUrls.length < active.demand.fileMax">
+                        <label class="uploadImg" style="width:173px;height:149px;background:url(/front/resource/images/up2.jpg) no-repeat;cursor: pointer;background-size: 173px 149px;">
+                            <input style="display: none;" type="file"
+                                   nv-file-select=""
+                                   filters="queueLimit"
+                                   accept="{{ fileControType() }}"
+                                   uploader="uploader" multiple >
+                        </label>
+                    </li>
+                </ul>
+                <dl>
+                    <dt>设计说明</dt>
+                    <dd>
+                        <textarea  ng-model="work.introduce"  class="zpms" style="resize:none"></textarea>
+                        <span style="float: right;margin-right: 20px;">{{ work.introduce.length }}/200</span>
+                    </dd>
+                    <dd><input class="tijiao" type="submit"  ng-click="subWork()" value="提交作品" /></dd>
+                </dl>
             </div>
         </div>
     </div>
 </div>
-
-<div><img src="{{ uploadUrl }}" alt=""></div>
+<script type="text/javascript">
+    ACTIVE_POJO = {
+        _id:"<%- activeId %>",
+        _userId:"<%- $session.USER._id %>",
+        _userName:"<%- $session.USER.name %>"
+    }
+</script>
 </body>
-<script type="text/javascript" src="/front/dist/upload_work.js"></script>
+<script type="text/javascript"  src="/front/dist/upload_work.js"></script>
 </html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="myApp">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>活动详情页</title>
+    <% include ../include/baseLink%>
+    <link rel="stylesheet" href="/front/resource/css/login.css"/>
+</head>
+<body ng-controller="main">
+
+    <div class="register" style="width: 406px;">
+        <form
+                name="tForm"
+                novalidate
+                >
+            <div class="rege-a clearfix" id="rege-s1">
+                <div class="rewpt" style="width: 362px;">
+                    <dl>
+                        <dt>姓名</dt>
+                        <dd><span class="ti nick-ti"></span>
+                            <input class="nick wd100" type="text"
+                                   placeholder="请输入昵称"
+                                   name="t_name"
+                                   ng-model="subActiveInfo.name"
+                                   required />
+                        </dd>
+                        <div class="wrois" ng-if="tForm.t_name.$error.required && tForm.t_name.$dirty">请输入姓名</div>
+
+                        <dt>手机</dt>
+                        <dd><span class="ti nick-ti"></span>
+                            <input class="nick wd100" type="text"
+                                   name="t_tel"
+                                   placeholder="请输入手机"
+                                   ng-model="subActiveInfo.tel"
+                                   ng-pattern="/^(13[0-9]|15[0|3|6|7|8|9]|18[8|9])\d{8}$/"
+                                   required
+                                    />
+                        </dd>
+                        <div class="wrois" ng-if="tForm.t_tel.$error.required && tForm.t_tel.$dirty">请输入手机号</div>
+                        <div class="wrois" ng-if="tForm.t_tel.$error.pattern">手机号不合法</div>
+
+                        <dt>邮箱</dt>
+                        <dd><span class="ti email-ti"></span>
+                            <input class="email wd100" type="text"
+                                   placeholder="请输入你的电子邮箱"
+                                   name="t_email"
+                                   ng-model="subActiveInfo.email"
+                                   ng-pattern="/^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/"
+                                   required
+                                    />
+                        </dd>
+                        <div class="wrois" ng-if="tForm.t_email.$error.required && tForm.t_email.$dirty">请输入邮箱</div>
+                        <div class="wrois" ng-if="tForm.t_email.$error.pattern">邮箱不合法</div>
+
+
+                        <dt>地址</dt>
+                        <dd><span class="ti email-ti"></span>
+                            <input class="email wd100" type="text"
+                                   placeholder="请输入您的真实地址"
+                                   ng-model="subActiveInfo.address"
+                                   name="t_address"
+                                   required
+                                    />
+                        </dd>
+                        <div class="wrois" ng-if="tForm.t_address.$error.required && tForm.t_address.$dirty">请输入地址</div>
+
+
+                        <dt>单位</dt>
+                        <dd><span class="ti email-ti"></span>
+                            <input class="email wd100" type="text"
+                                   placeholder="请输入你的所在单位"
+                                   name="t_email"
+                                   ng-model="subActiveInfo.unit"
+                                   required
+                                    />
+                        </dd>
+                        <div class="wrois" ng-if="tForm.t_email.$error.required && tForm.t_email.$dirty">请输入单位</div>
+
+
+                        <dd><input type="checkbox" name="awesome"
+                                   ng-model="subActiveInfo.guize"
+                                   ng-true-value="true"
+                                   ng-false-value="false" />
+                            <t>我已认真阅读活动规则</t>
+                        </dd>
+
+                        <dd><input ng-click="subTelInfo()"
+                                   style="width: 300px;"
+                                   ng-class="{true:'afreg',false:'afregft'}[ !!(!tForm.$invalid && subActiveInfo.guize)]"
+                                   ng-disabled="tForm.$invalid || !subActiveInfo.guize"
+                                   value="下一步" type="button" />
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </form>
+    </div>
+
+<script type="text/javascript">
+
+    var app = angular.module("myApp",[]);
+
+    app.controller('main',['$scope','$http',function($scope,$http){
+        //数据模型
+        $scope.subActiveInfo = {
+            "name":"<%- $session.USER.name %>",
+            "tel":"<%- $session.USER.phoneNumber %>",
+            "email":"<%- $session.USER.email %>",
+            <% if($session.USER.address){ %>
+            <%    var address = $session.USER.address; %>
+            <%    var finallyAdress =  address.province + address.city + address.area + address.detail;%>
+            "address":"<%- finallyAdress &&  finallyAdress != 'undefined' ? finallyAdress : "" %>",
+            <% } %>
+            "unit":"<%- $session.USER.workUnit %>"
+        };
+
+
+        //提交数据
+        $scope.subTelInfo = function(){
+            $http.post("/front/subActiveForm",{"pushPojo":$scope.subActiveInfo})
+                    .success(function(data){
+                        if(!data.err){
+                            window.parent.location.href = "/front/toUploadWork/<%- _id %>"
+                            setTimeout(function(){
+                                var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                                parent.layer.close(index);
+                            },1000)
+                        }else{
+                            layer.alert(data.err, {
+                                icon: 1,
+                                skin: 'layer-ext-moon'
+                            })
+                        }
+                    }).error(function(){
+
+                    })
+        }
+
+    }])
+
+</script>
+</body>
+</html>

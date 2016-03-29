@@ -55,4 +55,29 @@ angular.module('service.active_server',[]).service("active_server",["$http"
             return $http.post('/front/pushCommentReplay',{"commentId":commentId,"pushPojo":pushPojo});
         }
 
+        /**
+         * @desc 通过ID获得活动信息
+         * @param id {String} 活动ID
+         * */
+        this.getActiveBaseById = function(id){
+            return $http.post('/front/getActiveBaseById',{"_id":id});
+        }
+
+        /**
+         * @desc 提交作品信息
+         * @param pojo {Object} 作品信息
+         * */
+        this.subUserWork = function(pojo){
+            return $http.post('/front/subUserWork',{"pushPojo":pojo});
+        }
+
+        this.getWorkByActId = function(_id,calback){
+            $http.post('/front/getWorkByActId',{"_id":_id})
+                .success(function(data){
+                    calback(data.err,data.result);
+                }).error(function(){
+                    alert("/front/valiSubWorkForAct->链接失败");
+                })
+        }
+
     }]);

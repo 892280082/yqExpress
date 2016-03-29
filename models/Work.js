@@ -16,7 +16,6 @@ var fileSchema = new Schema({
 })
 
 var workSchema = new Schema({
-    title:String,//作品名称
     userId:Schema.Types.ObjectId,//用户ID
     actId:Schema.Types.ObjectId,//活动ID
 

@@ -7,6 +7,7 @@ var mongooseUtil = require("../../util/mongooseUtil");
 var indexService = require("../../service/indexService");
 var Customer = require("../../models/Custom");
 var Active = require("../../models/Active");
+var Work = require("../../models/Work");
 var frontWare = require("./front_ware");
 var ArticleComment = require("../../models/ArticleComment");
 var _  = require("underscore");
@@ -292,11 +293,56 @@ router.post('/getLoginStatu',function(req,res){
 })
 
 //上传作品页面
-router.get('/toUploadWork',function(req,res){
+router.get('/toUploadWork/:_id',function(req,res){
 	if(!req.session.USER ||  !req.session.USER._id)
 		return res.redirect("/");
-	res.render('front/page/update_work');
+	res.render('front/page/update_work',{activeId:req.params._id});
 })
+
+//活动提交报名信息页面
+router.get('/toActiveSubForm/:_id',function(req,res){
+	res.render('front/page/active_sub_form',{"_id":req.params._id});
+});
+
+//提交活动报名表单
+router.post('/subActiveForm',function(req,res){
+	var pojo = req.body.pushPojo;
+	if(pojo){
+		req.session.$USER_ACTIVE_FORM = pojo;
+		return  res.json({result:"ok"});
+	}else{
+		return res.json({err:'数据对象为空'});
+	}
+});
+
+//提交活动报名表单
+router.post('/getActiveBaseById',function(req,res){
+	var _id = req.body._id;
+	Active.findOne({"_id":_id},function(err,doc){
+		return res.json({"err":err,"result":doc});
+	})
+});
+
+//提交活动报名表单
+router.post('/subUserWork',function(req,res){
+	var work = req.body.pushPojo;
+	mongooseUtil.saveSingle(work,Work,function(err,doc){
+		return res.json({err:err,result:doc});
+	})
+});
+
+//验证是否在当前活动提交过作品
+router.post('/getWorkByActId',function(req,res){
+	var actId = req.body._id;
+	var userId = req.session.USER._id;
+
+	Work.findOne({userId:userId,actId:actId},function(err,doc){
+		console.log(err,doc);
+		return res.json({err:err,result:doc});
+	})
+});
+
+
 
 
 module.exports = router;

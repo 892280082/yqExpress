@@ -19,8 +19,8 @@
 </head>
 <body ng-controller="main">
 <div class="rt_content">
-    <ts-cuslist ng-show="show.cuslist"></ts-cuslist>
-    <ts-cusadd ng-show="show.cusadd"></ts-cusadd>
+    <ts-cuslist ng-if="show.cuslist"></ts-cuslist>
+    <ts-cusadd ng-if="show.cusadd"></ts-cusadd>
 </div>
 <!-- 用户列表页面 -->
 <script type="text/ng-template" id="cuslist">
@@ -51,7 +51,7 @@
             <tr ng-repeat="cus in array_custom.$array">
                 <td>{{ $index + 1}}</td>
                 <td width="12%"  style="cursor: pointer;"
-                    ng-click="changeIntoEdit(cus);">{{ cus.title }}</td>
+                    ng-click="changeIntoEdit(cus);">{{ cus.fileUrls[0].name }}</td>
                 <td width="12%">
                     {{ cus.cate1.cateName }}/{{ cus.cate2.cateName }}
                 </td>
@@ -95,8 +95,10 @@
                 </tr>
                 <tr>
                     <td class="tname"><label>作品名称:</label></td>
-                    <td class="tiput"><input type="text"  ng-model="pojo_custom.title"  name="t_title"
-                                             class="textbox" required placeholder="作品名称" /><br/></td>
+                    <td class="tiput"><input type="text"  ng-model="pojo_custom.fileUrls[0].name"  
+                                             name="t_title"
+                                             class="textbox" required placeholder="作品名称" />
+                                             <br/></td>
                     <td><span class="errorTips" ng-show="subForm.t_title.$error.required">请输入作品称</span></td>
                     <td class="tname"><label>作品状态:</label></td>
                     <td class="tiput"><select  ng-model="pojo_custom.state" name="t_usertype"
@@ -110,7 +112,7 @@
                 <tr>
                     <td class="tname"><label>作者:</label></td>
                     <td class="tiput"><input type="text"
-                                             ng-model="pojo_custom._userName"
+                                             ng-model="pojo_custom.userName"
                                              name="_userName"
                                              class="textbox"
                                      /><br/>
@@ -118,8 +120,8 @@
                     <td></td>
                     <td class="tname"><label>活动:</label></td>
                     <td class="tiput"><input type="text"
-                                             ng-model="pojo_custom._userName"
-                                             name="_userName"
+                                             ng-model="pojo_custom.activeName"
+                                             name="activeName"
                                              class="textbox"
                                 /><br/>
                     </td>
@@ -166,8 +168,8 @@
                     <td colspan="6">
                         <table width="100%" ng-repeat="group in groupArray(pojo_custom.fileUrls)"  class="worklistshow">
                                 <tr>
-                                    <td ng-repeat="work in group"  width="25%">
-                                        <img width="230" ng-src="{{ work.url }}" alt="{{ work.name }}"/><br/>
+                                    <td ng-repeat="work in group.array"  width="25%">
+                                        <img width="220" height="230" ng-src="{{ work.url }}" alt="{{ work.name }}"/><br/>
                                         {{ work.name }}
                                     </td>
                                 </tr>

@@ -6,10 +6,7 @@
     <% include ../include/baseLink%>
     <link rel="stylesheet" href="/front/resource/css/login.css"/>
 </head>
-<body ng-controller="active_detail_control">
 <script type="text/javascript">
-    $(document).ready(function(){
-    });
     function show(a){
         $("div[id^='hdtab']").hide();
         $("#hdtab"+a).show();
@@ -17,6 +14,7 @@
         $(".tab"+a).addClass("over");
     };
 </script>
+<body ng-controller="active_detail_control">
 <% include ../include/head %>
 <div class="wap clearfix">
     <div class="on-1200">
@@ -102,34 +100,12 @@
     </div>
 </div>
 
-<select-address ng-model="test1111"></select-address>
-
-<div style="display: none"  id="activeForm">
-    <div class="register" style="width: 406px;">
-        <div class="tle"><span  onclick="regshow('1')">确认报名信息</span></div>
-        <div class="rege-a clearfix" id="rege-s1">
-            <div class="rewpt" style="width: 362px;">
-                <dl>
-                    <dt>姓名</dt>
-                    <dd><span class="ti nick-ti"></span><input class="nick wd100" type="text" placeholder="请输入昵称" /></dd>
-                    <dt>手机</dt>
-                    <dd><span class="ti nick-ti"></span><input class="nick wd100" type="text" placeholder="请输入昵称" /></dd>
-                    <dt>邮箱</dt>
-                    <dd><span class="ti email-ti"></span><input class="email wd100" type="text" placeholder="请输入你的电子邮箱" /></dd>
-                    <dt>地址</dt>
-                    <dd><span class="ti email-ti"></span><input class="email wd100" type="text" placeholder="请输入你的电子邮箱" /></dd>
-                    <dt>单位</dt>
-                    <dd><span class="ti email-ti"></span><input class="email wd100" type="text" placeholder="请输入你的电子邮箱" /></dd>
-                    <dd><input type="checkbox" /><t>我已认真阅读活动规则</t></dd>
-                    <dd><input class="afreg" value="下一步" type="button" /></dd>
-                </dl>
-            </div>
-        </div>
-    </div>
-</div>
-
-
 <% include ../include/foot %>
+<script type="text/javascript">
+    GLOBAL_ACTIVE_POJO = {
+        _id:"<%- active._id %>"
+    }
+</script>
 <script type="text/javascript"  src="/front/dist/active_detail.js"></script>
 </body>
 </html>

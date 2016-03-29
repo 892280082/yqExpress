@@ -28,4 +28,13 @@ angular.module('service.dataService',[]).service("dataService",["$http"
             this.getConfig = function(){
                 return $http.post('/back/getWebConfig',{});
             };
+            //更新作品信息
+            this.updateWork = function(pojo,callback){
+                 $http.post('/back/updateWorkById',{"pojo":pojo})
+                    .success(function(data){
+                        callback(data.err,data.result);
+                    }).error(function(){
+                        alert("/back/updateWorkById"+"连接错误");
+                    })
+            }
     }]);

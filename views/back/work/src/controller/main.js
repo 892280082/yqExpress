@@ -26,23 +26,20 @@
             /***********************分类列表页面************************/
 
             $scope.groupArray = function(Array){
-                if(!Array)
-                    return [];
-                return _.reduce(Array,function(mem,ele){
-                    var subArray = _.last(mem);
-                    subArray.length<4 ? subArray.push(ele) : mem.push([]);
-
-                    var lasts = _.last(mem);
-                    var delx =Array.length - _.flatten(mem).length;
-                    var lastArray = _.last(mem);
-                    if(delx<5 &&  lastArray.length === 0)
-                        lastArray.push(ele);
-
-                    return mem;
-                },[[]]);
+                var mem = [{array:[]}];
+                for(var i=0;i<Array.length;i++){
+                     var lastArray = _.last(mem).array;
+                     if(lastArray.length<4){
+                        lastArray.push(Array[i]);
+                     }else{
+                         mem.push({array:[]});
+                         i--;
+                     }
+                }
+                console.log(mem);
+                return mem;
             }
 
-            //$scope.tttt = [[{name:"aaa1"},{name:"aaa1"},{name:"aaa1"},{name:"aaa1"}],[{name:"aaa2"},{name:"aaa2"},{name:"aaa1"},{name:"aaa1"}]]
 
             //查询方法
             $scope.search = function(){
@@ -105,13 +102,13 @@
                     })
                 }else{
                     //更新
-                    dataService.updateCustomer($scope.pojo_custom)
-                        .success(function(data){
-                            !data.err ?  $scope.show.$set('cuslist')
-                                      :   alert(data.err);
-                        }).error(function(data){
-                            alert("更新错误");
-                        })
+                    delete $scope.pojo_custom.$user;
+                    delete $scope.pojo_custom.$active;
+
+                    dataService.updateWork($scope.pojo_custom,function(err,info){
+                        console.log(err,info);
+                    });
+
                 }
             }
             /**************************上传配置**************************/

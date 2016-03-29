@@ -22,12 +22,8 @@ require("./src/service/user_service.js");
 require("./src/directive/directive_attention.js");
 ///**加载主程序人口*/
 require("./src/controller/active_detail_control.js");
-//加载地址选择器
-require("../../../public/plugin/area/selectAddress2.js");
-
 
 var app = angular.module('myApp',[
-    'selectAddress',
     'angularFileUpload',
     'service.showCtrl',
     'service.active_server',
@@ -36,6 +32,7 @@ var app = angular.module('myApp',[
     pageResult.service_pageResult,
     'controller.active_detail_control'
     ]);
+
 app.directive("setFocus",["$timeout",function($timeout){
     return {
         restrict:"A",
@@ -44,7 +41,6 @@ app.directive("setFocus",["$timeout",function($timeout){
         },
         link:function(scope, element, attr){
             scope.$watch("flag",function(){
-                console.log('flag',scope.flag);
                 if(scope.flag)
                     element[0].focus();
                 $timeout(function(){

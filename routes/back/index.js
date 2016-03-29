@@ -393,5 +393,11 @@ router.post('/getWorkAllData',function(req,res){
 	})
 });
 
+//更新作品信息
+router.post("/updateWorkById",function(req,res){
+	mongooseUtil.updateSingleById(req.body.pojo,Work,function(err,info){
+		return res.json({err:err,result:info});
+	});
+});
 
 module.exports = router;

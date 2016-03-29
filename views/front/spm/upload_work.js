@@ -12,6 +12,7 @@ require("./src/service/art_detail_server.js");//创品服务
 require("./src/service/pro_list_server.js");//创品服务
 require("./src/service/dataService.js");//数据分类服务
 require("./src/service/user_service.js");//用户服务
+require("./src/service/active_server.js");//用户服务
 require("./src/controller/upload_work_controller.js");//上传作品控制器
 
 var app = angular.module('myApp',[
@@ -20,6 +21,7 @@ var app = angular.module('myApp',[
     'angularFileUpload',
     'controller.upload_work_controller',
     'service.user_service',
+    'service.active_server',
 ]);
 
 

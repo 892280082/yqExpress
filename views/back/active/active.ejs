@@ -210,7 +210,7 @@
                     <td class="tname"><label>文件大小限制:</label></td>
                     <td class="tiput" style="width: 200px;">
                         <input type="text"  ng-model="pojo_custom.demand.fileSize"  name="t_demand_size"
-                               class="textbox" required placeholder="单位M" />
+                               class="textbox" required placeholder="单位M,默认:10M" />
                     </td>
                     <td class="tip" ></td>
                 </tr>
@@ -218,11 +218,16 @@
                     <td class="tname"><label>文件个数限制:</label></td>
                     <td class="tiput" style="width: 200px;">
                         <input type="text"  ng-model="pojo_custom.demand.fileMax"  name="t_demand_max"
-                               class="textbox" required placeholder="最大默认100" />
+                               class="textbox" required placeholder="默认20" />
+                    </td>
+                    <td class="tip" ></td>
+                    <td class="tname"><label>特殊要求:</label></td>
+                    <td class="tiput" style="width: 200px;">
+                        <input type="text"  ng-model="pojo_custom.demand.introduce"  name="t_demand_max"
+                               class="textbox" required placeholder="作品特殊要求，例如图片像素和模式" />
                     </td>
                     <td class="tip" ></td>
                 </tr>
-
                 <tr>
                     <td colspan="6" style="text-align: left;" class="tle1">活动申明</td>
                 </tr>
