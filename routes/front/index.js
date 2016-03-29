@@ -261,6 +261,8 @@ router.get("/toCusDetail/:_id"
 		var _id = req.params._id;
 		Customer.findOne({"_id":_id},function(err,doc){
 			err && console.log(err);
+
+
 			res.render('front/page/cus_detail.ejs',{"customer":doc});
 		});
 	});
@@ -341,8 +343,6 @@ router.post('/getWorkByActId',function(req,res){
 		return res.json({err:err,result:doc});
 	})
 });
-
-
 
 
 module.exports = router;

@@ -19,12 +19,16 @@ angular.module("controller.upload_work_controller",[])
                 .success(function(data){
                     if(!data.err){
                         $scope.active = data.result;
+                        $scope.active.demand = $scope.active.demand || {};
+                        $scope.active.demand.fileType = $scope.active.demand.fileType || "";
+
                         $scope.work.cate1 =$scope.active.workCate[0];
                         $scope.work.cate2 = $scope.work.cate1.subCate[0];
                         $scope.work.actId = $scope.active._id;
                         $scope.work.activeName = $scope.active.title;
                         $scope.work.userId = ACTIVE_POJO._userId;
                         $scope.work.userName = ACTIVE_POJO._userName;
+                        $scope.work.introduce = $scope.work.introduce || "";
 
                     }else{
                         layer.alert('活动数据获取失败', {

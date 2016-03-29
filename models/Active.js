@@ -38,7 +38,7 @@ var activeSchema = new Schema({
 
     /***************上传作品要求****************/
     demand:{
-        fileType:String,//上传文件的类型
+        fileType:{type:String},//上传文件的类型
         fileSize:{type:Number,default:10},//单个文件大小限制
         fileMax:{type:Number,default:20},//上传图片的个数限制
         introduce:String,//特别要求
