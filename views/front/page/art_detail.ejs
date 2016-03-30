@@ -83,7 +83,7 @@
             </div>
             <div class="list clearfix" ng-repeat="comment in array_comments.$array">
                 <div class="portrait">
-                    <a href="#">
+                    <a href="/front/toCusDetail/{{ comment._userId }}">
                         <img class="zz" src="/front/resource/images/pozhezhao.png" />
                         <img class="tx" width="70" height="70"  ng-src="{{  comment.headUrl  }}"/>
                     </a>
@@ -100,8 +100,10 @@
                 <div>
                     <div class="seclist" ng-repeat="replay in comment.replays">
                         <div class="userpor">
-                            <img class="t1" src="/front/resource/images/smalzz.png" />
-                            <img class="t2" ng-src="{{ replay.headUrl  }}" width="44" height="44" />
+                            <a href="/front/toCusDetail/{{ replay._userId }}">
+                                <img class="t1" src="/front/resource/images/smalzz.png" />
+                                <img class="t2" ng-src="{{ replay.headUrl  }}" width="44" height="44" />
+                            </a>
                         </div>
                         <div class="mid">
                             <h7>{{ replay.toName ? replay.userName+' @ '+replay.toName : replay.userName  }}</h7>

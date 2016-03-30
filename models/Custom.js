@@ -11,6 +11,8 @@
  * 5.pullProduct 删除产品 -call('err',删除信息)
  * 6.pushAttentions 添加关注，被关注的一方pushfollowers
  * 7.pullAttentions 取消关注  被关注的一方pullfollowers
+   8.pushActiveLike 用户收藏活动
+   9.pullActiveLike 用户取消收藏的活动
  * @api pojo层
  * 1.saveUser - 保存用户，并配置加密算法(md5)ok  -call('err',保存后的user对象)
  *
@@ -79,8 +81,10 @@ var customSchema = new Schema({
     followers:[Schema.Types.ObjectId],//我的粉丝 id
     attentions:[Schema.Types.ObjectId],//我关注的人 id
 
+
     /**用户的收藏*/
     collecArticles:[Schema.Types.ObjectId],//用户收藏的文章
+    collectActives:[Schema.Types.ObjectId],//用户收藏的活动
 
     /**非持久化对象*/
     recommens:[recommd],//推荐的创品或者文章集合
@@ -290,6 +294,26 @@ customSchema.statics.pullAttentions = function(_selfId,_otherId,callback){
          childPojo:_userId,
          callback:callback
      },this);
+ }
+
+ /**
+  * @desc 用户收藏当前文章
+  * @param _userId {String} - 用户ID
+  * @param _atcId {String} - 活动ID
+  * @param callback {Function} - 回调函数
+  */
+ customSchema.statics.pushActiveLike = function(_userId,_atcId,callback){
+        var Active = require("./Active");
+         mongooseUtil.dealAllCollectionId({
+         parentId:_userId,
+         parentPojo:_atcId,
+         collecname:"collectActives",
+         childId:_atcId,
+         childDao:Active,
+         childCollecname:"collects",
+         childPojo:_userId,
+         callback:callback
+         },this);
  }
 
 

@@ -38,7 +38,7 @@
                 <th>收藏</th>
                 <th>投票</th>
                 <th>创建日期</th>
-                <th>首页排序</th>
+                <th>作品数</th>
                 <th>操作</th>
             </tr>
             <tr ng-repeat="cus in array_custom.$array">
@@ -57,7 +57,7 @@
                 <td width="7%" >{{ cus.likes.length }}</td>
                 <td width="7%" >{{ cus.collects.length }}</td>
                 <td width="7%" >{{ cus.votes.length }}</td>
-                <td width="13%">{{ cus.creatTime |  date:'yyyy-MM-dd HH:mm:ss' }}</td>
+                <td width="13%">{{ cus.works.length }}</td>
                 <td width="6%">{{ cus.topno }}</td>
                 <td>
                     <a class="inner_btn"  ng-click="removeCustom(cus);"  href="#">删除</a>

@@ -41,44 +41,42 @@
             <div class="contb" id="hdtab2">
                 <div class="hotop">
                     <span class="tle">参赛作品</span>
-                    <span class="works rt">作品数量<b>398</b></span>
+                    <span class="works rt">作品数量<b><%- active.works.length %></b></span>
                     <span class="px rt"><a href="#">全部</a><a href="#">浏览数</a><a href="#">票数</a></span>
                 </div>
                 <div class="hdwork clearfix">
                     <ul>
-                        <li>
-                            <img class="zpimg" src="/front/resource/images/3.jpg" />
-                            <h3>你是我无与伦比的美丽</h3>
-                            <div class="hdbq"><span class="zz">作者：<b>张小娴</b></span><span class="see">浏览：<b>132</b></span><span class="tp">投票：<b>576</b></span></div>
-                            <div class="hdbq"><span class="tota">投他一票</span></div>
-                        </li>
-                        <li>
-                            <img class="zpimg" src="/front/resource/images/6.jpg" />
-                            <h3>你是我无与伦比的美丽</h3>
-                            <div class="hdbq"><span class="zz">作者：<b>张小娴</b></span><span class="see">浏览：<b>132</b></span><span class="tp">投票：<b>576</b></span></div>
-                            <div class="hdbq"><span class="totaft">已投票</span></div>
-                        </li>
-                        <li>
-                            <img class="zpimg" src="/front/resource/images/6.jpg" />
-                            <h3>你是我无与伦比的美丽</h3>
-                            <div class="hdbq"><span class="zz">作者：<b>张小娴</b></span><span class="see">浏览：<b>132</b></span><span class="tp">投票：<b>576</b></span></div>
-                            <div class="hdbq"><span class="tota">投他一票</span></div>
-                        </li>
-                        <li>
-                            <img class="zpimg" src="/front/resource/images/6.jpg" />
-                            <h3>你是我无与伦比的美丽</h3>
-                            <div class="hdbq"><span class="zz">作者：<b>张小娴</b></span><span class="see">浏览：<b>132</b></span><span class="tp">投票：<b>576</b></span></div>
-                            <div class="hdbq"><span class="tota">投他一票</span></div>
-                        </li>
-                        <li>
-                            <img class="zpimg" src="/front/resource/images/6.jpg" />
-                            <h3>你是我无与伦比的美丽</h3>
-                            <div class="hdbq"><span class="zz">作者：<b>张小娴</b></span><span class="see">浏览：<b>132</b></span><span class="tp">投票：<b>576</b></span></div>
+                        <li ng-repeat="work in works.$array">
+                            <dl class="showOverPic">
+                                <dd
+                                    ng-repeat="pic in work.fileUrls"
+                                    data-sub-html="{{ pic.name }}"
+                                    data-src="{{pic.url}}"
+                                    ng-show="!$index>0"
+                                    >
+                                    <a href=""><img class="zpimg"  ng-src="{{pic.url}}" /></a>
+                                </dd>
+                            </dl>
+                            <h3>{{work.fileUrls[0].name}}</h3>
+                            <div class="hdbq">
+                                <span class="zz">作者：<b>{{ work.$user.name }}</b></span>
+                                <span class="see">浏览：<b>132</b></span>
+                                <span class="tp">投票：<b>{{ work.votes.length }}</b></span>
+                            </div>
                             <div class="hdbq"><span class="tota">投他一票</span></div>
                         </li>
                     </ul>
                 </div>
-                <div class="page"><span><a href="#">&lt;</a></span><span><a href="#">1</a></span><span><a href="#">2</a></span><span><a href="#">3</a></span><span><a href="#">4</a></span><span><a href="#">5</a></span><span><a href="#">&gt;</a></span></div>
+                <div class="page">
+                        <span><a ng-show="works.$last"
+                                 ng-click="works.$toLast()">上一页</a></span>
+                        <span><a ng-show="works.$next"
+                                 ng-click="works.$toNext()">下一页</a></span>
+                        <span>
+                            <a>{{ works.$curPage }}/{{ works.$pageCount }}</a>
+                        </span>
+                    <span> <a>作品:{{ works.$totalSize }}</a></span>
+                </div>
                 <div class="likes">
                     <span><a title="喜欢"><img src="/front/resource/images/lisk.jpg" /></a><p>365人喜欢</p></span>
                     <span><a title="收藏"><img src="/front/resource/images/scang.jpg" /></a><p>478人收藏</p></span>
@@ -99,9 +97,16 @@
         </div>
     </div>
 </div>
-
 <% include ../include/foot %>
 <script type="text/javascript">
+
+    $(document).ready(function(){
+        setTimeout(function(){
+            $('.showOverPic').lightGallery();
+
+        },1000)
+    });
+
     GLOBAL_ACTIVE_POJO = {
         _id:"<%- active._id %>"
     }

@@ -7,7 +7,6 @@
     <link rel="stylesheet" type="text/css" href="/front/resource/css/user.css"/>
     <!--<link rel="stylesheet" type="text/css" href="/front/resource/css/animate.min.css"/>-->
     <link rel="stylesheet" type="text/css" href="/front/resource/css/ng-animation.css"/>
-    <script type="text/javascript" src="/front/dist/user_center.js"></script>
     <style>
     </style>
 </head>
@@ -41,9 +40,14 @@
                 <div ui-view  ng-class="'animation scale-fade slide-right'"></div>
             </div>
         </div>
-
     </div>
 </div>
 <% include ../include/head.ejs %>
 </body>
+<script type="text/javascript">
+    GLOBAL_USER_INFO = {
+        "_id":"<%- $session.USER._id %>"
+    }
+</script>
+<script type="text/javascript" src="/front/dist/user_center.js"></script>
 </html>

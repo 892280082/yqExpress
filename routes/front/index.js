@@ -10,6 +10,7 @@ var Active = require("../../models/Active");
 var Work = require("../../models/Work");
 var frontWare = require("./front_ware");
 var ArticleComment = require("../../models/ArticleComment");
+var activeService = require("../../service/activeService");
 var _  = require("underscore");
 
 //创品列表页面
@@ -261,9 +262,13 @@ router.get("/toCusDetail/:_id"
 		var _id = req.params._id;
 		Customer.findOne({"_id":_id},function(err,doc){
 			err && console.log(err);
+			var pojo = {"customer":doc};
 
+			if(doc.cate1.cateId === 1)
+				return res.render('front/page/cus_detail.ejs',pojo);
 
-			res.render('front/page/cus_detail.ejs',{"customer":doc});
+			if(doc.cate1.cateId === 2)
+				return res.render('front/page/user_detail.ejs',pojo);
 		});
 	});
 
@@ -328,12 +333,12 @@ router.post('/getActiveBaseById',function(req,res){
 //提交活动报名表单
 router.post('/subUserWork',function(req,res){
 	var work = req.body.pushPojo;
-	mongooseUtil.saveSingle(work,Work,function(err,doc){
+	Active.pushWork(work.actId,work,function(err,doc){
 		return res.json({err:err,result:doc});
 	})
 });
 
-//验证是否在当前活动提交过作品
+//获取当前活动中用户的作品
 router.post('/getWorkByActId',function(req,res){
 	var actId = req.body._id;
 	var userId = req.session.USER._id;
@@ -343,6 +348,52 @@ router.post('/getWorkByActId',function(req,res){
 		return res.json({err:err,result:doc});
 	})
 });
+
+//获取指定用户的作品
+router.post('/getWorkByUserId',function(req,res){
+	var userId = req.body._id;
+	Work.find({userId:userId},function(err,docs){
+		return res.json({err:err,result:docs});
+	})
+});
+
+
+//获取指定活动的作品
+router.post('/getCurActWorks',function(req,res){
+	var actId = req.body._id;
+	Work.find({actId:actId},function(err,docs){
+		return res.json({err:err,result:docs});
+	})
+});
+
+
+//获取作品集合
+router.post('/getAllWorks',function(req,res){
+	var query = req.body.query;
+	//query.usertype = 2;
+	mongooseUtil.pagination({
+		query:query,
+		limit:req.body.limit,
+		skip:req.body.skip*req.body.limit,
+		sort:{"creatTime":-1},
+		model:Work,
+	},function(err,result){
+		activeService.getAllWorkInfo(result.docs,function(err,docs){
+			return res.json({err:err,result:result});
+		})
+	})
+})
+
+//获得指定ID的作品
+router.post('/getWorkById',function(req,res){
+
+	Work.findOne({"_id":req.body._id},function(err,doc){
+		return res.json({err:err,result:doc});
+	})
+
+})
+
+
 
 
 module.exports = router;

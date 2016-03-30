@@ -1,69 +1,38 @@
-<div class="personal-cont clearfix">
-    <ul class="work clearfix">
-        <li>
-            <div class="margin20">
-                <img class="workimg" src="/front/resource/images/4.jpg" />
-                <h3><a href="#">谁说我回不到过去，时间会给我答案</a></h3>
-                <div class="adr"><a href="#">《最强设计‘身边的最美的艺术》</a></div>
-                <div class="cz"><span class="votes rt">投票数<b>256</b>票</span><span class="date lt">上传时间：2016-3-24</span></div>
-            </div>
-        </li>
-        <li>
-            <div class="margin20">
-                <img class="workimg" src="/front/resource/images/3.jpg" />
-                <h3><a href="#">生命的意义，在身边寻求</a></h3>
-                <div class="adr"><a href="#">《最强设计‘身边的最美的艺术》</a></div>
-                <div class="cz"><span class="votes rt">投票数<b>256</b>票</span><span class="date lt">上传时间：2016-3-24</span></div>
-            </div>
-        </li>
-        <li>
-            <div class="margin20">
-                <img class="workimg" src="/front/resource/images/2.jpg" />
-                <h3><a href="#">谁说我回不到过去，时间会给我答案</a></h3>
-                <div class="adr"><a href="#">《最强设计‘身边的最美的艺术》</a></div>
-                <div class="cz"><span class="votes rt">投票数<b>256</b>票</span><span class="date lt">上传时间：2016-3-24</span></div>
-            </div>
-        </li>
-        <li>
-            <div class="margin20">
-                <img class="workimg" src="/front/resource/images/6.jpg" />
-                <h3><a href="#">谁说我回不到过去，时间会给我答案</a></h3>
-                <div class="adr"><a href="#">《最强设计‘身边的最美的艺术》</a></div>
-                <div class="cz"><span class="votes rt">投票数<b>256</b>票</span><span class="date lt">上传时间：2016-3-24</span></div>
-            </div>
-        </li><li>
-        <div class="margin20">
-            <img class="workimg" src="/front/resource/images/4.jpg" />
-            <h3><a href="#">谁说我回不到过去，时间会给我答案</a></h3>
-            <div class="adr"><a href="#">《最强设计‘身边的最美的艺术》</a></div>
-            <div class="cz"><span class="votes rt">投票数<b>256</b>票</span><span class="date lt">上传时间：2016-3-24</span></div>
-        </div>
-    </li>
-        <li>
-            <div class="margin20">
-                <img class="workimg" src="/front/resource/images/4.jpg" />
-                <h3><a href="#">谁说我回不到过去，时间会给我答案</a></h3>
-                <div class="adr"><a href="#">《最强设计‘身边的最美的艺术》</a></div>
-                <div class="cz"><span class="votes rt">投票数<b>256</b>票</span><span class="date lt">上传时间：2016-3-24</span></div>
-            </div>
-        </li>
-        <li>
-            <div class="margin20">
-                <img class="workimg" src="/front/resource/images/4.jpg" />
-                <h3><a href="#">谁说我回不到过去，时间会给我答案</a></h3>
-                <div class="adr"><a href="#">《最强设计‘身边的最美的艺术》</a></div>
-                <div class="cz"><span class="votes rt">投票数<b>256</b>票</span><span class="date lt">上传时间：2016-3-24</span></div>
-            </div>
-        </li>
-        <li>
-            <div class="margin20">
-                <img class="workimg" src="/front/resource/images/4.jpg" />
-                <h3><a href="#">谁说我回不到过去，时间会给我答案</a></h3>
-                <div class="adr"><a href="#">《最强设计‘身边的最美的艺术》</a></div>
-                <div class="cz"><span class="votes rt">投票数<b>256</b>票</span><span class="date lt">上传时间：2016-3-24</span></div>
-            </div>
-        </li>
-    </ul>
-    <div class="page"><span><a href="#">&lt;</a></span><span><a href="#">1</a></span><span><a href="#">2</a></span><span><a href="#">3</a></span><span><a href="#">4</a></span><span><a href="#">5</a></span><span><a href="#">&gt;</a></span></div>
+<div class="user-product">
+    <div class="title">
+        <span>作品展示</span>
+    </div>
+    <div class="hdwork clearfix">
+        <ul>
+            <li  ng-class="'scale-fade'"
+                 ng-repeat="work in works.$array">
+                <dl class="showOverPic">
+                    <dd
+                            ng-repeat="pic in work.fileUrls"
+                            data-sub-html="{{ pic.name }}"
+                            data-src="{{pic.url}}"
+                            ng-show="!$index>0"
+                            >
+                        <a href=""><img class="zpimg"  ng-src="{{pic.url}}" /></a>
+                    </dd>
+                </dl>
+                <h3>{{work.fileUrls[0].name}}</h3>
+                <div class="hdbq">
+                    <span class="see">浏览：<b>132</b></span>
+                    <span class="tp">投票：<b>{{ work.votes.length }}</b></span>
+                    <span class="date lt">上传时间：{{ work.creatTime | date:'yyyy-MM-dd' }}</span>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="page">
+                        <span><a ng-show="works.$last"
+                                 ng-click="works.$toLast();">上一页</a></span>
+                        <span><a ng-show="works.$next"
+                                 ng-click="works.$toNext();">下一页</a></span>
+                        <span>
+                            <a>{{ works.$curPage }}/{{ works.$pageCount }}</a>
+                        </span>
+        <span> <a>作品:{{ works.$totalSize }}</a></span>
+    </div>
 </div>
-

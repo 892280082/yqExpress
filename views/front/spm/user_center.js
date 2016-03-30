@@ -54,7 +54,5 @@ app.controller("main",["$scope",function($scope){
         return number == $scope.overFlag ? 'over':''
     };
 
-
-
 }]);
 

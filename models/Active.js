@@ -4,17 +4,18 @@
  * @auther yq
  *
  * @api model层
- * 1.validateUser 验证用户，使用md5算法 ok
+ * 1.pushWork -提交作品  -call(err,doc);
+ * 2.pullWork -删除作品  -call(err,doc);
  *
  * @api pojo层
- * 1.saveUser - 保存用户，并配置加密算法(md5)ok  -call('err',保存后的user对象)
  *
  * @_api
- * crptoUserPassword 加密用户密码
  ****************************************************************************************/
-var mongoose = require('mongoose'),
-    Schema = mongoose.Schema,
-    objectid = require('objectid');
+var mongoose = require('mongoose');
+var    Schema = mongoose.Schema;
+var    Work = require("./Work");
+var    objectid = require('objectid');
+var    mongooseUtil = require("../util/mongooseUtil");
 
 var activeSchema = new Schema({
     /***************基本信息****************/
@@ -56,12 +57,44 @@ var activeSchema = new Schema({
     checkcounts:Number,//关注量 *
     likes:[Schema.Types.ObjectId],//喜欢
     votes:[Schema.Types.ObjectId],//投票
-    collects:[Schema.Types.ObjectId],//报名
+    collects:[Schema.Types.ObjectId],//收藏
 
     /****************作品信息*****************/
     workCate:[],//作品分类
-    workCount:{ type:Number,default:0},//作品数量
+    works:[Schema.Types.ObjectId],//作品数量
 })
+
+/**
+ * @param _actId {String} 活动ID
+ * @param work {Object} 作品
+ * @param callback {Function} 回调函数
+ */
+activeSchema.statics.pushWork = function(_actId,work,callback){
+    mongooseUtil.addInnerCollection({
+        parentId:_actId,
+        collecname:"works",
+        childPojo:work,
+        childDao:Work,
+        callback:callback
+    },this);
+}
+
+/**
+ * @param _actId {String} -活动ID
+ * @param _worId {String} -作品ID
+ * @param callback {Function} -回掉函数
+ */
+activeSchema.statics.pullWork = function(_actId,_worId,callback){
+    mongooseUtil.removeInnerCollection({
+        "parentId":_actId,
+        "childId":_worId,
+        "childDao":Work,
+        "collecname":"works",
+        "callback":callback
+    },this);
+}
+
+
 
 var  active = mongoose.model("actives", activeSchema);
 module.exports = active;

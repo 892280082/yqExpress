@@ -2,6 +2,7 @@
  *@desc 提供用户数据处理接口
  *@auther yq
  */
+var _ = require("underscore");
 angular.module('service.active_server',[]).service("active_server",["$http"
     ,function($http){
         //获取所有数据，利用前台分页
@@ -71,6 +72,11 @@ angular.module('service.active_server',[]).service("active_server",["$http"
             return $http.post('/front/subUserWork',{"pushPojo":pojo});
         }
 
+        /**
+         * @param _id {String} -活动ID
+         * @param calback
+         * @desc 判断session用户是否参与了当前活动
+         */
         this.getWorkByActId = function(_id,calback){
             $http.post('/front/getWorkByActId',{"_id":_id})
                 .success(function(data){
@@ -79,5 +85,49 @@ angular.module('service.active_server',[]).service("active_server",["$http"
                     alert("/front/valiSubWorkForAct->链接失败");
                 })
         }
+
+        /**
+         * @desc 获取指定用户的作品集合
+         * @param _id {String} -用户ID
+         * @param calback
+         */
+        this.getWorkByUserId = function(_id,calback){
+            $http.post('/front/getWorkByUserId',{"_id":_id})
+                .success(function(data){
+                    calback(data.err,data.result);
+                }).error(function(){
+                    alert("/front/getWorkByUserId->链接失败");
+                })
+        }
+
+        /***
+         * @desc 获取指定活动的作品集合
+         * @param _id {String} -活动ID
+         * @param calback
+         */
+        this.getWorkByUserId = function(_id,calback){
+            $http.post('/front/getCurActWorks',{"_id":_id})
+                .success(function(data){
+                    calback(data.err,data.result);
+                }).error(function(){
+                    alert("/front/getCurActWorks->链接失败");
+                })
+        }
+
+        /***
+         * @desc 获取指定ID的WORK对象
+         * @param _id {String] 作品ID
+         */
+        this.getWorkById = function(_id,calback){
+            $http.post('/front/getWorkById',{"_id":_id})
+                .success(function(data){
+                    calback(data.err,data.result);
+                }).error(function(){
+                    alert("/front/getCurActWorks->链接失败");
+                })
+        }
+
+
+
 
     }]);

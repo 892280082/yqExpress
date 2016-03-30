@@ -10,6 +10,24 @@
         ,function($scope,showCtrl,FileUploader,pageResult,user_service,active_server) {
 
             /***************************控制*****************************/
+            //获取作品集合
+            pageResult.$loadInit({
+                url:"/front/getAllWorks",
+                pageSize:8,
+                query:{actId:GLOBAL_ACTIVE_POJO._id},
+            },function(err,result){
+                console.log(err,result);
+                $scope.works = result;
+            })
+
+            //展示作品
+            $scope.showLayerJson = function(work){
+                var json = active_server.converWorkToLayerJson(work.fileUrls);
+                layer.photos({
+                    photos: json
+                });
+            }
+
             //提交名单
             $scope.doJoinActive = function(){
                 user_service.validateLoginState(function(){
@@ -38,7 +56,6 @@
                     })
                 })
             }
-
 
         }])
 

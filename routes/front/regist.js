@@ -48,7 +48,11 @@ router.post('/emailRegist',function(req,res){
             password:pojo.password,
             email:pojo.email,
             job:pojo.job,
-            randomStr:pojo.randomStr
+            randomStr:pojo.randomStr,
+            cate1:{
+                cateId:2,
+                cateName:'普通用户'
+            }
         };
         var cusPojo = new Customer(tempPojo);
         cusPojo.save(function(err){
