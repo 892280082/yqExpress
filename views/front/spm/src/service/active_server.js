@@ -65,6 +65,20 @@ angular.module('service.active_server',[]).service("active_server",["$http"
         }
 
         /**
+         * @desc 通过ID获得活动信息
+         * @param id {String} 活动ID
+         * */
+        this.getActiveBaseByIdVa = function(id,callback){
+            $http.post('/front/getActiveBaseById',{"_id":id})
+                .success(function(data){
+                    return callback(data.err,data.result);
+                }).error(function(data){
+                    alert("active_server->getActiveBaseByIdVa:连接出错");
+                })
+        }
+
+
+        /**
          * @desc 提交作品信息
          * @param pojo {Object} 作品信息
          * */
@@ -127,6 +141,15 @@ angular.module('service.active_server',[]).service("active_server",["$http"
                 })
         }
 
+        this.addWorkCheckCount = function(_id,callback){
+            console.log('/front/addWorkCheckCount/'+_id);
+            $http.post('/front/addWorkCheckCount/'+_id,{})
+                .success(function(data){
+                    callback(data.err,data.result);
+                }).error(function(){
+                    alert("/front/addWorkCheckCount->链接失败");
+                })
+        }
 
 
 

@@ -28,10 +28,6 @@
             $scope.tempReplayPojo = {};
             //文章对象
             $scope.article = {};
-
-
-
-
             //用户喜欢状态
             $scope.LikeFlag = false;
             //用户收藏状态
@@ -103,15 +99,17 @@
 
             //收藏该文章
             $scope.addCollectArticle = function(){
-                art_detail_server.collecCurArticle($scope.ArticleId)
-                    .success(function(data){
-                        if(!data.err){
-                            $scope.article.collections.push($scope.user._id);
-                            $scope.collecFlag = !$scope.collecFlag;
-                        }else{
-                            console.log("推送错误");
-                        }
-                    })
+                user_service.validateLoginState(function(){
+                    art_detail_server.collecCurArticle($scope.ArticleId)
+                        .success(function(data){
+                            if(!data.err){
+                                $scope.article.collections.push($scope.user._id);
+                                $scope.collecFlag = !$scope.collecFlag;
+                            }else{
+                                console.log("推送错误");
+                            }
+                        })
+                })
             }
 
             //取消收藏该文章
@@ -139,14 +137,16 @@
 
             //评论该文章
             $scope.subComment = function () {
-                art_detail_server.pushComment($scope.commentPojo)
-                    .success(function (data) {
-                        if (!data.err) {
-                            $scope.commentPojo.content = "";
-                            $scope.ArticleCommentCount++;
-                            $scope.array_comments.$add(data.result);
-                        }
-                    })
+                user_service.validateLoginState(function(){
+                    art_detail_server.pushComment($scope.commentPojo)
+                        .success(function (data) {
+                            if (!data.err) {
+                                $scope.commentPojo.content = "";
+                                $scope.ArticleCommentCount++;
+                                $scope.array_comments.$add(data.result);
+                            }
+                        })
+                })
             }
 
 
@@ -168,34 +168,36 @@
 
             //发送回复
             $scope.sendReply = function(comment){
-                $scope.replayPojo._userId = $scope.user._id;
-                $scope.replayPojo.userName = $scope.user.name;
-                $scope.replayPojo.headUrl = $scope.user.headUrl;
-                $scope.replayPojo.creatTime = new Date();
-                $scope.replayPojo.content = comment.replayContent;
+                user_service.validateLoginState(function(){
+                    $scope.replayPojo._userId = $scope.user._id;
+                    $scope.replayPojo.userName = $scope.user.name;
+                    $scope.replayPojo.headUrl = $scope.user.headUrl;
+                    $scope.replayPojo.creatTime = new Date();
+                    $scope.replayPojo.content = comment.replayContent;
 
-                if(comment.isComment) {
-                    //评论
-                }else{
-                    //回复
-                    var targetReplay = comment.targetReplay;
-                    $scope.replayPojo.toName = targetReplay.userName;
-                    $scope.replayPojo.toUserId = targetReplay._userId;
-                }
+                    if(comment.isComment) {
+                        //评论
+                    }else{
+                        //回复
+                        var targetReplay = comment.targetReplay;
+                        $scope.replayPojo.toName = targetReplay.userName;
+                        $scope.replayPojo.toUserId = targetReplay._userId;
+                    }
 
-                var newPojo = _.clone($scope.replayPojo)
-                //请求服务器,发送评论
-                art_detail_server.sendReplay(comment._id, newPojo)
-                    .success(function (data) {
-                        if (!data.err) {
-                            comment.replays.push(newPojo);
-                            $scope.replayPojo = {};
-                            comment.replayIng = false;
-                            comment.replayContent = "";
-                        } else {
-                            alert("评论失败");
-                        }
-                    })
+                    var newPojo = _.clone($scope.replayPojo)
+                    //请求服务器,发送评论
+                    art_detail_server.sendReplay(comment._id, newPojo)
+                        .success(function (data) {
+                            if (!data.err) {
+                                comment.replays.push(newPojo);
+                                $scope.replayPojo = {};
+                                comment.replayIng = false;
+                                comment.replayContent = "";
+                            } else {
+                                alert("评论失败");
+                            }
+                        })
+                })
             }
 
             //回复用户的回复

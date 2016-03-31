@@ -54,16 +54,21 @@
                                     data-src="{{pic.url}}"
                                     ng-show="!$index>0"
                                     >
-                                    <a href=""><img class="zpimg"  ng-src="{{pic.url}}" /></a>
+                                    <a href="" ng-click="addWorkCheck(work)"><img class="zpimg"  ng-src="{{pic.url}}" /></a>
                                 </dd>
                             </dl>
                             <h3>{{work.fileUrls[0].name}}</h3>
                             <div class="hdbq">
                                 <span class="zz">作者：<b>{{ work.$user.name }}</b></span>
-                                <span class="see">浏览：<b>132</b></span>
+                                <span class="see">浏览：<b>{{ work.checkcounts }}</b></span>
                                 <span class="tp">投票：<b>{{ work.votes.length }}</b></span>
                             </div>
-                            <div class="hdbq"><span class="tota">投他一票</span></div>
+                            <div class="hdbq"  ng-click="voteWork(work);" ng-show="!!!_.contains(work.votes,userId)">
+                                <span class="tota">投他一票</span>
+                            </div>
+                            <div class="hdbq"  ng-show="!!_.contains(work.votes,userId)">
+                                <span class="tota">已投票</span>
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -78,8 +83,9 @@
                     <span> <a>作品:{{ works.$totalSize }}</a></span>
                 </div>
                 <div class="likes">
-                    <span><a title="喜欢"><img src="/front/resource/images/lisk.jpg" /></a><p>365人喜欢</p></span>
-                    <span><a title="收藏"><img src="/front/resource/images/scang.jpg" /></a><p>478人收藏</p></span>
+                    <active-like actid="<%- active._id %>" cusid="<%- $session.USER ? $session.USER._id : '' %>"></active-like>
+
+                    <active-collect actid="<%- active._id %>" cusid="<%- $session.USER ? $session.USER._id : '' %>"></active-collect>
                 </div>
             </div>
             <div class="contc" id="hdtab3">
@@ -108,7 +114,8 @@
     });
 
     GLOBAL_ACTIVE_POJO = {
-        _id:"<%- active._id %>"
+        _id:"<%- active._id %>",
+        _userId:"<%- $session.USER ? $session.USER._id : '' %>",
     }
 </script>
 <script type="text/javascript"  src="/front/dist/active_detail.js"></script>

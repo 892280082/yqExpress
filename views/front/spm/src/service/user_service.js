@@ -59,15 +59,16 @@ angular.module('service.user_service',[]).service("user_service",["$http"
 
             /**
              * @desc 获取用户的登陆状态
-             *
              */
             this._user_login_state = 'init';
+            this._session_user_cache = {};
             this.validateLoginState = function(callback){
                 var _this = this;
                 if(this._user_login_state === 'init') {
                     $http.post('/front/getLoginStatu')
                         .success(function (data) {
                             _this._user_login_state = data.result ? 'login' : 'noLogin';
+                            _this._session_user_cache = data.result;
                             _this.validateLoginState(callback);
                         }).error(function (data) {
                             _this._user_login_state = false;
@@ -88,8 +89,76 @@ angular.module('service.user_service',[]).service("user_service",["$http"
                     });
 
                 }else if(_this._user_login_state === 'login'){
-                    return callback();
+                    return callback(this._session_user_cache);
                 }
             }
+
+            /**
+             * @desc 喜欢指定ID的活动
+             * @param actId {String} 活动ID
+             */
+            this.userLikeActive = function(actId,callback){
+                $http.post('/front/userLikeActive',{"_id":actId})
+                    .success(function(data){
+                        return callback(data.err,data.result);
+                    }).error(function(data){
+                        alert("user_service->userLikeActive:链接出错");
+                    })
+            }
+
+            /**
+             * @desc 取消喜欢指定ID的活动
+             * @param actId {String} 活动ID
+             */
+            this.cancelLikeActiveById = function(actId,callback){
+                $http.post('/front/cancelLikeActiveById',{"_id":actId})
+                    .success(function(data){
+                        return callback(data.err,data.result);
+                    }).error(function(data){
+                        alert("user_service->cancelLikeActiveById:链接出错");
+                    })
+            }
+
+            /**
+             * @desc 收藏指定ID的活动
+             * @param actId {String} 活动ID
+             */
+            this.userCollectActive = function(actId,callback){
+                $http.post('/front/userCollectActive',{"_id":actId})
+                    .success(function(data){
+                        return callback(data.err,data.result);
+                    }).error(function(data){
+                        alert("user_service->userCollectActive:链接出错");
+                    })
+            }
+
+            /**
+             * @desc 取消收藏指定ID的活动
+             * @param actId {String} 活动ID
+             */
+            this.cancelUserCollectActive = function(actId,callback){
+                $http.post('/front/cancelUserCollectAct',{"_id":actId})
+                    .success(function(data){
+                        return callback(data.err,data.result);
+                    }).error(function(data){
+                        alert("user_service->cancelUserCollectActive:链接出错");
+                    })
+            }
+
+            /**
+             * @desc 用户给指定作品投票
+             * @param workId {String} 作品ID
+             * */
+             this.userVoteWork = function(worId,callback){
+                 $http.post('/front/userVoteWork',{"_id":worId})
+                     .success(function(data){
+                         return callback(data.err,data.result);
+                     }).error(function(data){
+                         alert("user_service->cancelUserCollectActive:链接出错");
+                     })
+             }
+
+
+
 
     }]);

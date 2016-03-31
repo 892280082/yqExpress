@@ -4,7 +4,7 @@
  * @date 2016/3/14
  *
  * @API
- * 1. increaPojoById -----------------增加文章的查看次数
+ * 1. increaPojoById -------------增加文章的查看次数
  * 2. addRandomArt ---------------随机选取数据
  * 3. getComment -----------------获取评论
  *

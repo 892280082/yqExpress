@@ -18,7 +18,7 @@
                 </dl>
                 <h3>{{work.fileUrls[0].name}}</h3>
                 <div class="hdbq">
-                    <span class="see">浏览：<b>132</b></span>
+                    <span class="see">浏览：<b>{{ work.checkcounts }}</b></span>
                     <span class="tp">投票：<b>{{ work.votes.length }}</b></span>
                     <span class="date lt">上传时间：{{ work.creatTime | date:'yyyy-MM-dd' }}</span>
                 </div>

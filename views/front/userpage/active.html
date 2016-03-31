@@ -1,60 +1,31 @@
 <div class="personal-cont clearfix">
     <ul class="work clearfix">
-        <li>
+        <li ng-repeat="active in actives.$array">
             <div class="margin20">
-                <img class="hdimg" src="/front/resource/images/4.jpg" />
-                <h3><a href="#">谁说我回不到过去，时间会给我答案11</a></h3>
-                <div class="cz"><span class="date lt">活动时间：2016-3-24——2016-4-24</span></div>
+                <a href="/front/toActivetail/{{ active._id }}" target="_blank">
+                    <img class="hdimg"  ng-src="{{ active.convertUrl }}" />
+                    <h3><a href="#">{{ active.title }}</a></h3>
+                <a>
+                <div class="cz">
+                    <span class="date lt">
+                        活动时间：
+                         {{ active.actStartTime | date:'yyyy-MM-dd' }}
+                            ——
+                         {{ active.actOverTime | date:'yyyy-MM-dd' }}
+                    </span>
+                </div>
             </div>
         </li>
-        <li>
-            <div class="margin20">
-                <img class="hdimg" src="/front/resource/images/3.jpg" />
-                <h3><a href="#">生命的意义，在身边寻求</a></h3>
-                <div class="cz"><span class="date lt">活动时间：2016-3-24——2016-4-24</span></div>
-            </div>
-        </li>
-        <li>
-            <div class="margin20">
-                <img class="hdimg" src="/front/resource/images/2.jpg" />
-                <h3><a href="#">谁说我回不到过去，时间会给我答案</a></h3>
-                <div class="cz"><span class="date lt">活动时间：2016-3-24——2016-4-24</span></div>
-            </div>
-        </li>
-        <li>
-            <div class="margin20">
-                <img class="hdimg" src="/front/resource/images/6.jpg" />
-                <h3><a href="#">谁说我回不到过去，时间会给我答案</a></h3>
-                <div class="cz"><span class="date lt">活动时间：2016-3-24——2016-4-24</span></div>
-            </div>
-        </li><li>
-        <div class="margin20">
-            <img class="hdimg" src="/front/resource/images/4.jpg" />
-            <h3><a href="#">谁说我回不到过去，时间会给我答案</a></h3>
-            <div class="cz"><span class="date lt">活动时间：2016-3-24——2016-4-24</span></div>
-        </div>
-    </li>
-        <li>
-            <div class="margin20">
-                <img class="hdimg" src="/front/resource/images/4.jpg" />
-                <h3><a href="#">谁说我回不到过去，时间会给我答案</a></h3>
-                <div class="cz"><span class="date lt">活动时间：2016-3-24——2016-4-24</span></div>
-            </div>
-        </li>
-        <li>
-            <div class="margin20">
-                <img class="hdimg" src="/front/resource/images/4.jpg" />
-                <h3><a href="#">谁说我回不到过去，时间会给我答案</a></h3>
-                <div class="cz"><span class="date lt">活动时间：2016-3-24——2016-4-24</span></div>
-            </div>
-        </li>
-        <li>
-            <div class="margin20">
-                <img class="hdimg" src="/front/resource/images/4.jpg" />
-                <h3><a href="#">谁说我回不到过去，时间会给我答案</a></h3>
-                <div class="cz"><span class="date lt">活动时间：2016-3-24——2016-4-24</span></div>
-            </div>
-        </li>
+
     </ul>
-    <div class="page"><span><a href="#">&lt;</a></span><span><a href="#">1</a></span><span><a href="#">2</a></span><span><a href="#">3</a></span><span><a href="#">4</a></span><span><a href="#">5</a></span><span><a href="#">&gt;</a></span></div>
+    <div class="page">
+                        <span><a ng-show="actives.$last"
+                                 ng-click="actives.$toLast();">上一页</a></span>
+                        <span><a ng-show="actives.$next"
+                                 ng-click="actives.$toNext();">下一页</a></span>
+                        <span>
+                            <a>{{ actives.$curPage }}/{{ actives.$pageCount }}</a>
+                        </span>
+        <span> <a>活动:{{ actives.$totalSize }}</a></span>
+    </div>
 </div>

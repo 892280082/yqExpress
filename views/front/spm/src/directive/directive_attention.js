@@ -37,15 +37,17 @@ angular.module("directive-attention",["service.user_service"])
 
             //关注用户
             scope.addAttention = function(){
-                user_service.attentionUser(autherId)
-                    .success(function(data){
-                        if(!data.err){
-                            scope.attenFlag = !scope.attenFlag;
-                                scope.fanscount++;
-                        }else{
-                            console.log("推送错误");
-                        }
-                    })
+                user_service.validateLoginState(function(){
+                    user_service.attentionUser(autherId)
+                        .success(function(data){
+                            if(!data.err){
+                                scope.attenFlag = !scope.attenFlag;
+                                    scope.fanscount++;
+                            }else{
+                                console.log("推送错误");
+                            }
+                        })
+                })
             }
 
             //取消关注

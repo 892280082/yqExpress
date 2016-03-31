@@ -13,10 +13,13 @@
         /*****************************数据Model************************************/
             $scope.global_info = GLOBAL_USER_INFO;
 
+
+            var workPageResult = angular.copy(pageResult);
+
             $scope.works = tempPageResult;
 
             if(!$scope.works){
-                pageResult.$loadInit({
+                workPageResult.$loadInit({
                     url:"/front/getAllWorks",
                     pageSize:8,
                     query:{userId:$scope.global_info._id},

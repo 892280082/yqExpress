@@ -47,12 +47,19 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
     $urlRouterProvider.otherwise('/active');
 }])
 
-app.controller("main",["$scope",function($scope){
+app.controller("main",["$scope","$location",function($scope,$location){
 
-    $scope.overFlag = 1;
+    $scope.overFlag=1;
+    switch ($location.path()){
+        case "/work" : $scope.overFlag=1;break;
+        case "/active" : $scope.overFlag=2;break;
+        case "/collect" : $scope.overFlag=3;break;
+    }
+
     $scope.getOver = function(number){
         return number == $scope.overFlag ? 'over':''
     };
 
+    $scope.getOver($scope.overFlag);
 }]);
 

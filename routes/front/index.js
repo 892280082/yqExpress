@@ -296,7 +296,17 @@ router.get('/toUserCenter',function(req,res){
 
 //获取用户的登陆状态
 router.post('/getLoginStatu',function(req,res){
-	res.json({result:!!req.session.USER});
+	if(req.session.USER){
+		return res.json({
+			result:{
+				_id:req.session.USER._id,
+				name:req.session.USER.name,
+			}
+		});
+	}else{
+		res.json({result:null});
+	}
+
 })
 
 //上传作品页面
@@ -392,6 +402,73 @@ router.post('/getWorkById',function(req,res){
 	})
 
 })
+
+//用户喜欢活动
+router.post('/userLikeActive',function(req,res){
+	var actId = req.body._id;
+	var cusId = req.session.USER._id;
+
+	mongooseUtil.pushInnerCollectionById(actId,Active,'likes',cusId,function(err,info){
+		return res.json({err:err,result:info});
+	});
+})
+
+//用户取消喜欢活动
+router.post('/cancelLikeActiveById',function(req,res){
+	var actId = req.body._id;
+	var cusId = req.session.USER._id;
+
+	mongooseUtil.pullInnerCollectionById(actId,Active,'likes',cusId,function(err,info){
+		return res.json({err:err,result:info});
+	});
+})
+
+//用户收藏活动
+router.post('/userCollectActive',function(req,res){
+	var actId = req.body._id;
+	var cusId = req.session.USER._id;
+
+	Customer.pushActiveCollect(cusId,actId,function(err,info){
+		return res.json({err:err,result:info});
+	})
+})
+
+//用户取消收藏活动
+router.post('/cancelUserCollectAct',function(req,res){
+	var actId = req.body._id;
+	var cusId = req.session.USER._id;
+
+	Customer.pullActiveCollect(cusId,actId,function(err,info){
+		return res.json({err:err,result:info});
+	})
+})
+
+//用户像作品投票
+router.post('/userVoteWork',function(req,res){
+	var worId = req.body._id;
+	var cusId = req.session.USER._id;
+
+	Work.findOne({"_id":worId},function(err,doc){
+
+		if(doc && !mongooseUtil.contains(doc.votes,cusId)){
+			mongooseUtil.pushInnerCollectionById(worId,Work,'votes',cusId,function(err,info){
+				return res.json({err:err,result:info});
+			});
+		}else{
+			return res.json({err:'已经投过票了'});
+		}
+	})
+})
+
+//作品查看次数
+router.post("/addWorkCheckCount/:_id"
+	,frontWare.increaPojoById(Work,"checkcounts")
+	,function(req,res){
+		res.json({err:null});
+});
+
+
+
 
 
 

@@ -11,9 +11,10 @@
  * 5.pullProduct 删除产品 -call('err',删除信息)
  * 6.pushAttentions 添加关注，被关注的一方pushfollowers
  * 7.pullAttentions 取消关注  被关注的一方pullfollowers
-   8.pushActiveLike 用户收藏活动
-   9.pullActiveLike 用户取消收藏的活动
- * @api pojo层
+   8.pushActiveCollect 用户收藏活动
+   9.pullActiveCollect 用户取消收藏的活动
+
+  * @api pojo层
  * 1.saveUser - 保存用户，并配置加密算法(md5)ok  -call('err',保存后的user对象)
  *
  * @_api
@@ -297,12 +298,12 @@ customSchema.statics.pullAttentions = function(_selfId,_otherId,callback){
  }
 
  /**
-  * @desc 用户收藏当前文章
+  * @desc 用户收藏当前活动
   * @param _userId {String} - 用户ID
   * @param _atcId {String} - 活动ID
   * @param callback {Function} - 回调函数
   */
- customSchema.statics.pushActiveLike = function(_userId,_atcId,callback){
+ customSchema.statics.pushActiveCollect = function(_userId,_atcId,callback){
         var Active = require("./Active");
          mongooseUtil.dealAllCollectionId({
          parentId:_userId,
@@ -316,7 +317,25 @@ customSchema.statics.pullAttentions = function(_selfId,_otherId,callback){
          },this);
  }
 
-
+ /**
+  * @desc 用户取消收藏当前活动
+  * @param _userId {String} - 用户ID
+  * @param _atcId {String} - 活动ID
+  * @param callback {Function} - 回调函数
+  */
+ customSchema.statics.pullActiveCollect = function(_userId,_atcId,callback){
+     var Active = require("./Active");
+     mongooseUtil.dealAllCollectionId({
+         parentId:_userId,
+         parentPojo:_atcId,
+         collecname:"-collectActives",
+         childId:_atcId,
+         childDao:Active,
+         childCollecname:"-collects",
+         childPojo:_userId,
+         callback:callback
+     },this);
+ }
 
 
  var  custom = mongoose.model("customs", customSchema);

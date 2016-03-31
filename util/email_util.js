@@ -4,8 +4,8 @@
  * @date 2016/2/24
  */
 var nodemailer = require('nodemailer');
-var    smtpTransport = require('nodemailer-smtp-transport');
-var    mailConf = require('../conf/email_config');
+var smtpTransport = require('nodemailer-smtp-transport');
+var mailConf = require('../conf/email_config');
 var main_conf = require('../conf/app_config');
 
 

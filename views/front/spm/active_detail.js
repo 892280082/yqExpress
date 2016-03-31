@@ -20,10 +20,13 @@ require("./src/service/active_server.js");
 require("./src/service/user_service.js");
 //加载用户指令server
 require("./src/directive/directive_attention.js");
+//加载用户和活动状态的指令
+require("./src/directive/directive_active_likeAndCollect.js");
 ///**加载主程序人口*/
 require("./src/controller/active_detail_control.js");
 
 var app = angular.module('myApp',[
+    'directive_active_likeAndCollect',
     'angularFileUpload',
     'service.showCtrl',
     'service.active_server',

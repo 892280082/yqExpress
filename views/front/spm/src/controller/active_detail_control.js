@@ -8,6 +8,10 @@
                                         "ng.ueditor"
     ]).controller('active_detail_control',['$scope','showCtrl','FileUploader','pageResult','user_service','active_server'
         ,function($scope,showCtrl,FileUploader,pageResult,user_service,active_server) {
+            /***************************model*****************************/
+            $scope._ = _;
+
+            $scope.userId = GLOBAL_ACTIVE_POJO._userId;
 
             /***************************控制*****************************/
             //获取作品集合
@@ -16,22 +20,13 @@
                 pageSize:8,
                 query:{actId:GLOBAL_ACTIVE_POJO._id},
             },function(err,result){
-                console.log(err,result);
                 $scope.works = result;
             })
 
-            //展示作品
-            $scope.showLayerJson = function(work){
-                var json = active_server.converWorkToLayerJson(work.fileUrls);
-                layer.photos({
-                    photos: json
-                });
-            }
 
             //提交名单
             $scope.doJoinActive = function(){
                 user_service.validateLoginState(function(){
-
                     active_server.getWorkByActId(GLOBAL_ACTIVE_POJO._id,function(err,doc){
                        if(!doc){
                            layer.open({
@@ -54,6 +49,36 @@
                                });
                        }
                     })
+                })
+            }
+
+            //投票
+            $scope.voteWork = function(work){
+                user_service.validateLoginState(function(){
+
+                    layer.confirm('一个作品您只能投票一次哦', {
+                        btn: ['投票','取消'] //按钮
+                    }, function(){
+                        user_service.userVoteWork(work._id,function(err,info){
+                            err && console.log(err);
+                            work.votes.push($scope.userId);
+                        })
+                        layer.msg('投票成功', {icon: 1});
+                    }, function(){
+
+                    });
+                })
+
+            }
+
+            //作品添加查看次数
+            $scope.addWorkCheck = function(work){
+                if(work.checkFlag)
+                    return false;
+                active_server.addWorkCheckCount(work._id,function(err,info){
+                    err && console.log(err);
+                    work.checkFlag = true;
+                    work.checkcounts++;
                 })
             }
 

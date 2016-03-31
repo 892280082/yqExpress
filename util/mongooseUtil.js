@@ -19,6 +19,7 @@ var objectid = require("objectid"),
  * 10.pushInnerCollectionById 像model的内部集合推送对象 -call(err,info);
  * 11.pushInnerCollectionById 像model的内部集合删除对象 -call(err,info);
  * 12.contains 判断数组中是否有指定的object -call(Boolean)
+ * 13.converIdsArray -将ObjectId数组转换成对象数组
  */
 
 
@@ -380,3 +381,26 @@ exports.contains = function(idArray,targetId){
        return ele == targetId;
    })
 }
+
+
+exports.converIdsArray = function(array,Dao,callback){
+    var results = [];
+    then.each(array,function(ele){
+        Dao.findOne()
+
+    })
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
