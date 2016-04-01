@@ -14,6 +14,7 @@ require("./src/service/art_detail_server.js");//创品服务
 require("./src/service/pro_list_server.js");//创品服务
 require("./src/service/dataService.js");//数据分类服务
 require("./src/service/user_service.js");//用户服务
+require("./src/service/art_detail_server.js");//发现服务
 require("../userpage/controller/user_center_active.js");//活动控制器
 require("../userpage/controller/user_center_collect.js");//收藏控制器
 require("../userpage/controller/user_center_work.js");//作品控制器
@@ -26,6 +27,7 @@ var app = angular.module('myApp',[
     'controller.user_center_collect',
     'controller.user_center_work',
     'service.user_service',
+    'service.art_detail_server',
     pageResult.service_pageResult,
 ]);
 

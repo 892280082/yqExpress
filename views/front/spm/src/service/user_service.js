@@ -158,6 +158,22 @@ angular.module('service.user_service',[]).service("user_service",["$http"
                      })
              }
 
+            /**
+             * @param cusId {String?} 用户ID 如果没有就获取服务器的session userId
+             * @param callback
+             */
+            this.getUserAllCollect = function(cusId,callback){
+                if(arguments.length === 1){
+                    callback = cusId;
+                    cusId = null;
+                }
+                $http.post('/front/getUserAllCollect',{"_id":cusId})
+                    .success(function(data){
+                        return callback(data.err,data.result);
+                    }).error(function(data){
+                        alert("user_service->getUserAllCollect:链接出错");
+                    })
+            }
 
 
 

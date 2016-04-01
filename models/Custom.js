@@ -84,8 +84,8 @@ var customSchema = new Schema({
 
 
     /**用户的收藏*/
-    collecArticles:[Schema.Types.ObjectId],//用户收藏的文章
-    collectActives:[Schema.Types.ObjectId],//用户收藏的活动
+    collecArticles:[{type:Schema.Types.ObjectId,ref:'articles'}],//用户收藏的文章
+    collectActives:[{type:Schema.Types.ObjectId,ref:'actives'}],//用户收藏的活动
 
     /**非持久化对象*/
     recommens:[recommd],//推荐的创品或者文章集合

@@ -468,7 +468,13 @@ router.post("/addWorkCheckCount/:_id"
 });
 
 
-
+//获取用户所有的收藏
+router.post('/getUserAllCollect',function(req,res){
+	var cusId = req.body._id || req.session.USER._id;
+	Customer.findOne({"_id":cusId}).populate('collecArticles').populate('collectActives').exec(function(err,doc){
+		return res.json({err:err,result:doc});
+	})
+});
 
 
 

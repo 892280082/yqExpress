@@ -383,16 +383,6 @@ exports.contains = function(idArray,targetId){
 }
 
 
-exports.converIdsArray = function(array,Dao,callback){
-    var results = [];
-    then.each(array,function(ele){
-        Dao.findOne()
-
-    })
-
-
-
-}
 
 
 
