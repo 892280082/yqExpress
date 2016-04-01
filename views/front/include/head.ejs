@@ -1,6 +1,7 @@
 <script type="text/javascript">
-    function openRegist(url){
+    function openRegist(url,title){
         var index = layer.open({
+            title:title,
             type:2,
             content: url,
             maxmin: true
@@ -59,11 +60,11 @@
                 </div>
         <%    }else{ %>
                 <div class="hedlogin">
-                        <img  onclick="openRegist('/regist/login')"
+                        <img  onclick="openRegist('/regist/login','登录')"
                               src="/front/resource/images/hdlogin.png" />
-                        <span onclick="openRegist('/regist/login')"
+                        <span onclick="openRegist('/regist/login','登录')"
                               style="cursor: pointer;">登录</span>/
-                    <span style="cursor: pointer;"  onclick="openRegist('/regist/index');">注册</span>
+                    <span style="cursor: pointer;"  onclick="openRegist('/regist/index','注册');">注册</span>
                 </div>
         <%    } %>
 

@@ -32,7 +32,13 @@ var app = angular.module('myApp',[
 ]);
 
 app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider){
-    $stateProvider.state('active', {
+    $stateProvider
+    .state('work', {
+        url: '/work',
+        templateUrl: '/front/userpage/work.html',
+        controller: 'user_center_work'
+    })
+    .state('active', {
         url: '/active',
         templateUrl: '/front/userpage/active.html',
         controller: 'user_center_active'
@@ -40,13 +46,9 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
         url: '/collect',
         templateUrl: '/front/userpage/collec.html',
         controller: 'user_center_collect'
-    }).state('work', {
-        url: '/work',
-        templateUrl: '/front/userpage/work.html',
-        controller: 'user_center_work'
     });
 
-    $urlRouterProvider.otherwise('/active');
+    $urlRouterProvider.otherwise('/work');
 }])
 
 app.controller("main",["$scope","$location",function($scope,$location){
@@ -63,5 +65,21 @@ app.controller("main",["$scope","$location",function($scope,$location){
     };
 
     $scope.getOver($scope.overFlag);
+
+
+    //时间选择器
+    $scope.validateTime = function(startData,overData,infos) {
+        var currentTime = new Date();
+        startData = new Date(startData);
+        overData = new Date(overData);
+        if (currentTime < startData)
+            return infos[0];
+        if (currentTime >= startData && currentTime <= overData)
+            return infos[1];
+        else
+            return infos[2];
+    }
+
+
 }]);
 

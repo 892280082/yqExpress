@@ -2,29 +2,29 @@
     <div class="title">
         <span>作品展示</span>
     </div>
-    <div class="hdwork clearfix">
-        <ul>
+        <ul class="work clearfix">
             <li  ng-class="'scale-fade'"
                  ng-repeat="work in works.$array">
-                <dl class="showOverPic">
-                    <dd
-                            ng-repeat="pic in work.fileUrls"
-                            data-sub-html="{{ pic.name }}"
-                            data-src="{{pic.url}}"
-                            ng-show="!$index>0"
-                            >
-                        <a href=""><img class="zpimg"  ng-src="{{pic.url}}" /></a>
-                    </dd>
-                </dl>
-                <h3>{{work.fileUrls[0].name}}</h3>
-                <div class="hdbq">
-                    <span class="see">浏览：<b>{{ work.checkcounts }}</b></span>
-                    <span class="tp">投票：<b>{{ work.votes.length }}</b></span>
-                    <span class="date lt">上传时间：{{ work.creatTime | date:'yyyy-MM-dd' }}</span>
+                <div class="margin20">
+                    <dl class="showOverPic">
+                        <dd
+                                ng-repeat="pic in work.fileUrls"
+                                data-sub-html="{{ pic.name }}"
+                                data-src="{{pic.url}}"
+                                ng-show="!$index>0"
+                                >
+                            <a href=""><img class="zpimg"  ng-src="{{pic.url}}" /></a>
+                        </dd>
+                    </dl>
+                    <h3>{{work.fileUrls[0].name}}</h3>
+                    <div class="adr"><a href="#">《{{ work.$active.title }}》</a></div>
+                    <div class=cz>
+                        <span class="votes rt">投票：<b>{{ work.votes.length }}&nbsp;票</b></span>
+                        <span class="date lt">上传时间：{{ work.creatTime | date:'yyyy-MM-dd' }}</span>
+                    </div>
                 </div>
             </li>
         </ul>
-    </div>
     <div class="page">
                         <span><a ng-show="works.$last"
                                  ng-click="works.$toLast();">上一页</a></span>

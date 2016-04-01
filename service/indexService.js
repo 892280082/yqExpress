@@ -60,9 +60,12 @@ exports.getIndexData = function(callback){
             defer();
         })
     }).then(function(){
-        Product.find({}).sort({ topno:-1 }).limit(10)
-        .exec(function(err,docs){
-            indexData.products = docs;
+        then.each(webConfig.products,function(next,value){
+            Product.findOne({"_id":value.pojo._id},function(err,doc){
+                doc && indexData.products.push(doc);
+                next();
+            })
+        }).then(function(defer,err){
             return callback(err,indexData);
         })
     }).fail(function(next,err){

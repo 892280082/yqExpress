@@ -79,6 +79,7 @@ angular.module('service.user_service',[]).service("user_service",["$http"
                         btn: ['登陆','取消'] //按钮
                     }, function(){
                         var index = layer.open({
+                            title:'登录',
                             type:2,
                             content: '/regist/login',
                             maxmin: true

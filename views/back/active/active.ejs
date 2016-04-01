@@ -36,8 +36,6 @@
                 <th>点击量</th>
                 <th>喜欢</th>
                 <th>收藏</th>
-                <th>投票</th>
-                <th>创建日期</th>
                 <th>作品数</th>
                 <th>操作</th>
             </tr>
@@ -56,9 +54,7 @@
                 <td width="6%">{{ cus.checkcounts }}</td>
                 <td width="7%" >{{ cus.likes.length }}</td>
                 <td width="7%" >{{ cus.collects.length }}</td>
-                <td width="7%" >{{ cus.votes.length }}</td>
-                <td width="13%">{{ cus.works.length }}</td>
-                <td width="6%">{{ cus.topno }}</td>
+                <td width="7%" >{{ cus.works.length }}</td>
                 <td>
                     <a class="inner_btn"  ng-click="removeCustom(cus);"  href="#">删除</a>
                     <a class="inner_btn"  ng-if="parentShow"   ng-click="parentChoose(cus);"

@@ -23,7 +23,9 @@
                                 <img src="<%- ele.convertUrl %>" class="huodongimg" /></a>
                         </div>
                         <div class="sacrt lt">
-                            <div class="rtf"><b><%-  $moment.validateTime(ele.actStartTime,ele.actOverTime,['即将开始','进行中','已结束'])  %></b>
+                            <div class="rtf">
+                                <b class="<%- $moment.validateTime(ele.actStartTime,ele.actOverTime,['fur','进行中','end'])  %>">
+                                <%-  $moment.validateTime(ele.actStartTime,ele.actOverTime,['即将开始','进行中','已结束'])  %></b>
                                 <span class="title">
                                     <a href="/front/toActivetail/<%- ele._id %>" target="_blank">
                                         <%- ele.title  %>
@@ -69,7 +71,9 @@
                             <img src="{{ ele.convertUrl }}" class="huodongimg" /></a>
                     </div>
                     <div class="sacrt lt">
-                        <div class="rtf"><b>{{ validateTime(ele.actStartTime,ele.actOverTime,['即将开始','进行中','已结束']); }}</b>
+                        <div class="rtf">
+                            <b class="{{ validateTime(ele.actStartTime,ele.actOverTime,['fur','进行中','end']); }}" >
+                                {{ validateTime(ele.actStartTime,ele.actOverTime,['未开始','进行中','已结束']); }}</b>
                                 <span class="title">
                                     <a href="/front/toActivetail/{{ ele._id }}" target="_blank">
                                         {{ ele.title  }}

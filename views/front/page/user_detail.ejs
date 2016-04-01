@@ -35,14 +35,14 @@
                         </span>
                     </div>
                     <div class="user-info">
-                        <%- customer.introduce %>
+                        <%- customer.introduce ? customer.introduce : '暂无简介' %>
                     </div>
                 </div>
             </div>
         </div>
         <div class="user-product">
             <div class="title">
-                <span>作品展示</span>
+                <span>作品展示&nbsp;<b style="color:#e3c197;font-size:16px;">({{ works.$totalSize }})</b></span>
             </div>
             <div class="hdwork clearfix">
                 <ul>
@@ -58,12 +58,8 @@
                             </dd>
                         </dl>
                         <h3>{{work.fileUrls[0].name}}</h3>
-                        <div class="hdbq">
-                            <span class="zz">作者：<b>{{ work.$user.name }}</b></span>
-                            <span class="see">浏览：<b>132</b></span>
-                            <span class="tp">投票：<b>{{ work.votes.length }}</b></span>
-                        </div>
-                        <div class="hdbq"><span class="tota">投他一票</span></div>
+                        <div class="adr"><a href="#" style="color:#666;font-size:12px;">《{{work.$active.title}}》</a> </div>
+                        <div class="hdbq"><span class="tota">投他一票</span><span class="see">浏览：<b>132</b></span><span class="tp">投票：<b>{{ work.votes.length }}</b></span></div>
                     </li>
                 </ul>
             </div>

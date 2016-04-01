@@ -313,11 +313,7 @@ router.get('/toMangerBanner',function(req,res){
 router.post('/getWebConfig',function(req,res){
 	WebConfig.findOne(function(err,doc){
 		err && console.log(err);
-		if(!err){
-			res.json({"result":doc});
-		}else{
-			res.json({"err":err});
-		}
+		res.json({ "err":err,"result":doc });
 	})
 });
 
@@ -364,6 +360,11 @@ router.get('/toCusRecommd',function(req,res){
 //进入活动推荐管理页面
 router.get('/toActiveRecommd',function(req,res){
 	res.render("back/webMannger/active_recommd");
+})
+
+//进入创品推荐管理页面
+router.get('/toProductRecommd',function(req,res){
+	res.render("back/webMannger/product_recommd");
 })
 
 //清除首页缓存

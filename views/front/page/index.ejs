@@ -74,7 +74,11 @@
                             </div>
                             <div class="col-lg-7">
                             <div class="actxt">
-                                <div class="title"><a href="/front/toActivetail/<%- active._id %>"><%- active.title %></a></div>
+                                <div class="title">
+                                    <b class="<%- $moment.validateTime(active.actStartTime,active.actOverTime,['fur','进行中','end'])  %>">
+                                        <%-  $moment.validateTime(active.actStartTime,active.actOverTime,['即将开始','进行中','已结束'])  %>
+                                    </b>
+                                <a href="/front/toActivetail/<%- active._id %>"><%- active.title %></a></div>
                                 <div class="scon"><%- active.introduce %></div>
                                 <div class="stis">
                                     <div class="addr"><%- active.address %></div>
@@ -115,7 +119,7 @@
                                         </a>
                                     </p>
                                     <p class="cntre"><%- ele.job.cateName %></p>
-                                    <p class="guoji"><%- ele.provice  %><%- ele.city  %></p>
+                                    <p class="guoji"><%- ele.address.province  %><%- ele.address.city  %></p>
                                 </div>
                             </div>
                         </div>
@@ -127,21 +131,28 @@
         </div>
         </div>
     </div>
+
     <div class="container">
-        <div class="ind2_title"><span class="dtle">创品</span><span class="bytle">生活美好的事物从发现开始</span><a href="/front/prolist" style="">MORE+</a></div>
+        <div class="ind2_title"><span class="dtle">创品</span><span class="bytle">生活美好的事物从发现开始</span><a href="#" style="">MORE+</a></div>
         <div class="row">
-         <%   _.each(show.products,function(ele){ %>
-                <div class="col-xs-3" style="width:20%;">
-                    <div class="listduct">
-                        <a href="/front/prolist">
-                            <img  width="226" height="221"  src="<%- ele.imgBigUrl %>" />
-                        </a>
-                        <a href="/front/prolist"><p><%- ele.title %></p><a>
-                    </div>
-                 </div>
-         <%   }) %>
+
+        <%   _.each(show.products.splice(0,4),function(ele){ %>
+            <div class="col-xs-3" >
+                <div class="listduct">
+                    <a href="/front/prolist">
+                        <img width="272" height="273" src="<%- ele.imgBigUrl %>" />
+                    </a>
+                    <p>
+                        <a href="#"><%- ele.title %></a>
+                        <b>￥<%- ele.price %></b>
+                    </p>
+                </div>
+            </div>
+        <%   }) %>
+
         </div>
     </div>
+
 </div>
 <% include ../include/foot %>
 </body>

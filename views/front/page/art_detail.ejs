@@ -83,24 +83,27 @@
             </div>
             <div class="list clearfix" ng-repeat="comment in array_comments.$array">
                 <div class="portrait">
-                    <a href="/front/toCusDetail/{{ comment._userId }}">
+                    <a href="/front/toCusDetail/{{ comment._userId }}" target="_blank">
                         <img class="zz" src="/front/resource/images/pozhezhao.png" />
                         <img class="tx" width="70" height="70"  ng-src="{{  comment.headUrl  }}"/>
                     </a>
                 </div>
                 <div class="midle lt">
-                    <div class="username"><a href="#">{{ comment.userName }}</a></div>
+                    <div class="username">
+                        <a href="/front/toCusDetail/{{ comment._userId }}" target="_blank">
+                            {{ comment.userName }}</a>
+                    </div>
                     <div class="det">{{ comment.content }}</div>
                 </div>
                 <div class="other rt">
                     <span class="time">{{ comment.creatTime | date:'yyyy-MM-dd' }}</span>
                     <span class="time">{{ comment.creatTime | date:'HH:mm' }}</span>
-                    <span class="time" style="cursor: pointer;" ng-click="doCommpent(comment);">评论</span>
+                    <span class="time" style="cursor: pointer;" ng-click="doCommpent(comment);">回复</span>
                 </div>
                 <div>
                     <div class="seclist" ng-repeat="replay in comment.replays">
                         <div class="userpor">
-                            <a href="/front/toCusDetail/{{ replay._userId }}">
+                            <a href="/front/toCusDetail/{{ replay._userId }}" target="_blank">
                                 <img class="t1" src="/front/resource/images/smalzz.png" />
                                 <img class="t2" ng-src="{{ replay.headUrl  }}" width="44" height="44" />
                             </a>

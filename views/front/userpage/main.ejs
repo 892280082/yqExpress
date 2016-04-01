@@ -5,7 +5,6 @@
     <title>个人中心</title>
     <% include ../include/baseLink.ejs %>
     <link rel="stylesheet" type="text/css" href="/front/resource/css/user.css"/>
-    <!--<link rel="stylesheet" type="text/css" href="/front/resource/css/animate.min.css"/>-->
     <link rel="stylesheet" type="text/css" href="/front/resource/css/ng-animation.css"/>
     <style>
     </style>
@@ -35,7 +34,7 @@
                 <li><a href="#/attention" ng-class="getOver(4)" ng-click="overFlag=4;">关注</a></li>
             </ul>
         </div>
-        <div>
+        <div class="personal-cont">
             <div class="ui-view-container">
                 <div ui-view  ng-class="'animation scale-fade slide-right'"></div>
             </div>

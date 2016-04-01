@@ -32,6 +32,8 @@ var webConfig = new Schema({
 
     actives:[banner],//首页产品推荐
 
+    products:[banner],
+
     articleCates:[],//文章类型
 
     activeCates:[],//活动类型

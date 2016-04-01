@@ -4,8 +4,13 @@
             <div class="margin20">
                 <a href="/front/toActivetail/{{ active._id }}" target="_blank">
                     <img class="hdimg"  ng-src="{{ active.convertUrl }}" />
-                    <h3><a href="#">{{ active.title }}</a></h3>
-                <a>
+                </a>
+                 <h3>
+                     <b class="{{ validateTime(active.actStartTime,active.actOverTime,['fur','进行中','end']); }}" >
+                         {{ validateTime(active.actStartTime,active.actOverTime,['未开始','进行中','已结束']); }}
+                     </b>
+                     <a href="/front/toActivetail/{{ active._id }}" target="_blank">{{ active.title }}</a></h3>
+                <span></span>
                 <div class="cz">
                     <span class="date lt">
                         活动时间：

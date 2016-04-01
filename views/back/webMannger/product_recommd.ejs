@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <% include ../include/baseLink %>
+    <title>用户信息管理</title>
+    <script type="text/javascript" src="/back/dist/product_recommd.js"></script>
+    <style>
+        .datatable .inntdiv { width: 100%; height: 150px;}
+        .datatable .inntdiv .outer { width: 100%;height: 30%; }
+        .datatable .inntdiv .under { width: 100%;height: 70%; }
+        .datatable .inntdiv .under .left { width: 40%;float: left; }
+        .datatable .inntdiv .under .right { width: 60%; float: left;
+        .datatable .inntdiv .under .right img { width: 100px;height:150px;  }
+    </style>
+    <script>
+        __self_global = {};
+        function parentFun(pojo){
+            __self_global = pojo;
+        }
+    </script>
+<body ng-controller="product_recommd_controller">
+<div class="rt_content">
+    <ts-cusadd ng-if="show.cusadd"></ts-cusadd>
+</div>
+<script type="text/ng-template" id="cusadd" >
+    <div class="page_title top1">
+        <% include ./head %>
+        <input  style="margin-right: 20px;float: right;"  type="button"  ng-click="addBanner();"  value="增加" />
+    </div>
+    <div>
+    </div>
+    <section>
+        <form
+            name="subForm"
+            ng-submit="saveOrUpdate()"
+        >
+        <table class="datatable" width="100%;">
+            <tr ng-repeat="pojo in webConfig.products  ">
+                <td style="text-align: left;" class="tle1" height="150px;">
+                    <div class="inntdiv">
+                        <div class="outer">
+                            创品{{ $index + 1 }}:选择
+                            <select  ng-model="chooseResult" name="t_usertype" ng-change="toChange($index,chooseResult);"
+                                     ng-options="m.type as m.name for m in cateSelect">
+                                <option value="">-- 请选择 --</option>
+                            </select>
+                            <input type="button"
+                                   ng-if="$index > 0"
+                                   value="上移" ng-click="bannerMove($index,-1);"/>
+                            <input type="button"
+                                   ng-if="$index < webConfig.articles.length -1"
+                                   value="下移" ng-click="bannerMove($index,1);"/>
+                            <input type="button" value="删除" ng-click="removeBanner(pojo);"  />
+                        </div>
+                        <div class="under">
+                            <div class="left">
+                                <ul>
+                                    <li>标题:{{ pojo.title }}</li>
+                                    <li>类型:{{ pojo.type }} </li>
+                                    <li>超链接:<input type="text" ng-model="pojo.url" /> </li>
+                                    <li>图片路径: {{ pojo.picUrl }}</li>
+                                </ul>
+                            </div>
+                            <div class="right">
+                                <img width="30%;"  height="150px;" ng-src="{{ pojo.pojo.imgBigUrl }}">
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: center;">
+                    <input class="link_btn"  type="submit" ng-disabled="subForm.$invalid" value="提交" /></td>
+            </tr>
+        </table>
+        </form>
+    </section>
+</script>
+</body>
+</html>

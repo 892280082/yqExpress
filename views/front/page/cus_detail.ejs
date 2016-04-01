@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" ng-app="myApp">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>发现详情页</title>
+    <title><%- customer.realName %>-造物者</title>
     <% include ../include/baseLink%>
 </head>
 <script type="text/javascript">
@@ -44,9 +44,6 @@
                         <span class="guanz">
                             <attention-load cusid="<%- customer._id %>" ></attention-load>
                         </span>
-                    </div>
-                    <div class="user-info">
-                        <%- customer.introduce %>
                     </div>
                 </div>
             </div>
