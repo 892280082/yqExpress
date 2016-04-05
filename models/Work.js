@@ -2,10 +2,16 @@
  * @desc 用户作品表
  * @author yq
  * @date 216/3/17
+ * @API
+ * 1.删除作品
+ *
+ *
+ *
  * */
 
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
+    mongooseUtil = require("../util/mongooseUtil"),
     objectid = require('objectid');
 
 var fileSchema = new Schema({
@@ -16,6 +22,8 @@ var fileSchema = new Schema({
 })
 
 var workSchema = new Schema({
+    title:String,//作品名称
+
     userId:Schema.Types.ObjectId,//用户ID
     actId:Schema.Types.ObjectId,//活动ID
 
@@ -42,6 +50,10 @@ var workSchema = new Schema({
     $user:{},//用户对象
     $active:{},//活动对象
 })
+
+
+
+
 
 var  Work = mongoose.model("works", workSchema);
 module.exports = Work;

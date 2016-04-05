@@ -401,4 +401,29 @@ router.post("/updateWorkById",function(req,res){
 	});
 });
 
+//删除作品
+router.post("/removeWorkById",function(req,res){
+
+	var removePojo = req.body.removePojo;
+
+	then(function(next){
+		mongooseUtil.removeSingleById(removePojo.id,Work,function(err,info){
+			next(err)
+		});
+	}).then(function(next){
+		Active.update({"_id":removePojo.actId},{"$pull":{"works":removePojo._id}},function(err,info){
+					next(err);
+		})
+	}).then(function(next){
+		Custom.update({"_id":removePojo.userId},{"$pull":{"works":removePojo._id}},function(err,info){
+				next(err);
+		})
+	}).fail(function(next,err){
+		console.log("/back/removeWorkById--->",err);
+		res.json({"err":err})
+	})
+});
+
+
+
 module.exports = router;

@@ -88,46 +88,6 @@
 window.onload = function(){
 	//运行瀑布流主函数
 	PBL('wrap','box');
-	
-	//模拟数据
-	var data = [{'src':'1.jpg','title':'This is a title.'},{'src':'2.jpg','title':'This is a title.'},{'src':'3.jpg','title':'This is a title.'},{'src':'4.jpg','title':'This is a title.'},{'src':'5.jpg','title':'This is a title.'},{'src':'6.jpg','title':'This is a title.'},{'src':'7.jpg','title':'This is a title.'},{'src':'8.jpg','title':'This is a title.'},{'src':'9.jpg','title':'This is a title.'},{'src':'10.jpg','title':'This is a title.'}];
-	
-	
-	//设置滚动加载
-	window.onscroll = function(){
-		//校验数据请求
-		if(getCheck()){
-			var wrap = document.getElementById('wrap');
-			for(i in data){
-				//创建box
-				var box = document.createElement('div');
-				box.className = 'box';
-				wrap.appendChild(box);
-				//创建info
-				var info = document.createElement('div');
-				info.className = 'info';
-				box.appendChild(info);
-				//创建pic
-				var pic = document.createElement('div');
-				pic.className = 'pic';
-				info.appendChild(pic);
-				//创建img
-				var img = document.createElement('img');
-				img.src = 'images/'+data[i].src;
-				img.style.height = 'auto';
-				pic.appendChild(img);
-				//创建title
-				var title = document.createElement('div');
-				title.className = 'title';
-				info.appendChild(title);
-				//创建a标记
-				var a = document.createElement('a');
-				a.innerHTML = data[i].title;
-				title.appendChild(a);
-			}
-			PBL('wrap','box');
-		}
-	}
 }
 /**
 * 瀑布流主函数

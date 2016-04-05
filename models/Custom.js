@@ -77,6 +77,7 @@ var customSchema = new Schema({
     bannerno:Number,//模块Banner展示顺序 0 不展示
 
     checkcounts:{type:Number,default:0},//查看次数
+    works:[Schema.Types.ObjectId],//作品ID
     productions:[Schema.Types.ObjectId],//创品数量 id
     articles:[Schema.Types.ObjectId],//用户文章 id
     followers:[Schema.Types.ObjectId],//我的粉丝 id

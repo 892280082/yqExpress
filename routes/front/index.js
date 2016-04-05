@@ -22,7 +22,6 @@ router.get("/prolist",function(req,res){
 		sort:{"topno":-1},
 		model:Product,
 	},function(err,result){
-		console.log(result);
 		res.render('front/page/pro_list',{
 			products:result.docs,
 			total:result.total
@@ -34,7 +33,7 @@ router.get("/prolist",function(req,res){
 router.get("/artlist",function(req,res){
 	Article.find({
 		status:3
-	}).limit(12).sort({"_id":-1}).exec(function(err,docs){
+	}).limit(50).sort({"_id":-1}).exec(function(err,docs){
 		err && console.log(err);
 		res.render('front/page/art_list',{articles:docs});
 	})
@@ -43,14 +42,13 @@ router.get("/artlist",function(req,res){
 //异步加载产品请求
 router.post("/getProduct",function(req,res){
 	mongooseUtil.pagination({
-		query:req.body.query,
+		query:{status:true},
 		limit:req.body.limit,
 		skip:req.body.skip*req.body.limit,
-		sort:req.body.sort,
+		sort:{"topno":-1},
 		model:Product,
 	},function(err,result){
-		!err ? res.json({result:result})
-			 : res.json({err: err});
+		res.json({err:err,result:result});
 	})
 });
 
@@ -343,8 +341,20 @@ router.post('/getActiveBaseById',function(req,res){
 //提交活动报名表单
 router.post('/subUserWork',function(req,res){
 	var work = req.body.pushPojo;
-	Active.pushWork(work.actId,work,function(err,doc){
-		return res.json({err:err,result:doc});
+	work.title = work.fileUrls[0].name;
+
+	then(function(next){
+		Active.pushWork(work.actId,work,function(err,doc){
+			next(err,doc);
+		})
+	}).then(function(next,doc){
+		Customer.update({"_id":work.userId},{"$push":{"works":doc._id}},function(err,doc){
+			next(err);
+			return res.json({err:err,result:doc});
+		})
+	}).fail(function(next,err){
+		console.log('/front/subUserWork ----->',err);
+		return res.json({"err":err});
 	})
 });
 
@@ -375,7 +385,6 @@ router.post('/getCurActWorks',function(req,res){
 		return res.json({err:err,result:docs});
 	})
 });
-
 
 //获取作品集合
 router.post('/getAllWorks',function(req,res){
@@ -475,8 +484,5 @@ router.post('/getUserAllCollect',function(req,res){
 		return res.json({err:err,result:doc});
 	})
 });
-
-
-
 
 module.exports = router;

@@ -32,14 +32,16 @@
                         url:"/front/getArticleList",
                         pageSize:12,
                         waterfull:true,
-                        skip:1
                     },function(err,result){
                         $scope.array_custom = result;
+                        $scope.array_custom.$array = [];
+                        $scope.array_custom.$toNext();
                         $scope.requestCount++;
                     })
                 }
             }
-            
+
+
             //查询方法
             $scope.search = function(){
                 $scope.array_custom.$search($scope.search_custom);
@@ -48,6 +50,7 @@
             setInterval(function(){
                 if ($(document).scrollTop() + $(window).height() > $(document).height() - 100) {
                     getData();
+                    PBL('wrap','box');
                 }
             },100);
 

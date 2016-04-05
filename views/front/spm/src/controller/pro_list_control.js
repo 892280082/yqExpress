@@ -30,11 +30,12 @@
                 }else{
                     pageResult.$loadInit({
                         url:"/front/getProduct",
-                        pageSize:12,
-                        skip:1,
+                        pageSize:8,
                         waterfull:true
                     },function(err,result){
                         $scope.array_custom = result;
+                        $scope.array_custom.$array = [];
+                        $scope.array_custom.$toNext();
                         $scope.requestCount++;
                     })
                 }

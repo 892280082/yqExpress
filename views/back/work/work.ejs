@@ -69,10 +69,13 @@
                 </td>
             </tr>
         </table>
-        <yq-pagination
-                url="/back/getWorkAllData"
-                data="array_custom" >
-        </yq-pagination>
+        <aside class="paging">
+            <a ng-show="array_custom.$last"  ng-click="array_custom.$toLast()">上一页</a>
+            <!--<a>1</a>-->
+            <a>{{ array_custom.$curPage }}/{{ array_custom.$pageCount }}</a>
+            <a ng-show="array_custom.$next"  ng-click="array_custom.$toNext()">下一页</a>
+            <a>总条数:{{ array_custom.$totalSize }}</a>
+        </aside>
     </section>
 </script>
 <!-- 用户添加编辑页面-->
@@ -99,7 +102,6 @@
                                              name="t_title"
                                              class="textbox" required placeholder="作品名称" />
                                              <br/></td>
-                    <td><span class="errorTips" ng-show="subForm.t_title.$error.required">请输入作品称</span></td>
                     <td class="tname"><label>作品状态:</label></td>
                     <td class="tiput"><select  ng-model="pojo_custom.state" name="t_usertype"
                                                ng-options="m.id as m.name  for m in workState">
@@ -107,7 +109,6 @@
                         </select><br/>
 
                     </td>
-                    <td><span class="errorTips" ng-show="subForm.t_price.$error.required">请输入价格</span></td>
                 </tr>
                 <tr>
                     <td class="tname"><label>作者:</label></td>
@@ -145,6 +146,7 @@
                     </td>
                     <td></td>
                 </tr>
+
                 <tr>
                     <td colspan="1"><label>作品介绍:</label></td>
                     <td colspan="5"><textarea class="textarea"
@@ -153,7 +155,7 @@
                                               name="t_introduce"
                                               required></textarea>
                     </td>
-                    <td><span class="errorTips" ng-show="subForm.t_introduce.$error.required">请输入作品名称</span></td>
+                    <td></td>
                 </tr>
 
                 <tr>

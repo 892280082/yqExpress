@@ -24,5 +24,15 @@ angular.module('service.dataService',[]).service("dataService",["$http"
             this.getConfig = function(){
                 return $http.post('/back/getWebConfig',{});
             };
+            //删除作品
+            this.removeCustomer = function(_id,callback){
+                return $http.post('/back/removeWorkById',{"removePojo":pojo})
+                    .success(function(data){
+                        data.err && console.log(data.err);
+                        callback(data.err,data.result);
+                    }).error(function(data){
+                        alert('/back/removeWorkById:连接失败');
+                    })
+            }
 
     }]);

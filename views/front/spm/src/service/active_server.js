@@ -141,8 +141,12 @@ angular.module('service.active_server',[]).service("active_server",["$http"
                 })
         }
 
+        /**
+         * @desc 增加作品查看次数
+         * @param _id 作品ID
+         * @param callback
+         */
         this.addWorkCheckCount = function(_id,callback){
-            console.log('/front/addWorkCheckCount/'+_id);
             $http.post('/front/addWorkCheckCount/'+_id,{})
                 .success(function(data){
                     callback(data.err,data.result);

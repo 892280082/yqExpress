@@ -60,3 +60,10 @@ exports.sendRegistMail = function(name,email,randomStr,callback){
         callback(err,info);
     });
 }
+
+//exports.sendMail({to:"892280082@qq.com",
+//        subject:"to Test",
+//        html:"测试验证码发送是否正确!"},
+//    function(err,info){
+//        console.log(info);
+//    })

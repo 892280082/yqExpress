@@ -7,15 +7,14 @@
     var _ = require("underscore");
     var $ = require("jquery");
     angular.module("controller.main",["ng.ueditor"]).
-    controller('main',['$scope','showCtrl','dataService','FileUploader','userPageResult',"$window"
-        ,function($scope,showCtrl,dataService,FileUploader,userPageResult,$window){
+    controller('main',['$scope','showCtrl','dataService','FileUploader','pageResult',"$window"
+        ,function($scope,showCtrl,dataService,FileUploader,pageResult,$window){
             /************************数据模型****************************/
             //注册或者添加的中间变量
             $scope.pojo_custom = {};
             //保存用户数据数组
             $scope.array_custom = [];
             //查询Pojo
-            $scope.search_custom = {"$$_name":""};
 
             $scope.workState = [{id:1,name:'通过'},{id:0,name:"未通过"}];
 
@@ -24,6 +23,14 @@
             $scope.show.$regist('cuslist',['cuslist'],true);
             $scope.show.$regist('cusadd',['cusadd']);
             /***********************分类列表页面************************/
+
+            pageResult.$loadInit({
+                url:"/back/getWorkAllData",
+                pageSize:15,
+                query:{},
+            },function(err,result){
+                $scope.array_custom = result;
+            })
 
             $scope.groupArray = function(Array){
                 var mem = [{array:[]}];
@@ -36,10 +43,8 @@
                          i--;
                      }
                 }
-                console.log(mem);
                 return mem;
             }
-
 
             //查询方法
             $scope.search = function(){
@@ -57,7 +62,7 @@
                     }
                 }).error(function(data){
                     alert("获取错误");
-            })
+                })
 
             //进入添加页面
             $scope.changeIntoEdit = function(custom){
@@ -74,6 +79,17 @@
                 cus.status = !cus.status;
                 $scope.saveOrUpdate(cus);
             }
+
+            //删除作品
+            $scope.removeCustom = function(cus){
+                var tFlag = $window.confirm("确定？此操作无法恢复!");
+                if(!tFlag)
+                    return false;
+                dataService.removeCustomer(cus,function(err,result){
+                    !err ? $scope.array_custom.$remove(cus) : alert("删除错误!");
+                })
+            }
+
             /***********************添加或编辑用户页面*****************************/
             //返回用户列表页面
             $scope.toPageList = function(){

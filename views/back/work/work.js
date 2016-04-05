@@ -21,8 +21,6 @@ require("./src/service/dataService");
 require("./src/controller/main");
 //分页指令
 require("../../lib/src/directive/directive_pagination.js");
-//加载user分页插件
-var userPage = require("./src/service/user_pageresult");
 
 var app = angular.module('myApp',[
     'loadDate',//代码有全局变量,只能外部引入,不能被压缩。
@@ -32,7 +30,7 @@ var app = angular.module('myApp',[
     'service_pageResult',
     'controller.main',
     'directive_pagination',
-    userPage.service_userPageResult
+    'service_pageResult'
     ]);
 
 app.directive('tsCuslist',function(){
