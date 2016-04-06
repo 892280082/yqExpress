@@ -8,7 +8,7 @@ var fs = require('fs');
 //首页
 router.get("/",function(req,res){
     indexService.getIndexData(function(err,data){
-        res.render("front/page/index",{show:data});
+        res.render("front/page/index",{show:data,headIndex:1});
     });
 });
 

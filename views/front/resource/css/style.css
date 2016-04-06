@@ -18,14 +18,14 @@ body{background:#f0f1f1;}
 .on-1200{width:1200px;margin:0 auto;}
 /**/
 .carousel{margin-top:-10px;}
-.head{width:100%; position:fixed; top:0px;margin:0 auto; z-index:999;border:0px;box-shadow: 0px 2px 2px #e9e9e9;background:#fff;padding:10px 0;}
+.head{width:100%; position:fixed; top:0px;margin:0 auto; z-index:999;border:0px;box-shadow: 0px 2px 2px #e9e9e9;background:#fff;}
 .ht100{height:100px;}
-.logo{ float:left;}
+.logo{ float:left;padding:10px 0;}
 .nav{ float:left; position:relative;}
 .nav ul{margin-left:25px; position:absolute;left:0px;width:500px;}
-.nav ul li{ float:left; line-height:74px;margin:0 25px;}
-.nav ul li a{ font-size:16px; font-family:microsoft yahei;color:#333;}
-.nav ul li a:hover{ text-decoration:none;}
+.nav ul li{ float:left; line-height:74px;margin:0 18px; line-height:90px;color:#e1e1e1;}
+.nav ul li a{ font-size:16px; font-family:microsoft yahei;color:#333;height:90px; line-height:90px; display:block;}
+.nav ul li a:hover,.nav ul li a.over{ text-decoration:none;border-bottom:4px solid #ddb58b;height:86px;}
 .nav ul li.li_3{ position:relative;}
 .nav ul li.li_3 .li_3_content{ position:absolute; z-index:999;}
 .menu{height: 70px;
@@ -39,13 +39,30 @@ body{background:#f0f1f1;}
 .nav ul li dl dd{ text-align:center;}
 .nav ul li dl dd a{height:30px; line-height:30px; display:block;}
 .nav ul li dl dd a:hover{background:#d0b896;color:#fff;}
-.search{ float:right; position:relative;padding-top:17px;margin-right:40px;}
+.search{ float:right; position:relative;padding-top:26px;margin-right:40px;}
 .search span{ float:left;}
-.search span input.txt{width:195px;height:32px;padding:0 30px 0 8px;font-size:12px; line-height:32px;color:#999;border:1px solid #e1e1e1;border-radius:3px;}
+.search span input.txt{width:158px;height:32px;padding:0 30px 0 8px;font-size:12px; line-height:32px;color:#999;border:1px solid #e1e1e1;border-radius:3px;}
 .search span input.but{border:0px;width:30px;height:32px; position:absolute; z-index:2;right:0px;background:url(../images/sec_r.jpg) 0 1px no-repeat;}
-.hedlogin{ float:right;padding-top:18px; font-family:"microsoft yahei"; line-height:31px;}
+.hedlogin{ float:right;padding-top:26px; font-family:"microsoft yahei"; line-height:31px;}
 .hedlogin img{margin-right:10px;}
-.hedlogin a{color:#666;padding:0 3px; float:right;}
+.hedlogin a{color:#666;padding:0 3px; float:right; font-size:14px;}
+.hedlogin-later{}
+.hedlogin-later{ float:right;padding-top:26px;height:50px;}
+.hedlogin-later .hed-user,.hedlogin-later .hed-message{ float:left; display:inline; font-family:"microsoft yahei";}
+.hedlogin-later .hed-user-img{ position:relative;}
+.hedlogin-later .hed-user-img .zz,.hedlogin-later .hed-user-img .tx{width:32px;height:32px;}
+.hedlogin-later .hed-user-img .zz{ position:absolute; z-index:2;}
+.hedlogin-later .hed-user-img .tx{}
+.hed-message{margin-left:26px;padding-top:8px;}
+.hed-message-a{ position:relative;}
+.hed-message-a .mess2{ position:absolute; z-index:2;top:0px;right:-2px;top:-3px;}
+.hedlogin-later .hed-user{ position:relative;height:50px;}
+.hedlogin-later .hed-user .hed-user-xl{ font-size:12px; position:absolute;width:80px;left:-23px;top:60px; opacity: 0; display:none;}
+.hed-user-xl dt.xltop{height:15px;background:url(../images/user-center-enttop.png) no-repeat top center;}
+.hed-user-xl .xlnr{background:#fff;border-right:1px solid #ececec;border-left:1px solid #ececec; line-height:28px; text-align:center;padding:5px 0;}
+.hed-user-xl .xlnr a{color:#868686;}
+.hed-user-xl .xlnr a:hover,.hed-user-xl .xlnr a.over{ text-decoration:none;color:#ddb58b;}
+.hed-user-xl dt.xlbotom{height:4px;background:url(../images/user-center-enttop.png) no-repeat bottom center;}
 /*发现*/
 .m1{margin-top:8px;}
 .ind2_title{height:65px; line-height:65px; font-size:16px;color:#333;font-family:microsoft yahei;}
@@ -513,6 +530,8 @@ ul.uplist{width:106%;}
 .sdetil .tle2 .rt span{ font-size:12px;color:#999;padding-left:14px;}
 .sdetil .tle2 .rt span b{padding-left:5px;}
 .szhengw{padding:24px 0;}
+/**/
+.black00{background:#000; position:absolute;}
 /* 返回顶部 */
 .cbbfixed {position: fixed;right: 10px;transition: bottom ease .3s;bottom: -85px;z-index: 3;cursor:pointer;}
 .cbbfixed .cbbtn {width: 40px;height: 40px;display: block;background-color: #d0b896;}

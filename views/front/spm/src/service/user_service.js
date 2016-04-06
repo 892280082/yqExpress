@@ -160,6 +160,7 @@ angular.module('service.user_service',[]).service("user_service",["$http"
              }
 
             /**
+             * @desc 获取用户所有的集合信息
              * @param cusId {String?} 用户ID 如果没有就获取服务器的session userId
              * @param callback
              */
@@ -175,6 +176,38 @@ angular.module('service.user_service',[]).service("user_service",["$http"
                         alert("user_service->getUserAllCollect:链接出错");
                     })
             }
+
+            /**
+             * @desc 获取用户信息
+             * @param _id {String} 用户ID
+             * */
+            this.getUserBaseInfo = function(userId,callback){
+                if(arguments.length === 1){
+                    callback = userId;
+                    userId = null;
+                }
+                $http.post('/front/getUsreBaseInfo',{"_id":userId})
+                    .success(function(data){
+                        data.err &&　console.log(data.err);
+                        return callback(data.err,data.result);
+                    }).error(function(data){
+                        alert("user_service->getUserBaseInfo:链接出错");
+                    })
+
+            }
+
+            /**
+             * @desc 获取用户职业分类
+             * */
+             this.getUserJobCate = function(callback){
+                 $http.post('/front/getUserJobCate',{})
+                     .success(function(data){
+                         data.err &&　console.log(data.err);
+                         return callback(data.err,data.result);
+                     }).error(function(data){
+                         alert("user_service->getUserBaseInfo:链接出错");
+                     })
+             }
 
 
 

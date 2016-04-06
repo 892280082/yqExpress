@@ -8,6 +8,7 @@ var indexService = require("../../service/indexService");
 var Customer = require("../../models/Custom");
 var Active = require("../../models/Active");
 var Work = require("../../models/Work");
+var WebConfig = require("../../models/WebConfig");
 var frontWare = require("./front_ware");
 var ArticleComment = require("../../models/ArticleComment");
 var activeService = require("../../service/activeService");
@@ -24,7 +25,8 @@ router.get("/prolist",function(req,res){
 	},function(err,result){
 		res.render('front/page/pro_list',{
 			products:result.docs,
-			total:result.total
+			total:result.total,
+			headIndex:4
 		});
 	})
 });
@@ -102,7 +104,7 @@ router.post('/getUserList',function(req,res){
 router.get("/toActiveList",function(req,res){
 	Active.find({}).limit(3).sort({"creatTime":-1}).exec(function(err,docs){
 		err && console.log(err);
-		res.render('front/page/act_list',{actives:docs});
+		res.render('front/page/act_list',{actives:docs,headIndex:3});
 	})
 });
 
@@ -498,5 +500,31 @@ router.post('/getUserAllCollect',function(req,res){
 		return res.json({err:err,result:doc});
 	})
 });
+
+//进入用户信息修改页面
+//上传作品页面
+router.get('/editUserInfo',function(req,res){
+	if(!req.session.USER ||  !req.session.USER._id)
+		return res.redirect("/");
+	res.render('front/page/user_edit',{activeId:req.params._id});
+})
+
+router.post('/getUsreBaseInfo',function(req,res){
+	var cusId = req.body._id || req.session.USER._id;
+	Customer.findOne({"_id":cusId},
+	{
+		name:-1,email:-1,phoneNumber:-1,address:-1,workUnit:-1,school:-1,sendAddress:-1,job:-1,introduce:-1,imgurl:-1,
+	},function(err,doc){
+		return res.json({err:err,result:doc});
+	})
+});
+
+router.post('/getUserJobCate',function(req,res){
+	WebConfig.findOne({},{jobCates:-1},function(err,doc){
+		res.json({err:err,result:doc});
+	})
+
+});
+
 
 module.exports = router;

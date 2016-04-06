@@ -56,6 +56,9 @@ var customSchema = new Schema({
         area:String,//街区
         detail:String,//详细地址
     },
+    workUnit:String,//工作单位 非必填选项
+    school:String,//毕业学校
+    sendAddress:String,//邮寄地址
 
     phoneNumber:String,//联系方式
     ability:String,//能力标签
@@ -68,7 +71,7 @@ var customSchema = new Schema({
     qq:{ type:String},//QQ
     weibo:{ type:String},//微博
     topno:{ type:Number,default:0},//首页baner顺序
-    workUnit:String,//工作单位 非必填选项
+
 
     imgurl:String,//头像
     coverimgurl:String,//封面url

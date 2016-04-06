@@ -26,52 +26,83 @@
         })
     }
 
+    //头部鼠标经过个人头像显示下拉
+    $(document).ready(function(){
+        $('.hed-user').hover(
+                function(){
+                    $('.hed-user-xl').stop(true,true).css({"display":"block"}).animate({top:40,opacity:'1'});
+                },
+                function(){
+                    $('.hed-user-xl').stop(true,true).animate({top:60,opacity:'0'});
+                }
+        )
+    })
 </script>
-<div class="modal-header head">
-    <div class="container"><div class="clearfix">
-        <div class="logo"><a href="#"><img src="/front/resource/images/logo.jpg" /></a></div>
-        <div class="nav">
-            <ul class="menu">
-                <li class="current first"><a href="/">首页</a></li>
-                <li class="li_3">
-                    <a href="#" class="noclick">造物+</a>
-                    <dl class="li_3_content">
-                    <dt></dt>
-                    <dd><a href="/front/artlist"><span>发现</span></a></dd>
-                    <dd><a href="/front/toCusList"><span>创意人</span></a></dd>
-                    <!--<dd><a href="/front/toActiveList"><span>社区</span></a></dd>-->
-                </li>
-                <li><a href="/front/toActiveList">活动</a></li>
-                <li><a href="/front/prolist">创品</a></li>
-            </ul>
-        </div>
+<div class="head">
+    <div class="container">
+        <div class="clearfix">
+            <div class="logo"><a href="#"><img src="/front/resource/images/logo.jpg" /></a></div>
+            <div class="nav">
 
-        <%    if($session.USER){ %>
-                <% var user = $session.USER %>
-                <div class="hedlogin">
+                <% if(typeof headIndex === 'undefined')headIndex=false;  %>
 
-                    <a href="/front/toUserCenter" >
-                        <img src="/front/resource/images/hdlogin.png" />
-                        <span style="cursor: pointer;">个人中心</span>
-                    </a>
+                <ul>
+                    <li><a href="/" class='<%- headIndex === 1 ? 'over' : '' %>'   >首页</a></li>
+                    <li>|</li>
+                    <li><a href="#" class='<%-  headIndex === 2 ? 'over' : '' %>'>造物+</a></li>
+                    <li>|</li>
+                    <li><a href="/front/toActiveList" class='<%- headIndex === 3 ? 'over' : '' %>'>活动</a></li>
+                    <li>|</li>
+                    <li><a href="/front/prolist" class='<%- headIndex === 4 ? 'over' : '' %>'>创品</a></li>
+                </ul>
+            </div>
 
-                    <span><%- user.name %></span>
-                    <a  style="cursor: pointer;" onclick="logOut()">登出</a>
+        <%   if($session.USER){ %>
+
+            <div class="hedlogin-later clearfix">
+                    <div class="hed-user">
+                        <div class="hed-user-img">
+                            <a href="/front/toUserCenter">
+                                <img src="/front/resource/images/pozhezhao.png" class="zz"/>
+                                <img src="/front/resource/images/userhead.jpg" class="tx"/>
+                            </a>
+                        </div>
+                        <div class="hed-user-xl">
+                            <dt class="xltop"></dt>
+                            <div class="xlnr">
+                                <dd><a  href="/front/toUserCenter">个人主页</a></dd>
+                                <dd><a href="/front/editUserInfo" class="over">账号设置</a></dd>
+                                <dd><a href="" onclick="logOut()">注销登录</a></dd>
+                            </div>
+                            <dt class="xlbotom"></dt>
+                        </div>
+                    </div>
+                    <div class="hed-message">
+                        <div class="hed-message-a">
+                            <a href="#" title="你有新消息" >
+                                <img src="/front/resource/images/hed-message-ico.jpg" class="mess1" />
+                                <img src="/front/resource/images/mess2.png" class="mess2"/>
+                            </a>
+                        </div>
+                    </div>
                 </div>
-        <%    }else{ %>
-                <div class="hedlogin">
-                        <img  onclick="openRegist('/regist/login','登录')"
-                              src="/front/resource/images/hdlogin.png" />
-                        <span onclick="openRegist('/regist/login','登录')"
-                              style="cursor: pointer;">登录</span>/
-                    <span style="cursor: pointer;"  onclick="openRegist('/regist/index','注册');">注册</span>
-                </div>
-        <%    } %>
 
-        <div class="search">
-            <span><input type="text" placeholder="请输入要搜索的关键词" class="txt" /></span>
-            <span><input type="button" class="but" /></span>
+        <%   }else{ %>
+
+            <div class="hedlogin">
+                <img  style="cursor: pointer;"  onclick="openRegist('/regist/login','登录')" src="/front/resource/images/hdlogin.png" />
+                <a href="#" onclick="openRegist('/regist/login','登录')">登录</a>
+                <span style="float:right;color:#999;">/</span><a href="#" onclick="openRegist('/regist/index','注册');">注册</a>
+            </div>
+
+        <% } %>
+
+            <div class="search">
+                <span><input type="text" placeholder="请输入要搜索的关键词" class="txt" /></span>
+                <span><input type="button" class="but" /></span>
+            </div>
         </div>
-    </div></div>
+    </div>
+
 </div>
-<div class="ht100"></div>
+<div style="height: 75px;"></div>

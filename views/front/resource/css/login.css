@@ -12,7 +12,7 @@ html[xmlns] .clearfix {display:block;}
 .loginwap .logo{ text-align:center;padding-top:100px;padding-bottom:30px;}
 .loginwap .lgocont{height:467px;background:#fff;border-radius:5px;border:1px solid #ececec;}
 .loginwap .lgocont .tle{height:57px;border-bottom:1px solid #f7f7f7; font-family:"microsoft yahei"; line-height:57px;}
-.loginwap .lgocont .tle span{padding:0 30px;color:#4d4d4d;}
+.loginwap .lgocont .tle span{padding:0 40px;color:#4d4d4d;}
 .loginwap .lgocont .tle span.hedtle{ font-size:18px; font-weight:bold;float:left; display:inline;}
 .loginwap .lgocont .tle span.nozh{ float:right; display:inline; font-size:12px;}
 .loginwap .lgocont .tle span.nozh a{color:#e4a94c; text-decoration:none;padding-left:10px;}

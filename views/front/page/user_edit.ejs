@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html" ng-app="myApp">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>个人信息修改-造物者</title>
+    <% include ../include/baseLink%>
+    <link rel="stylesheet" type="text/css" href="/front/resource/css/user.css"/>
+    <!-- 地区插件 -->
+    <script language="javascript"  type="text/javascript"  src="/plugin/selector/dist/china-area-selector.js"></script>
+</head>
+<script type="text/javascript">
+    //头部鼠标经过个人头像显示下拉
+    $(document).ready(function(){
+        $('.hed-user').hover(
+                function(){
+                    $('.hed-user-xl').stop(true,true).css({"display":"block"}).animate({top:40,opacity:'1'});
+                },
+                function(){
+                    $('.hed-user-xl').stop(true,true).animate({top:60,opacity:'0'});
+                }
+        )
+    })
+</script>
+<script type="text/javascript">
+    function divshow(alertdiv){
+        var width = $("."+alertdiv).width();
+        var height = $("."+alertdiv).height();
+        var left = ($(window).width()-width)/2;
+        var top = ($(window).height()-height)/2;
+        //$("body").css({"overflow-y":"hidden"});
+        $(".black00").css({width:$(window).width(),height:$(window).height()}).fadeIn(0);
+        $("."+alertdiv).css({width:width,height:height,left:left,top:top}).fadeIn(500);
+        $(window).resize(
+                function(){
+                    var left = ($(window).width()-width)/2;
+                    var top = ($(window).height()-height)/2;
+                    $(".black00").css({width:$(window).width(),height:$(window).height()});
+                    $("."+alertdiv).css({width:width,height:height,left:left,top:top});
+                }
+        )
+    }
+    function divhide(){
+        $(".black00").fadeOut(500);
+        $(".alertdiv").fadeOut(0);
+    }
+    //tab选项卡
+    function showpeo(a){
+        $("div[id^='cont']").hide();
+        $("#cont"+a).show();
+        $(".exitwap .title span[class^='etab']").removeClass("over");
+        $(".etab"+a).addClass("over");
+    };
+</script>
+<body>
+<% include ../include/head.ejs %>
+<% var USER = $session.USER %>
+<div class="wap clearfix" ng-controller="user_edit_control">
+    <div class="on-698 clearfix">
+        <div class="exitwap">
+            <div class="title">
+                <span class="etab1 over" onclick="showpeo('1')">帐号绑定</span>
+                <span class="etab2" onclick="showpeo('2')">个人信息</span>
+                <span class="etab3" onclick="showpeo('3')">修改密码</span>
+            </div>
+            <div class="cont" id="cont1">
+                <div class="cot-tle">帐号绑定</div>
+                <div class="cot-nr">
+                    <dl class="cot-nr-list">
+                        <dt><span class="phone">手机号码</span>
+                            |<span class="phone-number"><%- USER.tel %></span>
+                            <span class="exit" onclick="divshow('alertdiv')">修改</span></dt>
+                        <dd><i>手机号可以用于登录造物者帐号，重置密码或其他安全验证</i></dd>
+                    </dl>
+                    <dl class="cot-nr-list">
+                        <dt><span class="email">电子邮箱</span>
+                            |<span class="email-number"><%- USER.email %></span><span class="exit">修改</span></dt>
+                        <dd><i>电子邮箱可以用于登录造物者帐号，重置密码或其他安全验证</i></dd>
+                    </dl>
+                </div>
+                <div class="cot-subt">
+                    <input class="yes-exit" type="submit" value="确认修改" />
+                    <input class="no-exit" type="submit" value="取消修改" />
+                </div>
+            </div>
+            <div class="cont" id="cont2" style="display:none;">
+                <div class="cot-tle">个人信息</div>
+                <div class="cot-pes">
+                    <div class="pes-head">
+                        <div class="head-picture">
+                            <img class="zz" src="/front/resource/images/txzzzzz.png" width="186" height="186" />
+                            <img class="tx" src="/front/resource/images/userhead.jpg" width="186" height="186" />
+                            <button>点击上传</button>
+                        </div>
+                        <div class="head-img-txt">
+                            <p>建议图片尺寸200*200像素</p><p>图片大小1M以内</p><p>图片格式：JPG*PNG*GIF</p>
+                        </div>
+                    </div>
+                    <dl>
+                        <dt class="bt">昵称</dt>
+                        <dd><span class="ti pone-ti"></span>
+                            <input class="nick wd100"
+                                   type="text"
+                                   ng-model="user.name"
+                                   placeholder="<%- USER.name %>" /></dd>
+                        <dt class="bt">学校</dt>
+                        <dd><span class="ti school-ti"></span>
+                            <input class="school wd100"
+                                   ng-model="user.school"
+                                   type="text"
+                                   placeholder="<%- USER.school %>" /></dd>
+                        <dt class="bt">工作单位</dt>
+                        <dd><span class="ti jop-ti"></span>
+                            <input class="jop wd100"
+                                   type="text"
+                                   ng-model="user.workUnit"
+                                   placeholder="<%- USER.workUnit %>" /></dd>
+                        <dt class="bt">所在地区</dt>
+                        <dd>
+                            <china-area-selector region="user.address"></china-area-selector>
+                        </dd>
+                        <dt class="bt">邮寄地址</dt>
+                        <dd><span class="ti emailadr-ti"></span>
+                            <input class="emailadr wd100"
+                                   type="text"
+                                   ng-model="user.sendAddress"
+                                   placeholder="<%- USER.sendAddress %>" /></dd>
+                        <dt class="bt">职业</dt>
+                        <dd>
+                            <select  ng-model="user.job" name="t_usertype"
+                                     ng-options="(m.cateName) for m in jobCate.jobCates">
+                                <option value="">-- 当前:-- {{ pojo_custom.job.cateName }}  --</option>
+                            </select>
+                        </dd>
+                        <dt class="bt">个人简介</dt>
+                        <dd><textarea class="abt" ng-model="user.content"></textarea></dd>
+                    </dl>
+                </div>
+                <div class="cot-subt">
+                    <input class="yes-exit" type="submit" value="确认修改" />
+                    <input class="no-exit" type="submit" value="取消修改" />
+                </div>
+            </div>
+            <div class="cont" id="cont3" style="display:none;">
+                <div class="cot-tle">密码修改</div>
+                <div class="cot-pes">
+                    <dl style="padding-left:170px;">
+                        <dt class="bt">旧密码</dt>
+                        <dd><span class="ti pwd-ti"></span><input class="nick wd100" type="password" placeholder="旧密码" /></dd>
+                        <dt class="bt">输入新密码</dt>
+                        <dd><span class="ti pwd-ti"></span><input class="school wd100" type="password" placeholder="输入新密码" /></dd>
+                        <dt class="bt">确认新密码</dt>
+                        <dd><span class="ti pwd-ti"></span><input class="jop wd100" type="password" placeholder="确认新密码" /></dd>
+                    </dl>
+                </div>
+                <div class="cot-subt" style="padding-left:170px;">
+                    <input class="yes-exit" type="submit" value="确认修改" />
+                    <input class="no-exit" type="submit" value="取消修改" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<% include ../include/foot.ejs %>
+<div class="alertdiv" style="display:none">
+    <div class="alert-exit-phone">
+        <div class="title">会员手机绑定</div>
+        <div class="cont">
+            <dl>
+                <dd><span class="tle">手机号码</span><input class="phone" type="text" placeholder="请输入需要绑定的手机号码" /></dd>
+                <dd><span class="tle">验证码</span><input class="yzm" type="text" /><input class="yesbut" type="button" value="获取验证码" /></dd>
+                <dd style="padding-top:15px;"><span><input class="yeseit" type="button" value="确定" /><input class="noeit" type="button" value="取消" /></span></dd>
+            </dl>
+        </div>
+    </div>
+</div>
+<div class="black00" style="display:none" onclick="divhide()"></div>
+<script type="text/javascript" src="/front/dist/user_edit.js"></script>
+</body>
+</html>

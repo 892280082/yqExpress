@@ -12,8 +12,8 @@ module.exports = {
     secure:true,
     //账号
     auth:{
-        user:"contact@zwzhe.com",
-        pass:"YaJI56ecc22#92327!"
+        user:"service@zwzhe.com",
+        pass:"hf7fdj23y!7d9T4q3M&%_32er68"
     },
     //发送前缀
     prefix:"雅集"
