@@ -30,7 +30,6 @@ var productSchema = new Schema({
     cate1:{},
     //分类2
     cate2:{},
-
 })
 
 var  product = mongoose.model("products", productSchema);

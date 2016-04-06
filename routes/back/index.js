@@ -9,6 +9,7 @@ var express = require('express'),
 	indexService = require("../../service/indexService"),
 	activeService = require("../../service/activeService.js"),
 	Work = require('../../models/Work'),
+	then = require('thenjs'),
 	router = express.Router();
 
 //进入登陆页面
@@ -406,8 +407,11 @@ router.post("/removeWorkById",function(req,res){
 
 	var removePojo = req.body.removePojo;
 
+	console.log("removePojo",removePojo);
+
+
 	then(function(next){
-		mongooseUtil.removeSingleById(removePojo.id,Work,function(err,info){
+		mongooseUtil.removeSingleById(removePojo._id,Work,function(err,info){
 			next(err)
 		});
 	}).then(function(next){
@@ -417,6 +421,7 @@ router.post("/removeWorkById",function(req,res){
 	}).then(function(next){
 		Custom.update({"_id":removePojo.userId},{"$pull":{"works":removePojo._id}},function(err,info){
 				next(err);
+				return res.json({err:err,result:info});
 		})
 	}).fail(function(next,err){
 		console.log("/back/removeWorkById--->",err);

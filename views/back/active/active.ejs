@@ -135,32 +135,6 @@
                     <td><span class="errorTips" ng-show="subForm.t_introduce.$error.required">请输入介绍</span></td>
                 </tr>
                 <tr>
-                    <td colspan="6" style="text-align: left;" class="tle1">上传作品分类限定 <a href="" ng-click="resetWorkCate()">重置</a></td>
-                </tr>
-                <tr>
-                    <td class="tname"><label>一级分类:</label></td>
-                    <td class="tiput">
-                        <select  ng-model="pojo_custom._workCate1" name="t_usertype"
-                                 ng-options="(m.cateId + '----' + m.cateName)  for m in pojo_custom.workCate">
-                            <option value="">-- 请选择 --</option>
-                        </select>
-                        <a href=""
-                           ng-show="pojo_custom._workCate1"
-                           ng-click="removeCate(pojo_custom.workCate,pojo_custom._workCate1)">删除</a> <br/>
-                    </td>
-                    <td></td>
-                    <td class="tname"><label>二级分类:</label></td>
-                    <td class="tiput">
-                        <select  ng-model="pojo_custom._workCate2" name="t_usertype"
-                                 ng-options="(m.cateId + '----' + m.cateName)  for m in pojo_custom._workCate1.subCate">
-                            <option value="">-- 请选择 --</option>
-                        </select><a href=""
-                            ng-show="pojo_custom._workCate2"
-                            ng-click="removeCate(pojo_custom._workCate1.subCate,pojo_custom._workCate2)">删除</a> <br/>
-                    </td>
-                    <td></td>
-                </tr>
-                <tr>
                     <td colspan="6" style="text-align: left;" class="tle1">时间地址</td>
                 </tr>
                 <tr>
@@ -192,11 +166,75 @@
                                              class="textbox" /></td>
                     <td></td>
                 </tr>
-
                 <tr>
-                    <td colspan="6" style="text-align: left;" class="tle1">作品要求</td>
+                    <td colspan="6" style="text-align: left;" class="tle1">活动权限</td>
                 </tr>
                 <tr>
+                    <td colspan="6">
+                        <table width="100%" style="text-align: center">
+                            <tr>
+                                <td width="25%">
+                                    <label>提交表单:</label>
+                                    <input type="checkbox"
+                                           ng-model="pojo_custom.power.form"
+                                           ng-false-value="false"
+                                           ng-true-value="true" />
+                                </td>
+                                <td width="25%">
+                                    <label>提交作品:</label>
+                                    <input type="checkbox"
+                                           ng-model="pojo_custom.power.work"
+                                           ng-false-value="false"
+                                           ng-true-value="true" />
+                                </td>
+                                <td width="25%">
+                                    <label>展示作品:</label>
+                                    <input type="checkbox"
+                                           ng-model="pojo_custom.power.showWork"
+                                           ng-false-value="false"
+                                           ng-true-value="true" />
+                                </td>
+                                <td width="25%">
+                                    <label>是否投票:</label>
+                                    <input type="checkbox"
+                                           ng-model="pojo_custom.power.vote"
+                                           ng-false-value="false"
+                                           ng-true-value="true" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr ng-show="pojo_custom.power.work">
+                    <td colspan="6" style="text-align: left;" class="tle1">上传作品分类限定 <a href="" ng-click="resetWorkCate()">重置</a></td>
+                </tr>
+                <tr ng-show="pojo_custom.power.work">
+                    <td class="tname"><label>一级分类:</label></td>
+                    <td class="tiput">
+                        <select  ng-model="pojo_custom._workCate1" name="t_usertype"
+                                 ng-options="(m.cateId + '----' + m.cateName)  for m in pojo_custom.workCate">
+                            <option value="">-- 请选择 --</option>
+                        </select>
+                        <a href=""
+                           ng-show="pojo_custom._workCate1"
+                           ng-click="removeCate(pojo_custom.workCate,pojo_custom._workCate1)">删除</a> <br/>
+                    </td>
+                    <td></td>
+                    <td class="tname"><label>二级分类:</label></td>
+                    <td class="tiput">
+                        <select  ng-model="pojo_custom._workCate2" name="t_usertype"
+                                 ng-options="(m.cateId + '----' + m.cateName)  for m in pojo_custom._workCate1.subCate">
+                            <option value="">-- 请选择 --</option>
+                        </select><a href=""
+                                    ng-show="pojo_custom._workCate2"
+                                    ng-click="removeCate(pojo_custom._workCate1.subCate,pojo_custom._workCate2)">删除</a> <br/>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr ng-show="pojo_custom.power.work">
+                    <td colspan="6" style="text-align: left;" class="tle1">作品要求</td>
+                </tr>
+                <tr ng-show="pojo_custom.power.work">
                     <td class="tname"><label>作品类型限制:</label></td>
                     <td class="tiput" style="width: 200px;">
                         <input type="text"  ng-model="pojo_custom.demand.fileType"  name="t_demand_type"
@@ -210,7 +248,7 @@
                     </td>
                     <td class="tip" ></td>
                 </tr>
-                <tr>
+                <tr ng-show="pojo_custom.power.work">
                     <td class="tname"><label>文件个数限制:</label></td>
                     <td class="tiput" style="width: 200px;">
                         <input type="text"  ng-model="pojo_custom.demand.fileMax"  name="t_demand_max"

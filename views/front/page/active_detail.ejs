@@ -22,7 +22,10 @@
             <a href="" ng-click="doJoinActive()" ><img src="<%- active.convertUrl %>" width="1152" height="340" /></a>
         </div>
         <div class="hdcon clearfix">
-            <div class="title"><span class="tab1 over" onclick="show('1')">大赛简介</span><span class="tab2" onclick="show('2')">参赛作品</span><span class="tab3" onclick="show('3')">赛事播报</span></div>
+            <div class="title">
+                <span class="tab1 over" onclick="show('1')">大赛简介</span>
+                <span ng-show="activePower.showWork === 'true'" class="tab2" onclick="show('2')">参赛作品</span>
+                <span class="tab3" onclick="show('3')">赛事播报</span></div>
             <div class="cont" id="hdtab1">
                 <div class="hotop">
                     <span class="tle">大赛简介</span>
@@ -38,7 +41,7 @@
              <%   } %>
 
             </div>
-            <div class="contb" id="hdtab2">
+            <div class="contb" id="hdtab2" ng-show="activePower.showWork === 'true'">
                 <div class="hotop">
                     <span class="tle">参赛作品</span>
                     <span class="works rt">作品数量<b><%- active.works.length %></b></span>
@@ -61,13 +64,15 @@
                             <div class="hdbq">
                                 <span class="zz">作者：<b>{{ work.$user.name }}</b></span>
                                 <span class="see">浏览：<b>{{ work.checkcounts }}</b></span>
-                                <span class="tp">投票：<b>{{ work.votes.length }}</b></span>
+                                <span  ng-show="activePower.vote === 'true'" class="tp">投票：<b>{{ work.votes.length }}</b></span>
                             </div>
-                            <div class="hdbq"  ng-click="voteWork(work);" ng-show="!!!_.contains(work.votes,userId)">
-                                <span class="tota">投他一票</span>
-                            </div>
-                            <div class="hdbq"  ng-show="!!_.contains(work.votes,userId)">
-                                <span class="tota">已投票</span>
+                            <div ng-show="activePower.vote === 'true'">
+                                <div class="hdbq"  ng-click="voteWork(work);" ng-show="!!!_.contains(work.votes,userId)">
+                                    <span class="tota">投他一票</span>
+                                </div>
+                                <div class="hdbq"  ng-show="!!_.contains(work.votes,userId)">
+                                    <span class="tota">已投票</span>
+                                </div>
                             </div>
                         </li>
                     </ul>
@@ -109,13 +114,19 @@
     $(document).ready(function(){
         setTimeout(function(){
             $('.showOverPic').lightGallery();
-
         },1000)
     });
 
     GLOBAL_ACTIVE_POJO = {
         _id:"<%- active._id %>",
+        activeTitle:'<%- active.title %>',
         _userId:"<%- $session.USER ? $session.USER._id : '' %>",
+        power:{
+            form:'<%- active.power.form %>',
+            work:'<%- active.power.work %>',
+            showWork:'<%- active.power.showWork %>',
+            vote:'<%- active.power.vote %>',
+        }
     }
 </script>
 <script type="text/javascript"  src="/front/dist/active_detail.js"></script>

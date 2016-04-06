@@ -75,7 +75,7 @@ function dealQuery(query){
     var query = deepCopy(query);
     for(var p in query){
         //处理属性为空 或者 属性是一个{}空对象
-        if(!query[p] || validatePojoIsNull(query[p])){
+        if(query[p] === '' || validatePojoIsNull(query[p])){
             delete  query[p];
             continue;
         }

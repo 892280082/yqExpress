@@ -97,10 +97,17 @@
     </div>
 
 <script type="text/javascript">
-
     var app = angular.module("myApp",[]);
 
     app.controller('main',['$scope','$http',function($scope,$http){
+        //父页面属性
+        $scope.activePower = window.parent.window.GLOBAL_ACTIVE_POJO.power;
+
+        var active = {
+            _id:window.parent.window.GLOBAL_ACTIVE_POJO._id,
+            title:window.parent.window.GLOBAL_ACTIVE_POJO.activeTitle,
+        }
+
         //数据模型
         $scope.subActiveInfo = {
             "name":"<%- $session.USER.name %>",
@@ -114,26 +121,42 @@
             "unit":"<%- $session.USER.workUnit %>"
         };
 
-
         //提交数据
-        $scope.subTelInfo = function(){
-            $http.post("/front/subActiveForm",{"pushPojo":$scope.subActiveInfo})
-                    .success(function(data){
-                        if(!data.err){
-                            window.parent.location.href = "/front/toUploadWork/<%- _id %>"
-                            setTimeout(function(){
-                                var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
-                                parent.layer.close(index);
-                            },1000)
-                        }else{
-                            layer.alert(data.err, {
-                                icon: 1,
-                                skin: 'layer-ext-moon'
-                            })
-                        }
-                    }).error(function(){
-
+        $scope.subTelInfo = function() {
+            if ($scope.activePower.work === 'true') { //提交作品
+                    $http.post("/front/subActiveForm", {"pushPojo": $scope.subActiveInfo})
+                            .success(function (data) {
+                                if (!data.err) {
+                                    window.parent.location.href = "/front/toUploadWork/<%- _id %>"
+                                    setTimeout(function () {
+                                        var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                                        parent.layer.close(index);
+                                    }, 1000)
+                                } else {
+                                    layer.alert(data.err, {
+                                        icon: 1,
+                                        skin: 'layer-ext-moon'
+                                    })
+                                }
                     })
+            }else{//不提交作品 直接保存作品信息
+                $http.post("/front/subUserWork", {pushPojo: $scope.subActiveInfo,noWork:true,active:active})
+                        .success(function (data) {
+                            if (!data.err) {
+                                window.parent.layer.msg("提交报名信息成功!");
+                                setTimeout(function(){
+                                    window.parent.location.reload();
+                                    var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                                    parent.layer.close(index);
+                                },1500)
+                            } else {
+                                layer.alert(data.err, {
+                                    icon: 1,
+                                    skin: 'layer-ext-moon'
+                                })
+                            }
+                        })
+            }
         }
 
     }])

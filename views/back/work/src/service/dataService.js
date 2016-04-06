@@ -12,10 +12,16 @@ angular.module('service.dataService',[]).service("dataService",["$http"
             this.saveCustomer = function(customer){
             	return $http.post('/back/proSaveSingle',{"pojo":customer});
             };
-            //删除数据
-            this.removeCustomer = function(_id,_userId){
-                return $http.post('/back/proRemoveSingle',{"_id":_id,"_userId":_userId});
-            };
+            //删除作品
+            this.removeCustomer = function(pojo,callback){
+                return $http.post('/back/removeWorkById',{"removePojo":pojo})
+                    .success(function(data){
+                        data.err && console.log(data.err);
+                        callback(data.err,data.result);
+                    }).error(function(data){
+                        alert('/back/removeWorkById:连接失败');
+                    })
+            }
             //更新方法
             this.updateCustomer = function(cus){
                 return $http.post('/back/proUpdateSingle',{"updatePojo":cus});
@@ -36,5 +42,5 @@ angular.module('service.dataService',[]).service("dataService",["$http"
                     }).error(function(){
                         alert("/back/updateWorkById"+"连接错误");
                     })
-            }
+            };
     }]);

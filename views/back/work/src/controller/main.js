@@ -15,6 +15,7 @@
             //保存用户数据数组
             $scope.array_custom = [];
             //查询Pojo
+            $scope.search_custom = {in:1};
 
             $scope.workState = [{id:1,name:'通过'},{id:0,name:"未通过"}];
 
@@ -27,28 +28,17 @@
             pageResult.$loadInit({
                 url:"/back/getWorkAllData",
                 pageSize:15,
-                query:{},
+                query:$scope.search_custom
             },function(err,result){
                 $scope.array_custom = result;
             })
 
-            $scope.groupArray = function(Array){
-                var mem = [{array:[]}];
-                for(var i=0;i<Array.length;i++){
-                     var lastArray = _.last(mem).array;
-                     if(lastArray.length<4){
-                        lastArray.push(Array[i]);
-                     }else{
-                         mem.push({array:[]});
-                         i--;
-                     }
-                }
-                return mem;
-            }
-
             //查询方法
             $scope.search = function(){
-                $scope.array_custom.$search($scope.search_custom);
+                var query = _.clone($scope.search_custom);
+                if($scope.search_custom.cate1$cateId)
+                    query.cate1$cateId = $scope.search_custom.cate1$cateId.cateId;
+                $scope.array_custom.$search(query);
             }
 
             //初始获取所有分类信息
@@ -66,12 +56,11 @@
 
             //进入添加页面
             $scope.changeIntoEdit = function(custom){
-                if(!custom){
-                    $scope.pojo_custom = {};
-                    $scope.pojo_custom.creatTime = new Date();
-                }else{
-                    $scope.pojo_custom = custom;
-                }
+                setTimeout(function(){
+                    $('.showOverPic').lightGallery();
+                },1000)
+
+                $scope.pojo_custom = custom;
                 this.show.$set("cusadd");
             }
 
@@ -85,6 +74,7 @@
                 var tFlag = $window.confirm("确定？此操作无法恢复!");
                 if(!tFlag)
                     return false;
+
                 dataService.removeCustomer(cus,function(err,result){
                     !err ? $scope.array_custom.$remove(cus) : alert("删除错误!");
                 })
@@ -97,35 +87,20 @@
             }
 
             //保存或者更新方法
-            $scope.saveOrUpdate = function(cus){
-                if(cus)
-                    $scope.pojo_custom = cus;
-                var array = $scope.pojo_custom.type;
-                if(_.isString(array))
-                $scope.pojo_custom.type = array.split(' ');
-                //保存
-                if(!$scope.pojo_custom._id){
-                    dataService.saveCustomer($scope.pojo_custom)
-                    .success(function(data){
-                        if(!data.err){
-                            $scope.array_custom.$add(data.result);
-                            $scope.show.$set('cuslist');
-                        }else{
-                            alert(data.err);
-                        }
-                    }).error(function(data){
-                         alert("保存错误");
-                    })
-                }else{
+            $scope.saveOrUpdate = function(){
                     //更新
                     delete $scope.pojo_custom.$user;
                     delete $scope.pojo_custom.$active;
-
+                    if(!!$scope.pojo_custom.fileUrls[0])
+                        $scope.pojo_custom.fileUrls[0].name = $scope.pojo_custom.title;
                     dataService.updateWork($scope.pojo_custom,function(err,info){
-                        console.log(err,info);
+                        if(!err){
+                            $scope.show.$set('cuslist');
+                        }else{
+                            layer.msg('更新失败')
+                            console.log(err);
+                        }
                     });
-
-                }
             }
             /**************************上传配置**************************/
              //配置大图图像上传

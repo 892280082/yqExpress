@@ -24,11 +24,21 @@ var fileSchema = new Schema({
 var workSchema = new Schema({
     title:String,//作品名称
 
+    in:{type:Number,default:0},//是否含有作品 0没有 1有
+
     userId:Schema.Types.ObjectId,//用户ID
     actId:Schema.Types.ObjectId,//活动ID
 
     userName:String,//用户名
     activeName:String,//活动名
+
+    form:{//报名表信息
+        name: String,//真实姓名
+        tel: String,//联系方式
+        email: String,//邮箱
+        address: String,//地址
+        unit: String,//工作单位
+    },
 
     cate1:{},//类型1
     cate2:{},//类型2

@@ -15,6 +15,8 @@
     <meta charset="UTF-8">
     <% include ../include/baseLink %>
     <title>用户信息管理</title>
+    <link href="/plugin/lightgallery/dist/css/lightgallery.css" rel="stylesheet">
+    <script type="text/javascript" src="/front/dist/lightgally.js"></script>
     <script type="text/javascript" src="/back/dist/work.js"></script>
 </head>
 <body ng-controller="main">
@@ -29,7 +31,25 @@
     </div>
     <section>
         <label>作品名:</label>
-        <input type="text" class="textbox textbox_295"  ng-model="search_custom.$$_title" />
+        <input type="text" class="textbox textbox_295"  style="width: 169px;" ng-model="search_custom.$$_title" />
+        <label>用户:</label>
+        <input type="text" class="textbox textbox_295"  style="width: 169px;" ng-model="search_custom.$$_userName" />
+        <label>活动:</label>
+        <input type="text" class="textbox textbox_295"  style="width: 169px;" ng-model="search_custom.$$_activeName" />
+        <label>一级分类:</label>
+        <select  ng-model="search_custom.cate1$cateId" name="t_usertype"
+                 ng-options="(m.cateId + '-------' + m.cateName)  for m in webConfig.workCates">
+                 <option value="">-- 所有  --</option>
+        </select>
+        <select  ng-model="search_custom.cate2$cateId" name="t_usertype"
+                 ng-options="m.cateId as m.cateName  for m in search_custom.cate1$cateId.subCate">
+            <option value="">-- 所有 --</option>
+        </select>
+        报名信息:<input type="checkbox"
+                           ng-model="search_custom.in"
+                           ng-true-value="0"
+                           ng-false-value="1"
+                        />
         <input type="button" value="查询"  ng-click="search();" class="group_btn"/>
     </section>
     <section>
@@ -45,13 +65,13 @@
                 <th>作者</th>
                 <th>活动</th>
                 <th>状态</th>
-                <th>首页排序</th>
+                <th>权重</th>
                 <th>操作</th>
             </tr>
             <tr ng-repeat="cus in array_custom.$array">
                 <td>{{ $index + 1}}</td>
                 <td width="12%"  style="cursor: pointer;"
-                    ng-click="changeIntoEdit(cus);">{{ cus.fileUrls[0].name }}</td>
+                    ng-click="changeIntoEdit(cus);">{{ cus.title }}</td>
                 <td width="12%">
                     {{ cus.cate1.cateName }}/{{ cus.cate2.cateName }}
                 </td>
@@ -60,9 +80,6 @@
                 <td width="8%">{{ cus.state }}</td>
                 <td width="8%">{{ cus.topno }}</td>
                 <td>
-                    <a ng-click="dealProStatus(cus);"
-                       ng-class="{true: 'inner_red_btn', false: 'inner_btn'}[!cus.status]"
-                       href="#">{{ cus.status ? '下架':'上架' }}</a>
                     <a class="inner_btn"  ng-click="removeCustom(cus);"  href="#">删除</a>
                     <a class="inner_btn"  ng-if="parentShow"   ng-click="parentChoose(cus);"
                        href="#">选定</a>
@@ -98,7 +115,7 @@
                 </tr>
                 <tr>
                     <td class="tname"><label>作品名称:</label></td>
-                    <td class="tiput"><input type="text"  ng-model="pojo_custom.fileUrls[0].name"  
+                    <td class="tiput"><input type="text"  ng-model="pojo_custom.title"
                                              name="t_title"
                                              class="textbox" required placeholder="作品名称" />
                                              <br/></td>
@@ -107,8 +124,8 @@
                                                ng-options="m.id as m.name  for m in workState">
                             <option value="">-- 请选择 --</option>
                         </select><br/>
-
                     </td>
+                    <td></td>
                 </tr>
                 <tr>
                     <td class="tname"><label>作者:</label></td>
@@ -118,7 +135,6 @@
                                              class="textbox"
                                      /><br/>
                     </td>
-                    <td></td>
                     <td class="tname"><label>活动:</label></td>
                     <td class="tiput"><input type="text"
                                              ng-model="pojo_custom.activeName"
@@ -126,7 +142,6 @@
                                              class="textbox"
                                 /><br/>
                     </td>
-                    <td></td>
                 </tr>
                 <tr>
                     <td class="tname"><label>一级分类:</label></td>
@@ -136,7 +151,6 @@
                             <option value="">-- 当前:-- {{ pojo_custom.cate1.cateName }}  --</option>
                         </select><br/>
                     </td>
-                    <td></td>
                     <td class="tname"><label>二级分类:</label></td>
                     <td class="tiput">
                         <select  ng-model="pojo_custom.cate2" name="t_usertype"
@@ -153,7 +167,7 @@
                                               style="width:635px;height:100px;"
                                               ng-model="pojo_custom.introduce"
                                               name="t_introduce"
-                                              required></textarea>
+                                              ></textarea>
                     </td>
                     <td></td>
                 </tr>
@@ -162,20 +176,17 @@
                     <td colspan="6" style="text-align: left;" class="tle1">作品列表&nbsp;&nbsp;&nbsp;&nbsp;共:{{ pojo_custom.fileUrls.length }}</td>
                 </tr>
 
-                <style>
-                    .worklistshow td {text-align: center;}
-                </style>
-
                 <tr>
-                    <td colspan="6">
-                        <table width="100%" ng-repeat="group in groupArray(pojo_custom.fileUrls)"  class="worklistshow">
-                                <tr>
-                                    <td ng-repeat="work in group.array"  width="25%">
-                                        <img width="220" height="230" ng-src="{{ work.url }}" alt="{{ work.name }}"/><br/>
-                                        {{ work.name }}
-                                    </td>
-                                </tr>
-                        </table>
+                    <td colspan="6" width="100%">
+                        <ul class="showOverPic">
+                            <li ng-repeat="pic in pojo_custom.fileUrls"
+                                data-sub-html="{{ pic.name }}"
+                                data-src="{{pic.url}}"
+                                style="float: left;padding-right: 10px;padding-top: 10px;">
+                                <img width="230" height="220" ng-src="{{ pic.url }}" />
+                                <p>{{ pic.name }}</p>
+                            </li>
+                        </ul>
                     </td>
                 </tr>
 
@@ -184,6 +195,51 @@
                     <td class="tiput"><input type="text"  ng-model="pojo_custom.topno" name="t_topno"
                                              class="textbox" /><br/></td>
                     <td></td>
+                </tr>
+                <tr>
+                    <td colspan="6" style="text-align: left;" class="tle1">报名信息</td>
+                </tr>
+                <tr>
+                    <td class="tname"><label>报名姓名:</label></td>
+                    <td class="tiput"><input type="text"
+                                             ng-model="pojo_custom.form.name"
+                                             name="_userName"
+                                             class="textbox"
+                                /><br/>
+                    </td>
+                    <td class="tname"><label>联系方式:</label></td>
+                    <td class="tiput"><input type="text"
+                                             ng-model="pojo_custom.form.tel"
+                                             name="activeName"
+                                             class="textbox"
+                                /><br/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tname"><label>邮箱:</label></td>
+                    <td class="tiput"><input type="text"
+                                             ng-model="pojo_custom.form.email"
+                                             name="_userName"
+                                             class="textbox"
+                                /><br/>
+                    </td>
+                    <td class="tname"><label>邮箱:</label></td>
+                    <td class="tiput"><input type="text"
+                                             ng-model="pojo_custom.form.address"
+                                             name="activeName"
+                                             class="textbox"
+                                /><br/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tname"><label>单位:</label></td>
+                    <td class="tiput"><input type="text"
+                                             ng-model="pojo_custom.form.unit"
+                                             name="_userName"
+                                             class="textbox"
+                                /><br/>
+                    </td>
+                    <td></td><td></td><td></td>
                 </tr>
                 <tr>
                     <td colspan="3" style="text-align: center;">

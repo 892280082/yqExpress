@@ -62,6 +62,14 @@ var activeSchema = new Schema({
     /****************作品信息*****************/
     workCate:[],//作品分类
     works:[Schema.Types.ObjectId],//作品数量
+
+    /*****************活动权限*****************/
+    power:{
+        form:{type:Boolean,default:false},//是否提交表单
+        work:{type:Boolean,default:false},//是否提交作品
+        showWork:{type:Boolean,default:false},//是否展示作品
+        vote:{type:Boolean,default:false},//是否投票
+    }
 })
 
 /**

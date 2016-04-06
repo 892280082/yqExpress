@@ -330,7 +330,7 @@ router.post('/subActiveForm',function(req,res){
 	}
 });
 
-//提交活动报名表单
+//通过活动ID获取基本的活动信息
 router.post('/getActiveBaseById',function(req,res){
 	var _id = req.body._id;
 	Active.findOne({"_id":_id},function(err,doc){
@@ -340,8 +340,22 @@ router.post('/getActiveBaseById',function(req,res){
 
 //提交活动报名表单
 router.post('/subUserWork',function(req,res){
-	var work = req.body.pushPojo;
-	work.title = work.fileUrls[0].name;
+	var tempWork = req.body.pushPojo;
+	var work = {};
+	if(req.body.noWork){ //如果不提交作品则只提交报名信息
+		work.form = tempWork;
+		work.actId = req.body.active._id;
+		work.activeName = req.body.active.title;
+		work.userId = req.session.USER._id;
+		work.userName = req.session.USER.name;
+		work.title = req.session.USER.name;
+		work.in =0;
+	}else{
+		work = tempWork;
+		work.in = 1;
+		work.form = req.session.$USER_ACTIVE_FORM;
+		work.title = work.fileUrls[0].name;
+	}
 
 	then(function(next){
 		Active.pushWork(work.actId,work,function(err,doc){
@@ -389,7 +403,7 @@ router.post('/getCurActWorks',function(req,res){
 //获取作品集合
 router.post('/getAllWorks',function(req,res){
 	var query = req.body.query;
-	//query.usertype = 2;
+	query.in = 1;
 	mongooseUtil.pagination({
 		query:query,
 		limit:req.body.limit,
