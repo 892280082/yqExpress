@@ -39,14 +39,28 @@ var from = mailConf.prefix+" "+"<"+mailConf.auth.user+">";
              console.log(info);
 })
  */
-exports.sendMail = function(params,callback){
-    params.from = from;
-    transport.sendMail(params, function(err, info){
+
+/**
+ * @desc 基础发送方法
+ * @param email {String} -用户邮箱
+ * @param subject {String} -标题
+ * @param html {String} -内容
+ * @param callback {Function} -回调函数 -call(err,info);
+ */
+exports.baseSend = function(email,subject,html,callback){
+    transport.sendMail({
+        to:email,
+        subject:subject,
+        html:html,
+        from:from
+    }, function(err, info){
         err && console.log(err);
         callback(err,info);
     });
 }
 
+
+//发送注册邮件
 exports.sendRegistMail = function(name,email,randomStr,callback){
     var subject = "造物者邮箱验证";
     var html = "<a href='"+main_conf.main.root+"/regist/validateEmailLink/"+name+"/"+randomStr+"'+>点击激活链接，验证登陆吧!></a>";
@@ -60,6 +74,14 @@ exports.sendRegistMail = function(name,email,randomStr,callback){
         callback(err,info);
     });
 }
+
+//发送验证码
+exports.sendEmailYzm = function(name,email,random,callback){
+    var subject = "造物者邮箱验证码";
+    var html = "尊敬的"+name+"用户您好!"+"您的随机验证码为"+random;
+    exports.baseSend(email,subject,html,callback);
+}
+
 
 //exports.sendMail({to:"892280082@qq.com",
 //        subject:"to Test",

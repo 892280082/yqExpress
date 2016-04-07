@@ -210,7 +210,7 @@ angular.module('service.user_service',[]).service("user_service",["$http"
              }
 
             /**
-             * @desc 更新用户信息
+             * @desc 更新基本用户信息
              */
             this.updateUserInfo = function(user,callback){
                 $http.post('/front/updateUserInfo',{updatePojo:user})
@@ -222,5 +222,30 @@ angular.module('service.user_service',[]).service("user_service",["$http"
                     })
             }
 
+            /**
+             *@desc 更新用户邮箱或者手机号 或者密码 需要验证用户session
+             */
+            this.updateUserImportInfo = function(pojo,callback){
+                $http.post('/front/upUserImportInfo',{updatePojo:pojo})
+                    .success(function(data){
+                        data.err &&　console.log(data.err);
+                        return callback(data.err,data.result);
+                    }).error(function(data){
+                        alert("user_service->getUserBaseInfo:链接出错");
+                    })
+            }
+
+            /***
+             * @desc 发送邮箱验证码
+             */
+            this.sendEmailYzm = function(email,callback){
+                $http.post('/front/sendEmailYzm',{email:email})
+                    .success(function(data){
+                        data.err &&　console.log(data.err);
+                        return callback(data.err,data.result);
+                    }).error(function(data){
+                        alert("user_service->getUserBaseInfo:链接出错");
+                    })
+            }
 
     }]);

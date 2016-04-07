@@ -12,6 +12,7 @@ var WebConfig = require("../../models/WebConfig");
 var frontWare = require("./front_ware");
 var ArticleComment = require("../../models/ArticleComment");
 var activeService = require("../../service/activeService");
+var emailUtil = require("../../util/email_util");
 var _  = require("underscore");
 
 //创品列表页面
@@ -543,9 +544,6 @@ router.post('/updateUserInfo',function(req,res){
 		             return mem;
 			  },{})
 
-	console.log("user",user);
-
-
 	then(function(next){
 		Customer.update({"_id":cusId},user,function(err,info){
 			next(err,info);
@@ -562,5 +560,72 @@ router.post('/updateUserInfo',function(req,res){
 	})
 
 });
+
+//更新用户重要信息
+router.post('/upUserImportInfo',function(req,res){
+	var cusId =  req.session.USER._id;
+
+	if(!cusId)
+		return res.json({err:'not login!'});
+
+	var userInfo = req.body.updatePojo;
+
+	if(!userInfo.yanzhenma)
+		return res.json({err:'no yanzhenma'});
+
+	userInfo.yanzhenma = +userInfo.yanzhenma;
+
+	//console.log(userInfo,req.session.EMAIL_YANZHENMA);
+
+	if(userInfo.email && (userInfo.yanzhenma !== req.session.EMAIL_YANZHENMA)){
+		return res.json({err:'email yanzhenma error'});
+	}
+
+	if(userInfo.phoneNumber && (userInfo.yanzhenma !== req.session.PHONE_YANZHENMA)){
+		return res.json({err:'email yanzhenma error'});
+	}
+
+	then(function(next){
+
+
+
+
+
+	}).then(function(next){
+		Customer.update({"_id":cusId},userInfo,function(err,info){
+			next(err,info);
+		})
+	}).then(function(next,info){
+		Customer.findOne({"_id":cusId},function(err,doc){
+			if(err)
+				next(err);
+			req.session.USER = doc;
+			return res.json({err:err,result:info});
+		})
+	}).fail(function(next,err){
+		console.log("ERROR:upUserImportInfo",err);
+	})
+
+});
+
+//用户发送验证码
+router.post("/sendEmailYzm",function(req,res){
+
+	var user =req.session.USER;
+	if(!!!user)
+		return res.json({err:"no login"});
+
+	var email = req.body.email;
+	if(!!!email)
+		return res.json({err:"no email count"});
+
+	var random = _.random(0,9000)+1000;
+	req.session.EMAIL_YANZHENMA = random;
+
+	emailUtil.sendEmailYzm(user.name,email,random,function(err,doc){
+		res.json({err:err});
+	})
+})
+
 
 module.exports = router;

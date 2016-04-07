@@ -30,7 +30,7 @@ var webConfig = new Schema({
 
     customers:[banner],//首页用户推荐
 
-    actives:[banner],//首页产品推荐
+    actives:[banner],//首页活动推荐
 
     products:[banner],
 

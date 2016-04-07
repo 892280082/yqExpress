@@ -142,7 +142,7 @@ angular.module("controller.product_recommd_controller",[
                     })
             }else{
                 //更新
-                dataService.updateCustomer($scope.webConfig)
+                dataService.updateCustomer($scope.webConfig,'products')
                     .success(function(data){
                         if(!data.err){
                             alert("更新成功");

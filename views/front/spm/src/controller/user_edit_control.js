@@ -5,14 +5,38 @@
  */
     var _ = require("underscore");
     angular.module("controller.user_edit_control",[])
-        .controller('user_edit_control',['$scope','$window','user_service','FileUploader','$timeout'
-        ,function($scope,$window,user_service,FileUploader,$timeout){
+        .controller('user_edit_control',['$scope','$window','user_service','FileUploader','$timeout','$interval'
+        ,function($scope,$window,user_service,FileUploader,$timeout,$interval){
 
             $scope.user = {};
 
             $scope.userBack = {};
 
             $scope.jobCate = {};//用户职业分类
+
+            $scope.emailPojo = {
+                email:"",
+                yanzhenma:"",
+            }
+
+            $scope.phonePojo = {
+                phoneNumber:"",
+                yanzhenma:""
+            }
+
+            $scope.sendEmailMessage = 60; //邮箱倒计时
+            //时间倒计时
+            $scope.startCount = function(){
+                var timePromise =  $interval(function(){
+                    $scope.sendEmailMessage--;
+                    if($scope.sendEmailMessage === 0){
+                        $interval.cancel(timePromise);
+                        $scope.sendEmailMessage = 60;
+                    }
+                },1000)
+            }
+
+
 
             //获取用户信息
             user_service.getUserBaseInfo(function(err,doc){
@@ -33,6 +57,7 @@
                 }
             })
 
+            //获取用户职业分类
             $timeout(function(){
                 user_service.getUserJobCate(function(err,doc){
                     if(err)
@@ -40,7 +65,6 @@
                     $scope.jobCate = doc.jobCates;
                 })
             })
-
 
             //提交信息修改
             $scope.subChangeInfo = function(){
@@ -53,6 +77,40 @@
                 })
             }
 
+            //提交用户邮箱修改信息
+            $scope.subEmailChange = function(){
+                var re= /\w@\w*\.\w/;
+                if($scope.emailPojo.email && !re.test($scope.emailPojo.email)){
+                    return layer.msg("请输入合法邮箱");
+                }
+                if(!$scope.emailPojo.yanzhenma)
+                    return layer.msg("请输入验证码");
+
+                user_service.updateUserImportInfo($scope.emailPojo,function(err,info){
+                    err ? layer.msg("更新错误!") : layer.msg('更新成功!');
+
+                    setTimeout(function(){
+                        window.location.reload();
+                    },1500)
+                })
+            }
+
+            //发送邮箱验证码
+            $scope.subEmailYzm = function(){
+                var re= /\w@\w*\.\w/;
+                if(!$scope.emailPojo.email && !re.test($scope.emailPojo.email)){
+                    return layer.msg("请输入合法邮箱");
+                }
+                $scope.startCount();
+                user_service.sendEmailYzm($scope.emailPojo.email,function(err,info){
+                    if(err) {
+                        layer.alert('邮箱发送错误', {
+                            icon: 2,
+                            skin: 'layer-ext-moon'
+                        })
+                    }
+                })
+            }
 
             /**************************上传配置**************************/
             //配置任务图像上传

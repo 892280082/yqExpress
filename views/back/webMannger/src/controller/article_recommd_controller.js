@@ -29,7 +29,6 @@ angular.module("controller.main",[
         $scope.insertBannerArray = function(){
             var insertPojo = {};
             var pojo = $scope.getSonpageResult;
-            delete pojo.content;
 
             var type = $scope.bannerType;
             var index =  $scope.bannerIndex;
@@ -143,7 +142,9 @@ angular.module("controller.main",[
                     })
             }else{
                 //更新
-                dataService.updateCustomer($scope.webConfig)
+
+
+                dataService.updateCustomer($scope.webConfig,'articles')
                     .success(function(data){
                         if(!data.err){
                             alert("更新成功");

@@ -49,10 +49,10 @@
         $(".etab"+a).addClass("over");
     };
 </script>
-<body>
+<body ng-controller="user_edit_control">
 <% include ../include/head.ejs %>
 <% var USER = $session.USER %>
-<div class="wap clearfix" ng-controller="user_edit_control">
+<div class="wap clearfix" >
     <div class="on-698 clearfix">
         <div class="exitwap">
             <div class="title">
@@ -241,13 +241,23 @@
             <dl>
                 <dd>
                     <span class="tle">邮箱号码</span>
-                    <input class="phone" type="text" placeholder="请输入需要绑定的邮箱号码" /></dd>
+                    <input class="phone" type="text"  ng-model="emailPojo.email" placeholder="请输入需要绑定的邮箱号码" />
+                </dd>
                 <dd>
                     <span class="tle">验证码</span>
-                    <input class="yzm" type="text" />
-                    <input class="yesbut" type="button" value="获取验证码" />
+                    <input class="yzm" type="text"  ng-model="emailPojo.yanzhenma"  />
+                    <input class="yesbut"
+                           type="button"
+                           ng-disabled="sendEmailMessage<60"
+                           value="{{  sendEmailMessage < 60 ? '剩余'+sendEmailMessage+'秒' : '获取验证码' }}"
+                           ng-click="subEmailYzm()"/>
                 </dd>
-                <dd style="padding-top:15px;"><span><input class="yeseit" type="button" value="确定" /><input class="noeit" type="button" value="取消" /></span></dd>
+                <dd style="padding-top:15px;">
+                    <span>
+                        <input class="yeseit" type="button"  ng-click="subEmailChange()" value="确定" />
+                        <input class="noeit" type="button" value="取消" />
+                    </span>
+                </dd>
             </dl>
         </div>
     </div>
