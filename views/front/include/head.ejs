@@ -64,14 +64,14 @@
                         <div class="hed-user-img">
                             <a href="/front/toUserCenter">
                                 <img src="/front/resource/images/pozhezhao.png" class="zz"/>
-                                <img src="/front/resource/images/userhead.jpg" class="tx"/>
+                                <img src="<%- $session.USER.imgurl %>" class="tx"/>
                             </a>
                         </div>
                         <div class="hed-user-xl">
                             <dt class="xltop"></dt>
                             <div class="xlnr">
                                 <dd><a  href="/front/toUserCenter">个人主页</a></dd>
-                                <dd><a href="/front/editUserInfo" class="over">账号设置</a></dd>
+                                <dd><a href="/front/editUserInfo">账号设置</a></dd>
                                 <dd><a href="" onclick="logOut()">注销登录</a></dd>
                             </div>
                             <dt class="xlbotom"></dt>

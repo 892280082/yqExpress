@@ -133,7 +133,7 @@ a:visited{ text-decoration:none;}
 .alert-exit-phone .title{font-size:20px; font-weight:bold; line-height:40px;height:40px;margin:0 24px;padding-top:20px;padding-bottom:15px;border-bottom:1px solid #ececec;color:#666;}
 .alert-exit-phone .cont dl{padding:24px;padding-top:50px;}
 .alert-exit-phone .cont dl dd{padding-bottom:25px;}
-.alert-exit-phone .cont dl .yzm{height:40px;width:50px;padding:0 24px;border:1px solid #ececec;margin-left:30px;border-radius:5px;-moz-box-shadow:-3px 3px 3px #f6f6f6 inset;-webkit-box-shadow:-3px 3px 3px #f6f6f6 inset;box-shadow:-3px 3px 3px #f6f6f6 inset;}
+.alert-exit-phone .cont dl .yzm{height:40px;width:100px;padding:0 24px;border:1px solid #ececec;margin-left:30px;border-radius:5px;-moz-box-shadow:-3px 3px 3px #f6f6f6 inset;-webkit-box-shadow:-3px 3px 3px #f6f6f6 inset;box-shadow:-3px 3px 3px #f6f6f6 inset;}
 .alert-exit-phone .cont dl span.tle{ font-size:14px; font-weight:bold;color:#666; width:70px; display:inline-block; text-align:right;}
 .alert-exit-phone .cont dl .phone{margin-left:30px;width:376px;height:40px;padding:0 24px;border:1px solid #ececec;border-radius:5px;-moz-box-shadow:-3px 3px 3px #f6f6f6 inset;-webkit-box-shadow:-3px 3px 3px #f6f6f6 inset;box-shadow:-3px 3px 3px #f6f6f6 inset;}
 .alert-exit-phone .cont dl .yesbut{width:100px;height:40px;border:1px solid #bebebe;background:#cacaca;cursor:pointer;color:#fff;margin-left:14px;border-radius:5px;}

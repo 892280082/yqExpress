@@ -30,6 +30,15 @@ angular.module("controller.upload_work_controller",[])
                         $scope.work.userName = ACTIVE_POJO._userName;
                         $scope.work.introduce = $scope.work.introduce || "";
 
+
+                        $scope.$watch(function(){//观察描述
+                            return $scope.work.introduce;
+                        },function(){
+                            if($scope.work.introduce.length > 200){
+                                $scope.work.introduce = $scope.work.introduce.substring(0,200)
+                            }
+                        })
+
                     }else{
                         layer.alert('活动数据获取失败', {
                             icon: 2,
@@ -104,13 +113,7 @@ angular.module("controller.upload_work_controller",[])
                     })
             }
 
-            $scope.$watch(function(){//观察描述
-                return $scope.work.introduce;
-            },function(){
-                if($scope.work.introduce.length > 200){
-                    $scope.work.introduce = $scope.work.introduce.substring(0,200)
-                }
-            })
+
 
             /*******************上传配置**************************/
             var uploader = $scope.uploader = new FileUploader({

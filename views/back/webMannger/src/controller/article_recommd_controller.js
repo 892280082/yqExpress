@@ -29,6 +29,8 @@ angular.module("controller.main",[
         $scope.insertBannerArray = function(){
             var insertPojo = {};
             var pojo = $scope.getSonpageResult;
+            delete pojo.content;
+
             var type = $scope.bannerType;
             var index =  $scope.bannerIndex;
             var typePojo  = _.find($scope.cateSelect,function(ele){

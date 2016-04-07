@@ -58,7 +58,6 @@ var customSchema = new Schema({
     },
     workUnit:String,//工作单位 非必填选项
     school:String,//毕业学校
-    sendAddress:String,//邮寄地址
 
     phoneNumber:String,//联系方式
     ability:String,//能力标签

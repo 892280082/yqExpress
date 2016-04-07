@@ -5,8 +5,6 @@
     <title>个人信息修改-造物者</title>
     <% include ../include/baseLink%>
     <link rel="stylesheet" type="text/css" href="/front/resource/css/user.css"/>
-    <!-- 地区插件 -->
-    <script language="javascript"  type="text/javascript"  src="/plugin/selector/dist/china-area-selector.js"></script>
 </head>
 <script type="text/javascript">
     //头部鼠标经过个人头像显示下拉
@@ -23,19 +21,19 @@
 </script>
 <script type="text/javascript">
     function divshow(alertdiv){
-        var width = $("."+alertdiv).width();
-        var height = $("."+alertdiv).height();
+        var width = $("#"+alertdiv).width();
+        var height = $("#"+alertdiv).height();
         var left = ($(window).width()-width)/2;
         var top = ($(window).height()-height)/2;
         //$("body").css({"overflow-y":"hidden"});
         $(".black00").css({width:$(window).width(),height:$(window).height()}).fadeIn(0);
-        $("."+alertdiv).css({width:width,height:height,left:left,top:top}).fadeIn(500);
+        $("#"+alertdiv).css({width:width,height:height,left:left,top:top}).fadeIn(500);
         $(window).resize(
                 function(){
                     var left = ($(window).width()-width)/2;
                     var top = ($(window).height()-height)/2;
                     $(".black00").css({width:$(window).width(),height:$(window).height()});
-                    $("."+alertdiv).css({width:width,height:height,left:left,top:top});
+                    $("#"+alertdiv).css({width:width,height:height,left:left,top:top});
                 }
         )
     }
@@ -68,12 +66,13 @@
                     <dl class="cot-nr-list">
                         <dt><span class="phone">手机号码</span>
                             |<span class="phone-number"><%- USER.tel %></span>
-                            <span class="exit" onclick="divshow('alertdiv')">修改</span></dt>
+                            <span class="exit" onclick="divshow('editTel')">修改</span></dt>
                         <dd><i>手机号可以用于登录造物者帐号，重置密码或其他安全验证</i></dd>
                     </dl>
                     <dl class="cot-nr-list">
                         <dt><span class="email">电子邮箱</span>
-                            |<span class="email-number"><%- USER.email %></span><span class="exit">修改</span></dt>
+                            |<span class="email-number"><%- USER.email %></span>
+                            <span class="exit" onclick="divshow('editEmail')">修改</span></dt>
                         <dd><i>电子邮箱可以用于登录造物者帐号，重置密码或其他安全验证</i></dd>
                     </dl>
                 </div>
@@ -84,62 +83,118 @@
             </div>
             <div class="cont" id="cont2" style="display:none;">
                 <div class="cot-tle">个人信息</div>
-                <div class="cot-pes">
-                    <div class="pes-head">
-                        <div class="head-picture">
-                            <img class="zz" src="/front/resource/images/txzzzzz.png" width="186" height="186" />
-                            <img class="tx" src="/front/resource/images/userhead.jpg" width="186" height="186" />
-                            <button>点击上传</button>
+                <form
+                        name="tForm"
+                        novalidate
+                        ng-submit="subChangeInfo();">
+                    <div class="cot-pes">
+                        <div class="pes-head">
+                            <div class="head-picture">
+                                <img class="zz" src="/front/resource/images/txzzzzz.png" width="186" height="186" />
+                                <img class="tx" ng-src="{{ user.imgurl }}" width="186" height="186" />
+                                <label>点击上传
+                                    <input style="display: none;" type="file"
+                                           nv-file-select=""
+                                           filters="queueLimit"
+                                           accept=".png, .gif, .jpg"
+                                           uploader="uploader" />
+                                </label>
+                            </div>
+                            <div class="head-img-txt">
+                                <p>建议图片尺寸200*200像素</p><p>图片大小1M以内</p><p>图片格式：JPG*PNG*GIF</p>
+                            </div>
                         </div>
-                        <div class="head-img-txt">
-                            <p>建议图片尺寸200*200像素</p><p>图片大小1M以内</p><p>图片格式：JPG*PNG*GIF</p>
-                        </div>
+
+                        <dl>
+                            <dt class="bt">昵称</dt>
+                            <dd><span class="ti pone-ti"></span>
+                                <input class="nick wd100"
+                                       type="text"
+                                       ng-model="user.name"
+                                       ng-pattern="/^[\w\u4E00-\u9FA5\uF900-\uFA2D]*$/"
+                                       required
+                                       remote-validation
+                                       param="name"
+                                       name="t_name"
+                                       ingnore="<%- USER.name %>"
+                                       ng-maxlength="20"
+                                       placeholder="<%- USER.name %>" />
+                            </dd>
+                            <div class="wrois"
+                                 ng-if="tForm.t_name.$error.required && tForm.t_name.$dirty">
+                                请输入昵称</div>
+                            <div ng-if="tForm.t_name.$error.remote"
+                                 class="wrois">该昵称已注册</div>
+                            <div ng-if="tForm.t_name.$error.maxlength"
+                                 class="wrois">昵称最长20位</div>
+                            <div ng-if="tForm.t_name.$error.pattern"
+                                 class="wrois">昵称不能出现特殊字符</div>
+
+                            <dt class="bt">学校</dt>
+                            <dd><span class="ti school-ti"></span>
+                                <input class="school wd100"
+                                       type="text"
+                                       name="t_school"
+                                       ng-model="user.school"
+                                       ng-maxlength="40"
+                                       placeholder="<%- USER.school %>" />
+                            </dd>
+                            <div ng-if="tForm.t_school.$error.maxlength"
+                                 class="wrois">地址最长40位</div>
+
+
+                            <dt class="bt">工作单位</dt>
+                            <dd><span class="ti jop-ti"></span>
+                                <input class="jop wd100"
+                                       type="text"
+                                       name="t_workUnit"
+                                       ng-model="user.workUnit"
+                                       ng-maxlength="40"
+                                       placeholder="<%- USER.workUnit %>" /></dd>
+                            <dt class="bt">所在地区</dt>
+                            <div ng-if="tForm.t_workUnit.$error.maxlength"
+                                 class="wrois">您输入的信息太长了</div>
+                            <dd>
+                                <china-area-selector-with-wrapper region="user.address"></china-area-selector-with-wrapper>
+                            </dd>
+
+                            <dt class="bt">邮寄地址</dt>
+                            <dd><span class="ti emailadr-ti"></span>
+                                <input class="emailadr wd100"
+                                       type="text"
+                                       name="t_detail"
+                                       ng-model="user.address.detail"
+                                       ng-maxlength="40"
+                                       placeholder="<%- USER.address.detail %>" />
+                            </dd>
+                            <div ng-if="tForm.t_detail.$error.maxlength"
+                                 class="wrois">您输入的信息太长了</div>
+
+                            <dt class="bt">职业</dt>
+                            <dd>
+                                <select  ng-model="user.job" name="t_usertype"
+                                         ng-options="(m.cateName) for m in jobCate">
+                                    <option value="">{{ user.job.cateName }}</option>
+                                </select>
+                            </dd>
+
+                            <dt class="bt">个人简介</dt>
+                            <dd>
+                                <textarea class="abt" ng-model="user.introduce"></textarea>
+                                <span style="float: right;margin-right: 20px;">{{ user.introduce.length }}/200</span>
+                            </dd>
+                        </dl>
+
                     </div>
-                    <dl>
-                        <dt class="bt">昵称</dt>
-                        <dd><span class="ti pone-ti"></span>
-                            <input class="nick wd100"
-                                   type="text"
-                                   ng-model="user.name"
-                                   placeholder="<%- USER.name %>" /></dd>
-                        <dt class="bt">学校</dt>
-                        <dd><span class="ti school-ti"></span>
-                            <input class="school wd100"
-                                   ng-model="user.school"
-                                   type="text"
-                                   placeholder="<%- USER.school %>" /></dd>
-                        <dt class="bt">工作单位</dt>
-                        <dd><span class="ti jop-ti"></span>
-                            <input class="jop wd100"
-                                   type="text"
-                                   ng-model="user.workUnit"
-                                   placeholder="<%- USER.workUnit %>" /></dd>
-                        <dt class="bt">所在地区</dt>
-                        <dd>
-                            <china-area-selector region="user.address"></china-area-selector>
-                        </dd>
-                        <dt class="bt">邮寄地址</dt>
-                        <dd><span class="ti emailadr-ti"></span>
-                            <input class="emailadr wd100"
-                                   type="text"
-                                   ng-model="user.sendAddress"
-                                   placeholder="<%- USER.sendAddress %>" /></dd>
-                        <dt class="bt">职业</dt>
-                        <dd>
-                            <select  ng-model="user.job" name="t_usertype"
-                                     ng-options="(m.cateName) for m in jobCate.jobCates">
-                                <option value="">-- 当前:-- {{ pojo_custom.job.cateName }}  --</option>
-                            </select>
-                        </dd>
-                        <dt class="bt">个人简介</dt>
-                        <dd><textarea class="abt" ng-model="user.content"></textarea></dd>
-                    </dl>
-                </div>
-                <div class="cot-subt">
-                    <input class="yes-exit" type="submit" value="确认修改" />
-                    <input class="no-exit" type="submit" value="取消修改" />
-                </div>
+
+                    <div class="cot-subt">
+                        <input ng-class="{true:'yes-exit',false:'no-exit'}[ !!!tForm.$invalid ]"
+                               ng-disabled="tForm.$invalid" value="提交注册" type="submit" />
+                        <input class="no-exit" type="submit" value="取消修改" />
+                    </div>
+                </form>
             </div>
+
             <div class="cont" id="cont3" style="display:none;">
                 <div class="cot-tle">密码修改</div>
                 <div class="cot-pes">
@@ -153,7 +208,6 @@
                     </dl>
                 </div>
                 <div class="cot-subt" style="padding-left:170px;">
-                    <input class="yes-exit" type="submit" value="确认修改" />
                     <input class="no-exit" type="submit" value="取消修改" />
                 </div>
             </div>
@@ -161,18 +215,45 @@
     </div>
 </div>
 <% include ../include/foot.ejs %>
-<div class="alertdiv" style="display:none">
+<div id="editTel"  class="alertdiv" style="display:none">
     <div class="alert-exit-phone">
         <div class="title">会员手机绑定</div>
         <div class="cont">
             <dl>
-                <dd><span class="tle">手机号码</span><input class="phone" type="text" placeholder="请输入需要绑定的手机号码" /></dd>
-                <dd><span class="tle">验证码</span><input class="yzm" type="text" /><input class="yesbut" type="button" value="获取验证码" /></dd>
+                <dd>
+                    <span class="tle">手机号码</span>
+                    <input class="phone" type="text" placeholder="请输入需要绑定的手机号码" /></dd>
+                <dd>
+                    <span class="tle">验证码</span>
+                    <input class="yzm" type="text" />
+                    <input class="yesbut" type="button" value="获取验证码" />
+                </dd>
                 <dd style="padding-top:15px;"><span><input class="yeseit" type="button" value="确定" /><input class="noeit" type="button" value="取消" /></span></dd>
             </dl>
         </div>
     </div>
 </div>
+
+<div id="editEmail"  class="alertdiv" style="display:none">
+    <div class="alert-exit-phone">
+        <div class="title">会员邮箱绑定</div>
+        <div class="cont">
+            <dl>
+                <dd>
+                    <span class="tle">邮箱号码</span>
+                    <input class="phone" type="text" placeholder="请输入需要绑定的邮箱号码" /></dd>
+                <dd>
+                    <span class="tle">验证码</span>
+                    <input class="yzm" type="text" />
+                    <input class="yesbut" type="button" value="获取验证码" />
+                </dd>
+                <dd style="padding-top:15px;"><span><input class="yeseit" type="button" value="确定" /><input class="noeit" type="button" value="取消" /></span></dd>
+            </dl>
+        </div>
+    </div>
+</div>
+
+
 <div class="black00" style="display:none" onclick="divhide()"></div>
 <script type="text/javascript" src="/front/dist/user_edit.js"></script>
 </body>

@@ -509,6 +509,7 @@ router.get('/editUserInfo',function(req,res){
 	res.render('front/page/user_edit',{activeId:req.params._id});
 })
 
+//获取用户基本信息
 router.post('/getUsreBaseInfo',function(req,res){
 	var cusId = req.body._id || req.session.USER._id;
 	Customer.findOne({"_id":cusId},
@@ -519,6 +520,7 @@ router.post('/getUsreBaseInfo',function(req,res){
 	})
 });
 
+//获取用户职业分类信息
 router.post('/getUserJobCate',function(req,res){
 	WebConfig.findOne({},{jobCates:-1},function(err,doc){
 		res.json({err:err,result:doc});
@@ -526,5 +528,39 @@ router.post('/getUserJobCate',function(req,res){
 
 });
 
+//更新用户基本信息
+router.post('/updateUserInfo',function(req,res){
+	var cusId =  req.session.USER._id;
+	if(!cusId)
+		return res.json({err:'not login!'});
+
+	var updateUser = req.body.updatePojo;
+	var sesssionUser = req.session.USER;
+	var changeParams = ['name','email','phoneNumber','address','workUnit','school','job','introduce','imgurl'];
+
+	var user = _.reduce(changeParams,function(mem,pro){
+					 mem[pro] = updateUser[pro] || sesssionUser[pro];
+		             return mem;
+			  },{})
+
+	console.log("user",user);
+
+
+	then(function(next){
+		Customer.update({"_id":cusId},user,function(err,info){
+			next(err,info);
+		})
+	}).then(function(next,info){
+		Customer.findOne({"_id":cusId},function(err,doc){
+			if(err)
+				next(err);
+			req.session.USER = doc;
+			return res.json({err:err,result:info});
+		})
+	}).fail(function(next,err){
+		console.log("ERROR:updateUserInfo",err);
+	})
+
+});
 
 module.exports = router;

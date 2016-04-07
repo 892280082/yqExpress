@@ -209,6 +209,18 @@ angular.module('service.user_service',[]).service("user_service",["$http"
                      })
              }
 
+            /**
+             * @desc 更新用户信息
+             */
+            this.updateUserInfo = function(user,callback){
+                $http.post('/front/updateUserInfo',{updatePojo:user})
+                    .success(function(data){
+                        data.err &&　console.log(data.err);
+                        return callback(data.err,data.result);
+                    }).error(function(data){
+                        alert("user_service->getUserBaseInfo:链接出错");
+                    })
+            }
 
 
     }]);
