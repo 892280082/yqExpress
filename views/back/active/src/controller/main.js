@@ -139,7 +139,6 @@
             //保存或者更新方法
             $scope.saveOrUpdate = function(){
 
-                console.log($scope.pojo_custom);
                 //保存
                 if(!$scope.pojo_custom._id){
                     dataService.saveCustomer($scope.pojo_custom)
@@ -169,7 +168,6 @@
                 var currentTime = new Date();
                 startData = new Date(startData);
                 overData = new Date(overData);
-                console.log(currentTime,overData,currentTime<overData);
 
                 if (currentTime < startData)
                     return infos[0];
@@ -193,6 +191,8 @@
             uploader.onCompleteItem = function(fileItem, response, status, headers) {
                 $scope.pojo_custom.bannerUrl = response.path;
             };
+
+
             //配置封面上传
             var uploaderconvertUrl = $scope.uploaderconvertUrl = new FileUploader({
                 url: '/upload',
@@ -204,7 +204,22 @@
             uploaderconvertUrl.onCompleteItem = function(fileItem, response, status, headers) {
                 $scope.pojo_custom.convertUrl = response.path;
             };
-            //配置封面上传
+
+
+            //配置汇聚页上传
+            var uploaderListUrl = $scope.uploaderListUrl = new FileUploader({
+                url: '/upload',
+                alias:'fileName'
+            });
+            uploaderListUrl.onAfterAddingFile = function(item) {
+                item.upload();
+            };
+            uploaderListUrl.onCompleteItem = function(fileItem, response, status, headers) {
+                $scope.pojo_custom.listUrl = response.path;
+            };
+
+
+            //配置附件上传
             var fileUpload = $scope.fileUpload = new FileUploader({
                 url: '/upload',
                 alias:'fileName'

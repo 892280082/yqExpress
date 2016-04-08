@@ -26,6 +26,7 @@ var activeSchema = new Schema({
     content:String,//内容 *
     bannerUrl:String,//banner图 *
     convertUrl:String,//封面图 *
+    listUrl:String,//汇聚页图
     creatTime:{type:Date,default:Date.now},//创建时间 *
     status:Number,//0未开始 1进行中 2活动结束 *
     organize:String,//组织机构

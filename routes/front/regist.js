@@ -133,6 +133,9 @@ router.post('/telRegist',function(req,res){
 router.post('/doValiLogin',function(req,res){
     var pojo = req.body.pojo;
 
+    if(!!req.session.USER)
+        return res.json({err:"请勿重复登录"})
+
     if(req.session.yanzhenma != pojo.yanzhenma)
         return res.json({"err":'验证码错误',code:1})
 
@@ -177,3 +180,4 @@ router.post('/logout',function(req,res){
 });
 
 module.exports = router;
+

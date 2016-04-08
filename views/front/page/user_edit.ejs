@@ -52,6 +52,7 @@
 <body ng-controller="user_edit_control">
 <% include ../include/head.ejs %>
 <% var USER = $session.USER %>
+<%  USER.address = USER.address || {}  %>
 <div class="wap clearfix" >
     <div class="on-698 clearfix">
         <div class="exitwap">
@@ -197,19 +198,74 @@
 
             <div class="cont" id="cont3" style="display:none;">
                 <div class="cot-tle">密码修改</div>
-                <div class="cot-pes">
-                    <dl style="padding-left:170px;">
-                        <dt class="bt">旧密码</dt>
-                        <dd><span class="ti pwd-ti"></span><input class="nick wd100" type="password" placeholder="旧密码" /></dd>
-                        <dt class="bt">输入新密码</dt>
-                        <dd><span class="ti pwd-ti"></span><input class="school wd100" type="password" placeholder="输入新密码" /></dd>
-                        <dt class="bt">确认新密码</dt>
-                        <dd><span class="ti pwd-ti"></span><input class="jop wd100" type="password" placeholder="确认新密码" /></dd>
-                    </dl>
-                </div>
-                <div class="cot-subt" style="padding-left:170px;">
-                    <input class="no-exit" type="submit" value="取消修改" />
-                </div>
+                <form
+                        name="pForm"
+                        novalidate
+                        ng-submit="changePassword();">
+                    <div class="cot-pes">
+                        <dl style="padding-left:170px;">
+                            <dt class="bt">旧密码</dt>
+                            <dd>
+                                <span class="ti pwd-ti"></span>
+                                <input class="nick wd100"
+                                       type="password"
+                                       ng-model="passwordPojo.oldPass"
+                                       name="p_oldPass"
+                                       required
+                                       ng-maxlength="20"
+                                       ng-minlength="6"
+                                       placeholder="旧密码" />
+                            </dd>
+                            <div class="wrois"
+                                 ng-if="pForm.p_oldPass.$error.required && pForm.p_oldPass.$dirty">
+                                请输入原始密码</div>
+                            <div ng-if="pForm.p_oldPass.$error.maxlength"
+                                 class="wrois">密码最长20位</div>
+                            <div ng-if="pForm.p_oldPass.$error.minlength"
+                                 class="wrois">密码最短6位</div>
+
+
+                            <dt class="bt">输入新密码</dt>
+                            <dd><span class="ti pwd-ti"></span>
+                                <input class="school wd100"
+                                       type="password"
+                                       ng-model="passwordPojo.newPass"
+                                       name="p_newPass"
+                                       ng-maxlength="20"
+                                       ng-minlength="6"
+                                       required
+                                       placeholder="输入新密码" />
+                            </dd>
+                            <div class="wrois"
+                                 ng-if="pForm.p_newPass.$error.required && pForm.p_newPass.$dirty">
+                                请输入新密码</div>
+                            <div ng-if="pForm.p_newPass.$error.maxlength"
+                                 class="wrois">密码最长20位</div>
+                            <div ng-if="pForm.p_newPass.$error.minlength"
+                                 class="wrois">密码最短6位</div>
+
+
+
+                            <dt class="bt">确认新密码</dt>
+                            <dd><span class="ti pwd-ti"></span>
+                                <input class="jop wd100"
+                                       type="password"
+                                       ng-model="passwordPojo.rePass"
+                                       repassword=passwordPojo.newPass
+                                       password-validation
+                                       name="t_rePass"
+                                       required
+                                       placeholder="确认新密码" /></dd>
+                            <div class="wrois" ng-if="pForm.t_rePass.$error.required && pForm.t_rePass.$dirty">密码不能为空</div>
+                            <div class="wrois" ng-if="pForm.t_rePass.$error.repassword">密码不一致</div>
+
+                        </dl>
+                    </div>
+                    <div class="cot-subt" style="padding-left:170px;">
+                        <input ng-class="{true:'yes-exit',false:'no-exit'}[!pForm.$invalid]"
+                               type="submit" ng-disabled="pForm.$invalid"  value="提交" />
+                    </div>
+                </form>
             </div>
         </div>
     </div>

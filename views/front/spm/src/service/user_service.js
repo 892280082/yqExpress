@@ -2,6 +2,7 @@
  *@desc 提供用户数据处理接口
  *@auther yq
  */
+var md5 = require('md5');
 angular.module('service.user_service',[]).service("user_service",["$http"
     ,function($http){
     		//获取所有数据，利用前台分页
@@ -246,6 +247,23 @@ angular.module('service.user_service',[]).service("user_service",["$http"
                     }).error(function(data){
                         alert("user_service->getUserBaseInfo:链接出错");
                     })
+            }
+
+            /**
+             * @desc 用户重置密码
+             * */
+            this.userChangePassword = function(oldPassword,newPassword,callback){
+                oldPassword = md5(oldPassword);
+                newPassword = md5(newPassword);
+
+                $http.post('/front/userChangePass',{oldPassword:oldPassword,newPassword:newPassword})
+                    .success(function(data){
+                        data.err &&　console.log(data.err);
+                        return callback(data.err,data.result);
+                    }).error(function(data){
+                        alert("user_service->sendEmailYzm:链接出错");
+                    })
+
             }
 
     }]);

@@ -107,7 +107,6 @@ exports.getCusAllInfoByCusArray = function(cusArray,callback){
                         "picUrl":ele.imgBigUrl,
                         "type":1,
                     })
-                    console.log(cus.recommens);
                 })
                 next();
             })

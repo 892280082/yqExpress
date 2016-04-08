@@ -40,9 +40,9 @@
                             if(!data.err){
                                 $scope.page.$remove(collect);
                                 layer.msg('取消收藏成功');
-                        }
-                    })
-                }
+                            }
+                         })
+                    }
             }
 
 

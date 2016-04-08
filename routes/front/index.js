@@ -12,6 +12,7 @@ var WebConfig = require("../../models/WebConfig");
 var frontWare = require("./front_ware");
 var ArticleComment = require("../../models/ArticleComment");
 var activeService = require("../../service/activeService");
+var userService = require("../../service/userService.js");
 var emailUtil = require("../../util/email_util");
 var _  = require("underscore");
 
@@ -578,19 +579,17 @@ router.post('/upUserImportInfo',function(req,res){
 	//console.log(userInfo,req.session.EMAIL_YANZHENMA);
 
 	if(userInfo.email && (userInfo.yanzhenma !== req.session.EMAIL_YANZHENMA)){
-		return res.json({err:'email yanzhenma error'});
+		return res.json({err:'验证码错误'});
 	}
 
 	if(userInfo.phoneNumber && (userInfo.yanzhenma !== req.session.PHONE_YANZHENMA)){
-		return res.json({err:'email yanzhenma error'});
+		return res.json({err:'验证码错误'});
 	}
 
 	then(function(next){
-
-
-
-
-
+		userService.validateUserInfo(userInfo,function(err,info){ //验证更改的邮箱和手机号是否已经存在
+			next(err);
+		})
 	}).then(function(next){
 		Customer.update({"_id":cusId},userInfo,function(err,info){
 			next(err,info);
@@ -603,12 +602,13 @@ router.post('/upUserImportInfo',function(req,res){
 			return res.json({err:err,result:info});
 		})
 	}).fail(function(next,err){
+		return res.json({err:err});
 		console.log("ERROR:upUserImportInfo",err);
 	})
 
 });
 
-//用户发送验证码
+//用户发送邮箱验证码
 router.post("/sendEmailYzm",function(req,res){
 
 	var user =req.session.USER;
@@ -626,6 +626,32 @@ router.post("/sendEmailYzm",function(req,res){
 		res.json({err:err});
 	})
 })
+
+//用户更改密码
+router.post("/userChangePass",function(req,res){
+	var user =req.session.USER;
+	if(!!!user)
+		return res.json({err:"no login"});
+
+	var oldPassword = req.body.oldPassword;
+	var newPassword = req.body.newPassword;
+
+	if(user.password !== oldPassword){
+		return res.json({err:"密码不正确"});
+	}
+
+	if(newPassword === '')
+		return res.json({err:'新密码格式错误'})
+
+	Customer.update({"_id":user._id},{"password":newPassword},function(err,info){
+		if(!err)
+			req.session.USER = null;
+
+		res.json({err:err,result:info});
+	})
+})
+
+
 
 
 module.exports = router;

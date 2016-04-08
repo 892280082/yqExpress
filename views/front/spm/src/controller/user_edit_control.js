@@ -8,20 +8,26 @@
         .controller('user_edit_control',['$scope','$window','user_service','FileUploader','$timeout','$interval'
         ,function($scope,$window,user_service,FileUploader,$timeout,$interval){
 
-            $scope.user = {};
+            $scope.user = {}; //用户基本信息对象
 
             $scope.userBack = {};
 
             $scope.jobCate = {};//用户职业分类
 
-            $scope.emailPojo = {
+            $scope.emailPojo = { //邮箱绑定对象
                 email:"",
                 yanzhenma:"",
             }
 
-            $scope.phonePojo = {
+            $scope.phonePojo = { //手机绑定对象
                 phoneNumber:"",
                 yanzhenma:""
+            }
+
+            $scope.passwordPojo = { //密码重置对象
+                oldPass:"",
+                newPass:'',
+                rePass:'',
             }
 
             $scope.sendEmailMessage = 60; //邮箱倒计时
@@ -87,7 +93,7 @@
                     return layer.msg("请输入验证码");
 
                 user_service.updateUserImportInfo($scope.emailPojo,function(err,info){
-                    err ? layer.msg("更新错误!") : layer.msg('更新成功!');
+                    err ? layer.msg(err) : layer.msg('更新成功!');
 
                     setTimeout(function(){
                         window.location.reload();
@@ -104,11 +110,29 @@
                 $scope.startCount();
                 user_service.sendEmailYzm($scope.emailPojo.email,function(err,info){
                     if(err) {
-                        layer.alert('邮箱发送错误', {
+                        layer.alert('邮箱验证码发送错误', {
                             icon: 2,
                             skin: 'layer-ext-moon'
                         })
                     }
+                })
+            }
+
+            //更改密码
+            $scope.changePassword = function(){
+                user_service.userChangePassword(
+                    $scope.passwordPojo.oldPass,$scope.passwordPojo.newPass,function(err,info){
+                        if(!err){
+                            layer.msg('更新成功,请重新登录!');
+                            setTimeout(function(){
+                                window.location.href = '/regist/login';
+                            },1500)
+                        }else{
+                            layer.alert(err, {
+                                icon: 2,
+                                skin: 'layer-ext-moon'
+                            })
+                        }
                 })
             }
 
