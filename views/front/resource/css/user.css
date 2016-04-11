@@ -48,8 +48,9 @@ a:visited{ text-decoration:none;}
 .personal-cont ul.work .votes b{ color:#ffa820;padding:0 5px;}
 
 .personal-cont .per-tab{height:70px;border-bottom:1px solid #f7f7f7; font-family:"microsoft yahei";padding:13px 13px;}
-.personal-cont .per-tab span{}
-.personal-cont .per-tab span a{padding:11px 13px; display:block; float:left;color:#4f4f4f;margin-right:24px; font-size:16px;}
+.personal-cont .per-tab span{padding-top:4px; display:inline-block;padding-left:10px;}
+.personal-cont .per-tab span a{padding:8px 13px; display:block; float:left;color:#4f4f4f;margin-right:24px; font-size:16px;}
+.personal-cont .per-tab span a.over{background:#fbc647;color:#fff;border-radius:5px; text-decoration:none;}
 /*.personal-cont .per-tab span a:hover,.personal-cont .per-tab span a.over{background:#fbc647;color:#fff;border-radius:5px; text-decoration:none;}*/
 /*.personal-cont .sc dt,.personal-cont .sc dd{ float:left;}*/
 .personal-cont .sc{ font-family:"microsoft yahei";padding:24px;}
@@ -63,6 +64,28 @@ a:visited{ text-decoration:none;}
 .personal-cont .sc .delet{ position:absolute;right:20px;top:69px;}
 .personal-cont .sc .delet a{background:url(../images/delet.jpg) 6px 0 no-repeat;padding-top:40px; font-size:12px;color:#999;}
 .personal-cont .sc .delet a:hover{ text-decoration:none;background:url(../images/delet2.jpg) 6px 0 no-repeat;}
+/*我的关注*/
+.per-fans{}
+.per-fans li{border-bottom:1px solid #f7f7f7;border-right:1px solid #f7f7f7;width:300px;height:190px;padding-top:35px;}
+.per-fans li,.per-fans .user-portrat,.per-fans .user-message{ float:left; display:inline;}
+.per-fans .user-portrat{ position:relative;margin-left:40px;}
+.per-fans .user-portrat img{width:117px;height:117px;}
+.per-fans .user-portrat .zz{ position:absolute;z-index:2;}
+
+.per-fans .user-message{ font-family:"microsoft yahei";padding-left:30px; position:relative;}
+.per-fans .user-message h3{ font-size:16px;color:#515151;padding:5px 0;}
+.per-fans .user-message span{color:#666;background:url(../images/yiguanz.jpg) 0 2px no-repeat;padding-left:22px; line-height:26px; font-size:12px;}
+.per-fans .user-message span.xh{background:url(../images/yiguanzous.jpg) 0 2px no-repeat;}
+.per-fans .user-message span.jgz{background:url(../images/jiagz.jpg) 0 2px no-repeat;}
+.per-fans .user-message span.jgz a{color:#fbb147;}
+.per-fans .user-message p{ font-size:12px;color:#a4a4a4; line-height:21px;}
+.per-fans .user-message p b{padding-right:5px; font-weight:normal;}
+.user-message .cz-gzico{ position:absolute;left:4px;top:8px;}
+.user-message .cz-gzico dt{width:17px;height:13px;background:url(../images/gzico.jpg) no-repeat; cursor:pointer;}
+.user-message .cz-gzico dt.over{background:url(../images/gzico_ove.jpg) no-repeat;}
+.user-message .cz-gzico dd{}
+.user-message .cz-gzico dd a{background:#fff; font-size:12px;color:#666;border:1px solid #ececec;padding:4px 10px; display:block;}
+.user-message .cz-gzico dd a:hover{ text-decoration:none;background:#ff8400;border:0px;color:#fff;}
 /*帐号设置*/
 .on-698{width:698px;margin:0 auto;}
 .exitwap{margin-top:80px; font-family:"microsoft yahei";min-height:500px;padding-bottom:24px;}

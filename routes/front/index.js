@@ -156,9 +156,32 @@ router.post('/getArticleComments',function(req,res){
 //提交文章评论
 router.post('/pushArticleComment',function(req,res){
 	var pushPojo = req.body.pushPojo;
-	Article.addComment(pushPojo,function(err,pojo){
-		res.json({"err":err,"result":pojo});
-	});
+	then(function(next){
+
+		Article.addComment(pushPojo,function(err,pojo){
+			next(err,pojo);
+		});
+
+	}).then(function(next,pojo){
+		var msg = {
+			user:pushPojo._articelAutherId,
+			cate:'e',
+		}
+		msg.e = {
+			articleId:pushPojo._articleId,
+			content:pushPojo.content,//评论内容 e
+			userId:pushPojo._userId,//用户ID eh
+			commentId:pojo._id
+		}
+		mongooseUtil.saveSingle(msg,Message,function(err){
+			res.json({"err":err,"result":pojo});
+			next(err)
+		})
+
+	}).fail(function(next,err){
+		console.log('/pushArticleComment---->',err);
+	})
+
 })
 
 //用户喜欢该篇文章
@@ -241,8 +264,30 @@ router.post('/getUserById',function(req,res){
 router.post('/pushCommentReplay',function(req,res){
 	var replay = req.body.pushPojo;
 	var commentId = req.body.commentId;
-	ArticleComment.pushReplay(commentId,replay,function(err,info){
-		res.json({err:err,result:info});
+
+	then(function(next){
+		var msg = {
+			user:replay.toUserId,
+			cate:'h'
+		}
+		msg.h = {
+			articleId:replay._articleId,//文章ID he
+			content:replay._replaycontent,//评论内容 he
+			userId:replay._userId,//用户ID eh
+			replay:replay.content,//回复内容 h
+			commentId:replay._commentId,//评论ID
+		}
+		mongooseUtil.saveSingle(msg,Message,function(err,doc){
+			next(err);
+		})
+	}).then(function(next){
+		ArticleComment.pushReplay(commentId,replay,function(err,info){
+			res.json({err:err,result:info});
+			next(err);
+		})
+	}).fail(function(next,err){
+		console.log("/pushCommentReplay",err);
+		return res.json({"err":"回复出错了"});
 	})
 })
 

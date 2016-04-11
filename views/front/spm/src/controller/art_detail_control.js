@@ -13,7 +13,7 @@
             //文章ID
             $scope.ArticleId = GLOBAL_ARTILCE_ID;
 
-            //需要关注的名人ID
+            //需要关注的名人ID  文章的作者
             $scope.articleAuthor = GLOBAL_CUSTOMER;
 
             //文章评论次数
@@ -125,7 +125,6 @@
                     })
             }
 
-
             //评论对象
             $scope.commentPojo = {
                 "_articleId": $scope.ArticleId,
@@ -137,6 +136,7 @@
 
             //评论该文章
             $scope.subComment = function () {
+                $scope.commentPojo._articelAutherId = $scope.articleAuthor;
                 user_service.validateLoginState(function(){
                     art_detail_server.pushComment($scope.commentPojo)
                         .success(function (data) {
@@ -148,7 +148,6 @@
                         })
                 })
             }
-
 
             //回复评论
             $scope.doCommpent = function(comment){
@@ -168,23 +167,33 @@
 
             //发送回复
             $scope.sendReply = function(comment){
+
                 user_service.validateLoginState(function(){
                     $scope.replayPojo._userId = $scope.user._id;
                     $scope.replayPojo.userName = $scope.user.name;
                     $scope.replayPojo.headUrl = $scope.user.headUrl;
                     $scope.replayPojo.creatTime = new Date();
                     $scope.replayPojo.content = comment.replayContent;
+                    $scope.replayPojo._articleId = $scope.ArticleId;
+                    $scope.replayPojo._commentId = comment._id
+
 
                     if(comment.isComment) {
                         //评论
+                        $scope.replayPojo.toUserId = comment._userId;
+                        $scope.replayPojo._replaycontent = comment.content;
+
                     }else{
                         //回复
                         var targetReplay = comment.targetReplay;
                         $scope.replayPojo.toName = targetReplay.userName;
                         $scope.replayPojo.toUserId = targetReplay._userId;
+                        $scope.replayPojo._replaycontent = comment._replayContent;
                     }
 
                     var newPojo = _.clone($scope.replayPojo)
+
+
                     //请求服务器,发送评论
                     art_detail_server.sendReplay(comment._id, newPojo)
                         .success(function (data) {
@@ -206,6 +215,7 @@
                 comment.isComment = false;
                 comment.tips = '回复: '+replay.userName;
                 comment.replayIng = true;
+                comment._replayContent = replay.content;
             }
 
         }])

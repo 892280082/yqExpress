@@ -18,6 +18,8 @@ require("./src/service/art_detail_server.js");//发现服务
 require("../userpage/controller/user_center_active.js");//活动控制器
 require("../userpage/controller/user_center_collect.js");//收藏控制器
 require("../userpage/controller/user_center_work.js");//作品控制器
+require("../userpage/controller/user_center_attention.js");//关注控制器
+require("../userpage/controller/user_center_follow.js");//粉丝控制器
 
 var app = angular.module('myApp',[
     ngAnimate,
@@ -26,6 +28,8 @@ var app = angular.module('myApp',[
     'controller.user_center_active',
     'controller.user_center_collect',
     'controller.user_center_work',
+    'controller.user_center_attention',
+    'controller.user_center_follow',
     'service.user_service',
     'service.art_detail_server',
     pageResult.service_pageResult,
@@ -43,9 +47,17 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
         templateUrl: '/front/userpage/active.html',
         controller: 'user_center_active'
     }).state('collect', {
-        url: '/collect',
-        templateUrl: '/front/userpage/collec.html',
-        controller: 'user_center_collect'
+            url: '/collect',
+            templateUrl: '/front/userpage/collec.html',
+            controller: 'user_center_collect'
+    }).state('follow', {
+            url: '/collect',
+            templateUrl: '/front/userpage/follow.html',
+            controller: 'user_center_follow'
+    }).state('attention', {
+        url: '/attention',
+        templateUrl: '/front/userpage/attention.html',
+        controller: 'user_center_attention'
     });
 
     $urlRouterProvider.otherwise('/work');
@@ -58,6 +70,8 @@ app.controller("main",["$scope","$location",function($scope,$location){
         case "/work" : $scope.overFlag=1;break;
         case "/active" : $scope.overFlag=2;break;
         case "/collect" : $scope.overFlag=3;break;
+        case "/follow" : $scope.overFlag=4;break;
+
     }
 
     $scope.getOver = function(number){

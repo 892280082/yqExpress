@@ -106,7 +106,7 @@
                         if(!err){
                             $scope.show.$set('cuslist');
                         }else{
-                            layer.msg('更新失败')
+                            layer.msg(err)
                             console.log(err);
                         }
                     });

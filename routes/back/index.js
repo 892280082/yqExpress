@@ -429,11 +429,14 @@ router.post("/updateWorkById",function(req,res){
 		if(doc.state === 0 && work.state == 1){
 			message.cate = 'b';
 			message.b = {
-				workId:work._id
+				activeId:doc.actId,
+				workName:doc.title
 			}
 			mongooseUtil.saveSingle(message,Message,function(err){
 				next(err,doc);
 			})
+		}else{
+			next();
 		}
 	}).then(function(next){
 		mongooseUtil.updateSingleById(work,Work,function(err,info){
@@ -441,7 +444,7 @@ router.post("/updateWorkById",function(req,res){
 		});
 	}).fail(function(err,doc){
 		console.log("/updateWorkById",err);
-		return res.json('更新错误');
+		return res.json({err:'更新错误'});
 	})
 });
 
@@ -449,9 +452,6 @@ router.post("/updateWorkById",function(req,res){
 router.post("/removeWorkById",function(req,res){
 
 	var removePojo = req.body.removePojo;
-
-	console.log("removePojo",removePojo);
-
 
 	then(function(next){
 		mongooseUtil.removeSingleById(removePojo._id,Work,function(err,info){
@@ -464,7 +464,18 @@ router.post("/removeWorkById",function(req,res){
 	}).then(function(next){
 		Custom.update({"_id":removePojo.userId},{"$pull":{"works":removePojo._id}},function(err,info){
 				next(err);
-				return res.json({err:err,result:info});
+		})
+	}).then(function(next){
+		var baseMsg = {
+			user:removePojo.userId,
+			cate:'c',
+		}
+		baseMsg.c = {
+			activeId:removePojo.activeId,//活动ID bc
+			workName:removePojo.title,//作品名 bc
+		}
+		mongooseUtil.saveSingle(baseMsg,Message,function(err,info){
+			return res.json({err:err,result:info});
 		})
 	}).fail(function(next,err){
 		console.log("/back/removeWorkById--->",err);
