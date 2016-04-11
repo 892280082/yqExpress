@@ -21,7 +21,8 @@ require("./src/service/dataService");
 require("./src/controller/main");
 //分页指令
 require("../../lib/src/directive/directive_pagination.js");
-
+//加载消息通知
+require("../../front/spm/src/service/message_server.js");
 var app = angular.module('myApp',[
     'loadDate',//代码有全局变量,只能外部引入,不能被压缩。
     'angularFileUpload',
@@ -30,7 +31,8 @@ var app = angular.module('myApp',[
     'service_pageResult',
     'controller.main',
     'directive_pagination',
-    'service_pageResult'
+    'service_pageResult',
+    'service.message_server'
     ]);
 
 app.directive('tsCuslist',function(){

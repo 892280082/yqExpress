@@ -36,6 +36,15 @@
                     $('.hed-user-xl').stop(true,true).animate({top:60,opacity:'0'});
                 }
         )
+
+        $('.nav ul li').hover(
+                function(){
+                    $(this).children('dl').stop(true,true).css({"display":"block"}).animate({top:90,opacity:'1'});
+                },
+                function(){
+                    $(this).children('dl').stop(true,true).animate({top:60,opacity:'0'});
+                }
+        )
     })
 </script>
 <div class="head">
@@ -47,9 +56,17 @@
                 <% if(typeof headIndex === 'undefined')headIndex=false;  %>
 
                 <ul>
-                    <li><a href="/" class='<%- headIndex === 1 ? 'over' : '' %>'   >首页</a></li>
+                    <li><a href="/" class='<%- headIndex === 1 ? 'over' : '' %>' >首页</a></li>
                     <li>|</li>
-                    <li><a href="#" class='<%-  headIndex === 2 ? 'over' : '' %>'>造物+</a></li>
+                    <li>
+                        <a href="#" class='<%-  headIndex === 2 ? 'over' : '' %>'>造物+</a>
+                        <dl class="li_3_content">
+                            <dt></dt>
+                            <dd><a href="/front/artlist"><span>发现</span></a></dd>
+                            <dd><a href="/front/toCusList"><span>创意人</span></a></dd>
+                            <!--<dd><a href="#"><span>社区</span></a></dd>-->
+                        </dl>
+                    </li>
                     <li>|</li>
                     <li><a href="/front/toActiveList" class='<%- headIndex === 3 ? 'over' : '' %>'>活动</a></li>
                     <li>|</li>

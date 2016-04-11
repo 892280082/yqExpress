@@ -10,6 +10,7 @@ var express = require('express'),
 	activeService = require("../../service/activeService.js"),
 	Work = require('../../models/Work'),
 	then = require('thenjs'),
+	Message = require('../../models/Message'),
 	router = express.Router();
 
 //进入登陆页面
@@ -397,9 +398,51 @@ router.post('/getWorkAllData',function(req,res){
 
 //更新作品信息
 router.post("/updateWorkById",function(req,res){
-	mongooseUtil.updateSingleById(req.body.pojo,Work,function(err,info){
-		return res.json({err:err,result:info});
-	});
+	var work = req.body.pojo;
+	var message = {
+		user:work.userId,
+		msg:work._changeCateInfo,//追加提醒
+		prix:'造物者 contact@zwzhe.com',//后缀
+	}
+	then(function(next){ //查询数据库保存的作品
+		Work.findOne({"_id":work._id},function(err,doc){
+			next(err,doc);
+		})
+	}).then(function(next,doc){
+		//判断分类是否修改
+		if(doc.cate1.cateId != work.cate1.cateId || doc.cate2.cateId != work.cate2.cateId){
+			var inner = {
+				workId:work._id,
+				oldCateName:doc.cate1.cateName+'/'+doc.cate1.cateName,
+				newCateName:work.cate1.cateName+'/'+work.cate2.cateName,
+			}
+			message.cate = 'a';
+			message.a = inner;
+			mongooseUtil.saveSingle(message,Message,function(err){
+				next(err,doc);
+			})
+		}else{
+			next(null,doc);
+		}
+	}).then(function(next,doc){
+		//判断作品是否从未通过修改成通过
+		if(doc.state === 0 && work.state == 1){
+			message.cate = 'b';
+			message.b = {
+				workId:work._id
+			}
+			mongooseUtil.saveSingle(message,Message,function(err){
+				next(err,doc);
+			})
+		}
+	}).then(function(next){
+		mongooseUtil.updateSingleById(work,Work,function(err,info){
+			return res.json({err:err,result:info});
+		});
+	}).fail(function(err,doc){
+		console.log("/updateWorkById",err);
+		return res.json('更新错误');
+	})
 });
 
 //删除作品

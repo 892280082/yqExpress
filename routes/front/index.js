@@ -14,6 +14,7 @@ var ArticleComment = require("../../models/ArticleComment");
 var activeService = require("../../service/activeService");
 var userService = require("../../service/userService.js");
 var emailUtil = require("../../util/email_util");
+var Message = require("../../models/Message");
 var _  = require("underscore");
 
 //创品列表页面
@@ -651,6 +652,12 @@ router.post("/userChangePass",function(req,res){
 	})
 })
 
+//发送消息
+router.post("/sendMessage",function(req,res){
+	mongooseUtil.saveSingle(req.body.savePojo,Message,function(err,info){
+		res.json({err:err,result:info});
+	})
+})
 
 
 
