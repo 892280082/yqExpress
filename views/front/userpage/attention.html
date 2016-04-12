@@ -1,203 +1,53 @@
+<style>
+    .user-message .cz-gzico dd{
+        opacity: 0;
+    }
+    .user-message .cz-gzico dd:hover{
+        opacity: 1;
+        transition: opacity 0.5s;
+    }
+</style>
 <div class="personal-cont clearfix">
-    <div class="per-tab"><span><a href="#">我的粉丝（2000）</a></span><span><a href="#" class="over">我的关注（50）</a></span></div>
+    <div class="per-tab">
+        <span><a href="#/follow">我的粉丝（{{ followCount }}）</a></span>
+        <span><a href="#/attention" class="over">我的关注（{{ attentions.$totalPage  }}）</a></span>
+    </div>
     <div class="per-fans clearfix">
         <ul>
-            <li>
+
+            <li ng-repeat="cus in attentions.$array">
                 <div class="user-portrat">
-                    <img class="zz" src="/front/resource/images/txzzzzz.png" />
-                    <img src="/front/resource/images/peo_1.jpg" />
+                    <a href="/front/toCusDetail/{{ cus._id }}" target="_blank">
+                        <img class="zz" src="/front/resource/images/{{  cus.imgurl }}" />
+                        <img src="/front/resource/images/peo_1.jpg" />
+                    </a>
                 </div>
                 <div class="user-message">
                     <dl class="cz-gzico">
                         <dt class="over"></dt>
-                        <dd><a href="#">取消关注</a></dd>
+                        <dd><a href="#/attention" ng-click="cancelattentions(cus)">移除粉丝</a></dd>
                     </dl>
-                    <h3>索德斯奈</h3>
-                    <span>已关注</span>
-                    <p>平面设计师</p>
-                    <p><b>362</b>粉丝</p>
-                    <p><b>456</b>件作品</p>
+                    <h3>{{  cus.name }}</h3>
+                    <span ng-if="!cus.isConnect">已关注</span>
+                    <span ng-if="cus.isConnect" class="xh">互相关注</span>
+                    <p>{{  cus.cateName }}</p>
+                    <p><b>{{  cus.followerCount }}</b>粉丝</p>
+                    <p><b>{{  cus.productCount }}</b>件作品</p>
                 </div>
             </li>
-            <li>
-                <div class="user-portrat">
-                    <img class="zz" src="/front/resource/images/txzzzzz.png" />
-                    <img src="/front/resource/images/toux2.jpg" />
-                </div>
-                <div class="user-message">
-                    <dl class="cz-gzico">
-                        <dt></dt>
-                    </dl>
-                    <h3>索德斯奈</h3>
-                    <span>已关注</span>
-                    <p>平面设计师</p>
-                    <p><b>362</b>粉丝</p>
-                    <p><b>456</b>件作品</p>
-                </div>
-            </li>
-            <li>
-                <div class="user-portrat">
-                    <img class="zz" src="/front/resource/images/txzzzzz.png" />
-                    <img src="/front/resource/images/toux1.jpg" />
-                </div>
-                <div class="user-message">
-                    <dl class="cz-gzico">
-                        <dt></dt>
-                    </dl>
-                    <h3>索德斯奈</h3>
-                    <span class="xh">互相关注</span>
-                    <p>平面设计师</p>
-                    <p><b>362</b>粉丝</p>
-                    <p><b>456</b>件作品</p>
-                </div>
-            </li>
-            <li>
-                <div class="user-portrat">
-                    <img class="zz" src="/front/resource/images/txzzzzz.png" />
-                    <img src="/front/resource/images/userhead.jpg" />
-                </div>
-                <div class="user-message">
-                    <dl class="cz-gzico">
-                        <dt></dt>
-                    </dl>
-                    <h3>索德斯奈</h3>
-                    <span>已关注</span>
-                    <p>平面设计师</p>
-                    <p><b>362</b>粉丝</p>
-                    <p><b>456</b>件作品</p>
-                </div>
-            </li>
-            <li>
-                <div class="user-portrat">
-                    <img class="zz" src="/front/resource/images/txzzzzz.png" />
-                    <img src="/front/resource/images/peo_1.jpg" />
-                </div>
-                <div class="user-message">
-                    <dl class="cz-gzico">
-                        <dt class="over"></dt>
-                        <dd><a href="#">取消关注</a></dd>
-                    </dl>
-                    <h3>索德斯奈</h3>
-                    <span>已关注</span>
-                    <p>平面设计师</p>
-                    <p><b>362</b>粉丝</p>
-                    <p><b>456</b>件作品</p>
-                </div>
-            </li>
-            <li>
-                <div class="user-portrat">
-                    <img class="zz" src="/front/resource/images/txzzzzz.png" />
-                    <img src="/front/resource/images/toux2.jpg" />
-                </div>
-                <div class="user-message">
-                    <dl class="cz-gzico">
-                        <dt></dt>
-                    </dl>
-                    <h3>索德斯奈</h3>
-                    <span>已关注</span>
-                    <p>平面设计师</p>
-                    <p><b>362</b>粉丝</p>
-                    <p><b>456</b>件作品</p>
-                </div>
-            </li>
-            <li>
-                <div class="user-portrat">
-                    <img class="zz" src="/front/resource/images/txzzzzz.png" />
-                    <img src="/front/resource/images/toux1.jpg" />
-                </div>
-                <div class="user-message">
-                    <dl class="cz-gzico">
-                        <dt></dt>
-                    </dl>
-                    <h3>索德斯奈</h3>
-                    <span class="xh">互相关注</span>
-                    <p>平面设计师</p>
-                    <p><b>362</b>粉丝</p>
-                    <p><b>456</b>件作品</p>
-                </div>
-            </li>
-            <li>
-                <div class="user-portrat">
-                    <img class="zz" src="/front/resource/images/txzzzzz.png" />
-                    <img src="/front/resource/images/userhead.jpg" />
-                </div>
-                <div class="user-message">
-                    <dl class="cz-gzico">
-                        <dt></dt>
-                    </dl>
-                    <h3>索德斯奈</h3>
-                    <span>已关注</span>
-                    <p>平面设计师</p>
-                    <p><b>362</b>粉丝</p>
-                    <p><b>456</b>件作品</p>
-                </div>
-            </li>
-            <li>
-                <div class="user-portrat">
-                    <img class="zz" src="/front/resource/images/txzzzzz.png" />
-                    <img src="/front/resource/images/peo_1.jpg" />
-                </div>
-                <div class="user-message">
-                    <dl class="cz-gzico">
-                        <dt class="over"></dt>
-                        <dd><a href="#">取消关注</a></dd>
-                    </dl>
-                    <h3>索德斯奈</h3>
-                    <span>已关注</span>
-                    <p>平面设计师</p>
-                    <p><b>362</b>粉丝</p>
-                    <p><b>456</b>件作品</p>
-                </div>
-            </li>
-            <li>
-                <div class="user-portrat">
-                    <img class="zz" src="/front/resource/images/txzzzzz.png" />
-                    <img src="/front/resource/images/toux2.jpg" />
-                </div>
-                <div class="user-message">
-                    <dl class="cz-gzico">
-                        <dt></dt>
-                    </dl>
-                    <h3>索德斯奈</h3>
-                    <span>已关注</span>
-                    <p>平面设计师</p>
-                    <p><b>362</b>粉丝</p>
-                    <p><b>456</b>件作品</p>
-                </div>
-            </li>
-            <li>
-                <div class="user-portrat">
-                    <img class="zz" src="/front/resource/images/txzzzzz.png" />
-                    <img src="/front/resource/images/toux1.jpg" />
-                </div>
-                <div class="user-message">
-                    <dl class="cz-gzico">
-                        <dt></dt>
-                    </dl>
-                    <h3>索德斯奈</h3>
-                    <span class="xh">互相关注</span>
-                    <p>平面设计师</p>
-                    <p><b>362</b>粉丝</p>
-                    <p><b>456</b>件作品</p>
-                </div>
-            </li>
-            <li>
-                <div class="user-portrat">
-                    <img class="zz" src="/front/resource/images/txzzzzz.png" />
-                    <img src="/front/resource/images/userhead.jpg" />
-                </div>
-                <div class="user-message">
-                    <dl class="cz-gzico">
-                        <dt></dt>
-                    </dl>
-                    <h3>索德斯奈</h3>
-                    <span>已关注</span>
-                    <p>平面设计师</p>
-                    <p><b>362</b>粉丝</p>
-                    <p><b>456</b>件作品</p>
-                </div>
-            </li>
+
         </ul>
     </div>
-    <div class="page"><span><a href="#">&lt;</a></span><span><a href="#">1</a></span><span><a href="#">2</a></span><span><a href="#">3</a></span><span><a href="#">4</a></span><span><a href="#">5</a></span><span><a href="#">&gt;</a></span></div>
+
+    <div class="page">
+                        <span><a ng-show="attentions.$toLast"
+                                 ng-click="attentions.$last();">上一页</a></span>
+                        <span><a ng-show="attentions.$toNext"
+                                 ng-click="attentions.$next();">下一页</a></span>
+                        <span>
+                            <a>{{ attentions.$curPage }}/{{ attentions.$pageCount }}</a>
+                        </span>
+        <span> <a>粉丝:{{ attentions.$totalPage }}</a></span>
+    </div>
+
 </div>

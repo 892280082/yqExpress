@@ -237,6 +237,9 @@ router.post('/getAttentionState',function(req,res){
 router.post('/attentionUser',function(req,res){
 	var authorId = req.body._id;//作者ID
 	var userId = req.session.USER._id;//用户ID
+	if(authorId == userId)
+		return res.json({err:'自己不能关注自己额'})
+
 	Customer.pushAttentions(userId,authorId,function(err,info){
 		res.json({err:err,result:info});
 	})
@@ -251,14 +254,12 @@ router.post('/cancelUserAtten',function(req,res){
 	})
 })
 
-
 //通过ID获取用户信息
 router.post('/getUserById',function(req,res){
 	Customer.findOne({"_id":req.body._id},function(err,doc){
 		res.json({err:err,result:doc});
 	})
 })
-
 
 //回复用户的评论
 router.post('/pushCommentReplay',function(req,res){
@@ -703,6 +704,67 @@ router.post("/sendMessage",function(req,res){
 		res.json({err:err,result:info});
 	})
 })
+
+//获取个人中心粉丝的信息
+router.post("/getCenterFollows",function(req,res){
+	var user = req.session.USER;
+	if(!user){
+		return res.json({err:"not login!"});
+	}
+	Customer.findOne({"_id":user._id},{followers:-1,attentions:-1}).populate('followers').exec(function(err,doc){
+		var array = doc.followers;
+		array = _.map(array,function(ele){
+			return {
+				_id:ele._id,
+				name:ele.name,
+				cateName:ele.cate1 ? ele.cate1.cateName : '',
+				followerCount:ele.followers.length,
+				productCount:ele.productions.length,
+				isConnect:mongooseUtil.contains(user.attentions,ele._id)
+			}
+		})
+		res.json({err:err,result:{followers:array,attentionCount:doc.attentions.length}})
+	})
+})
+
+
+//获取个人中心关注用户数组
+router.post("/getUserAttentions",function(req,res){
+	var user = req.session.USER;
+	if(!user){
+		return res.json({err:"not login!"});
+	}
+	Customer.findOne({"_id":user._id},{followers:-1,attentions:-1}).populate('attentions').exec(function(err,doc){
+		var array = doc.attentions;
+		array = _.map(array,function(ele){
+			return {
+				_id:ele._id,
+				name:ele.name,
+				cateName:ele.cate1 ? ele.cate1.cateName : '',
+				followerCount:ele.followers.length,
+				productCount:ele.productions.length,
+				isConnect:mongooseUtil.contains(user.followers,ele._id)
+			}
+		})
+		res.json({err:err,result:{attentions:array,followCount:doc.followers.length}})
+	})
+})
+
+
+//移除用户指定的粉丝
+router.post("/removeFollows",function(req,res){
+	var user = req.session.USER;
+	if(!user){
+		return res.json({err:"not login!"});
+	}
+	var targetId = req.body._id;
+	if(!targetId)
+		return res.json({err:'no special follws id'})
+	Customer.update({"_id":user._id},{"$pull":{"followers":targetId}},function(err,info){
+		res.json({err:err,result:info});
+	})
+})
+
 
 
 

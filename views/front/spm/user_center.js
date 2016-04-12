@@ -41,8 +41,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
         url: '/work',
         templateUrl: '/front/userpage/work.html',
         controller: 'user_center_work'
-    })
-    .state('active', {
+    }).state('active', {
         url: '/active',
         templateUrl: '/front/userpage/active.html',
         controller: 'user_center_active'
@@ -51,7 +50,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
             templateUrl: '/front/userpage/collec.html',
             controller: 'user_center_collect'
     }).state('follow', {
-            url: '/collect',
+            url: '/follow',
             templateUrl: '/front/userpage/follow.html',
             controller: 'user_center_follow'
     }).state('attention', {

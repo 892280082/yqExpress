@@ -1,7 +1,24 @@
 /**
  *@desc 提供用户数据处理接口
  *@auther yq
+ *
+ * @用户API
+ * 1. removeFollows 用户移除粉丝  -call('err',info)
+ * 2. getUserFollowsArray 获取用户的粉丝数组  -call('err','result')
+ * 3. validateLoginState 检测用户是否登陆，如果登陆了执行回掉方法，否则提示登陆  -call(Function)
+ * 4. userLikeActive 用户喜欢指定ID的活动
+ * 5. cancelUserCollectActive 用户取消喜欢指定ID的活动
+ * 6. userVoteWork 用户给指定作品投票
+ * 7. getUserBaseInfo 获取用户的基本信息
+ * 8. getUserJobCate 获取用户的职业分类
+ * 9. getUserAttentionsArray 获取用户的关注用户数组
+
  */
+
+
+
+
+
 var md5 = require('md5');
 angular.module('service.user_service',[]).service("user_service",["$http"
     ,function($http){
@@ -264,6 +281,40 @@ angular.module('service.user_service',[]).service("user_service",["$http"
                         alert("user_service->sendEmailYzm:链接出错");
                     })
 
+            }
+
+            //获取用户的粉丝数组
+            this.getUserFollowsArray = function(callback){
+                $http.post('/front/getCenterFollows',{})
+                    .success(function(data){
+                        data.err &&　console.log(data.err);
+                        return callback(data.err,data.result);
+                    }).error(function(data){
+                        alert("user_service->getCenterFollows:链接出错");
+                    })
+            }
+
+            //获取用户的关注用户数组
+            this.getUserAttentionsArray = function(callback){
+                $http.post('/front/getUserAttentions',{})
+                    .success(function(data){
+                        data.err &&　console.log(data.err);
+                        return callback(data.err,data.result);
+                    }).error(function(data){
+                        alert("user_service->getCenterFollows:链接出错");
+                    })
+            }
+
+
+
+            this.removeFollows = function(_id,callback){
+                $http.post('/front/removeFollows',{_id:_id})
+                    .success(function(data){
+                        data.err &&　console.log(data.err);
+                        return callback(data.err,data.result);
+                    }).error(function(data){
+                        alert("user_service->removeFollows:链接出错");
+                    })
             }
 
     }]);

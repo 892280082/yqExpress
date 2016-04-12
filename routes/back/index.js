@@ -135,8 +135,9 @@ router.post('/proGetAllData',function(req,res){
 		sort:req.body.sort,
 		model:Product,
 	},function(err,result){
-		!err ? res.json({result:result})
-			 : res.json({err: err});
+		if(err)
+			console.log("/proGetAllData",err);
+		return res.json({err: err,result:result});
 	})
 })
 

@@ -71,7 +71,6 @@ var customSchema = new Schema({
     weibo:{ type:String},//微博
     topno:{ type:Number,default:0},//首页baner顺序
 
-
     imgurl:String,//头像
     coverimgurl:String,//封面url
     bigimgurl:String,//大图
@@ -82,8 +81,8 @@ var customSchema = new Schema({
     works:[Schema.Types.ObjectId],//作品ID
     productions:[Schema.Types.ObjectId],//创品数量 id
     articles:[Schema.Types.ObjectId],//用户文章 id
-    followers:[Schema.Types.ObjectId],//我的粉丝 id
-    attentions:[Schema.Types.ObjectId],//我关注的人 id
+    followers:[{type:Schema.Types.ObjectId,ref:'customs'}],//我的粉丝 id
+    attentions:[{type:Schema.Types.ObjectId,ref:'customs'}],//我关注的人 id
 
 
     /**用户的收藏*/
