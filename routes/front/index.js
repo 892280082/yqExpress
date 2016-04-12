@@ -711,19 +711,31 @@ router.post("/getCenterFollows",function(req,res){
 	if(!user){
 		return res.json({err:"not login!"});
 	}
-	Customer.findOne({"_id":user._id},{followers:-1,attentions:-1}).populate('followers').exec(function(err,doc){
-		var array = doc.followers;
-		array = _.map(array,function(ele){
-			return {
-				_id:ele._id,
-				name:ele.name,
-				cateName:ele.cate1 ? ele.cate1.cateName : '',
-				followerCount:ele.followers.length,
-				productCount:ele.productions.length,
-				isConnect:mongooseUtil.contains(user.attentions,ele._id)
-			}
+
+	then(function(next){
+		Customer.findOne({"_id":user._id},function(err,doc){
+			next(err,doc)
 		})
-		res.json({err:err,result:{followers:array,attentionCount:doc.attentions.length}})
+	}).then(function(next,doc){
+		Customer.findOne({"_id":doc._id},{followers:-1,attentions:-1}).populate('followers').exec(function(err,doc){
+			var array = doc.followers;
+			array = _.map(array,function(ele){
+				return {
+					_id:ele._id,
+					name:ele.name,
+					realName:ele.realName,
+					cateName:ele.cate1 ? ele.cate1.cateName : '',
+					followerCount:ele.followers.length,
+					productCount:ele.productions.length,
+					imgurl:ele.imgurl,
+					isConnect:mongooseUtil.contains(doc.attentions,ele._id)
+				}
+			})
+			res.json({err:err,result:{followers:array,attentionCount:doc.attentions.length}})
+		})
+	}).fail(function(next,err){
+		console.log("/getCenterFollows",err);
+		return res.json({"err":'获取个人中心用户粉丝出错'});
 	})
 })
 
@@ -734,19 +746,31 @@ router.post("/getUserAttentions",function(req,res){
 	if(!user){
 		return res.json({err:"not login!"});
 	}
-	Customer.findOne({"_id":user._id},{followers:-1,attentions:-1}).populate('attentions').exec(function(err,doc){
-		var array = doc.attentions;
-		array = _.map(array,function(ele){
-			return {
-				_id:ele._id,
-				name:ele.name,
-				cateName:ele.cate1 ? ele.cate1.cateName : '',
-				followerCount:ele.followers.length,
-				productCount:ele.productions.length,
-				isConnect:mongooseUtil.contains(user.followers,ele._id)
-			}
+
+	then(function(next){
+		Customer.findOne({"_id":user._id},function(err,doc){
+			next(err,doc)
 		})
-		res.json({err:err,result:{attentions:array,followCount:doc.followers.length}})
+	}).then(function(next,doc){
+		Customer.findOne({"_id":doc._id},{followers:-1,attentions:-1}).populate('attentions').exec(function(err,doc){
+			var array = doc.attentions;
+			array = _.map(array,function(ele){
+				return {
+					_id:ele._id,
+					name:ele.name,
+					realName:ele.realName,
+					cateName:ele.cate1 ? ele.cate1.cateName : '',
+					followerCount:ele.followers.length,
+					productCount:ele.productions.length,
+					imgurl:ele.imgurl,
+					isConnect:mongooseUtil.contains(doc.followers,ele._id)
+				}
+			})
+			res.json({err:err,result:{attentions:array,followCount:doc.followers.length}})
+		})
+	}).fail(function(next,err){
+		console.log("/getCenterFollows",err);
+		return res.json({"err":'获取个人中心用户粉丝出错'});
 	})
 })
 

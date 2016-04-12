@@ -18,7 +18,7 @@
             <li ng-repeat="cus in attentions.$array">
                 <div class="user-portrat">
                     <a href="/front/toCusDetail/{{ cus._id }}" target="_blank">
-                        <img class="zz" src="/front/resource/images/{{  cus.imgurl }}" />
+                        <img class="zz" ng-src="{{  cus.imgurl }}" />
                         <img src="/front/resource/images/peo_1.jpg" />
                     </a>
                 </div>
@@ -27,7 +27,7 @@
                         <dt class="over"></dt>
                         <dd><a href="#/attention" ng-click="cancelattentions(cus)">移除粉丝</a></dd>
                     </dl>
-                    <h3>{{  cus.name }}</h3>
+                    <h3>{{  cus.realName || cus.name }}</h3>
                     <span ng-if="!cus.isConnect">已关注</span>
                     <span ng-if="cus.isConnect" class="xh">互相关注</span>
                     <p>{{  cus.cateName }}</p>

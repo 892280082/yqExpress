@@ -46,13 +46,13 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
         templateUrl: '/front/userpage/active.html',
         controller: 'user_center_active'
     }).state('collect', {
-            url: '/collect',
-            templateUrl: '/front/userpage/collec.html',
-            controller: 'user_center_collect'
+        url: '/collect',
+        templateUrl: '/front/userpage/collec.html',
+        controller: 'user_center_collect'
     }).state('follow', {
-            url: '/follow',
-            templateUrl: '/front/userpage/follow.html',
-            controller: 'user_center_follow'
+        url: '/follow',
+        templateUrl: '/front/userpage/follow.html',
+        controller: 'user_center_follow'
     }).state('attention', {
         url: '/attention',
         templateUrl: '/front/userpage/attention.html',
@@ -70,7 +70,6 @@ app.controller("main",["$scope","$location",function($scope,$location){
         case "/active" : $scope.overFlag=2;break;
         case "/collect" : $scope.overFlag=3;break;
         case "/follow" : $scope.overFlag=4;break;
-
     }
 
     $scope.getOver = function(number){
