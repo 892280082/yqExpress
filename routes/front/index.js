@@ -309,6 +309,11 @@ router.get("/toCusDetail/:_id"
 	,frontWare.increaPojoById(Customer,"checkcounts")
 	,function(req,res){
 		var _id = req.params._id;
+
+		if(_id == req.session.USER._id){
+			return res.redirect('/front/toUserCenter');
+		}
+
 		Customer.findOne({"_id":_id},function(err,doc){
 			err && console.log(err);
 			var pojo = {"customer":doc};
@@ -319,6 +324,7 @@ router.get("/toCusDetail/:_id"
 			if(doc.cate1.cateId === 2)
 				return res.render('front/page/user_detail.ejs',pojo);
 		});
+
 	});
 
 //创意人事详情页
@@ -339,7 +345,12 @@ router.post('/getArticleById',function(req,res){
 router.get('/toUserCenter',function(req,res){
 	if(!req.session.USER ||  !req.session.USER._id)
 		return res.redirect("/");
-	res.render('front/userpage/main');
+
+	Customer.findOne({"_id":req.session.USER._id},function(err,doc){
+		req.session.USER = doc;
+		return res.render('front/userpage/main');
+	})
+
 })
 
 
@@ -467,6 +478,44 @@ router.post('/getAllWorks',function(req,res){
 		})
 	})
 })
+
+//获取活动集合
+router.post('/getJoinAllActive',function(req,res){
+
+	mongooseUtil.pagination({
+		query:{"userId":req.session.USER._id},
+		limit:9999,
+		skip:req.body.skip*req.body.limit,
+		sort:{"creatTime":-1},
+		model:Work,
+	},function(err,result){
+
+		var array = [];
+		then.each(result.docs,function(next,ele){
+			Active.findOne({"_id":ele.actId},function(err,doc){
+				if(doc){
+					array.push({
+						_id:doc._id,
+						title:doc.title,
+						actStartTime:doc.actStartTime,
+						actOverTime:doc.actOverTime,
+						convertUrl:doc.convertUrl
+					});
+				}
+				next(err);
+			})
+		}).then(function(next){
+			result.docs = array;
+			res.json({result:result});
+			next();
+		}).fail(function(next,err){
+			console.log("/getJoinAllActive------>",err);
+			return res.json({err:err});
+		})
+
+	})
+});
+
 
 //获得指定ID的作品
 router.post('/getWorkById',function(req,res){
@@ -720,6 +769,7 @@ router.post("/getCenterFollows",function(req,res){
 		Customer.findOne({"_id":doc._id},{followers:-1,attentions:-1}).populate('followers').exec(function(err,doc){
 			var array = doc.followers;
 			array = _.map(array,function(ele){
+
 				return {
 					_id:ele._id,
 					name:ele.name,
@@ -728,7 +778,7 @@ router.post("/getCenterFollows",function(req,res){
 					followerCount:ele.followers.length,
 					productCount:ele.productions.length,
 					imgurl:ele.imgurl,
-					isConnect:mongooseUtil.contains(doc.attentions,ele._id)
+					isConnect:mongooseUtil.contains(ele.followers,user._id)
 				}
 			})
 			res.json({err:err,result:{followers:array,attentionCount:doc.attentions.length}})
@@ -763,7 +813,7 @@ router.post("/getUserAttentions",function(req,res){
 					followerCount:ele.followers.length,
 					productCount:ele.productions.length,
 					imgurl:ele.imgurl,
-					isConnect:mongooseUtil.contains(doc.followers,ele._id)
+					isConnect:mongooseUtil.contains(ele.attentions,user._id)
 				}
 			})
 			res.json({err:err,result:{attentions:array,followCount:doc.followers.length}})

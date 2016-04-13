@@ -27,11 +27,15 @@
 
             //取消收藏
             $scope.cancelCollect = function(collect){
+
+
                 if(collect.isActive){
                     user_service.cancelUserCollectActive(collect._id,function(err,info){
                         if(!err){
                             $scope.page.$remove(collect);
                             layer.msg('取消收藏成功');
+                            $("#doCollect").text((+$("#doCollect").text())-1);
+
                         }
                     })
                 }else{
@@ -40,6 +44,7 @@
                             if(!data.err){
                                 $scope.page.$remove(collect);
                                 layer.msg('取消收藏成功');
+                                $("#doCollect").text((+$("#doCollect").text())-1);
                             }
                          })
                     }

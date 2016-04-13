@@ -19,7 +19,7 @@ var objectid = require("objectid"),
  * 10.pushInnerCollectionById 像model的内部集合推送对象 -call(err,info);
  * 11.pushInnerCollectionById 像model的内部集合删除对象 -call(err,info);
  * 12.contains 判断数组中是否有指定的object -call(Boolean)
- * 13.converIdsArray -将ObjectId数组转换成对象数组
+ * 13.updateOutKey 更新外键 -call('err')
  */
 
 
@@ -381,6 +381,77 @@ exports.contains = function(idArray,targetId){
        return ele == targetId;
    })
 }
+
+
+/**
+ * @desc 更新外键
+ * @param property {{
+ *      subPojo:Object,
+        subDao:Object,
+        outDao:Object,
+        outKey:String,
+        innerCollet:String,
+        }} - 选项
+ * @param callback {Function} - 回调函数
+ * @example
+ * 		mongooseUtil.updateOutKey({
+			subPojo:pro,
+			subDao:Product,
+			outDao:Custom,
+			outKey:'_userId',
+			innerCollet:'productions',
+		},function(err){
+			next(err);
+		});
+ *
+ */
+exports.updateOutKey = function(property,callback){
+    var subPojo = property.subPojo;
+    var subDao = property.subDao;
+    var outDao = property.outDao;
+    var outKey = property.outKey;
+    var innerCollet = property.innerCollet;
+
+    then(function(next){
+
+        subDao.findOne({"_id":subPojo._id},function(err,doc){
+            next(err,doc);
+        })
+
+    }).then(function(next,oldPro) {
+        var subId = subPojo._id;
+        var oldId = oldPro[outKey];
+        var newId = subPojo[outKey];
+        if (oldId != newId) {
+
+            then(function (defer) {
+                outDao.update({"_id": oldId}, exports.createShell('$pull', innerCollet, subId), function (err) {
+                    defer(err);
+                })
+            }).then(function (defer) {
+                outDao.update({"_id": newId}, exports.createShell('$push', innerCollet, subId), function (err) {
+                    defer(err);
+                })
+            }).then(function(defer){
+                next();
+                defer();
+            }).fail(function (defer, err) {
+                next(err);
+            })
+
+        } else {
+            return callback();
+        }
+    }).then(function(next){
+        callback();
+        next();
+    }).fail(function(next,err){
+        if(err)
+            console.log('mongooseUtil ->changeParentId :',err);
+        return callback('用户更新出错');
+    })
+}
+
 
 
 

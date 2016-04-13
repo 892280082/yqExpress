@@ -179,13 +179,68 @@ router.post('/proUpdateSingle',function(req,res){
 	if(!pro || !pro._id)
 		res.json({"err":"no customer param!"});
 
-	mongooseUtil.updateSingleById(pro,Product,function(err,info){
-		if(err){
-			return res.json({ "err":"更新错误"});
-		}else{
-			return res.json({ "result":info });
-		}
-	})
+	//then(function(next){
+	//	Product.findOne({"_id":pro._id},function(err,doc){
+	//		next(err,doc);
+	//	})
+	//}).then(function(next,oldPro){
+	//	if(oldPro._userId != pro._userId){
+	//		var oldUserId = oldPro._userId;
+	//		var newUserId = pro._userId;
+	//		var productId = oldPro._id;
+    //
+	//		then(function(defer){
+	//			Custom.update({"_id":oldUserId},{"$pull":{'productions':productId}},function(err){
+	//				defer(err);
+	//			})
+	//		}).then(function(defer){
+	//			Custom.update({"_id":newUserId},{"$push":{'productions':productId}},function(err){
+	//				 next(err);
+	//			})
+	//		}).fail(function(defer,err){
+	//			 next(err);
+	//		})
+    //
+	//	}else{
+	//		next();
+	//	}
+	//}).then(function(next){
+	//	mongooseUtil.updateSingleById(pro,Product,function(err,info){
+	//		return res.json({err:err,result:info});
+	//	})
+	//}).fail(function(next,err){
+	//	if(err)
+	//		console.log("/proUpdateSingle----->",err);
+	//	return res.json({err:'更新错误'});
+    //
+	//})
+
+
+	then(function(next){
+
+		mongooseUtil.updateOutKey({
+			subPojo:pro,
+			subDao:Product,
+			outDao:Custom,
+			outKey:'_userId',
+			innerCollet:'productions',
+		},function(err){
+			next(err);
+		});
+
+	}).then(function(next){
+
+		mongooseUtil.updateSingleById(pro,Product,function(err,info){
+					return res.json({err:err,result:info});
+		})
+
+	}).fail(function(next,err) {
+		if (err)
+			console.log("/proUpdateSingle----->", err);
+		return res.json({err: '更新错误'});
+	});
+
+
 })
 
 //进入文章显示页面
@@ -244,13 +299,31 @@ router.post('/artUpdateSingle',function(req,res){
 	if(!pro || !pro._id)
 		res.json({"err":"no customer param!"});
 
-	mongooseUtil.updateSingleById(pro,Article,function(err,info){
-		if(err){
-			return res.json({ "err":"更新错误"});
-		}else{
-			return res.json({ "result":info });
-		}
+
+	then(function(next){
+
+		mongooseUtil.updateOutKey({
+			subPojo:pro,
+			subDao:Article,
+			outDao:Custom,
+			outKey:'_userId',
+			innerCollet:'articles',
+		},function(err){
+			next(err);
+		});
+
+	}).then(function(next){
+
+		mongooseUtil.updateSingleById(pro,Article,function(err,info){
+			next(err);
+			return res.json({err:err,result:info});
+		})
+
+	}).fail(function(next,err){
+		console.log('artUpdateSingle ---->',err);
+		return res.json({err:err});
 	})
+
 })
 
 //进入活动列表页面

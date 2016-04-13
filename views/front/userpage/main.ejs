@@ -16,22 +16,22 @@
         <div class="personal-head">
             <div class="per-hd">
                 <div class="per-hd-img">
-                    <a href="#"><img src="/front/resource/images/per-tx.jpg" /></a>
+                    <a href="#"><img src="<%- user.imgurl %>" /></a>
                 </div>
                 <div class="per-hd-name"><%- user.name %></div>
                 <div class="per-hd-jop"><%- user.job.cateName %></div>
                 <div class="per-hd-hd">
-                    <span class="fans">粉丝<b><%- user.followers.length %></b>人</span><br />
-                    <span class="shouc">收藏<b> <%- user.collecArticles.length + user.collectActives.length  %> </b></span>
+                    <span class="fans">粉丝<b id="doFans"><%- user.followers.length %></b>人</span><br />
+                    <span class="shouc">收藏<b id="doCollect"> <%- user.collecArticles.length + user.collectActives.length  %> </b></span>
                 </div>
             </div>
         </div>
         <div class="personal-nav">
             <ul>
-                <li><a href="#/work"   ng-class="getOver(1)"   ng-click="overFlag=1;" >作品</a></li>
-                <li><a href="#/active" ng-class="getOver(2)"  ng-click="overFlag=2;" >活动</a></li>
-                <li><a href="#/collect" ng-class="getOver(3)" ng-click="overFlag=3;" >收藏</a></li>
-                <li><a href="#/follow" ng-class="getOver(4)"  ng-click="overFlag=4;">关注</a></li>
+                <li><a href="#/work"   ng-class="getOver(1)"   ng-click="overFlag=1;" >我的作品</a></li>
+                <li><a href="#/active" ng-class="getOver(2)"  ng-click="overFlag=2;" >我参加的活动</a></li>
+                <li><a href="#/collect" ng-class="getOver(3)" ng-click="overFlag=3;" >我的收藏</a></li>
+                <li><a href="#/follow" ng-class="getOver(4)"  ng-click="overFlag=4;">我的关注</a></li>
             </ul>
         </div>
         <div class="personal-cont">

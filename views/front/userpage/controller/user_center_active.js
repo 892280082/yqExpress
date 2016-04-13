@@ -16,7 +16,7 @@
 
                 if(!loadPageResult) {
                     activePage.$loadInit({
-                        url: "/front/getActiveList",
+                        url: "/front/getJoinAllActive",
                         pageSize: 8,
                         query:{"collects":{"$in":[GLOBAL_USER_INFO._id]}}
                     }, function (err, result) {

@@ -95,3 +95,7 @@ app.controller("main",["$scope","$location",function($scope,$location){
 
 }]);
 
+app.service('removeCord',[function(){
+    this.removeFollows = [];
+    this.removeAttentions = [];
+}])

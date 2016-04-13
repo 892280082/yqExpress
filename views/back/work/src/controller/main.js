@@ -8,8 +8,8 @@
     var then = require("thenjs");
     var $ = require("jquery");
     angular.module("controller.main",["ng.ueditor"]).
-    controller('main',['$scope','showCtrl','dataService','FileUploader','pageResult',"$window",'message_server'
-        ,function($scope,showCtrl,dataService,FileUploader,pageResult,$window,message_server){
+    controller('main',['$scope','showCtrl','dataService','FileUploader','pageResult',"$window",'message_server','$timeout'
+        ,function($scope,showCtrl,dataService,FileUploader,pageResult,$window,message_server,$timeout){
             /************************数据模型****************************/
             //注册或者添加的中间变量
             $scope.pojo_custom = {};
@@ -62,9 +62,9 @@
 
             //进入添加页面
             $scope.changeIntoEdit = function(custom){
-                setTimeout(function(){
+                $timeout(function(){
                     $('.showOverPic').lightGallery();
-                },7000)
+                },700)
 
                 $scope.pojo_custom = custom;
                 $scope.tempWorkCate1 = custom.cate1;

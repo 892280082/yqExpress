@@ -9,8 +9,8 @@ var tempAttenPageResult;
 var cacheFolowCount;
 var _ = require("underscore");
 angular.module("controller.user_center_attention",["ng.ueditor"]).
-    controller('user_center_attention',['$scope','user_service','FileUploader','pageArray',"$window"
-        ,function($scope,user_service,FileUploader,pageArray,$window){
+    controller('user_center_attention',['$scope','user_service','FileUploader','pageArray',"$window",'removeCord'
+        ,function($scope,user_service,FileUploader,pageArray,$window,removeCord){
             /*****************************数据Model************************************/
             $scope.global_info = GLOBAL_USER_INFO;
             $scope._ = _;
@@ -19,6 +19,16 @@ angular.module("controller.user_center_attention",["ng.ueditor"]).
 
             $scope.attentions = tempAttenPageResult;
             $scope.followCount = cacheFolowCount;
+
+
+            if($scope.attentions){
+                _.each($scope.attentions._array,function(ele){
+                    if(ele.isConnect && _.contains(removeCord.removeFollows,ele._id)){
+                        ele.isConnect = false;
+                    }
+                })
+            }
+
 
             if(!$scope.attentions){
                 followsPage.$array = [];
@@ -40,6 +50,7 @@ angular.module("controller.user_center_attention",["ng.ueditor"]).
                         user_service.cencalAttentionUser(cus._id)
                         .success(function(data){
                             if(!data.err){
+                                removeCord.removeAttentions.push(cus._id);
                                 $scope.attentions.$remove(cus);
                             }else{
                                 layer.msg('取消关注出错');

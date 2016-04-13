@@ -25,7 +25,7 @@
                 <div class="user-message">
                     <dl class="cz-gzico">
                         <dt class="over"></dt>
-                        <dd><a href="#/attention" ng-click="cancelattentions(cus)">移除粉丝</a></dd>
+                        <dd><a href="#/attention" ng-click="cancelattentions(cus)">取消关注</a></dd>
                     </dl>
                     <h3>{{  cus.realName || cus.name }}</h3>
                     <span ng-if="!cus.isConnect">已关注</span>
@@ -35,7 +35,6 @@
                     <p><b>{{  cus.productCount }}</b>件作品</p>
                 </div>
             </li>
-
         </ul>
     </div>
 
