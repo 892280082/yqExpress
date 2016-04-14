@@ -12,6 +12,8 @@
  * 7. getUserBaseInfo 获取用户的基本信息
  * 8. getUserJobCate 获取用户的职业分类
  * 9. getUserAttentionsArray 获取用户的关注用户数组
+ * 10. validateLoginState 验证用户是否登录
+ * 11. removeFollows  用户移除指定_id粉丝 -call(err)
 
  */
 
@@ -94,6 +96,7 @@ angular.module('service.user_service',[]).service("user_service",["$http"
                 }else if(_this._user_login_state === 'noLogin'){
 
                     layer.confirm('前往登录？', {
+                        title:'提示',
                         btn: ['登陆','取消'] //按钮
                     }, function(){
                         var index = layer.open({
@@ -306,7 +309,7 @@ angular.module('service.user_service',[]).service("user_service",["$http"
             }
 
 
-
+            //用户移除指定_id粉丝
             this.removeFollows = function(_id,callback){
                 $http.post('/front/removeFollows',{_id:_id})
                     .success(function(data){

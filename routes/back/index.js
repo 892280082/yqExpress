@@ -47,17 +47,17 @@ router.post('/logoutUser',function(req,res){
 //后台主页面
 router.get('/main',function(req,res){
 	res.render("back/main/index");
-})
+});
 
 //后台头部页面
 router.get('/main_top',function(req,res){
 	res.render("back/main/main_top");
-})
+});
 
 //后台左边引导栏目页面
 router.get('/main_left',function(req,res){
 	res.render("back/main/main_left");
-})
+});
 
 //后台用户管理页面
 router.get('/toCusDeal',function(req,res){
@@ -179,43 +179,6 @@ router.post('/proUpdateSingle',function(req,res){
 	if(!pro || !pro._id)
 		res.json({"err":"no customer param!"});
 
-	//then(function(next){
-	//	Product.findOne({"_id":pro._id},function(err,doc){
-	//		next(err,doc);
-	//	})
-	//}).then(function(next,oldPro){
-	//	if(oldPro._userId != pro._userId){
-	//		var oldUserId = oldPro._userId;
-	//		var newUserId = pro._userId;
-	//		var productId = oldPro._id;
-    //
-	//		then(function(defer){
-	//			Custom.update({"_id":oldUserId},{"$pull":{'productions':productId}},function(err){
-	//				defer(err);
-	//			})
-	//		}).then(function(defer){
-	//			Custom.update({"_id":newUserId},{"$push":{'productions':productId}},function(err){
-	//				 next(err);
-	//			})
-	//		}).fail(function(defer,err){
-	//			 next(err);
-	//		})
-    //
-	//	}else{
-	//		next();
-	//	}
-	//}).then(function(next){
-	//	mongooseUtil.updateSingleById(pro,Product,function(err,info){
-	//		return res.json({err:err,result:info});
-	//	})
-	//}).fail(function(next,err){
-	//	if(err)
-	//		console.log("/proUpdateSingle----->",err);
-	//	return res.json({err:'更新错误'});
-    //
-	//})
-
-
 	then(function(next){
 
 		mongooseUtil.updateOutKey({
@@ -231,8 +194,9 @@ router.post('/proUpdateSingle',function(req,res){
 	}).then(function(next){
 
 		mongooseUtil.updateSingleById(pro,Product,function(err,info){
+					next(err);
 					return res.json({err:err,result:info});
-		})
+		});
 
 	}).fail(function(next,err) {
 		if (err)
@@ -241,12 +205,12 @@ router.post('/proUpdateSingle',function(req,res){
 	});
 
 
-})
+});
 
 //进入文章显示页面
 router.get('/toArticlePage',function(req,res){
 	res.render("back/article/article");
-})
+});
 
 //获取所有文章信息
 router.post('/artGetAllData',function(req,res){
@@ -405,8 +369,8 @@ router.post('/webConfigUpSingle',function(req,res){
 		}else{
 			return res.json({ "result":info });
 		}
-	})
-})
+	});
+});
 
 //保存一项活动信息
 router.post('/savetWebConfig',function(req,res){

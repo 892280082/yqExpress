@@ -106,10 +106,10 @@ exports.getCusAllInfoByCusArray = function(cusArray,callback){
                         "_id":ele._id,
                         "picUrl":ele.imgBigUrl,
                         "type":1,
-                    })
-                })
+                    });
+                });
                 next();
-            })
+            });
         }else{
             next();
         }
@@ -127,20 +127,21 @@ exports.getCusAllInfoByCusArray = function(cusArray,callback){
                         "picUrl":ele.imgUrl,
                         "type":2,
                         "detailUrl":"/front/toArtDetail/"+ele._id,
-                    })
-                })
+                    });
+                });
                 next();
-            })
+            });
         }else{
             next();
         }
     }).then(function(defer){
+        defer();
         return callback(null,cusArray);
     }).fail(function(defer,err){
         console.log(err);
         return callback(err);
-    })
-}
+    });
+};
 
 
 

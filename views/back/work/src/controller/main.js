@@ -34,7 +34,7 @@
                 query:$scope.search_custom
             },function(err,result){
                 $scope.array_custom = result;
-            })
+            });
 
 
 
@@ -45,7 +45,7 @@
                 if($scope.search_custom.cate1$cateId)
                     query.cate1$cateId = $scope.search_custom.cate1$cateId.cateId;
                 $scope.array_custom.$search(query);
-            }
+            };
 
             //初始获取所有分类信息
             dataService.getConfig()
@@ -58,25 +58,25 @@
                     }
                 }).error(function(data){
                     alert("获取错误");
-                })
+                });
 
             //进入添加页面
             $scope.changeIntoEdit = function(custom){
                 $timeout(function(){
                     $('.showOverPic').lightGallery();
-                },700)
+                },700);
 
                 $scope.pojo_custom = custom;
                 $scope.tempWorkCate1 = custom.cate1;
                 $scope.tempWorkCate2 = custom.cate2;
                 this.show.$set("cusadd");
-            }
+            };
 
 
             $scope.dealProStatus = function(cus){
                 cus.status = !cus.status;
                 $scope.saveOrUpdate(cus);
-            }
+            };
 
             //删除作品
             $scope.removeCustom = function(cus){
@@ -86,14 +86,14 @@
 
                 dataService.removeCustomer(cus,function(err,result){
                     !err ? $scope.array_custom.$remove(cus) : alert("删除错误!");
-                })
-            }
+                });
+            };
 
             /***********************添加或编辑用户页面*****************************/
             //返回用户列表页面
             $scope.toPageList = function(){
                 $scope.show.$set('cuslist');
-            }
+            };
 
             //保存或者更新方法
             $scope.saveOrUpdate = function(){

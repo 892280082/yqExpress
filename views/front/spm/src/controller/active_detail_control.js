@@ -20,7 +20,7 @@
                 pageResult.$loadInit({
                     url: "/front/getAllWorks",
                     pageSize: 8,
-                    query: {actId: GLOBAL_ACTIVE_POJO._id},
+                    query: {actId: GLOBAL_ACTIVE_POJO._id,state:1},
                 }, function (err, result) {
                     $scope.works = result;
                 })

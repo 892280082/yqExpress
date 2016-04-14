@@ -15,13 +15,14 @@ require("../../lib/src/directive/angular-ueditor.js");
 ///**加载上传插件*/
 require("../../bower_components/angular/angular-file-upload.min.js");
 ///**加载后台数据接口*/
-//require("./src/service/pro_list_server.js");
+require("./src/service/user_service.js");
 ///**加载主程序人口*/
 require("./src/controller/cus_list_control.js");
 
 var app = angular.module('myApp',[
     'angularFileUpload',
     'service.showCtrl',
+    'service.user_service',
     pageResult.service_pageResult,
     'controller.cus_list_control'
     ]);

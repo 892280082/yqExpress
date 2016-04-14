@@ -15,6 +15,7 @@
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     objectid = require('objectid'),
+    mongooseUtil = require("../util/mongooseUtil"),
     Ariticle = require('./Article');
 
 
@@ -26,7 +27,8 @@ var replaySchema = new Schema({
     headUrl:String,//回复用户头像
     content:String,//回复内容
     creatTime:{type:Date,default:Date.now},//回复时间
-    praiseCounts:Number,//赞次数
+    praise:[{type:Schema.Types.ObjectId,unique:true,ref:'customs'}],//赞次数
+    report:[{type:Schema.Types.ObjectId,unique:true,ref:'customs'}],//赞次数
 })
 
 /**
@@ -39,7 +41,8 @@ var commentSchema = new Schema({
     headUrl:String,//评论用户头像
     content:String,//评论内容
     creatTime:{type:Date,default:Date.now},//评论时间
-    praiseCounts:{type:Number,default:0},//赞次数
+    praise:[{type:Schema.Types.ObjectId,ref:'customs'}],//赞次数
+    report:[{type:Schema.Types.ObjectId,ref:'customs'}],//赞次数
     replays:[replaySchema]//回复数组
 })
 
@@ -82,7 +85,7 @@ commentSchema.statics.pullReplay = function(_ariId,_repId,callback){
  * @desc 回复的赞+1
  * @param _ariId {Object} -m 文章ID
  * @param _repId {Object} -m 回复ID
- * @param callback {Object} -m 回调函数
+ * @param callback {Function} -m 回调函数
  */
 commentSchema.statics.addReplayPraise = function(_ariId,_repId,callback){
     this.update({

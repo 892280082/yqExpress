@@ -70,8 +70,9 @@ var activeSchema = new Schema({
         work:{type:Boolean,default:false},//是否提交作品
         showWork:{type:Boolean,default:false},//是否展示作品
         vote:{type:Boolean,default:false},//是否投票
+        display:{type:Boolean,default:false}
     }
-})
+});
 
 /**
  * @param _actId {String} 活动ID
@@ -86,7 +87,7 @@ activeSchema.statics.pushWork = function(_actId,work,callback){
         childDao:Work,
         callback:callback
     },this);
-}
+};
 
 /**
  * @param _actId {String} -活动ID
@@ -101,7 +102,7 @@ activeSchema.statics.pullWork = function(_actId,_worId,callback){
         "collecname":"works",
         "callback":callback
     },this);
-}
+};
 
 
 

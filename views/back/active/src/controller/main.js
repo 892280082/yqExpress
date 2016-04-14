@@ -6,7 +6,7 @@
  */
     var _ = require("underscore");
     angular.module("controller.main",["ng.ueditor"]).
-    controller('main',['$scope','showCtrl','dataService','FileUploader','pageResult',"$window"
+    controller('main',['$scope','showCtrl','dataService','FileUploader','pageResult','$window'
         ,function($scope,showCtrl,dataService,FileUploader,pageResult,$window){
             /************************数据模型****************************/
             //设置用户的权限分配
@@ -27,6 +27,7 @@
             $scope.show.$regist('cusadd',['cusadd']);
             /***********************分类列表页面************************/
 
+
             //初始获取所有活动信息
             pageResult.$loadInit({
                                 url:"/back/actGetAllData",
@@ -34,19 +35,19 @@
                                 query:{},
             },function(err,result){
                 $scope.array_custom = result;
-            })
+            });
 
             $scope._ = _;
 
             //查询方法
             $scope.search = function(){
                 $scope.array_custom.$search($scope.search_custom);
-            }
+            };
 
             //设置关键字
             $scope.manngerKey = function(){
                 $(".ttty").fadeIn();
-            }
+            };
 
             //初始获取所有分类信息
             dataService.getConfig()
@@ -59,7 +60,7 @@
                     }
                 }).error(function(data){
                     alert("获取错误");
-                })
+                });
 
             //删除子分类
             $scope.removeCate = function(parent,child){
@@ -67,7 +68,7 @@
                 if(!flag)
                     return false;
                 parent.remove(child);
-            }
+            };
 
             //重置子分类
             $scope.resetWorkCate = function(){
@@ -75,7 +76,7 @@
                 if(!tFlag)
                     return false;
                 $scope.pojo_custom.workCate = $scope.webConfig.workCates;
-            }
+            };
 
             //删除方法
             $scope.removeCustom = function(cus){
@@ -91,8 +92,8 @@
                         }
                     }).error(function(data){
                         alert("系统错误");
-                    })
-            }
+                    });
+            };
 
             //对象的拷贝
             function deepCopy(source) {

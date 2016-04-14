@@ -40,7 +40,7 @@ router.get("/artlist",function(req,res){
 		status:3
 	}).limit(50).sort({"_id":-1}).exec(function(err,docs){
 		err && console.log(err);
-		res.render('front/page/art_list',{articles:docs});
+		res.render('front/page/art_list',{articles:docs,headIndex:2});
 	})
 });
 
@@ -76,10 +76,24 @@ router.post('/getArticleList',function(req,res){
 router.get("/toCusList",function(req,res){
 	Customer.find({
 		"cate1.cateId":1
-	}).limit(8).sort({"topno":-1}).exec(function(err,docs){
+	},{
+		"cate1":"-1",
+		"name":-1,
+		"realName":-1,
+		'productions':-1,
+		'followers':-1,
+		"_id":-1,
+		"recommens":-1,
+		followers:-1,
+		imgurl:-1,
+		introduce:-1,
+		job:-1,
+		topno:-1
+	})
+	.limit(8).sort({"topno":-1}).exec(function(err,docs){
 		err && console.log(err);
 		indexService.getCusAllInfoByCusArray(docs,function(err,docs){
-			res.render('front/page/cus_list',{customers:docs});
+			res.render('front/page/cus_list',{customers:docs,headIndex:2});
 		});
 	})
 });
@@ -87,20 +101,37 @@ router.get("/toCusList",function(req,res){
 //人物汇聚页面瀑布流接口
 router.post('/getUserList',function(req,res){
 	var query = req.body.query;
-	query["cate1.cateId"] = 1;
+	query["cate1.cateId"] = 1;//创意人ID
+	var property = {
+		"cate1":-1,
+		"name":-1,
+		"realName":-1,
+		'productions':-1,
+		'followers':-1,
+		"_id":-1,
+		"recommens":-1,
+		"followers":-1,
+		imgurl:-1,
+		introduce:-1,
+		job:-1,
+		topno:-1
+	};
 	mongooseUtil.pagination({
 		query:query,
 		limit:req.body.limit,
 		skip:req.body.skip*req.body.limit,
 		sort:{"topno":-1},
+		property:property,
 		model:Customer,
 	},function(err,result){
-		indexService.getCusAllInfoByCusArray(result,function(err,docs){
-			!err ? res.json({result:docs})
-				 : res.json({err: err});
+		indexService.getCusAllInfoByCusArray(result.docs,function(err,docs){
+			if(err)
+				console.log("/getUserList---->",err);
+
+			return res.json({err:err,result:result});
 		});
-	})
-})
+	});
+});
 
 
 //活动汇聚页
@@ -309,8 +340,9 @@ router.get("/toCusDetail/:_id"
 	,frontWare.increaPojoById(Customer,"checkcounts")
 	,function(req,res){
 		var _id = req.params._id;
+		var user = req.session.USER;
 
-		if(_id == req.session.USER._id){
+		if( user &&  _id == user._id){
 			return res.redirect('/front/toUserCenter');
 		}
 

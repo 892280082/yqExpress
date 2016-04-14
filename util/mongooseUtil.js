@@ -297,9 +297,10 @@ exports.pagination = function(params,callback){
     var condition = params.query || {},
         skip = params.skip || 0,
         limit = params.limit || 200,
+        property = params.property || {},
         sort = params.sort || {'_id':-1};
 
-    var query = model.find({});
+    var query = model.find({},property);
     _.mapObject(condition,function(value,key){
         query.where(key,value);
     });

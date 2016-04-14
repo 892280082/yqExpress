@@ -16,6 +16,8 @@
 </script>
 <body ng-controller="active_detail_control">
 <% include ../include/head %>
+<% activePower =  active.power || {} %>
+
 <div class="wap clearfix">
     <div class="on-1200">
         <div class="active-head-img">
@@ -23,9 +25,14 @@
         </div>
         <div class="hdcon clearfix">
             <div class="title">
-                <span class="tab1 over" onclick="show('1')">大赛简介</span>
-                <span ng-show="activePower.showWork === 'true'" class="tab2" onclick="show('2')">参赛作品</span>
-                <span class="tab3" onclick="show('3')">赛事播报</span></div>
+                <span class="tab1 over" onclick="show('1')">活动简介</span>
+               <% if(activePower.showWork){ %>
+                    <span  class="tab2" onclick="show('2')">作品展示</span>
+               <% } %>
+               <% if(activePower.display){ %>
+                    <span  class="tab3" onclick="show('3')">活动播报</span>
+               <% } %>
+            </div>
             <div class="cont" id="hdtab1">
                 <div class="hotop">
                     <span class="tle">大赛简介</span>
@@ -41,7 +48,9 @@
              <%   } %>
 
             </div>
-            <div class="contb" id="hdtab2" ng-show="activePower.showWork === 'true'">
+
+           <% if(activePower.showWork){ %>
+               <div class="contb" id="hdtab2">
                 <div class="hotop">
                     <span class="tle">参赛作品</span>
                     <span class="works rt">作品数量<b><%- active.works.length %></b></span>
@@ -93,18 +102,23 @@
                     <active-collect actid="<%- active._id %>" cusid="<%- $session.USER ? $session.USER._id : '' %>"></active-collect>
                 </div>
             </div>
-            <div class="contc" id="hdtab3">
-                <div class="hotop">
-                    <span class="tle">赛事播报</span>
+           <% } %>
+
+           <% if(activePower.display){ %>
+               <div class="contc" id="hdtab3">
+                    <div class="hotop">
+                        <span class="tle">赛事播报</span>
+                    </div>
+                    <div class="nrs">
+                        <%- active.report   %>
+                    </div>
+                    <div class="likes">
+                        <span><a title="喜欢"><img src="/front/resource/images/lisk.jpg" /></a><p>365人喜欢</p></span>
+                        <span><a title="收藏"><img src="/front/resource/images/scang.jpg" /></a><p>478人收藏</p></span>
+                    </div>
                 </div>
-                <div class="nrs">
-                    <%- active.report   %>
-                </div>
-                <div class="likes">
-                    <span><a title="喜欢"><img src="/front/resource/images/lisk.jpg" /></a><p>365人喜欢</p></span>
-                    <span><a title="收藏"><img src="/front/resource/images/scang.jpg" /></a><p>478人收藏</p></span>
-                </div>
-            </div>
+           <% } %>
+
         </div>
     </div>
 </div>
@@ -114,20 +128,22 @@
     $(document).ready(function(){
         setTimeout(function(){
             $('.showOverPic').lightGallery();
-        },1000)
+        },1000);
     });
+
 
     GLOBAL_ACTIVE_POJO = {
         _id:"<%- active._id %>",
         activeTitle:'<%- active.title %>',
         _userId:"<%- $session.USER ? $session.USER._id : '' %>",
         power:{
-            form:'<%- active.power.form %>',
-            work:'<%- active.power.work %>',
-            showWork:'<%- active.power.showWork %>',
-            vote:'<%- active.power.vote %>',
+            form:'<%- activePower.form %>',
+            work:'<%- activePower.work %>',
+            showWork:'<%- activePower.showWork %>',
+            vote:'<%- activePower.vote %>',
+            display:'<%- activePower.display %>'
         }
-    }
+    };
 </script>
 <script type="text/javascript"  src="/front/dist/active_detail.js"></script>
 </body>
