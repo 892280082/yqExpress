@@ -16,6 +16,7 @@ var userService = require("../../service/userService.js");
 var emailUtil = require("../../util/email_util");
 var Message = require("../../models/Message");
 var _  = require("underscore");
+var objectId = require("objectid");
 
 //创品列表页面
 router.get("/prolist",function(req,res){
@@ -313,8 +314,9 @@ router.post('/pushCommentReplay',function(req,res){
 			next(err);
 		})
 	}).then(function(next){
+		replay._id = objectId();
 		ArticleComment.pushReplay(commentId,replay,function(err,info){
-			res.json({err:err,result:info});
+			res.json({err:err,result:replay._id});
 			next(err);
 		})
 	}).fail(function(next,err){
@@ -870,6 +872,7 @@ router.post("/removeFollows",function(req,res){
 		res.json({err:err,result:info});
 	})
 })
+
 
 
 

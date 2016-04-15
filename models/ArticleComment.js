@@ -4,13 +4,15 @@
  * @date 2016/3/15
 /****************************************************************************************
  * @API model层方法
- * 1.pushReplay 向评论添加回复
- * 2.pullReplay 向评论删除回复
- * 3.addReplayPraise 回复的赞+1
- * 4.addCommentPraise 评论的赞+1
- * 5.saveComment 添加评论，关联ariticle集合
- * 6.removeComment 删除评论，关联ariticle集合
- * 7.getCommentByAirId 根据文章ID获取评论
+ * 1.pushReplay                     向评论添加回复
+ * 2.pullReplay                     向评论删除回复
+ * 3.addReplayPraise                用户赞回复
+ * 4.addCommentPraise               用户赞评论
+ * 5.saveComment                    添加评论，关联ariticle集合
+ * 6.removeComment                  删除评论，关联ariticle集合
+ * 7.getCommentByAirId              根据文章ID获取评论
+ * 8.doCommentReport                评论的举报
+ * 9.doReplayReport                 回复的举报
  ****************************************************************************************/
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
@@ -28,7 +30,7 @@ var replaySchema = new Schema({
     content:String,//回复内容
     creatTime:{type:Date,default:Date.now},//回复时间
     praise:[{type:Schema.Types.ObjectId,unique:true,ref:'customs'}],//赞次数
-    report:[{type:Schema.Types.ObjectId,unique:true,ref:'customs'}],//赞次数
+    report:[{type:Schema.Types.ObjectId,unique:true,ref:'customs'}],//举报次数
 })
 
 /**
@@ -42,7 +44,7 @@ var commentSchema = new Schema({
     content:String,//评论内容
     creatTime:{type:Date,default:Date.now},//评论时间
     praise:[{type:Schema.Types.ObjectId,ref:'customs'}],//赞次数
-    report:[{type:Schema.Types.ObjectId,ref:'customs'}],//赞次数
+    report:[{type:Schema.Types.ObjectId,ref:'customs'}],//举报次数
     replays:[replaySchema]//回复数组
 })
 
@@ -83,37 +85,42 @@ commentSchema.statics.pullReplay = function(_ariId,_repId,callback){
 
 /**
  * @desc 回复的赞+1
- * @param _ariId {Object} -m 文章ID
+ * @param _ariId {Object} -m 评论ID
  * @param _repId {Object} -m 回复ID
  * @param callback {Function} -m 回调函数
  */
-commentSchema.statics.addReplayPraise = function(_ariId,_repId,callback){
+commentSchema.statics.addReplayPraise = function(_commentId,_repId,_userId,callback){
+
+    console.log("_commentId,_repId,",_commentId,_repId);
+
     this.update({
-        "_id":_ariId,
-        "replays._id":_repId
+        "_id":_commentId,
+        "replays._id":_repId,
     },{
-        "$inc":{"replays.$.praiseCounts":1}
+        "$push":{"replays.$.praise":_userId}
     },function(err,info){
         err && console.log(err);
-        callback(err);
+        callback(err,info);
     });
 }
 
 /**
  * @desc 评论的赞+1
  * @param _ariId {Object} -m 文章ID
- * @param callback {Function} -m 回调函数
+ * @param callback {Function} - call(err,info)
  */
-commentSchema.statics.addCommentPraise = function(_ariId,callback){
+commentSchema.statics.addCommentPraise = function(_commentId,_userId,callback){
     this.update({
-        "_id":_ariId,
+        "_id":_commentId,praise:{"$ne":_userId}
     },{
-        "$inc":{"praiseCounts":1}
+        "$push":{praise:_userId}
     },function(err,info){
         err && console.log(err);
-        callback(err);
+        callback(err,info);
     });
 }
+
+
 
 /**
  * @desc saveComment 添加评论，关联ariticle集合
@@ -173,6 +180,42 @@ commentSchema.statics.getCommentByAirId = function(_airId,callback){
         return callback(err,docs);
     })
 }
+
+/**
+ * @param _commentId {String} 评论ID
+ * @param _userId {String} 举报用户ID
+ * @param callback {Function} -call(err)
+ */
+commentSchema.statics.doCommentReport = function(_commentId,_userId,callback){
+    this.update({
+        "_id":_commentId,report:{"$ne":_userId}
+    },{
+        "$push":{report:_userId}
+    },function(err,info){
+        if(err)
+            console.log(err);
+        callback(err,info);
+    });
+}
+
+/**
+ * @param _commentId {String} -评论ID
+ * @param _replayId {String} - 回复ID
+ * @param _userId {String} -用户ID
+ * @param callback {Function} -call(err, info)
+ */
+commentSchema.statics.doReplayReport = function(_commentId,_replayId,_userId,callback){
+    this.update({
+        "_id":_commentId,
+        "replays._id":_replayId,
+    },{
+        "$push":{"replays.$.report":_userId}
+    },function(err,info){
+        err && console.log(err);
+        callback(err,info);
+    });
+}
+
 
 var  articleComment = mongoose.model("articleComment", commentSchema);
 

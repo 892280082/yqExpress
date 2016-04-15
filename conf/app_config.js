@@ -57,6 +57,7 @@ module.exports = {
 		front:"front/index",//前台路由
 		back:"back/index",//后台路由
 		api:"api/api",
-		regist:"front/regist"
+		regist:"front/regist",
+		user:"user/user"
 	}
 }

@@ -198,6 +198,9 @@
                     art_detail_server.sendReplay(comment._id, newPojo)
                         .success(function (data) {
                             if (!data.err) {
+                                newPojo._id = data.result;
+                                newPojo.praise = [];
+                                newPojo.report = [];
                                 comment.replays.push(newPojo);
                                 $scope.replayPojo = {};
                                 comment.replayIng = false;
@@ -216,6 +219,91 @@
                 comment.tips = '回复: '+replay.userName;
                 comment.replayIng = true;
                 comment._replayContent = replay.content;
+            }
+
+            //赞用户的评论
+            $scope.doParseComment = function(comment){
+
+                user_service.validateLoginState(function(){
+
+                    art_detail_server.doUserCommentParise(comment._id,function(err,result){
+                        if(!err){
+                            comment.praise.push($scope.user._id);
+                        }else{
+                            layer.msg("赞失败了");
+                        }
+                    })
+
+                })
+
+            }
+
+            //举报用户的评论
+            $scope.doReportComment = function(comment){
+
+                user_service.validateLoginState(function(){
+
+                    art_detail_server.doUserCommentReport(comment._id,function(err,result){
+                        if(!err){
+                            comment.report.push($scope.user._id);
+                        }else{
+                            layer.msg(err);
+                        }
+                    })
+
+                })
+
+            }
+
+            //对二级回复的赞
+            $scope.doReplayParse = function(replay,comment){
+
+                user_service.validateLoginState(function(){
+
+                    art_detail_server.doReplayPraise(comment._id,replay._id,function(err,result){
+                        if(!err){
+                            replay.praise.push($scope.user._id);
+                        }else{
+                            layer.msg(err);
+                        }
+                    })
+
+                })
+
+            }
+
+            //对二级回复的举报
+            $scope.doReplayReport = function(replay,comment){
+
+                user_service.validateLoginState(function(){
+
+                    art_detail_server.doReplayReport(comment._id,replay._id,function(err,result){
+                        if(!err){
+                            replay.report.push($scope.user._id);
+                        }else{
+                            layer.msg(err);
+                        }
+                    })
+
+                })
+
+            }
+
+
+            $scope.validateCommentPraise = function(pojo){
+                var userId = $scope.user._id;
+                var praiseFlag = !!_.find(pojo.praise,function(ele){
+                    return userId == ele;
+                })
+
+                var reportFlag = !!_.find(pojo.report,function(ele){
+                    return userId == ele;
+                })
+
+                console.log(pojo.alreadyReport);
+
+                pojo.alreadyPraise = praiseFlag;
+                pojo.alreadyReport = reportFlag;
             }
 
         }])

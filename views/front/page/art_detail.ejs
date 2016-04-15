@@ -4,6 +4,12 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>发现详情页</title>
     <% include ../include/baseLink%>
+    <style>
+        .cantoption {
+            cursor: pointer;
+        }
+
+    </style>
 </head>
 <body ng-controller="art_detail_control">
 <% include ../include/head %>
@@ -81,7 +87,8 @@
                        ng-click="subComment();" /></span>
                 </div>
             </div>
-            <div class="list clearfix" ng-repeat="comment in array_comments.$array">
+            <div class="list clearfix" ng-repeat="comment in array_comments.$array track by comment._id">
+                {{ validateCommentPraise(comment) }}
                 <div class="portrait">
                     <a href="/front/toCusDetail/{{ comment._userId }}" target="_blank">
                         <img class="zz" src="/front/resource/images/pozhezhao.png" />
@@ -98,10 +105,25 @@
                 <div class="other rt">
                     <span class="time">{{ comment.creatTime | date:'yyyy-MM-dd' }}</span>
                     <span class="time">{{ comment.creatTime | date:'HH:mm' }}</span>
-                    <span class="time" style="cursor: pointer;" ng-click="doCommpent(comment);">回复</span>
+                    <span class="time" style="cursor: pointer;"
+                          ng-show="!comment.alreadyPraise"
+                          ng-click="doParseComment(comment);">赞({{comment.praise.length}})</span>
+
+                    <span class="time cantoption"   ng-show="comment.alreadyPraise">已赞({{ comment.praise.length  }})</span>
+
+                    <span class="time"
+                          style="cursor: pointer;"
+                          ng-show="!comment.alreadyReport"
+                          ng-click="doReportComment(comment);">举报({{comment.report.length}})</span>
+
+                    <span class="time cantoption" ng-show="comment.alreadyReport">已举报{{ comment.report.length  }}</span>
+
+                    <span class="time" style="cursor: pointer;"
+                          ng-click="doCommpent(comment);">回复</span>
                 </div>
                 <div>
                     <div class="seclist" ng-repeat="replay in comment.replays">
+                        {{ validateCommentPraise(replay) }}
                         <div class="userpor">
                             <a href="/front/toCusDetail/{{ replay._userId }}" target="_blank">
                                 <img class="t1" src="/front/resource/images/smalzz.png" />
@@ -115,7 +137,30 @@
                         <div class="date">
                             <span class="time">{{ replay.creatTime | date:'yyyy-MM-dd' }}</span>
                             <span class="time">{{ replay.creatTime | date:'HH:mm' }}</span>
-                            <span class="time"><span class="time" ng-click="toReplay(replay,comment);" style="cursor: pointer;">回复</span></span>
+                            <span class="time">
+                                <span class="time cantoption">
+                                    <span class="time cantoption"   ng-show="replay.alreadyPraise">已赞({{ replay.praise.length  }})</span>
+                                </span>
+                                <span class="time"
+                                      ng-show="!replay.alreadyPraise"
+                                      ng-click="doReplayParse(replay,comment);"
+                                      style="cursor: pointer;">赞({{ replay.praise.length }})
+                                </span>
+                            </span>
+                            <span class="time">
+                                <span class="time cantoption">
+                                    <span class="time cantoption"
+                                          ng-show="replay.alreadyPraise">已赞({{ replay.praise.length  }})</span>
+                                </span>
+
+                                <span class="time"
+                                      ng-click="doReplayReport(replay,comment);"
+                                      style="cursor: pointer;">举报({{ replay.report.length }})
+                                </span>
+                            </span>
+                            <span class="time">
+                                <span class="time" ng-click="toReplay(replay,comment);" style="cursor: pointer;">回复</span>
+                            </span>
                         </div>
                     </div>
                 </div>
