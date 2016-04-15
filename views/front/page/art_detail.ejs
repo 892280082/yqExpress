@@ -150,10 +150,11 @@
                             <span class="time">
                                 <span class="time cantoption">
                                     <span class="time cantoption"
-                                          ng-show="replay.alreadyPraise">已赞({{ replay.praise.length  }})</span>
+                                          ng-show="replay.alreadyReport">已举报({{ replay.report.length  }})</span>
                                 </span>
 
                                 <span class="time"
+                                      ng-show="!replay.alreadyReport"
                                       ng-click="doReplayReport(replay,comment);"
                                       style="cursor: pointer;">举报({{ replay.report.length }})
                                 </span>

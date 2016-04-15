@@ -163,6 +163,24 @@ a:visited{ text-decoration:none;}
 .yeseit{margin-left:100px;border:1px solid #d2ae69;background:#eac378;}
 .yeseit,.noeit{width:100px;height:40px;cursor:pointer;color:#fff;border-radius:5px;}
 .noeit{margin-left:24px;border:1px solid #bebebe;background:#cacaca;}
+/*消息通知all-message*/
+.all-message{margin-top:24px;font-family:"microsoft yahei";background:#fff;border-radius:5px;}
+.all-message .title{height:66px; line-height:66px; padding:0 24px;border-bottom:1px solid #f7f7f7;}
+.all-message .title .tle{font-size:20px; font-weight:bold;}
+.all-message .title .mes{margin-left:12px; font-size:14px; color:#999;}
+.all-message .cont{min-height:400px;}
+.all-message .cont .list{margin:0 24px;border-bottom:1px solid #f7f7f7;padding-bottom:24px;padding-top:24px;}
+.all-top-news{}
+.all-top-news .head-img{ position:relative;}
+.all-top-news .head-img img{width:108px;height:108px;}
+.all-top-news .head-img .zz{ position:absolute; z-index:2;}
+.all-top-news .mid-txt{padding-top:10px;margin-left:20px;}
+.all-top-news .mid-txt span.tles{ font-size:14px;color:#666;font-weight:normal;}
+.all-top-news .mid-txt span.tles a{ color:#d0b896;}
+.all-top-news .mid-txt span.name{ font-size:16px; font-weight:bold;color:#666;padding-right:10px;}
+.all-top-news .mid-txt dd{padding-top:12px;color:#999;width:888px;height:62px; overflow:hidden;}
+.all-top-news .cz{}
+.all-top-news .cz a{color:#999; font-size:12px;margin-left:10px;}
 /*弹窗*/
 .alertdiv{position:fixed;top:0px;z-index:9999;}
 .black00{ position:fixed;top:0px; z-index:9998;background:#000;filter:alpha(opacity=80); /*IE滤镜，透明度50%*/

@@ -187,4 +187,11 @@ router.post("/doReplayReport",function(req,res){
 
 })
 
+//进入消息中心
+router.get("/toMessageCenter",function(req,res){
+    res.render('front/page/message_center');
+})
+
+
+
 module.exports = router;
