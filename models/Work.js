@@ -40,6 +40,8 @@ var workSchema = new Schema({
         unit: String,//工作单位
     },
 
+    show:{type:Number,default:0},//1 可以被前台查看 0不可以
+
     cate1:{},//类型1
     cate2:{},//类型2
 

@@ -192,6 +192,4 @@ router.get("/toMessageCenter",function(req,res){
     res.render('front/page/message_center');
 })
 
-
-
 module.exports = router;

@@ -36,9 +36,6 @@
                 $scope.array_custom = result;
             });
 
-
-
-
             //查询方法
             $scope.search = function(){
                 var query = _.clone($scope.search_custom);

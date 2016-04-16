@@ -113,6 +113,14 @@ angular.module("controller.upload_work_controller",[])
                     })
             }
 
+            $scope.getProgrooseType = function(width){
+                if(width<33)
+                    return 'danger';
+                if(width<66)
+                    return 'warning'
+                return 'success';
+            }
+
 
 
             /*******************上传配置**************************/

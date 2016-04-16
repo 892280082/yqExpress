@@ -99,11 +99,11 @@
 										</a>
 										<span class="jop">{{ cus.job.cateName }}</span>
 										<span class="guanz"
-											  ng-if="cus.isAttention" >已关注</span>{{ cus.isAttention  }}
+											  ng-if="cus.isAttention" >已关注</span>
 										<span class="guanz"
 											  ng-click="attenCustomer(cus)"
 											  ng-if="!cus.isAttention &&  !(cus._id == user._id) " >
-											  未关注</span>
+											  关注</span>
 									</div>
 									<div class="lis">
 										<span class="like">喜欢：<b>{{ cus.followers.length }}</b>

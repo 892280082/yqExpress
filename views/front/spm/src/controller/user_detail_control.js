@@ -21,24 +21,26 @@
             /***********************分类列表页面************************/
 
 
+
             pageResult.$loadInit({
                 url:"/front/getAllWorks",
                 pageSize:8,
                 query:{userId:$scope.GLOBAL_USER._id},
             },function(err,result){
-                console.log(err,result);
                 $scope.works = result;
+
+                //检测切换页面
+                $scope.$watch(function(){
+                    return  $scope.works.$curPage;
+                },function(){
+                    _.delay(function(){
+                        $('.showOverPic').lightGallery();
+                    },1000)
+                })
             })
 
 
-            //检测切换页面
-            $scope.$watch(function(){
-                return  $scope.works.$curPage;
-            },function(){
-                _.delay(function(){
-                    $('.showOverPic').lightGallery();
-                },1000)
-            })
+
 
 
         }])

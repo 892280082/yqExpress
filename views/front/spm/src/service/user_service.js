@@ -97,7 +97,7 @@ angular.module('service.user_service',[]).service("user_service",["$http"
 
                     layer.confirm('前往登录？', {
                         title:'提示',
-                        btn: ['登陆','取消'] //按钮
+                        btn: ['登录','取消'] //按钮
                     }, function(){
                         var index = layer.open({
                             title:'登录',

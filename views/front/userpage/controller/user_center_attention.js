@@ -34,6 +34,9 @@ angular.module("controller.user_center_attention",["ng.ueditor"]).
                 followsPage.$array = [];
                 user_service.getUserAttentionsArray(function(err,doc){
                     if(!err){
+
+                        console.log("doc.attentions",doc.attentions);
+
                         tempAttenPageResult = $scope.attentions = followsPage.$init(doc.attentions,12);
                         cacheFolowCount = $scope.followCount = doc.followCount;
                     }

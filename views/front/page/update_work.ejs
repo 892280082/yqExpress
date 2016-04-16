@@ -16,6 +16,7 @@
 <div class="w822 clearfix">
     <div class="worksup">
         <div class="title">活动报名</div>
+
         <div class="cont">
             <div class="uptle">
                 <div class="img lt"><img ng-src="{{ active.convertUrl }}" /></div>
@@ -31,17 +32,33 @@
                 <ul style="padding-top:15px;">
                     <li class="layui-form-li">
                         <div class="layui-form-label">
-                            <label>分类选择</label>
-                            <select  ng-model="work.cate1" name="t_usertype"
-                                     ng-options="m as m.cateName for m in active.workCate">
-                            </select>
-                            <select  ng-model="work.cate2" name="t_usertype"
-                                     ng-options="m as m.cateName for m in work.cate1.subCate">
-                            </select>
+
+                            <div class="btn-group" uib-dropdown>
+                                <button id="btn-append-to-single-button" type="button" class="btn btn btn-default" uib-dropdown-toggle>
+                                    {{ work.cate1.cateName }} <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="btn-append-to-single-button">
+                                    <li role="menuitem" ng-repeat="cate in active.workCate">
+                                        <a  ng-click="work.cate1 = cate;" href="" >{{cate.cateName}}</a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="btn-group" uib-dropdown>
+                                <button id="btn-append-to-single-button" type="button" class="btn btn btn-default" uib-dropdown-toggle>
+                                    {{ work.cate2.cateName  || '请选择' }} <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="btn-append-to-single-button">
+                                    <li role="menuitem" ng-repeat="cate in work.cate1.subCate">
+                                        <a  ng-click="work.cate2 = cate;" href="">{{cate.cateName}}</a>
+                                    </li>
+                                </ul>
+                            </div>
+
                         </div>
                     </li>
                 </ul>
-                <dl style="margin-top:-20px;">
+                <dl >
                     <dt>作品</dt>
                     <dd><p>支持<span ng-repeat="ext in active.demand.fileType.split(' ')">{{ ext }}/</span>
                             {{ active.demand.introduce }}</p>
@@ -66,7 +83,11 @@
                         <img src="/front/resource/images/upsl.jpg" />
                         <h4>{{ item.file.name }}</h4>
                         <div class="jdu">
-                            <div class="jduing" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
+                            <uib-progressbar class="progress-striped active" style="height: 13px;"
+                                             ng-style="{ 'width': item.progress + '%' }"
+                                             value="dynamic"
+                                             type="{{ getProgrooseType(item.progress) }}">
+                            </uib-progressbar>
                         </div>
                     </li>
                     <li class="upbut" ng-show="work.fileUrls.length < active.demand.fileMax">
@@ -90,6 +111,9 @@
             </div>
         </div>
     </div>
+
+    <small><em>Object (changes type based on value)</em></small>
+
 </div>
 <script type="text/javascript">
     ACTIVE_POJO = {

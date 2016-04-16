@@ -13,6 +13,7 @@
  * 7.pullAttentions 取消关注  被关注的一方pullfollowers
    8.pushActiveCollect 用户收藏活动
    9.pullActiveCollect 用户取消收藏的活动
+  10.pullFollows 用户移除粉丝
 
   * @api pojo层
  * 1.saveUser - 保存用户，并配置加密算法(md5)ok  -call('err',保存后的user对象)
@@ -228,16 +229,26 @@ customSchema.statics.pullProduct = function(_cusId,_proId,callback){
  * @param callback {Function} - 回调函数
  */
 customSchema.statics.pushAttentions = function(_selfId,_otherId,callback){
-    mongooseUtil.dealAllCollectionId({
-        parentId:_selfId,
-        parentPojo:_otherId,
-        collecname:"attentions",
-        childId:_otherId,
-        childDao:this,
-        childCollecname:"followers",
-        childPojo:_selfId,
-        callback:callback
-    },this);
+    var _this = this;
+
+    _this.findOne({"_id":_selfId},function(err,doc){
+        doc = doc || {};
+        if(mongooseUtil.contains(doc.attentions,_otherId)){
+            return callback('已经关注了');
+        }else{
+            mongooseUtil.dealAllCollectionId({
+                parentId:_selfId,
+                parentPojo:_otherId,
+                collecname:"attentions",
+                childId:_otherId,
+                childDao:this,
+                childCollecname:"followers",
+                childPojo:_selfId,
+                callback:callback
+            },_this);
+        }
+    })
+
 }
 
 /**
@@ -258,6 +269,28 @@ customSchema.statics.pullAttentions = function(_selfId,_otherId,callback){
         callback:callback
     },this);
 }
+
+ /**
+  * @desc 移除粉丝
+  * @param _selfId {String} - 用户
+  * @param _otherId {String} - 被移除方
+  * @param callback {Function} - 回调函数
+  */
+ customSchema.statics.pullFollows = function(_selfId,_otherId,callback){
+     mongooseUtil.dealAllCollectionId({
+         parentId:_selfId,
+         collecname:"-followers",
+         childId:_otherId,
+         childDao:this,
+         childCollecname:"-attentions",
+         parentPojo:_otherId,
+         childPojo:_selfId,
+         callback:callback
+     },this);
+ }
+
+
+
 
  /**
   * @desc 用户收藏当前文章

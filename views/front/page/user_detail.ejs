@@ -13,7 +13,7 @@
             <div class="top-wap">
                 <div class="user-head lt">
                     <img class="zz" src="/front/resource/images/txzzzzz.png" />
-                    <img class="tx" src="<%- customer.bigimgurl %>" />
+                    <img class="tx" src="<%- customer.bigimgurl || customer.imgurl %>" />
                 </div>
                 <div class="user-mid lt">
                     <div class="user-mid-top">
@@ -78,7 +78,9 @@
 </div>
 <% include ../include/foot %>
 <script type="text/javascript">
-    GLOBAL_USER = "<%-  customer._id %>"
+    GLOBAL_USER = {
+        "_id":"<%-  customer._id %>",
+    }
 
     $(document).ready(function(){
         setTimeout(function(){

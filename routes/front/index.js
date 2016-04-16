@@ -277,7 +277,7 @@ router.post('/attentionUser',function(req,res){
 	})
 })
 
-//用户关注其它用户
+//用户取消关注其它用户
 router.post('/cancelUserAtten',function(req,res){
 	var authorId = req.body._id;//作者ID
 	var userId = req.session.USER._id;//用户ID
@@ -868,9 +868,11 @@ router.post("/removeFollows",function(req,res){
 	var targetId = req.body._id;
 	if(!targetId)
 		return res.json({err:'no special follws id'})
-	Customer.update({"_id":user._id},{"$pull":{"followers":targetId}},function(err,info){
-		res.json({err:err,result:info});
+
+	Customer.pullFollows(user._id,targetId,function(err,info){
+		return res.json({err:err,result:info});
 	})
+
 })
 
 
